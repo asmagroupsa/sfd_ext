@@ -1,0 +1,184 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBudgetLabel" [jhiFnmTranslate]="budget.id ? 'sfdApp.budget.home.createOrEditLabel' : 'sfdApp.budget.home.createLabel'">Create or edit a Budget</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!--<div class="form-group" [hidden]="!budget.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="budget.id" readonly />
+        </div>-->
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.amount" for="field_amount">Amount</label>
+            <input type="number" min="1" class="form-control" name="amount" id="field_amount" [(ngModel)]="budget.amount" required />
+            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.amountRequested" for="field_amountRequested">Amount Requested</label>
+            <input type="number" min="1" class="form-control" name="amountRequested" id="field_amountRequested" [(ngModel)]="budget.amountRequested" required />
+            <div [hidden]="!(editForm.controls.amountRequested?.dirty && editForm.controls.amountRequested?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amountRequested?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amountRequested?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.ammountReport" for="field_ammountReport">Ammount Report</label>
+            <input type="number" min="1" class="form-control" name="ammountReport" id="field_ammountReport" [(ngModel)]="budget.ammountReport" required />
+            <div [hidden]="!(editForm.controls.ammountReport?.dirty && editForm.controls.ammountReport?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.ammountReport?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.ammountReport?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.activeDate" for="field_activeDate">Active Date</label>
+            <div class="input-group">
+                <input id="field_activeDate" type="text" class="form-control" name="activeDate" ngbDatepicker #activeDateDp="ngbDatepicker" [(ngModel)]="budget.activeDate" />
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="activeDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.carmesAccount" for="field_carmesAccount">Carmes Account</label>
+            <input type="text" class="form-control" name="carmesAccount" id="field_carmesAccount" [(ngModel)]="budget.carmesAccount" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.carmesAccount?.dirty && editForm.controls.carmesAccount?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.carmesAccount?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.carmesAccount?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.active" for="field_active">Active</label>
+            <input type="checkbox" class="form-control" name="active" id="field_active" [(ngModel)]="budget.active" />
+            <div [hidden]="!(editForm.controls.active?.dirty && editForm.controls.active?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.active?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.cloture" for="field_cloture">Cloture</label>
+            <input type="checkbox" class="form-control" name="cloture" id="field_cloture" [(ngModel)]="budget.cloture" />
+            <div [hidden]="!(editForm.controls.cloture?.dirty && editForm.controls.cloture?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.cloture?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.sommeTotalLigne" for="field_sommeTotalLigne">Somme Total Ligne</label>
+            <input type="number" min="1" class="form-control" name="sommeTotalLigne" id="field_sommeTotalLigne" [(ngModel)]="budget.sommeTotalLigne" required />
+            <div [hidden]="!(editForm.controls.sommeTotalLigne?.dirty && editForm.controls.sommeTotalLigne?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.sommeTotalLigne?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.sommeTotalLigne?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <!--<div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.codeActivation" for="field_codeActivation">Code Activation</label>
+            <input type="text" class="form-control" name="codeActivation" id="field_codeActivation" [(ngModel)]="budget.codeActivation" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.codeActivation?.dirty && editForm.controls.codeActivation?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.codeActivation?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.codeActivation?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <!--  <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.createdDate" for="field_createdDate">Created Date</label>
+            <div class="input-group">
+                <input id="field_createdDate" type="text" class="form-control" name="createdDate" ngbDatepicker #createdDateDp="ngbDatepicker" [(ngModel)]="budget.createdDate" required/>
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="createdDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdDate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>-->
+        <!--<div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.createdBy" for="field_createdBy">Created By</label>
+            <input type="text" class="form-control" name="createdBy" id="field_createdBy" [(ngModel)]="budget.createdBy" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdBy?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdBy?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <!-- <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+            <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy" [(ngModel)]="budget.lastModifiedBy" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.lastModifiedBy?.dirty && editForm.controls.lastModifiedBy?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.lastModifiedBy?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <!--<div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+            <div class="input-group">
+                <input id="field_lastModifiedDate" type="text" class="form-control" name="lastModifiedDate" ngbDatepicker #lastModifiedDateDp="ngbDatepicker" [(ngModel)]="budget.lastModifiedDate" />
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="lastModifiedDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.montantActive" for="field_montantActive">Montant Active</label>
+            <input type="number" min="1" class="form-control" name="montantActive" id="field_montantActive" [(ngModel)]="budget.montantActive" />
+        </div>
+
+        <!-- <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.budget.activeurs" for="field_activeurs">Activeurs</label>
+            <select class="ui fluid search dropdown" id="field_activeurs" multiple name="activeurs" [(ngModel)]="budget.activeurs">
+                <option [ngValue]="null" disabled>Choisissez les activeurs</option>
+                <option [ngValue]="getSelected(budget.activeurs, activeurOption)" *ngFor="let activeurOption of activeurs">{{activeurOption.firstName}} {{activeurOption.name}}</option>
+            </select>
+        </div> -->
+        <!-- <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.budget.annee" for="field_annee">Annee</label>
+            <select class="ui fluid search dropdown" id="field_annee" name="annee" [(ngModel)]="budget.anneeId">
+                <option [ngValue]="null" disabled>Choisissez l'année</option>
+                <option [ngValue]="anneeOption.id" *ngFor="let anneeOption of annees; trackBy: trackAnneeById">{{anneeOption.name}}</option>
+            </select>
+        </div> -->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

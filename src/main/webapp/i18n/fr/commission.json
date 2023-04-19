@@ -1,0 +1,38 @@
+{
+    "sfdApp": {
+        "commission" : {
+            "home": {
+                "title": "Commission",
+                "createLabel": "Créer une nouvelle Commission",
+                "createOrEditLabel": "Editer une Commission",
+                "search": "Recherche Une Commission"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Commission {{ id }} ?"
+            },
+            "detail": {
+                "title": "Commission"
+            },
+            "agenceReference": "Référence Agence",
+            "taux": "Taux",
+            "valeur": "Valeur",
+            "amount": "Montant",
+            "createdDate": "Date Création",
+            "createdBy": "Créé Par",
+            "lastModifiedBy": "Modifiée Dernièrement Par",
+            "lastModifiedDate": "Date Dernière Modification",
+            "compenser": "Compenser",
+            "carmesAccount": "Compte Carmes",
+            "comptable": "Comptable",
+            "compensation": "Compensation",
+            "operation": "Opération"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "commission" : {
+            "created": "Une nouvelle Commission a été créée ",
+            "updated": "La Commission  a été mise à jour",
+            "deleted": "La Commission  a été supprimée"
+        }
+    }
+}

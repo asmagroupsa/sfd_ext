@@ -1,0 +1,34 @@
+{
+    "sfdApp": {
+        "aDmdeMbreCteCredit" : {
+            "home": {
+                "title": "Demande De Cédit",
+                "createLabel": "Créer une nouvelle  Demande De Crédit",
+                "createOrEditLabel": "Editer la Demande De Crédit",
+                "search": "Recherche une Demande e crédit"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Demande De Crédit {{ id }} ?"
+            },
+            "detail": {
+                "title": "Demande De crédit"
+            },
+            "amount": "Montant",
+            "status": "Statue",
+            "createdDate": "Date Création",
+            "createdBy": "Créée Par",
+            "lastModifiedBy": "Modifiée Dernièrement Par",
+            "lastModifiedDate": "Date Dernière Modification",
+            "creditRequest": "Demande De Crédit",
+            "comityMember": "Membre De Comité",
+            "creditComity": "Crédit De Comité"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "aDmdeMbreCteCredit" : {
+            "created": "Une nouvelle Demande de Crédit a été faite  ",
+            "updated": "La Demande De Crédit  a été mise à jour",
+            "deleted": "La Demande De Credit  a été supprimée"
+        }
+    }
+}

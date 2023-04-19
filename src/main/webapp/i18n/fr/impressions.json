@@ -1,0 +1,45 @@
+{
+  "impressions": {
+    "requests": {
+      "all": "Toutes les demandes"
+    },
+    "credit": {
+      "fiche": "Imprimer la fiche"
+    },
+    "clients": {
+      "all": "All customers",
+      "detail": "Imprimer la fiche détaillée"
+    },
+    "account": {
+      "all": "Tous les types de compte"
+    },
+    "frais": {
+      "all": "Tous les frais"
+    },
+    "ligne": {
+      "all": "Toutes les lignes de crédit"
+    },
+    "partners": {
+      "all": "Toutes les banques"
+    },
+    "periodicities": {
+      "all": "Toutes les periodicités"
+    },
+    "products": {
+      "all": "Tous les produits"
+    },
+    "remboursements": {
+      "remboursement": "Tous les remboursements"
+    },
+    "sfd": {
+      "remboursement": "Tous les remboursements",
+      "penales": "Toutes les remboursements pénales"
+    },
+    "taux": {
+      "all": "Tous les taux"
+    },
+    "garanties": {
+      "all": "Tous les type de garantie"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+    "sfdApp": {
+        "ModeEcheance" : {
+            "null": "",
+            "LINEAIRE": "LINEAIRE",
+            "NOMINAL_CONSTANT": "NOMINAL_CONSTANT",
+            "DEGRESSIF": "DEGRESSIF",
+            "NOMINAL_LIBRE": "NOMINAL_LIBRE",
+            "ECHEANCIER_LIBRE": "ECHEANCIER_LIBRE"
+        }
+    }
+}

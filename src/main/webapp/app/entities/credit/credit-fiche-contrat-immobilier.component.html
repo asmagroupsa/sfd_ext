@@ -1,0 +1,337 @@
+<div class="ui dimmer" [ngClass]="{'active':!endLoad}">
+    <div class="ui loader"></div>
+</div>
+
+<div style="margin: auto;" class="container" *ngIf="endLoad">
+    <div id="print" #printZone style="display: inline-block; background-color: white; font-family: 'Times New Roman', Times, serif; margin: auto 100px; font-size: medium;"
+        class="browser-default">
+        <div class="print-header">
+            <span style="text-align:justify" *ngIf="_DePage.entete != null ;else elseBlock">
+                <img [src]="imageUrl+_DePage.entete" alt="entete de page">
+            </span>
+            <ng-template #elseBlock>
+                <img src="../../../content/images/header.jpg" alt="logo">
+            </ng-template>
+        </div>
+        <div class="wrapper">
+            <p class="page-break"></p>
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        <h1 class="text-align-center bold font-size-x-large" style="color:gray; ">CONTRAT DE PRET</h1>
+                    </td>
+                </tr>
+            </table>
+            <table class="table " style=" text-align:justify">
+                <tr style="text-align:justify">
+                    <td style="font-weight: 23px; width:28%; height:100%">
+                        <span style="text-decoration: none; font-weight:bold">TYPE DE CREDIT :</span>
+                        <br>
+                        <span>{{data.naturecredit}}</span>
+                        <br>
+                        <br>
+                        <span style="font-weight:bold">LE PRETEUR</span>
+                        <br>
+                        <span>{{sfdName}} MICROFINANCE</span>
+                        <br>
+                        <br>
+                        <span style="font-weight:bold">L'EMPRUNTEUR</span>
+                        <br>
+                        <span>{{data.name}}</span>
+                        <br>
+                        <br>
+                        <span style="font-weight:bold">LA CAUTION</span>
+                        <br>
+                        <span>{{data.name}}</span>
+                        
+                    </td>
+            
+                    <td>
+                        <div>
+                            <span style="font-weight:bold">ENTRE</span>
+                            <br>
+            
+                            <!-- <span style="text-align:justify">
+                                <span style="font-weight:bold"> {{sfdName}} </span>
+                                , enregistrée sous le n° .........................................., IFU N° .........................., son siège à ........................,
+                                carré N° ................., quartier .............., BP ..................,, agréée sous le N°.............................
+                                Tél : .................................., dénommée ci-après « le Prêteur »,
+                            </span> -->
+                            <span style="text-align:justify">{{sfdName}}, représentée par le Chef d'Agence Mr(Mme) {{data.nameCa}} de l'agence
+                                {{data.agenceName}} sise à {{data.adressAgence}},
+                                Tel: {{data.phoneAgence}} ci-après dénommé <span style="font-weight: bold">"LE PRETEUR".</span>
+                            </span>
+            
+                            <br>
+                            <span> D’UNE PART,</span>
+                            <br>
+            
+                            <br>
+                            <!-- <span style="text-align:justify">
+                                Mr/Mme {{data.name}} Demeurant à ……………………........, titulaire de la pièce d’identité N° ………………….............................
+                                , dénommé ci-après
+                                <span style="font-weight:bold"> « l’Emprunteur » </span>
+                            </span> -->
+                            <span style="text-align:justify">
+                                Mr/Mme {{data.name}} sis à {{data.quartier}}, dans la Commune de: {{data.commune}}
+                                département de {{data.departement}} demeurant et domicilié(e) à {{data.domicile}};
+                                <!--  {{data.name}} Demeurant à ……………………........, titulaire de la pièce d’identité N° …………………............................. -->
+                                , dénommé ci-après
+                                <span style="font-weight:bold"> « l’Emprunteur » </span>
+                            </span>
+                        </div>
+                        <br>
+                        <br>
+                        <p>
+                            <span>D’AUTRE PART, </span>
+            
+                            <br>
+                            <span>IL a été décidé ce qui suit:</span>
+                        </p>
+                        <div style="text-align:justify">
+                            <span>EXPOSE</span>
+                            <br>
+                            <span>
+                                <span style="font-weight:bold"> {{sfdName}} </span>, et l’emprunteur sont en relation d’affaires. Dans ce cadre, et conformément aux
+                                conditions objet des présentes, {{sfdName}} accorde à l’Emprunteur un prêt dont les caractéristiques
+                                se présentent comme suit :
+                            </span>
+                            <br>
+            
+                            <br>
+                            <br>
+                            <br>
+                            <span style="font-weight:bold"> Article 1: Montant du prêt et durée</span>
+                            <br>
+                            <span>
+                                <span style="font-weight:bold"> *Montant </span>
+                                <br> Il est alloué à l'Emprunteur, un prêt d'un montant de :
+                                <br>
+                                <span style="font-weight:bold" class="pl-2"> - Nominal :</span> {{nominal_en_lettre}} Francs CFA ({{data.nominal | currency:'XAF':true:'2.0'}})
+                                FCFA
+                                <br>
+                                <span style="font-weight:bold" class="pl-2"> - Intérêts :</span> {{data.taux_interet}}% l’an, soit {{interet_en_lettre}} Francs CFA {{data.interet | currency:'XAF':true:'2.0'}}
+                                <br>
+                                <span style="font-weight:bold" class="pl-2"> - Total dû :</span>{{amountTotal_en_lettre}} {{amountTotal | currency:'XAF':true:'2.0'}}.
+            
+                                <br>
+                                <span style="font-weight:bold"> * Durée :</span> Vingt-quatre (24) à Trente-six (36) mois dont un différé de trois (03) mois.
+                                <br>
+                                <span style="font-weight:bold"> * Frais de dossiers:</span> 1%
+                                <br>
+                                <span style="font-weight:bold"> * Assurance: </span> 1%
+                                <br>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+                            <br>
+                            <!-- <div style="height: 200px;"></div> -->
+             <p class="page-break"></p>
+            <table>
+                <tr>
+                    <td>
+                        <br><br>
+                        <div style="text-align: justify">
+                            <span  style="font-weight:bold">Article 2 : Objet du prêt</span>
+                            <br>
+                            <span>
+                                 Le présent crédit est destiné à l’emprunteur à l’acquisition d’une parcelle ou à la construction d’une maison.
+                            </span>
+                            <br>
+                            <br>
+
+                            <span  style="font-weight:bold">Article 3 : Engagement </span>
+                            <br>
+                            <span>
+                                L’Emprunteur s’engage à rembourser le prêt en capital, intérêts et accessoires le jour de l’échéance, chacune des vingt-quatre
+                                fractions mensuelles d’un montant de {{amountTotal_en_lettre}} ({{amountTotal}}) CFA. 
+                             Les paiements se feront à la caisse de « {{sfdName}} » ouverte à cet effet, ou à tout guichet mobile à distance.
+                            L’Emprunteur remboursera le crédit conformément à l’échéancier qui lui sera remis par le prêteur et qui fait partie intégrante
+                            du présent contrat. Si le paiement d’une échéance due, en vertu du contrat, doit être effectué à une date qui n’est pas celle
+                            d’un jour ou d’une demie journée ouvrée, le paiement devra avoir lieu le premier jour ouvré suivant.
+                            <br>
+                            L’Emprunteur s’engage à respecter l’objet du prêt indiqué à l’article 2. Le non-respect de cet engagement expose l’Emprunteur
+                            à des poursuites judiciaires ou à toute autre sanction à l’appréciation du prêteur.
+                            </span>
+
+                            <br>
+                            <br>
+
+                            <span  style="font-weight:bold">Article 4 : Exigibilité de remboursement</span>
+                            <br>
+                            <span>
+                                Les sommes prêtées sont intégralement et immédiatement exigibles, en cas de :
+                                <br> · Non-conformité de l’utilisation à l’objet du financement.
+                                <br> · Non-respect par l’Emprunteur de l’un des engagements par lui contractés
+                                <br> ·  ◦ Si une déclaration faite par écrit par l’Emprunteur ou tout engagement, attestation ou document signé par l’Emprunteur
+                                ou fourni en application du présent contrat se révèle volontairement inexact.
+                            </span>
+                            <br>
+                            <!-- <span> -->
+
+                            <br>
+                            <br>
+
+
+                            <span  style="font-weight:bold">Article 5 : Remboursement par anticipation.</span>
+                            <br>
+                            <span>
+                             L’Emprunteur s’engage à respecter l’objet du prêt indiqué à l’article 2. Le non-respect de cet engagement expose l’Emprunteur
+                             à des poursuites judiciaires ou à toute autre sanction à l’appréciation du prêteur. Sur chaque échéance remboursée en retard,
+                             il est perçu une pénalité de 0.5% pour une période allant de (1) Jour à (7) Jours de retard, 1% du 8ème au 15ème Jour, 1.5%
+                             du 16ème au 30ème Jour et 2% au-delà de 30 Jours du montant de l’échéance. Le montant des pénalités et intérêts de retard
+                             doit être versé avec l’échéance concernée.
+                            </span>
+                            <br>
+
+
+                            <p class="page-break"></p>
+
+
+                            <span  style="font-weight:bold">
+                                <br>
+                                <br> Article 6 : Remboursement anticipé
+                            </span>
+                            <br>
+                            <span>
+                                 L’Emprunteur a la faculté de rembourser par anticipation ledit prêt à charge d’en prévenir le prêteur au moins quinze (15)
+                                jours à l’avance. IL est expressément convenu entre les parties que le prêteur se réserve la faculté d’imputer les sommes
+                                remboursées par anticipation, de la manière qui lui semblera la meilleure, étant précisé que pour le solde restant dû, les
+                                clauses des présentes demeurent valables. Une indemnité dont le montant équivaut à un pour cent (1%) du capital remboursé
+                                par anticipation sera exigée de l’emprunteur au profit du prêteur, conformément aux conditions des présentes
+                            </span>
+
+                            <br>
+                            <span  style="font-weight:bold">Article 7 : Garantie</span>
+                            <br>
+                            <span>
+                                     Le crédit est assorti de la garantie suivante que l’Emprunteur s’engage à constituer préalablement à la mise en place du
+                                    crédit : A la sûreté et en garantie du remboursement du prêt, nominal et intérêts sans préjudice des frais et accessoires,
+                                    intérêt de retard et pénalités à calculer ultérieurement <br>
+                                    - ……………………………………………….....................demeurant et domicile à …………………………………………….…........ de nationalité ........................(e) et né le ………………………….......... à ………………............, affecte
+                                    en garantie au premier rang et à concurrence de francs CFA ………………………………………………………... (………………………………………….) soit ……. du montant du prêt contracté;
+                                    la parcelle N° …… , lot N° ….. , état de lieu N°….. située à …………………………………………………………….. suivant la Convention de vente N°
+                                    délivré(e) par…………………………… en date du …………………………..et affirmée en date du ………………………..par ……………………………………….…... ; il se désengage
+                                    de la dite parcelle au profit de l'institution et est tenu de signer l'acte de désengagement annexé au présent contrat.
+                                <br>
+                            </span>
+
+
+
+                            <br>
+                            <span  style="font-weight:bold">Article 8 : Frais accessoires </span>
+                            <br>
+                            <span>
+                                Tous les frais relatifs à la formalisation de la garantie sont à la charge de l’Emprunteur qui s’oblige à leur paiement
+                                au terme du contrat. Tous les frais de justice et de contentieux ou d'actes d'huissier qu'engendrerait le non-respect des
+                                engagements pris par l'Emprunteur, lui seront imputés.
+                                <br>
+                            </span>
+
+
+
+
+
+                            <br>
+                            <span  style="font-weight:bold">Article 9 : Retrait de la garantie </span>
+                            <br>
+                            <span>
+                             Au terme du contrat de crédit, {{sfdName}} restitue la garantie au client en cas de non renouvellement. Cependant,
+                             l’emprunteur s’oblige au paiement des frais relatifs à la formalisation de ladite garantie.
+                                <br>
+                            </span>
+
+
+                            <br>
+                            <br>
+
+
+
+
+                            <br>
+                            <span  style="font-weight:bold">Article 10 : Election de domicile </span>
+                            <br>
+                            <span>
+                             Les parties conviennent d’élire domicile aux adresses ci-dessus énoncées.
+                            <br>
+                            </span>
+                            <br>
+
+
+                            <br>
+                            <span  style="font-weight:bold">Article 11 :Règlement des litiges </span>
+                            <br>
+                            <span>
+                              Le Prêteur et l’Emprunteur s’engagent à régler à l’amiable, tout différend pouvant naître de la mise en application du présent
+                              contrat de prêt; En cas d’échec, les juridictions compétente de la ville de ................. seront habilitées à connaître
+                              des faits.
+                              <br>
+                            </span>
+                            <br>
+
+                            <br>
+                            <p class="page-break"></p>
+
+
+
+                            <span  style="font-weight:bold">Article 12 : Entrée en vigueur </span>
+                            <br>
+                            <span>
+                             Le présent contrat de prêt entre en vigueur dès sa signature.
+                               
+                            </span>
+                            <br>
+                            <br>
+                            <p>Fait à Cotonou en deux (02) Exemplaires Originaux, ..............., .............., le {{todayDate| date:'mediumDate'}}</p>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+                <br>
+
+                <!-- <span> Pour {{sfdName}} Microfinance</span>
+                <span style="float:right">L'Emprunteur (Lu et Approuvé)</span>
+                <br> -->
+                <table class=" ">
+                    <tr width=100>
+                        <td style="width: 43%;">Pour {{sfdName}}</td>
+                        <td style="width: 25%">
+                            <img #qrimage src="" alt="some code" width="100px">
+                        </td>
+                        <td style="text-align:end">
+                            <span>L'Emprunteur</span>
+                            <span>(Lu et approuvé)</span>
+                            <br> {{data.name}}
+                        </td>
+                    </tr>
+                
+                </table>
+                <br>
+                <br>
+                <span>...............................................</span>
+                <span style="float:right">........................................................</span>
+
+            </div>
+
+            <div class="print-footer">
+                <!-- Page: -->
+                <span style="text-align:justify" *ngIf="_DePage.piedPage != null ;else elseBlock2">
+                    <img [src]="imageUrl+_DePage.piedPage" alt="pied de page" width="100%" height="50">
+                </span>
+                <ng-template #elseBlock2>
+                    <img src="../../../content/images/footer.jpg" alt="logo" width="100%" height="50">
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+    <button class="btn-floating btn-large waves-effect waves-light red" style="position: fixed; bottom: 25px; right: 25px;" (click)="printAsPdf('print')">
+        <i class="material-icons">Impr.</i>
+    </button>

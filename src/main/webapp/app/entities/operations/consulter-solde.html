@@ -1,0 +1,71 @@
+<div>
+
+    <jhi-alert></jhi-alert>
+    <h3>
+        <span>Consulter le solde d'un compte</span>
+    </h3>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="form" role="form" novalidate (ngSubmit)="save()" #form="ngForm">
+
+                <br>
+                <div class="ui accordion">
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        <span>Recherche par nom,code ou compte carmes du client</span>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label oblige" for="name">Votre recherche</label>
+                        <input type="text" class="form-control" name="name" id="name" required (input)="onNameBlur($event.target.value)">
+                    </div>
+                    <table class="bordered striped highlight">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Compte</th>
+                                <th>Nom & Prénoms</th>
+                                <th>Telephone</th>
+                                <!-- <th>Solde</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let c of compteInternes" (click)="selectCompte(c)">
+                                <td><img [src]="getImgSource(c?.photo)" alt="photo" class="ui circular image" style="width: 40px; height: 40px;"></td>
+                                <td>{{getNumAccount(c.comptes)}}</td>
+                                <td>{{c.name}} {{c.firstName}} {{c.denomination}}</td>
+                                <td>{{c.phone}}</td>
+                                <!-- <td>{{getSolde(c.comptes)}}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div *ngIf="model.client">
+                    <h4>Vérifier le solde de
+                        <!-- {{model.client?.sexe == "Masculin"?"Mr":"Mme"}} -->{{model?.client?.name}}</h4>
+                </div><br>
+                <br>
+                <div class="input-field">
+                    <label class="form-control-label oblige active" for="compteClient">Compte Client</label>
+                    <input type="text" class="form-control" name="compteClient" id="compteClient" [(ngModel)]="model.compteClient" required>
+                    <div [hidden]="!(form.controls.compteClient?.dirty && form.controls.compteClient?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!form.controls.compteClient?.errors?.required" jhiFnmTranslate="entity.validation.required">This field is required.</small>
+                        <small class="form-text text-danger" [hidden]="!form.controls.compteClient?.errors?.pattern">Compte CLient incorect.</small>
+                    </div>
+                </div>
+                <button type="submit" class="btn waves-effect waves-light" [disabled]="form.form.invalid" style="margin: 1px 45%">
+            <span class="fa fa-save"></span>&nbsp;
+            <span>Vérifier solde</span>
+        </button>
+            </form>
+        </div>
+
+        <br>
+    </div>
+    <br>
+    <div *ngIf="solde != null" class="row">
+        <h3>
+            Le solde du compte {{model.compteClient}} de {{model?.client?.name}} est de <strong>{{solde}}</strong> FCFA
+        </h3>
+    </div>
+</div>

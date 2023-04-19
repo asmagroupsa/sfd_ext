@@ -1,0 +1,84 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.tauxSFD.home.title">Taux SFDS</span>
+        <button class="btn btn-primary float-right create-taux-sfd" [routerLink]="['/entity','taux-sfd', { outlets: { popup: ['taux-sfd-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.tauxSFD.home.createLabel">
+            Create new Taux SFD
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.tauxSFD.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="tauxSFDS;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="libelle"><span jhiFnmTranslate="sfdApp.tauxSFD.libelle">Libelle</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="valeur"><span jhiFnmTranslate="sfdApp.tauxSFD.valeur">Valeur</span> <span class="fa fa-sort"></span></th>
+                    <!-- <th jhiSortBy="createdDate"><span jhiFnmTranslate="sfdApp.tauxSFD.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>-->
+                    <!-- <th jhiSortBy="createdBy"><span jhiFnmTranslate="sfdApp.tauxSFD.createdBy">Created By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedBy"><span jhiFnmTranslate="sfdApp.tauxSFD.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedDate"><span jhiFnmTranslate="sfdApp.tauxSFD.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th> -->
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tauxSFD of tauxSFDS  | recherche:currentSearch ;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','taux-sfd', tauxSFD.id ]">{{tauxSFD.id}}</a></td> -->
+                    <td>{{tauxSFD.libelle}}</td>
+                    <td>{{tauxSFD.valeur}}</td>
+                    <!-- <td>{{tauxSFD.createdDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>{{tauxSFD.createdBy}}</td> -->
+                    <!-- <td>{{tauxSFD.lastModifiedBy}}</td> -->
+                    <!-- <td>{{tauxSFD.lastModifiedDate | date:'dd-MM-y'}}</td> -->
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['/entity','taux-sfd', tauxSFD.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.view">View</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','taux-sfd', { outlets: { popup: 'taux-sfd/'+ tauxSFD.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.edit">Edit</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','taux-sfd', { outlets: { popup: 'taux-sfd/'+ tauxSFD.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.delete">Delete</span> -->
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="tauxSFDS && tauxSFDS.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>

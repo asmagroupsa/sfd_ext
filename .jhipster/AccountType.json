@@ -1,0 +1,51 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "accounts",
+            "otherEntityName": "compte",
+            "otherEntityRelationshipName": "accountType"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "opCompteTrancheTFs",
+            "otherEntityName": "operationCompteTrancheTF",
+            "otherEntityRelationshipName": "accountType"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "contrainteComptes",
+            "otherEntityName": "contrainteCompte",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "accountTypes"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        }
+    ],
+    "changelogDate": "20170705215224",
+    "entityTableName": "cf_account_type",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceClass",
+    "microserviceName": "carmesfnmservice",
+    "searchEngine": "elasticsearch"
+}

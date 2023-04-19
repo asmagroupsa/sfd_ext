@@ -1,0 +1,108 @@
+<h3>Dossiers du comité de crédit {{queryParams?.creditComityLibelle}}</h3>
+<div style="display: table">
+    <div style="display: table-row">
+        <div style="display: table-cell; padding-right: 5px; text-align: right;">
+            <strong>Référence</strong>
+        </div>
+        <div style="display: table-cell">{{synthesis.code}}</div>
+    </div>
+    <div style="display: table-row">
+        <div style="display: table-cell; padding-right: 5px; text-align: right;">
+            <strong>Montant accordé</strong>
+        </div>
+        <div style="display: table-cell">{{synthesis.montantAccorder | currency:'XAF':true:'2.0'}}</div>
+    </div>
+    <div style="display: table-row">
+        <div style="display: table-cell; padding-right: 5px; text-align: right;">
+            <strong>Nombre de dossier</strong>
+        </div>
+        <div style="display: table-cell">{{synthesis.nombreDossier}}</div>
+    </div>
+    <div style="display: table-row">
+        <div style="display: table-cell; padding-right: 5px; text-align: right;">
+            <strong>Nombre de dossier en attente</strong>
+        </div>
+        <div style="display: table-cell">{{synthesis.attente}}</div>
+    </div>
+    <div style="display: table-row">
+        <div style="display: table-cell; padding-right: 5px; text-align: right;">
+            <strong>Nombre de dossier accepté</strong>
+        </div>
+        <div style="display: table-cell">{{synthesis.accepter}}</div>
+    </div>
+    <div style="display: table-row">
+        <div style="display: table-cell; padding-right: 5px; text-align: right;">
+            <strong>Montant total du comité</strong>
+        </div>
+        <div style="display: table-cell">{{synthesis.montant_total_comity | currency:'XAF':true:'2.0'}}</div>
+    </div>
+    <div style="display: table-row">
+        <div style="display: table-cell; padding-right: 5px; text-align: right;">
+            <strong>Nombre total des bénéficiaires</strong>
+        </div>
+        <div style="display: table-cell">{{synthesis.nbr_total_beneficiaire}}</div>
+    </div>
+    <div style="display: table-row">
+        <div style="display: table-cell; padding-right: 5px; text-align: right;">
+            <strong>Nombre de dossier dissout</strong>
+        </div>
+        <div style="display: table-cell">{{synthesis.nbre_dossier_dissout}}</div>
+    </div>
+</div>
+<ng-template>
+
+<jhi-alert-error></jhi-alert-error>
+<jhi-alert></jhi-alert>
+</ng-template>
+<!-- <h3>Les dossiers du comité de crédit</h3> -->
+<div class="table-responsive" *ngIf="currentCreditComityDossiers;else elseBlock">
+    <table class="bordered striped highlight">
+        <thead>
+            <tr>
+                <th>Reférence</th>
+                <th>Nom du client</th>
+                <th>Mnt. accordé</th>
+                <th>Mnt. décaissé</th>
+                <th>Durée</th>
+                <th>Objet de la demande</th>
+                <th>Nbre de bénéficiaires</th>
+                <th>La périodicité</th>
+                <th>Dissout</th>
+                <th class="text-right" *ngIf="dossierIncomplets && retirer">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dossier of currentCreditComityDossiers">
+                <td>{{dossier?.reference}}</td>
+                <td>{{dossier?.nom}}</td>
+                <td>{{dossier?.amount | currency:'XAF':true:'2.0'}}</td>
+                <td>{{dossier?.montant_decaisse | currency:'XAF':true:'2.0'}}</td>
+                <td>{{dossier?.duration}}</td>
+                <td>{{dossier?.objetCredit}}</td>
+                <td>{{dossier?.nbr_membre || 1}}</td>
+                <td>{{dossier?.lib_periodicite}}</td>
+                <td>{{dossier?.status === 'DISSOUT' ? 'Oui' : 'Non'}}</td>
+                <td class="text-right" *ngIf="dossierIncomplets && retirer">
+                    <div class="btn-group flex-btn-group-container">
+                        <div class="ui dropdown" *ngIf='!dossier.valider'>
+                            <div class="text" style="display:none"></div>
+                            <i class="ellipsis vertical icon"></i>
+                            <div class="left menu">
+                                <div class="item" (click)="deleteDossier(dossier)">Retirer</div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr style="font-weight: bold;" *ngIf="currentCreditComityDossiers && currentCreditComityDossiers.length">
+                <td colspan="2" style="text-align: center;">Total</td>
+                <td>{{total().amount | currency:'XAF':true:'2.0'}}</td>
+                <td>{{total().montant_decaisse | currency:'XAF':true:'2.0'}}</td>
+                <td colspan="2"></td>
+                <td>{{total().benef}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

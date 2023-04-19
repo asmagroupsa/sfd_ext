@@ -1,0 +1,31 @@
+{
+    "sfdApp": {
+        "strategieCloture": {
+            "home": {
+                "title": "StrategieClotures",
+                "createLabel": "Créer une nouvelle Strategie Cloture",
+                "createOrEditLabel": "Editer un Strategie Cloture",
+                "search": "Recherche pour Strategie Cloture"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Strategie Cloture {{ id }} ?"
+            },
+            "detail": {
+                "title": "Strategie Cloture"
+            },
+            "name": "Nom",
+            "createdDate": "Créé la",
+            "createdBy": "Créé par",
+            "lastModifiedBy": "Modifié par ",
+            "lastModifiedDate": "Modifié le ",
+            "clotureBudgets": "Cloture Budgets"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "strategieCloture": {
+            "created": "Une nouvelle Strategie Cloture a été créé ",
+            "updated": "La Strategie Cloture  a été mis à jour",
+            "deleted": "La Strategie Cloture  a été supprimé"
+        }
+    }
+}

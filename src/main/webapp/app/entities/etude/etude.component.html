@@ -1,0 +1,160 @@
+<ol class="tabs">
+    <li (click)="changeTab(1)" [ngClass]="{tab2:tab2 == 1 }">
+        <a>
+            <i class="icon-graph"></i> &nbsp;Etudes préalables</a>
+    </li>
+    <li (click)="changeTab(2)" [ngClass]="{tab2:tab2 == 2 }">
+        <a>
+            <i class="icon-graph"></i> &nbsp;Etudes détaillées</a>
+    </li>
+    <li (click)="changeTab(3)" [ngClass]="{tab2:tab2 == 3 }">
+        <a>
+            <i class="icon-graph"></i> &nbsp;Revolving</a>
+    </li>
+</ol>
+<div>
+    <!--  <h2>
+       <span jhiFnmTranslate="sfdApp.etude.home.title">Etudes</span>
+        <button class="btn btn-primary float-right create-etude" [routerLink]="['/entity','etude', { outlets: { popup: ['etude-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.etude.home.createLabel">
+            Create new Etude
+            </span>
+        </button>
+    </h2>
+     -->
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.etude.home.search' | fnmtranslate : langue.lang | async }}">
+                    <!-- <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button> -->
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="etudes;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <th class="numerotab">N°</th>
+                    <th jhiSortBy="reference">
+                        <span jhiFnmTranslate="sfdApp.etude.reference">Reference</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th>
+                        <span jhiFnmTranslate="sfdApp.etude.name">Nom</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th>
+                        <span jhiFnmTranslate="sfdApp.etude.produit">Produit</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th>
+                        <span jhiFnmTranslate="sfdApp.etude.amount">Montant</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th>
+                        <span jhiFnmTranslate="sfdApp.etude.lieu">Lieu géolocalisé</span>
+                    </th>
+                    <th jhiSortBy="visitDate">
+                        <span jhiFnmTranslate="sfdApp.etude.visitDate">Visit Date</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="etudeDate">
+                        <span jhiFnmTranslate="sfdApp.etude.etudeDate">Etude Date</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let etude of etudes | sorted:'etude_id' | recherche:currentSearch ;let index = index;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','etude', etude.id ]">{{etude.id}}</a></td> -->
+                    <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>{{etude.reference}}</td>
+                    <td>
+                        <div>
+                            {{etude.nom}}
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{etude.produit}}
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{etude.amount | currency:'XAF':true:'2.0-3'}}
+                        </div>
+                    </td>
+                    <td>
+                        {{etude.lieu}}
+                    </td>
+                    <td>{{etude.visit_date | date:'dd-MM-y'}}</td>
+                    <td>{{etude.etude_date | date:'dd-MM-y'}}</td>
+                    <!-- <td>{{etude.amount}}</td>
+                    <td>{{etude.duration}}</td> -->
+                    <!-- <td>
+                        <div style="word-wrap: break-word;word-break: break-all;">
+                            {{etude.proces_verbal}}
+                        </div>
+                    </td> -->
+                    <!-- <td>{{etude.geo_lat}}</td>
+                    <td>{{etude.geo_long}}</td> -->
+                    <td class="text-right">
+                        <div *jhiHasAnyRessources="'carmesfnmservice/api/etudes/getAllEtudes'" class="btn-group flex-btn-group-container">
+                            <!-- <button type="submit" [routerLink]="['/entity','etude', etude.etude_id ]" class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                            </button> -->
+                            <button *ngIf="(tab2 == 1 && etude.status == 'ETUDE_PREALABLE') || (tab2 == 2 && etude.status == 'ETUDE_DETAILLEE')" type="submit" [routerLink]="['/entity','etude', { outlets: { popup: 'etude/'+ etude.etude_id + '/edit'} }]" [queryParams]="{demande:etude.credit_request_id}"
+                                replaceUrl="true" class="btn btn-primary btn-sm">
+                                <span class="fa fa-pencil"></span>
+                            </button>
+                            <button type="submit" class="btn btn-primary btn-sm" [routerLink]="['/entity','etude',etude.credit_request_id, 'print']">
+                                <span class="fa fa-print"></span>
+                            </button>
+                            <div class="ui dropdown">
+                                <div class="text" style="display:none"></div>
+                                <i class="ellipsis vertical icon"></i>
+                                <div class="left menu">
+                                    <div class="item" [routerLink]="['/entity', 'etude', etude.etude_id, 'route']" [queryParams]="{}">Itineraire</div>
+                                    <!-- <div class="item" [routerLink]="['/entity','etude', { outlets: { popup: ['etude-new'] } }]" [queryParams]="{type:'detaille',demande:etude.credit_request_id}">
+                                        <i class="folder icon"></i> Faire l'étude détaillée
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="etudes && etudes.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+    <!-- <button class="fab" [routerLink]="['/entity','etude', { outlets: { popup: ['etude-new'] } }]" [fragment]="tab2==2 ? 'detaille':'prealable'">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.etude.home.createLabel">
+            Create new Etude
+            </span>
+        </button> -->
+</div>

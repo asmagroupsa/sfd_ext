@@ -1,0 +1,79 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "creditRequests",
+            "otherEntityName": "creditRequest",
+            "otherEntityRelationshipName": "periodicity"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "produits",
+            "otherEntityName": "produit",
+            "otherEntityRelationshipName": "periodicity"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "ligneCredits",
+            "otherEntityName": "ligneCredit",
+            "otherEntityRelationshipName": "periodicity"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "unity",
+            "otherEntityName": "unity",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "valeur",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20170705215210",
+    "entityTableName": "cf_periodicity",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "microserviceName": "carmesfnmservice",
+    "searchEngine": "elasticsearch"
+}

@@ -1,0 +1,36 @@
+{
+    "sfdApp": {
+        "dossierFNM" : {
+            "home": {
+                "title": "DossierFNMS",
+                "createLabel": "Créer un nouveau Dossier FNM",
+                "createOrEditLabel": "Editer un Dossier FNM",
+                "search": "Rechercher un Dossier FNM"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Dossier FNM {{ id }} ?"
+            },
+            "detail": {
+                "title": "Dossier FNM"
+            },
+            "createdDate": "Date Création",
+            "createdBy": "Créé Par",
+            "lastModifiedBy": "Modifiée ernièrement Par",
+            "lastModifiedDate": "Date Dernière Modification",
+            "sfd": "Sfd",
+            "amountSolicited": "Montant Solicité",
+            "durationSolicited": "Durée Solicitée",
+            "reference": "Référence",
+            "validationFNM": "Validation FNM",
+            "ligneRequest": "Lignede Demande",
+            "creditComityFNM": "Credit Comité FNM"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "dossierFNM" : {
+            "created": "Un nouveau Dossier FNM a été créé ",
+            "updated": "Le Dossier FNM  a été mis à jour",
+            "deleted": "Le Dossier FNM  a été supprimé"
+        }
+    }
+}

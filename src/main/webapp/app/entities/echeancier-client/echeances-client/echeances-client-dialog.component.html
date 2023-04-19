@@ -1,0 +1,139 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myEcheancesClientLabel" [jhiFnmTranslate]="echeancesClient.id ? 'sfdApp.echeancesClient.home.createOrEditLabel' : 'sfdApp.echeancesClient.home.createLabel'">Create or edit a Echeances Client</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!--<div class="form-group" [hidden]="!echeancesClient.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="echeancesClient.id" readonly />
+        </div>-->
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.echeancesClient.echeancierClient" for="field_echeancierClient">Echeancier Client</label>
+            <select class="ui fluid search dropdown" id="field_echeancierClient" name="echeancierClient" [(ngModel)]="echeancesClient.echeancierClientId">
+                <option [ngValue]="null" disabled>Choisissez l'écheancier</option>
+                <option [ngValue]="echeancierClientOption.id" *ngFor="let echeancierClientOption of echeancierclients; trackBy: trackEcheancierClientById">{{echeancierClientOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.echeancesClient.libelle" for="field_libelle">Libelle</label>
+            <input type="text" class="form-control" name="libelle" id="field_libelle" [(ngModel)]="echeancesClient.libelle" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.echeancesClient.numEcheance" for="field_numEcheance">Num Echeance</label>
+            <input type="number" min="1" class="form-control" name="numEcheance" id="field_numEcheance" [(ngModel)]="echeancesClient.numEcheance" required />
+            <div [hidden]="!(editForm.controls.numEcheance?.dirty && editForm.controls.numEcheance?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.numEcheance?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.numEcheance?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.echeancesClient.echeanceDate" for="field_echeanceDate">Echeance Date</label>
+            <div class="input-group">
+                <input id="field_echeanceDate" type="text" class="form-control" name="echeanceDate" ngbDatepicker #echeanceDateDp="ngbDatepicker" [(ngModel)]="echeancesClient.echeanceDate" required/>
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="echeanceDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.echeanceDate?.dirty && editForm.controls.echeanceDate?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.echeanceDate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.echeancesClient.capital" for="field_capital">Capital</label>
+            <input type="number" min="1" class="form-control" name="capital" id="field_capital" [(ngModel)]="echeancesClient.capital" required />
+            <div [hidden]="!(editForm.controls.capital?.dirty && editForm.controls.capital?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.capital?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.capital?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.echeancesClient.interet" for="field_interet">Interet</label>
+            <input type="number" min="1" class="form-control" name="interet" id="field_interet" [(ngModel)]="echeancesClient.interet" required />
+            <div [hidden]="!(editForm.controls.interet?.dirty && editForm.controls.interet?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.interet?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.interet?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.echeancesClient.epargne" for="field_epargne">Epargne</label>
+            <input type="number" min="1" class="form-control" name="epargne" id="field_epargne" [(ngModel)]="echeancesClient.epargne" required />
+            <div [hidden]="!(editForm.controls.epargne?.dirty && editForm.controls.epargne?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.epargne?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.epargne?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.echeancesClient.total" for="field_total">Total</label>
+            <input type="number" min="1" class="form-control" name="total" id="field_total" [(ngModel)]="echeancesClient.total" required />
+            <div [hidden]="!(editForm.controls.total?.dirty && editForm.controls.total?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.total?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.total?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="field_payer">Payé</label>
+            <input type="checkbox" name="payer" id="field_payer" [(ngModel)]="echeancesClient.payer" />
+        </div>
+        <div class="form-group">
+            <label for="field_capitalPayer">Capital Payé</label>
+            <input type="checkbox" name="capitalPayer" id="field_capitalPayer" [(ngModel)]="echeancesClient.capitalPayer" />
+        </div>
+        <div class="form-group">
+            <label for="field_interetPayer">Interêt Payé</label>
+            <input type="checkbox" name="interetPayer" id="field_interetPayer" [(ngModel)]="echeancesClient.interetPayer" />
+        </div>
+        <div class="form-group">
+            <label for="field_epargnePayer">Epargne Payée</label>
+            <input type="checkbox" name="epargnePayer" id="field_epargnePayer" [(ngModel)]="echeancesClient.epargnePayer" />
+        </div>
+        <!--  <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.echeancesClient.compte" for="field_compte">Compte</label>
+            <select class="ui fluid search dropdown" id="field_compte" name="compte" [(ngModel)]="echeancesClient.compteId">
+                <option [ngValue]="null">Aucun</option>
+                <option [ngValue]="compteOption.id" *ngFor="let compteOption of comptes; trackBy: trackCompteById">{{compteOption.id}}</option>
+            </select>
+        </div> -->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

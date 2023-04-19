@@ -1,0 +1,31 @@
+{
+    "sfdApp": {
+        "compteComptable" : {
+            "home": {
+                "title": "Compte Comptables",
+                "createLabel": "Créer un nouveau Compte Comptable",
+                "createOrEditLabel": "Editer un Compte Comptable",
+                "search": "Recherche un Compte Comptable"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Compte Comptable {{ id }} ?"
+            },
+            "detail": {
+                "title": "Compte Comptables"
+            },
+            "sfdReference": "Référence SFD",
+            "numAccount": "Numero Compte",
+            "libelle": "Libellé",
+            "nature": "Nature",
+            "typePlan": "Type Plan",
+            "operationComptables": "Opération Comptables"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "compteComptable" : {
+            "created": "Un nouveau Compte Comptable a été créé ",
+            "updated": "Le Compte Comptable  a été mis à jour",
+            "deleted": "Le Compte Comptable  a été supprimé"
+        }
+    }
+}

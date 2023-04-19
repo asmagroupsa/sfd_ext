@@ -1,0 +1,38 @@
+{
+    "sfdApp": {
+        "validation": {
+            "home": {
+                "title": "Validations",
+                "createLabel": "Créer une nouvelle Validation",
+                "createOrEditLabel": "Editer une Validation",
+                "search": "Recherche pour Validation"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Validation {{ id }} ?"
+            },
+            "detail": {
+                "title": "Validation"
+            },
+            "agenceReference": "Reference de l'Agence",
+            "amount": "Montant de la demande",
+            "duration": "durée",
+            "createdDate": "créé le",
+            "createdBy": "Créé par ",
+            "lastModifiedBy": "modifié par",
+            "lastModifiedDate": "modifié le ",
+            "explanation": "Explication",
+            "client": "Client",
+            "result": "Resultat",
+            "reference": "Réference",
+            "dossier": "Dossier",
+            "delegatedMember": "Membre délégué"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "validation": {
+            "created": "Une nouvelle Validation a été créé ",
+            "updated": "La Validation  a été mis à jour",
+            "deleted": "La Validation  a été supprimé"
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "sfdApp": {
+        "revolvingRequest": {
+            "home": {
+                "title": "RevolvingRequests",
+                "createLabel": "Créer un nouveau Revolving Demande",
+                "createOrEditLabel": "Editer un Revolving Demande",
+                "search": "Recherche pour Revolving Demande"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Revolving Request {{ id }} ?"
+            },
+            "detail": {
+                "title": "Revolving Request"
+            },
+            "sfdReference": "Sfd Référence",
+            "amount": "Mantant",
+            "nbreBenef": "Nbre de Beneficiaire",
+            "status": "Status",
+            "dureeProduction": "Duree de Production",
+            "rembRateRequired": "Taux de remboursement requis",
+            "rembRate": "Taux de remboursement",
+            "availableRefundAmount": "Montant de remboursement disponible",
+            "nextDueDate": "Next Due Date",
+            "createdDate": "Créer le ",
+            "createdBy": "Créer par",
+            "lastModifiedBy": "Modifié par",
+            "lastModifiedDate": "Modifié le",
+            "revolvingResponse": "Revolving Response",
+            "ligneCredit": "Ligne Credit"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "revolvingRequest": {
+            "created": "Un nouveau Revolving Request a été créé ",
+            "updated": "Le Revolving Request  a été mis à jour",
+            "deleted": "Le Revolving Request  a été supprimé"
+        }
+    }
+}

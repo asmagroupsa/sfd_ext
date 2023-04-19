@@ -1,0 +1,140 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title" id="firstConnectionLabel">
+            {{modifyPass?'Modifier votre mot de passe':'Mettre à jour les paramètres du SFD'}}</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button> -->
+    </div>
+    <div class="modal-body">
+        <!-- <jhi-alert></jhi-alert> -->
+        <ng-template #elseBlock>
+            <div>
+                <h6 class="text-center">Changer votre mot de passe par défaut</h6>
+                <div class="form-group">
+                    <label class="form-control-label active oblige" for="field_pass">Nouveau mot de passe</label>
+                    <input type="password" class="form-control" name="pass" id="field_pass" [(ngModel)]="pass" required
+                        maxlength="50" data-length="50" minLength="6" />
+                    <div
+                        [hidden]="!(editForm.controls.pass?.dirty && (editForm.controls.pass?.invalid || pass.length <6))">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.pass?.errors?.required"
+                            jhiFnmTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.pass?.errors?.maxlength"
+                            jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                            This field cannot be longer than 50 characters.
+                        </small>
+                        <small class="form-text text-danger" [hidden]=" pass.length >=6">
+                            Entrez au minimum six (06) caractères
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label active oblige" for="field_pass">Confirmer le nouveau mot de
+                        passe</label>
+                    <input type="password" class="form-control" name="confirm" id="field_confirm_pass"
+                        [(ngModel)]="confirm_pass" required maxlength="50" data-length="50" minLength="6" />
+                    <div
+                        [hidden]="!(editForm.controls.confirm?.dirty && (editForm.controls.confirm?.invalid || confirm_pass !== pass || confirm_pass.length <6))">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.confirm?.errors?.required"
+                            jhiFnmTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.confirm?.errors?.maxlength"
+                            jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                            This field cannot be longer than 50 characters.
+                        </small>
+                        <small class="form-text text-danger" [hidden]="confirm_pass == pass">
+                            Le mot de passe doit être conforme à la confirmation
+                        </small>
+                        <small class="form-text text-danger" [hidden]=" confirm_pass.length >=6">
+                            Entrez au minimum six (06) caractères
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <div *ngIf="!modifyPass;else elseBlock">
+            <div class='wrapper'>
+                <h6>Définissez la nomenclature du SFD en déplaçant les cartes ci-dessous</h6>
+                <div class='container' [dragula]='"first-bag"' [dragulaModel]='orders'>
+                    <div *ngFor='let order of orders;let index = index' class="card-{{index}}">{{order}}</div>
+                </div>
+            </div>
+            <div>
+                Example: Code SFD = SF ; Code Agence = AG ; Code TypeClient = TC ; Code Compteur = 0000 <br>
+                <h6 class="text-center">
+                    La nomenclature =
+                    <span *ngFor='let order of orders;let last=last'>
+                        <span *ngIf="order === 'Ordre SFD'">SF</span>
+                        <span *ngIf="order === 'Ordre Agence'">AG</span>
+                        <span *ngIf="order === 'Ordre Compteur'">0000</span>
+                        <span *ngIf="order === 'Ordre type de client'">TC</span>
+                        <strong *ngIf="!last">/</strong>
+                    </span>
+                </h6>
+            </div>
+            <div class="form-group">
+                <label for="field_typeCompteur oblige">Type de compteur</label>
+                <select class="ui fluid search dropdown" id="field_typeCompteur" name="typeCompteur"
+                    [(ngModel)]="params.type_compteur" required>
+                    <option [ngValue]="null" disabled>Veuillez choisir le type de client</option>
+                    <option value="sfd">SFD</option>
+                    <option value="agence">Agence</option>
+                    <option value="typeclient">Type Client</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label active oblige" for="field_initial_sfd">L'initial du SFD</label>
+                <input type="text" class="form-control" name="initialSfd" id="field_initial_sfd"
+                    [(ngModel)]="params.initial_sfd" required maxlength="4" pattern="^[a-zA-Z0-9]{2,4}$" data-length="4"
+                    minlength="2" />
+                <div [hidden]="!(editForm.controls.initialSfd?.dirty && editForm.controls.initialSfd?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.initialSfd?.errors?.required"
+                        jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.initialSfd?.errors?.maxlength"
+                        jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 4 }">
+                        This field cannot be longer than 4 characters.
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.initialSfd?.errors?.pattern">
+                        entrez un caractère alphanumérique entre 02 et 04 caractères
+                    </small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label active oblige" for="field_position">Position compteur (la taille du
+                    compteur)</label>
+                <input type="text" class="form-control" name="position" id="field_position"
+                    [(ngModel)]="params.position_compteur" placeholder="10" required maxlength="4"
+                    pattern="^0*(?:[1-9]|0[1-9]|10)$" data-length="4" />
+                <div
+                    [hidden]="!(editForm.controls.position?.dirty && (editForm.controls.position?.invalid || editForm.controls.position?.value < 1))">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.position?.errors?.required"
+                        jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.position?.errors?.maxlength"
+                        jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 4 }">
+                        This field cannot be longer than 4 characters.
+                    </small>
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.position?.errors?.pattern && (editForm.controls.position?.value >= 1 && editForm.controls.position?.value <= 10)">
+                        Entrez un nombre entier positif entre 1 et 10
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit"
+            [disabled]="editForm.form.invalid ||isSaving || (modifyPass && (confirm_pass != pass || confirm_pass.length < 6 || pass.length < 6))"
+            class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,154 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "ligneCredits",
+            "otherEntityName": "ligneCredit",
+            "otherEntityRelationshipName": "budget"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "compteCommissions",
+            "otherEntityName": "compteCommission",
+            "otherEntityRelationshipName": "budget"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "callResponses",
+            "otherEntityName": "callResponse",
+            "otherEntityRelationshipName": "budget"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "clotureBudgets",
+            "otherEntityName": "clotureBudget",
+            "otherEntityRelationshipName": "budget"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "activations",
+            "otherEntityName": "activation",
+            "otherEntityRelationshipName": "budget"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "budgets",
+            "relationshipName": "activeurs",
+            "otherEntityName": "activeur",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "annee",
+            "otherEntityName": "annee",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "amount",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "amountRequested",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "ammountReport",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "activeDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "carmesAccount",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "active",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "cloture",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "sommeTotalLigne",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "codeActivation",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "montantActive",
+            "fieldType": "Float"
+        }
+    ],
+    "changelogDate": "20170705215247",
+    "entityTableName": "cf_budget",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "microserviceName": "carmesfnmservice",
+    "searchEngine": "elasticsearch"
+}

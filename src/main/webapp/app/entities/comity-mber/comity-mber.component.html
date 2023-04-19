@@ -1,0 +1,130 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.comityMber.home.title">Comity Mbers</span>
+        <button class="btn btn-primary float-right create-comity-mber" [routerLink]="['/entity','comity-mber', { outlets: { popup: ['comity-mber-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" jhiFnmTranslate="sfdApp.comityMber.home.createLabel">
+                Create new Comity Mber
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.comityMber.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="comityMbers;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th class="numerotab">N°</th>
+                    <th jhiSortBy="sfdUsersId">
+                        <span jhiFnmTranslate="sfdApp.comityMber.sfdUsers">Sfd Users</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="status">
+                        <span jhiFnmTranslate="sfdApp.comityMber.status">Status</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <!-- <th jhiSortBy="nominationDate">
+                        <span jhiFnmTranslate="sfdApp.comityMber.nominationDate">Nomination Date</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="endNominationDate">
+                        <span jhiFnmTranslate="sfdApp.comityMber.endNominationDate">End Nomination Date</span>
+                        <span class="fa fa-sort"></span>
+                    </th> -->
+                    <th jhiSortBy="typeMembreId">
+                        <span jhiFnmTranslate="sfdApp.comityMber.typeMembre">Type Membre</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let comityMber of comityMbers | recherche:currentSearch ;let index = index;trackBy: trackId">
+                <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>
+                        <a>{{comityMber.user}}</a>
+                    </td>
+                    <td>
+                        <span *ngIf="comityMber.status">Activer</span>
+                        <span *ngIf="!comityMber.status">Désactiver</span>
+                    </td>
+                    <!-- <td>{{comityMber.nominationDate | date:'dd-MM-y'}}</td>
+                    <td>{{comityMber.endNominationDate | date:'dd-MM-y'}}</td> -->
+                    <td>
+                        <span *ngIf="comityMber.typeMembre">{{comityMber.typeMembre.name}}</span>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <!-- <button type="submit" [routerLink]="['/entity','comity-mber', comityMber.id ]" class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                            </button> -->
+                            <button type="submit" [routerLink]="['/entity','comity-mber', { outlets: { popup: 'comity-mber/'+ comityMber.id + '/edit'} }]"
+                                replaceUrl="true" class="btn btn-primary btn-sm">
+                                <span class="fa fa-pencil"></span>
+                            </button>
+                            <button type="submit" [routerLink]="['/entity','comity-mber', { outlets: { popup: 'comity-mber/'+ comityMber.id + '/delete'} }]"
+                                replaceUrl="true" class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="comityMbers && comityMbers.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page"
+                (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>
+<div id="print-container" class="print">
+    <ul id="print-picker" class="print-list" [ngClass]="{open:printed}">
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="nl">
+            <a class="waves-effect waves-teal btn-flat">Nederlands</a>
+        </li>
+        <li data-value="fr">
+            <a class="waves-effect waves-teal btn-flat">Français</a>
+        </li>
+        <li data-value="de">
+            <a class="waves-effect waves-teal btn-flat">Deutsch</a>
+        </li>
+    </ul>
+    <div class="print-toggle" (click)="printed = !printed">
+        <span class="printor-current" id="tx-live-lang-current">Impression</span>
+        <i class="fa fa-print"></i>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+{
+    "sfdApp": {
+        "schoolLevel": {
+            "home": {
+                "title": "NiveauEtude",
+                "createLabel": "Créer un nouveau Niveau D'étude",
+                "createOrEditLabel": "Editer un Niveau D'étude",
+                "search": "Recherche pour Niveau D'étude"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Niveau D'étude {{ id }} ?"
+            },
+            "detail": {
+                "title": "Niveau D'étude"
+            },
+            "niveau": "Niveau",
+            "clients": "Clients"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "schoolLevel": {
+            "created": "Un nouveau Niveau D'étude a été créé ",
+            "updated": "Le Niveau D'étude  a été mis à jour",
+            "deleted": "Le Niveau D'étude  a été supprimé"
+        }
+    }
+}

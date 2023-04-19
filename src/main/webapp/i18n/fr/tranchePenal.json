@@ -1,0 +1,33 @@
+{
+    "sfdApp": {
+        "tranchePenal": {
+            "home": {
+                "title": "Les tranches pénales",
+                "createLabel": "Créer une nouvelle tranche pénale",
+                "createOrEditLabel": "Editer une tranche pénale",
+                "search": "Rechercher une tranche pénale"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la tranche pénale {{ id }} ?"
+            },
+            "detail": {
+                "title": "Tranche Pénale"
+            },
+            "minDay": "Jour min",
+            "maxDay": "Jour Max",
+            "penalRate": "Taux pénal",
+            "createdDate": "Crée le ",
+            "createdBy": "Crée par ",
+            "lastModifiedBy": "Modifié par",
+            "lastModifiedDate": "Modifié le ",
+            "produits": "Produit"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "tranchePenal": {
+            "created": "Une nouvelle Tranche Penal a été créé ",
+            "updated": "La Tranche Penal  a été mis à jour",
+            "deleted": "La Tranche Penal  a été supprimé"
+        }
+    }
+}

@@ -1,0 +1,30 @@
+export class SFD {    
+    constructor(
+        public id?: number,
+        public code?: string,
+        public name?: string,
+        public address?: string,
+        public phone?: string,
+        public email?: string,
+        public fax?: string,
+        public bp?: string,
+        public city?: string,
+        public createdDate?: any,
+        public createdBy?: string,
+        public lastModifiedBy?: string,
+        public lastModifiedDate?: any,
+        public compteCarmes?: string,
+        public agencesId?: number,
+        public contratsId?: number,
+        public ligneRequestsId?: number,
+        public eligiblesId?: number,
+        public settingSFDsId?: number,
+        public clientId?: number,
+        public indicePrestataire?: string,
+        public entete?: any,
+        public piedPage?:any,
+        public entetePaysage?: any,
+        public piedPagePaysage?:any,
+    ) {
+    }
+}

@@ -1,0 +1,50 @@
+<div *ngIf="compteCommission">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.compteCommission.detail.title">Compte Commission</span> {{compteCommission.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.compteCommission.title">Title</span></dt>
+        <dd>
+            <span>{{compteCommission.title}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compteCommission.amount">Amount</span></dt>
+        <dd>
+            <span>{{compteCommission.amount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compteCommission.taux">Taux</span></dt>
+        <dd>
+            <span>{{compteCommission.taux}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compteCommission.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{compteCommission.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compteCommission.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{compteCommission.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compteCommission.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{compteCommission.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compteCommission.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{compteCommission.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compteCommission.budget">Budget</span></dt>
+        <dd>
+            <div *ngIf="compteCommission.budgetId">
+                <a [routerLink]="['/entity','budget', compteCommission.budgetId]">{{compteCommission.budgetId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','compte-commission', { outlets: { popup: 'compte-commission/'+ compteCommission.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

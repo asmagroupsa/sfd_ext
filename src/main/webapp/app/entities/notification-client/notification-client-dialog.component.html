@@ -1,0 +1,106 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myNotificationClientLabel" [jhiFnmTranslate]="notificationClient.id ? 'sfdApp.notificationClient.home.createOrEditLabel' : 'sfdApp.notificationClient.home.createLabel'">Create or edit a Notification Client</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!-- <div class="form-group" [hidden]="!notificationClient.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="notificationClient.id" readonly />
+        </div> -->
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.notificationClient.notificationDate" for="field_notificationDate">Notification Date</label>
+            <div class="input-group">
+                <input id="field_notificationDate" type="text" class="form-control" name="notificationDate" ngbDatepicker #notificationDateDp="ngbDatepicker" [(ngModel)]="notificationClient.notificationDate" required/>
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="notificationDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.notificationDate?.dirty && editForm.controls.notificationDate?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.notificationDate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" name="status" id="field_status" [(ngModel)]="notificationClient.status" />
+            <label for="field_status">Status</label>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.notificationClient.rate" for="field_rate">Rate</label>
+            <input type="number" min="1" class="form-control" name="rate" id="field_rate" [(ngModel)]="notificationClient.rate" required />
+            <div [hidden]="!(editForm.controls.rate?.dirty && editForm.controls.rate?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.rate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.rate?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.notificationClient.nbrDiffere" for="field_nbrDiffere">Nbr Differe</label>
+            <input type="number" min="1" class="form-control" name="nbrDiffere" id="field_nbrDiffere" [(ngModel)]="notificationClient.nbrDiffere" />
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.notificationClient.amount" for="field_amount">Amount</label>
+            <input type="text" min="1" class="form-control" name="amount" id="field_amount" [ngModel]="notificationClientAmount" required (formatNumberMyMiller)="notificationClient.amount = $event"/>
+            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.notificationClient.typeEcheancier" for="field_typeEcheancier">Type Echeancier</label>
+            <select class="ui fluid dropdown" id="field_typeEcheancier" name="typeEcheancier" [(ngModel)]="notificationClient.typeEcheancier" required>
+                <option value="DEGRAISSIF">Degraissif</option>
+                <option value="LINEAIRE">Linéaire</option>
+            </select>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.notificationClient.nbreEcheance" for="field_nbreEcheance">Nbre Echeance</label>
+            <input type="number" min="1" class="form-control" name="nbreEcheance" id="field_nbreEcheance" [(ngModel)]="notificationClient.nbreEcheance" required />
+            <div [hidden]="!(editForm.controls.nbreEcheance?.dirty && editForm.controls.nbreEcheance?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.nbreEcheance?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.nbreEcheance?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.notificationClient.creditRequest" for="field_creditRequest">Credit Request</label>
+            <select class="ui fluid search dropdown" id="field_creditRequest" name="creditRequest" [(ngModel)]="notificationClient.creditRequestId" required>
+                <option [ngValue]="creditRequestOption.id" *ngFor="let creditRequestOption of creditrequests; trackBy: trackCreditRequestById">{{creditRequestOption.reference}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.creditRequest?.dirty && editForm.controls.creditRequest?.invalid)">
+            <small class="form-text text-danger" [hidden]="!editForm.controls.creditRequest?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.notificationClient.formations" for="field_formations">Formations</label>
+            <select class="ui fluid search dropdown" id="field_formations" multiple name="formations" [(ngModel)]="notificationClient.formations">
+                <option value="null" disabled>Choisissez la formation</option>
+                <option [ngValue]="getSelected(notificationClient.formations, formationOption)" *ngFor="let formationOption of formations; trackBy: trackFormationById">de Mr/Mme {{formationOption.formateur}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button>&nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,60 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "ecritureCommission",
+            "otherEntityName": "ecritureCommission",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ecriture"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "operations",
+            "otherEntityName": "operation",
+            "otherEntityRelationshipName": "ecriture"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "operationType",
+            "otherEntityName": "operationType",
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "codeTypeOperation",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "libelle",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 100
+        },
+        {
+            "fieldName": "sens",
+            "fieldType": "Sens",
+            "fieldValues": "DEBIT,CREDIT",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170705215310",
+    "entityTableName": "cf_ecriture",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "microserviceName": "carmesfnmservice",
+    "searchEngine": "elasticsearch"
+}

@@ -1,0 +1,33 @@
+{
+    "sfdApp": {
+        "ecriture" : {
+            "home": {
+                "title": "Ecritures",
+                "createLabel": "Créer un nouveau Ecriture",
+                "createOrEditLabel": "Editer un Ecriture",
+                "search": "Recherche pour Ecriture"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Ecriture {{ id }} ?"
+            },
+            "detail": {
+                "title": "Ecriture"
+            },
+            "codeTypeOperation": "Code Type Operation",
+            "libelle": "Libelle",
+            "sens": "Sens",
+            "codeEcriture": "Code Ecriture",
+            "ecritureCommissions": "Ecriture Commissions",
+            "ecriturePrelevements": "Ecriture Prelevements",
+            "ecritureOperationAccounts": "Ecriture Operation Accounts",
+            "operationType": "Operation Type"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "ecriture" : {
+            "created": "Un nouveau Ecriture a été créé ",
+            "updated": "Le Ecriture  a été mis à jour",
+            "deleted": "Le Ecriture  a été supprimé"
+        }
+    }
+}

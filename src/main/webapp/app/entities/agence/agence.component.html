@@ -1,0 +1,170 @@
+<div>
+    <h3>
+        <span jhiFnmTranslate="sfdApp.agence.home.title">Agences</span>
+        <button *jhiHasAnyRessources="'carmesfnmservice/api/agences/createAgence'" class="btn btn-primary float-right create-agence"
+            [routerLink]="['/entity','agence', { outlets: { popup: ['agence-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" jhiFnmTranslate="sfdApp.agence.home.createLabel">
+                Create new Agence
+            </span>
+        </button>
+    </h3>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.agence.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="agences;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <th class="numerotab">N°</th>
+                    <th jhiSortBy="name">
+                        <span jhiFnmTranslate="sfdApp.agence.name">Name</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <!--<th jhiSortBy="codeAgence"><span jhiFnmTranslate="sfdApp.agence.codeAgence">Code Agence</span> <span class="fa fa-sort"></span></th>-->
+                    <th jhiSortBy="address">
+                        <span jhiFnmTranslate="sfdApp.agence.address">Address</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="phone">
+                        <span jhiFnmTranslate="sfdApp.agence.phone">Phone</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="initiale">
+                        <span jhiFnmTranslate="sfdApp.agence.initiale">Initiale</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="email">
+                        <span jhiFnmTranslate="sfdApp.agence.email">Email</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <!-- <th jhiSortBy="bp">
+                        <span jhiFnmTranslate="sfdApp.agence.bp">Bp</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="fax">
+                        <span jhiFnmTranslate="sfdApp.agence.fax">Fax</span>
+                        <span class="fa fa-sort"></span>
+                    </th> -->
+                    <th>
+                        <span>Geo</span>
+                    </th>
+                    <!-- <th jhiSortBy="geoLong">
+                        <span jhiFnmTranslate="sfdApp.agence.geoLong">Geo Long</span>
+                        <span class="fa fa-sort"></span>
+                    </th> -->
+                    <th jhiSortBy="pictureUrl">
+                        <span jhiFnmTranslate="sfdApp.agence.pictureUrl">Picture Url</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <!-- <th jhiSortBy="createdDate"><span jhiFnmTranslate="sfdApp.agence.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>-->
+                    <!-- <th jhiSortBy="createdBy"><span jhiFnmTranslate="sfdApp.agence.createdBy">Created By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedBy"><span jhiFnmTranslate="sfdApp.agence.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedDate"><span jhiFnmTranslate="sfdApp.agence.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th> -->
+                    <!--<th jhiSortBy="sfdUsersId"><span jhiFnmTranslate="sfdApp.agence.sfdUsers">Sfd Users</span> <span class="fa fa-sort"></span></th>-->
+                    <!-- <th jhiSortBy="sfdId"><span jhiFnmTranslate="sfdApp.agence.sfd">Sfd</span> <span class="fa fa-sort"></span></th> -->
+                    <th>Zone</th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let agence of agences  | recherche:currentSearch ;let index = index;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','agence', agence.id ]">{{agence.id}}</a></td> -->
+                    <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>{{agence.name}}</td>
+                    <!-- <td>{{agence.codeAgence}}</td>-->
+                    <td>{{agence.address}}</td>
+                    <td>{{agence.phone}}</td>
+                    <td>{{agence.initiale}}</td>
+                    <td>{{agence.email}}</td>
+                    <!-- <td>{{agence.bp}}</td>
+                    <td>{{agence.fax}}</td> -->
+                    <td>Lat: {{agence.geoLat}}, Long: {{agence.geoLong}}</td>
+                    <!-- <td>{{agence.geoLong}}</td> -->
+                    <td>{{agence.pictureUrl}}</td>
+                    <!-- <td>{{agence.createdDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>{{agence.createdBy}}</td> -->
+                    <!-- <td>{{agence.lastModifiedBy}}</td> -->
+                    <!-- <td>{{agence.lastModifiedDate | date:'dd-MM-y'}}</td> -->
+                    <!--<td>
+                        <div *ngIf="agence.sfdUsersId">
+                            <a [routerLink]="['/entity','service-user', agence.sfdUsersId  ]">{{agence.sfdUsersId}}</a>
+                        </div>
+                    </td>-->
+                    <!-- <td>
+                        <div *ngIf="agence.sfdId">
+                            <a [routerLink]="['/entity','sfd', agence.sfdId  ]">{{agence.sfdId}}</a>
+                        </div>
+                    </td> -->
+                    <td>{{agence.zone?.name}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <!-- <button *jhiHasAnyRessources="'carmesfnmservice/api/agences/getAgence'" type="submit" [routerLink]="['/entity','agence', agence.id ]"
+                                class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                            </button> -->
+                            <button *jhiHasAnyRessources="'carmesfnmservice/api/agences/updateAgence'" type="submit" [routerLink]="['/entity','agence', { outlets: { popup: 'agence/'+ agence.id + '/edit'} }]"
+                                replaceUrl="true" class="btn btn-primary btn-sm">
+                                <span class="fa fa-pencil"></span>
+                                <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.edit">Edit</span> -->
+                            </button>
+                            <button *jhiHasAnyRessources="'carmesfnmservice/api/agences/deleteAgence'" type="submit" [routerLink]="['/entity','agence', { outlets: { popup: 'agence/'+ agence.id + '/delete'} }]"
+                                replaceUrl="true" class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                                <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.delete">Delete</span> -->
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="agences && agences.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page"
+                (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>
+<!-- <div id="print-container" class="print">
+    <ul id="print-picker" class="print-list" [ngClass]="{open:printed}">
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="nl"><a class="waves-effect waves-teal btn-flat">Nederlands</a></li>
+        <li data-value="fr"><a class="waves-effect waves-teal btn-flat">Français</a></li>
+        <li data-value="de"><a class="waves-effect waves-teal btn-flat">Deutsch</a></li>
+    </ul>
+    <div class="print-toggle" (click)="printed = !printed"><span class="printor-current" id="tx-live-lang-current">Impression</span>
+        <i class="fa fa-print"></i>
+    </div>
+</div> -->

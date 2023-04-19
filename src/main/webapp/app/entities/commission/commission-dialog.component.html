@@ -1,0 +1,130 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCommissionLabel" [jhiFnmTranslate]="commission.id ? 'sfdApp.commission.home.createOrEditLabel' : 'sfdApp.commission.home.createLabel'">Create or edit a Commission</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!--<div class="form-group" [hidden]="!commission.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="commission.id" readonly />
+        </div>-->
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.commission.taux" for="field_taux">Taux</label>
+            <input type="number" min="1" class="form-control" name="taux" id="field_taux" [(ngModel)]="commission.taux" required />
+            <div [hidden]="!(editForm.controls.taux?.dirty && editForm.controls.taux?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.taux?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.taux?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.commission.valeur" for="field_valeur">Valeur</label>
+            <input type="number" min="1" class="form-control" name="valeur" id="field_valeur" [(ngModel)]="commission.valeur" required />
+            <div [hidden]="!(editForm.controls.valeur?.dirty && editForm.controls.valeur?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.valeur?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.valeur?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.commission.amount" for="field_amount">Amount</label>
+            <input type="number" min="1" class="form-control" name="amount" id="field_amount" [(ngModel)]="commission.amount" required />
+            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.commission.createdDate" for="field_createdDate">Created Date</label>
+            <div class="input-group">
+                <input id="field_createdDate" type="text" class="form-control" name="createdDate" ngbDatepicker #createdDateDp="ngbDatepicker" [(ngModel)]="commission.createdDate" required/>
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="createdDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdDate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>-->
+        <!--  <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.commission.createdBy" for="field_createdBy">Created By</label>
+            <input type="text" class="form-control" name="createdBy" id="field_createdBy" [(ngModel)]="commission.createdBy" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdBy?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdBy?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <!--  <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.commission.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+            <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy" [(ngModel)]="commission.lastModifiedBy" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.lastModifiedBy?.dirty && editForm.controls.lastModifiedBy?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.lastModifiedBy?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <!--  <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.commission.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+            <div class="input-group">
+                <input id="field_lastModifiedDate" type="text" class="form-control" name="lastModifiedDate" ngbDatepicker #lastModifiedDateDp="ngbDatepicker" [(ngModel)]="commission.lastModifiedDate" />
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="lastModifiedDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.commission.compenser" for="field_compenser">Compenser</label>
+            <input type="checkbox" class="form-control" name="compenser" id="field_compenser" [(ngModel)]="commission.compenser" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.commission.carmesAccount" for="field_carmesAccount">Carmes Account</label>
+            <input type="text" class="form-control" name="carmesAccount" id="field_carmesAccount" [(ngModel)]="commission.carmesAccount" required />
+            <div [hidden]="!(editForm.controls.carmesAccount?.dirty && editForm.controls.carmesAccount?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.carmesAccount?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.commission.compensation" for="field_compensation">Compensation</label>
+            <select class="ui fluid search dropdown" id="field_compensation" name="compensation" [(ngModel)]="commission.compensationId">
+                <option [ngValue]="null">Aucun</option>
+                <option [ngValue]="compensationOption.id" *ngFor="let compensationOption of compensations; trackBy: trackCompensationById">{{compensationOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.commission.operation" for="field_operation">Operation</label>
+            <select class="ui fluid search dropdown" id="field_operation" name="operation" [(ngModel)]="commission.operationId">
+                <option [ngValue]="null">Aucun</option>
+                <option [ngValue]="operationOption.id" *ngFor="let operationOption of operations; trackBy: trackOperationById">{{operationOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

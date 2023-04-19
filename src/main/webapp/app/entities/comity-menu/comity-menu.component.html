@@ -1,0 +1,176 @@
+<div *ngIf="tab == 'demandes'">
+    <h2 *ngIf="fragment == 'ajout'">
+        Sélectionnez les demandes à ajouter
+        <button class="btn btn-primary float-right create-credit-request" (click)="addDemandes()">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down">
+            Validez la sélection
+            </span>
+        </button>
+    </h2>
+    <h2 *ngIf="!fragment">
+        Les demandes passées au comité de credit
+    </h2>
+    <br>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="recherche dans la demande">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="creditRequests;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+
+                    <th *ngIf="fragment == 'ajout'">Sélection</th>
+                    <!-- <th jhiSortBy="reference"><span jhiFnmTranslate="sfdApp.creditRequest.reference">Reference</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="requestDate"><span jhiFnmTranslate="sfdApp.creditRequest.requestDate">Request Date</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="clientId"><span jhiFnmTranslate="sfdApp.creditRequest.client">Client</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="amount"><span jhiFnmTranslate="sfdApp.creditRequest.amount">Amount</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="duration"><span jhiFnmTranslate="sfdApp.creditRequest.duration">Duration</span> <span class="fa fa-sort"></span></th>
+                    <!--  <th jhiSortBy="interestRate"><span jhiFnmTranslate="sfdApp.creditRequest.interestRate">Interest Rate</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="nbrDiffere"><span jhiFnmTranslate="sfdApp.creditRequest.nbrDiffere">Nbr Differe</span> <span class="fa fa-sort"></span></th>  -->
+                    <!-- <th jhiSortBy="createdDate"><span jhiFnmTranslate="sfdApp.creditRequest.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>-->
+                    <!-- <th jhiSortBy="createdBy"><span jhiFnmTranslate="sfdApp.creditRequest.createdBy">Created By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedBy"><span jhiFnmTranslate="sfdApp.creditRequest.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedDate"><span jhiFnmTranslate="sfdApp.creditRequest.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="requestStatusId"><span jhiFnmTranslate="sfdApp.creditRequest.requestStatus">Request Status</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="requestObjectId"><span jhiFnmTranslate="sfdApp.creditRequest.requestObject">Request Object</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="sfdUsersId"><span jhiFnmTranslate="sfdApp.creditRequest.sfdUsers">Sfd Users</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="produitId"><span jhiFnmTranslate="sfdApp.creditRequest.produit">Produit</span> <span class="fa fa-sort"></span></th>
+                    <!-- <th jhiSortBy="periodicityId"><span jhiFnmTranslate="sfdApp.creditRequest.periodicity">Periodicity</span> <span class="fa fa-sort"></span></th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let creditRequest of creditRequests | recherche:currentSearch ;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','credit-request', creditRequest.id ]">{{creditRequest.id}}</a></td> -->
+                    <td *ngIf="fragment == 'ajout'">
+                        <p class="checkParent">
+                            <input type="checkbox" [id]="creditRequest.credit_request_id" (change)="onChange($event,creditRequest)" />
+                            <label [for]="creditRequest.credit_request_id"></label>
+                        </p>
+                    </td>
+                    <!-- <td>{{creditRequest.reference}}</td> -->
+                    <!-- <td>{{creditRequest.requestDate | date:'dd-MM-y'}}</td> -->
+                    <td>
+                        <div *ngIf="creditRequest.name">
+                            <a>{{creditRequest.name}}</a>
+                        </div>
+                    </td>
+                    <td>{{creditRequest.amount}}</td>
+                    <td>{{creditRequest.duration}}</td>
+                    <!-- <td>{{creditRequest.interestRate}}</td> -->
+                    <!--  <td>
+                        <div *ngIf="creditRequest.nbr_differe">
+                            {{creditRequest.nbr_differe}}
+                        </div> 
+                        </td>  -->
+                    <!-- <td>{{creditRequest.createdDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>{{creditRequest.createdBy}}</td> -->
+                    <!-- <td>{{creditRequest.lastModifiedBy}}</td> -->
+                    <!-- <td>{{creditRequest.lastModifiedDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>
+                        <div *ngIf="creditRequest.requestStatusId">
+                            <a [routerLink]="['/entity','credit-request-status', creditRequest.requestStatusId  ]">{{creditRequest.requestStatusId}}</a>
+                        </div>
+                    </td> -->
+                    <!--  <td>
+                        <div *ngIf="creditRequest.requestObjectId">
+                            <a [routerLink]="['/entity','request-raison', creditRequest.requestObjectId  ]">{{creditRequest.requestObjectId}}</a>
+                        </div>
+                    </td> -->
+                    <!-- <td>
+                        <div *ngIf="creditRequest.sfdUsersId">
+                            <a [routerLink]="['/entity','service-user', creditRequest.sfdUsersId  ]">{{creditRequest.sfdUsersId}}</a>
+                        </div>
+                    </td> -->
+                    <td>
+                        <div *ngIf="creditRequest.produit">
+                            <a>
+                                {{creditRequest.produit}}</a>
+                        </div>
+                    </td>
+                    <!-- <td>
+                        <div *ngIf="creditRequest.periodicityId">
+                            <a [routerLink]="['/entity','periodicity', creditRequest.periodicityId  ]">{{creditRequest.periodicityId}}</a>
+                        </div>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div *ngIf="tab == 'validations'">
+    <h2>
+        Les demandes validées
+        <button class="btn btn-primary float-right create-credit-request">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down">
+            Valider une demande
+            </span>
+        </button>
+    </h2>
+    <br>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="recherche dans la demande">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+
+</div>
+<div *ngIf="tab == 'notifications'">
+    <h2>
+        Les demandes notifiées
+        <button class="btn btn-primary float-right create-credit-request">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down">
+            Notifier Les demandes
+            </span>
+        </button>
+    </h2>
+    <br>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="recherche dans la demande">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+</div>

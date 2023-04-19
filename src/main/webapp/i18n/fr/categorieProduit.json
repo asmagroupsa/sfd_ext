@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "categorieProduit" : {
+            "home": {
+                "title": "Catégorie Produits",
+                "createLabel": "Créer une nouvelle Catégorie Produit",
+                "createOrEditLabel": "Editer une Catégorie Produit",
+                "search": "Recherche Catégorie Produit"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Catégorie Produit {{ id }} ?"
+            },
+            "detail": {
+                "title": "Catégorie Produit"
+            },
+            "name": "Nom",
+            "code": "Code",
+            "produits": "Produits"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "categorieProduit" : {
+            "created": "Une nouvelle Catégorie Produit a été créée ",
+            "updated": "La Catégorie Produit  a été mise à jour",
+            "deleted": "La Catégorie Produit  a été supprimée"
+        }
+    }
+}

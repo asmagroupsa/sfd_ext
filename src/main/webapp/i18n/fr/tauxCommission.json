@@ -1,0 +1,31 @@
+{
+    "sfdApp": {
+        "tauxCommission": {
+            "home": {
+                "title": "TauxCommissions",
+                "createLabel": "Créer un nouveau Taux Commission",
+                "createOrEditLabel": "Editer un Taux Commission",
+                "search": "Recherche pour Taux Commission"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Taux Commission {{ id }} ?"
+            },
+            "detail": {
+                "title": "Taux Commission"
+            },
+            "name": "Nom",
+            "valeur": "Valeur",
+            "createdDate": "Créé le ",
+            "createdBy": "Créé par ",
+            "lastModifiedBy": "modifié par",
+            "lastModifiedDate": "modifié le"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "tauxCommission": {
+            "created": "Un nouveau Taux Commission a été créé ",
+            "updated": "Le Taux Commission  a été mis à jour",
+            "deleted": "Le Taux Commission  a été supprimé"
+        }
+    }
+}

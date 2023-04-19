@@ -1,0 +1,76 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.accountType.home.title">Account Types</span>
+        <button class="btn btn-primary float-right create-account-type" [routerLink]="['/entity','account-type', { outlets: { popup: ['account-type-new'] } }]" *jhiHasAnyRessources="['carmesfnmservice/api/account-types/createAccountType']">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.accountType.home.createLabel">
+            Create new Account Type
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.accountType.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="accountTypes;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr>
+                    <!-- <th><span jhiFnmTranslate="global.field.id">ID</span></th> -->
+                    <th class="numerotab">N°</th>
+                    <th><span jhiFnmTranslate="sfdApp.accountType.name">Name</span></th>
+                    <th><span>Initial</span></th>
+                    <th><span jhiFnmTranslate="sfdApp.accountType.code">Code</span></th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let accountType of accountTypes  | recherche:currentSearch ;let index=index;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','account-type', accountType.id ]">{{accountType.id}}</a></td> -->
+                    <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>{{accountType.name}}</td>
+                    <td>{{accountType.initiale}}</td>
+                    <td>{{accountType.code}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <!-- <button type="submit" [routerLink]="['/entity','account-type', accountType.id ]" class="btn btn-info btn-sm" *jhiHasAnyRessources="'carmesfnmservice/api/account-types/getAccountType'">
+                                <span class="fa fa-eye"></span>
+                            </button> -->
+                            <button type="submit" [routerLink]="['/entity','account-type', { outlets: { popup: 'account-type/'+ accountType.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm" *jhiHasAnyRessources="['carmesfnmservice/api/account-types/updateAccountType']">
+                            <span class="fa fa-pencil"></span>
+                            </button>
+                            <button type="submit" [routerLink]="['/entity','account-type', { outlets: { popup: 'account-type/'+ accountType.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm" *jhiHasAnyRessources="['carmesfnmservice/api/account-types/deleteAccountType']">
+                                <span class="fa fa-remove"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- <div class="ui compact selection dropdown">
+    <i class="dropdown icon"></i>
+    <div class="text">Impressions</div>
+    <div class="menu">
+        <div class="item" jhiFnmTranslate="impressions.account.all">Tous les types de compte</div>
+    </div>
+</div> -->

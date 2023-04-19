@@ -1,0 +1,27 @@
+{
+    "sfdApp": {
+        "nationality": {
+            "home": {
+                "title": "Nationalitiés",
+                "createLabel": "Créer un nouveau Nationalité",
+                "createOrEditLabel": "Editer un Nationalité",
+                "search": "Recherche pour Nationalité"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Nationalité {{ id }} ?"
+            },
+            "detail": {
+                "title": "Nationalité"
+            },
+            "name": "Nom",
+            "clients": "Clients"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "nationality": {
+            "created": "Une nouvelle Nationalité a été créé ",
+            "updated": "La Nationalité  a été mis à jour",
+            "deleted": "La Nationalité  a été supprimé"
+        }
+    }
+}

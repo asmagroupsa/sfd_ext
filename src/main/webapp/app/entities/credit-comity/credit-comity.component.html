@@ -1,0 +1,325 @@
+<!-- <div class="ui large modal" id="credit-comity-dossiers-modal" style="max-height: fit-content;">
+    <div class="header">Dossiers</div>
+    <div class="scrolling content">
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>Reférence</th>
+                    <th>Nom du client</th>
+                    <th>Montant</th>
+                    <th>Durée</th>
+                    <th>Objet de la demande</th>
+                    <th>La périodicité</th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dossier of currentCreditComityDossiers">
+                    <td>{{dossier?.reference}}</td>
+                    <td>{{dossier?.nom}}</td>
+                    <td>{{dossier?.amount}}</td>
+                    <td>{{dossier?.duration}}</td>
+                    <td>{{dossier?.objetCredit}}</td>
+                    <td>{{dossier?.lib_periodicite}}</td>
+                    <td (click)="showFicheDossiersModal(dossier.dossier_id, 'fiche-dossiers-modal')">
+                        <i class="print icon"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button" (click)="closeDossiersModal()">Fermer</div>
+    </div>
+</div> -->
+<div class="ui tiny modal" id="credit-comity-synthese">
+    <div class="header">Synthèse du comité {{synthese.libelle}}</div>
+    <div class="scrolling content" style="overflow: auto!important; padding-bottom: 220px;">
+        <div class="synthese_block d-flex">
+            <strong>Code</strong>
+            <span class="ml-auto" style="font-size: large;">{{synthese.code}}</span>
+        </div>
+
+        <div  class="synthese_block d-flex">
+            <strong>Nombre de dossiers</strong>
+            <span class="ml-auto" style="font-size: large;">{{synthese.nombreDossier}}</span>
+        </div>
+        <div  class="synthese_block d-flex" *ngIf="synthese.montantDemande">
+            <strong>Montant total des dossiers</strong>
+            <span class="ml-auto" style="font-size: large;">{{synthese.montantDemande | currency:'XAF':true:'2.0'}}</span>
+        </div>
+        <br>
+        <br>
+        <div class="synthese_sep" style="color:cornflowerblue;font-size:1.3em;">************ Résultat du comité ************</div>
+        <br>
+        <br>
+        <div class="synthese_block d-flex">
+            <strong>Montant accordé</strong>
+            <span class="ml-auto" style="font-size: large;">{{synthese.montantAccorder | currency:'XAF':true:'2.0'}}</span>
+        </div>
+        <div class="synthese_block d-flex">
+            <strong>Dossiers acceptés</strong>
+            <span class="ml-auto" style="font-size: large;">{{synthese.accepter}}</span>
+        </div>
+        <div class="synthese_block d-flex">
+            <strong>Dossiers en attente</strong>
+            <span class="ml-auto" style="font-size: large;">{{synthese.attente}}</span>
+        </div>
+        <div class="synthese_block d-flex">
+            <strong>Dossiers rejetés</strong>
+            <span class="ml-auto" style="font-size: large;">{{ synthese.rejeter}}</span>
+        </div>
+        <div class="synthese_block d-flex">
+            <strong>Dossiers dissous</strong>
+            <span class="ml-auto" style="font-size: large;">{{synthese.nbre_dossier_dissout}}</span>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button" (click)="closeSynthseModal()">Fermer</div>
+    </div>
+</div>
+
+<!-- <div class="ui large modal" id="fiche-dossiers-modal" style="max-height: fit-content;">
+    <div class="header">Fiche Dossier</div>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+    </button> Juste for test lorem
+    <table>
+        <tr>
+            <td>toctoc </td>
+            <td>
+                <img src="../../../content/coreUi/assets/img/logo.jpg" alt="logo-asmab" height="90" width="90" />
+            </td>
+        </tr>
+        <tr>
+            <td class="text-align-center bold font-size-x-large">FICHE D' IDENTIFICATION</td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+    caremm
+</div> -->
+<div>
+    <h4 *ngIf="ligneCredit">Comités de la ligne de credit {{ligneCredit.libelle}}</h4>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.creditComity.home.title">Credit Comities</span>
+        <button *jhiHasAnyRessources="'carmesfnmservice/api/credit-comities/createCreditComity'" class="btn btn-primary float-right create-credit-comity" [routerLink]="['/entity','credit-comity', { outlets: { popup: ['credit-comity-new'] } }]">
+            <span class="fa fa-plus"></span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+
+    <div class="row search-date">
+        <div class="col-sm-6"> </div>
+        <div class="field col-md-3">
+            <label for="date1" class="form-control-label">Du</label>
+            <ngbd-datepicker-i18n name="date1" [(ngModel)]="date1" (ngModelChange)="onPeriodChange()"></ngbd-datepicker-i18n>
+        </div>
+        <div class="field col-md-3">
+            <label for="date2" class="form-control-label">Au</label>
+            <ngbd-datepicker-i18n name="date2" [(ngModel)]="date2" (ngModelChange)="onPeriodChange()"></ngbd-datepicker-i18n>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.creditComity.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br />
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <th class="numerotab">N°</th>
+                    <th jhiSortBy="code">
+                        <span jhiFnmTranslate="sfdApp.creditComity.code">Code</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="libelle">
+                        <span jhiFnmTranslate="sfdApp.creditComity.libelle">Libelle</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="startDate">
+                        <span jhiFnmTranslate="sfdApp.creditComity.startDate">Start Date</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="endDate">
+                        <span jhiFnmTranslate="sfdApp.creditComity.endDate">End Date</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="typeValidation">
+                        <span>Validation</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="place">
+                        <span jhiFnmTranslate="sfdApp.creditComity.place">Place</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <!-- <th jhiSortBy="agenceId"><span jhiFnmTranslate="sfdApp.creditComity.agence">Agence</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="ligneAccorde">Ligne accordée</th>
+                    <th>Type</th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="creditComities;else elseBlock">
+                <tr *ngFor="let creditComity of creditComities | creditComityExpired: expired: ligneCredit ? false : true; let index = index;" [ngClass]='{current:currentComity == creditComity}'>
+                    <!--<tr *ngFor="let creditComity of creditComities |closed|recherche:currentSearch ;trackBy: trackId" [ngClass]='{current:currentComity == creditComity}'>-->
+                    <!-- <td><a [routerLink]="['/entity','credit-comity', creditComity.id ]">{{creditComity.id}}</a></td> -->
+                    <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>{{creditComity.code}}</td>
+                    <td>{{creditComity.libelle}}</td>
+                    <td>{{creditComity.startDate | date:'dd-MM-y'}}</td>
+                    <td>{{creditComity.endDate | date:'dd-MM-y'}}</td>
+                    <!-- <td>{{creditComity.nbrDossierAssigne}}</td> -->
+                    <td jhiFnmTranslate="{{'sfdApp.TypeValidation.' + creditComity.typeValidation}}">{{creditComity.typeValidation}}</td>
+                    <td>{{creditComity.place}}</td>
+                    <!-- <td>
+                        <div *ngIf="creditComity.agences">
+                            <a>{{agence(creditComity.agenceId)?.name}}</a>
+                        </div>
+                    </td> -->
+                    <td>
+                        <div>
+                            <a>{{creditComity.ligneAccorde?'Ligne de crédit accordée':'Ligne de crédit non accordeé'}}</a>
+                        </div>
+                    </td>
+                    <td>{{creditComity.typeComite}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button *jhiHasAnyRessources="'carmesfnmservice/api/credit-comities/getAllCreditComities'" type="submit" [routerLink]="['/entity','credit-comity', creditComity.id ]" class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                            </button>
+                            <span *ngIf="(!creditComity.dossierComplets && !creditComity.ligneAccorde) || expired">
+                                <button *jhiHasAnyRessources="'carmesfnmservice/api/credit-comities/updateCreditComity'" type="submit" [routerLink]="['/entity','credit-comity', { outlets: { popup: 'credit-comity/'+ creditComity.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                                    <span class="fa fa-pencil"></span>
+                            </button>
+                            </span>
+                            <span *ngIf="!creditComity.ligneAccorde  && !expired">
+                                <button *jhiHasAnyRessources="'carmesfnmservice/api/credit-comities/deleteCreditComity'" type="submit" [routerLink]="['/entity','credit-comity', { outlets: { popup: 'credit-comity/'+ creditComity.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                                    <span class="fa fa-remove"></span>
+                            </button>
+                            </span>
+                            <div class="ui dropdown">
+                                <div class="text" style="display:none"></div>
+                                <i class="ellipsis vertical icon"></i>
+                                <div class="left menu">
+                                    <div class="item" (click)="dossierComplet(creditComity)" *ngIf="!expired && !creditComity.ligneAccorde">{{creditComity.dossierComplets ? 'Reprendre l\'ajout de dossiers' : 'Arrêter l\'ajout de dossiers'}}</div>
+                                    <div class="item" (click)="showSynthseModal(creditComity.id)">Synthèse</div>
+
+                                    <div *ngIf="!expired && !creditComity.dossierComplets && jhiHasAnyRessources(['carmesfnmservice/api/dossiers/createDossier'])" class="item" [routerLink]="['/entity','dossier', {outlets: {popup: ['dossier-new']}}]" [queryParams]="{comity:creditComity.id}">Ajout de dossiers</div>
+
+                                    <div class="item" [routerLink]="['/entity','credit-comity',creditComity.id,'commity-dossiers']" [queryParams]="{creditComityLibelle: creditComity.libelle, dossierComplets: creditComity.dossierComplets}">Dossiers du comité</div>
+
+                                    <div *ngIf="!expired && creditComity.ligneAccorde && jhiHasAnyRessources(['carmesfnmservice/api/validations/getAllValidations'])" class="item" [routerLink]="['/entity','validation', {outlets: {popup: ['validation-new']}}]" [queryParams]="{comity:creditComity.id}">Validation</div>
+
+                                    <!-- <div *ngIf="!expired && !creditComity.dossierComplets" class="item">
+                                        <div [routerLink]="['/entity','dossier', {outlets: {popup: ['dossier-new']}}]" [queryParams]="{comity:creditComity.id}" *jhiHasAnyRessources="'carmesfnmservice/api/dossiers/createDossier'">Ajout de dossiers</div>
+                                    </div>
+                                    <div class="item" [routerLink]="['/entity','credit-comity',creditComity.id,'commity-dossiers']" [queryParams]="{creditComityLibelle:creditComity.libelle}">Dossiers du comité</div>
+                                    <div *ngIf="!expired && creditComity.ligneAccorde"  class="item">
+                                        <div [routerLink]="['/entity','validation', {outlets: {popup: ['validation-new']}}]" [queryParams]="{comity:creditComity.id}" *jhiHasAnyRessources="'carmesfnmservice/api/validations/getAllValidations'">Validation</div>
+                                    </div> -->
+                                    <div class="divider"></div>
+                                    <div class="item" [routerLink]="['/entity','credit-comity', { outlets: { popup: 'credit-comity/'+ creditComity.id + '/member'} }]" replaceUrl="true">
+                                        <!-- <i class="folder icon"></i>  -->Membres du comité</div>
+                                    <div class="item" [routerLink]="['/entity','disponibilite']" [queryParams]="{comity:creditComity.id}" *ngIf="!expired">
+                                        Disponibilité des membres</div>
+                                    <div class="item" [routerLink]="['/entity','credit-comity',  creditComity.id , 'pv-commity-dossier']">
+                                        Imprimer PV de pré-comité
+                                    </div>
+                                    <!--  <div class="item" [routerLink]="['/entity','credit-comity', { outlets: { printpopup:creditComity.id,'commity-dossiers'} }]">
+                                        <i class="print icon"></i> Imprimer les membres du comité</div>
+                                    <div class="item" [routerLink]="['/entity','credit-comity', { outlets: { printpopup:  creditComity.id , 'commity-dossiers'} }]">
+                                        <i class="print icon"></i> Imprimer les demandes du comité</div> 
+                          
+                                        <i class="print icon"></i> Imprimer les demandes du comité</div>-->
+                                    <a class="item" [href]="fileUrl + creditComity.documentUrl" target="_blank" *ngIf="creditComity.documentUrl">Voir le PV archivé</a>
+                                    <div class="item" (click)="associerLigne(creditComity)">Associer ligne crédit</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="creditComities && creditComities.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+    <!--<br><br>
+    <div *ngIf="currentComity" class="scroll">
+        <h3>
+            <span jhiFnmTranslate="sfdApp.creditComity.dossiers">Les dossiers du comité</span>
+            <button class="btn btn-primary float-right create-credit-comity" [routerLink]="['/entity','dossier', { outlets: { popup: ['dossier-new'] } }]"
+                [queryParams]="{comity:currentComity.id}">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.creditComity.home.createLabel">
+            Create new Credit Comity
+            </span>
+        </button>&nbsp;&nbsp;
+            <button class="float-right waves-effect waves-teal btn-flat" [routerLink]="['/entity','validation', { outlets: { popup: ['validation-new'] } }]"
+                [queryParams]="{comity:currentComity.id}">Validation</button>
+        </h3>
+        <div class="table-responsive">
+            <table class="bordered striped highlight">
+                <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                         <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                         <th jhiSortBy="code"><span jhiFnmTranslate="sfdApp.creditComity.code">Code</span> <span class="fa fa-sort"></span></th>
+                        <th><span>Reférence</span> </th>
+                        <th><span>Nom du client</span></th>
+                        <th><span>Montant</span></th>
+                        <th><span>Durée</span></th>
+                        <th><span>Objet de la demande</span></th>
+                        <th><span>La périodicité</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dossier of dossiers">
+                         <td><a [routerLink]="['/entity','credit-comity', creditComity.id ]">{{creditComity.id}}</a></td>
+                         <td>{{creditComity.code}}</td>
+                        <td>{{dossier?.reference}}</td>
+                        <td>{{dossier?.nom}}</td>
+                        <td>{{dossier?.amount}}</td>
+                        <td>{{dossier?.duration}}</td>
+                        <td>{{dossier?.objetCredit}}</td>
+                        <td>{{dossier?.lib_periodicite}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>-->
+</div>
+
+<div class="ui compact selection dropdown">
+    <i class="dropdown icon"></i>
+    <div class="text" (click)="toggleExpired()">
+        {{expired?'Voir les comités valides':'Voir les comités déja expirés'}}
+    </div>
+</div>

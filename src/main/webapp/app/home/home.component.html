@@ -1,0 +1,344 @@
+<ng-template #elseBlock>
+    <jhi-login-modal></jhi-login-modal>
+</ng-template>
+<div class="container">
+    <div class="animated fadeIn dashboard" *ngIf="principal.authenticated;else elseBlock" id="print">
+        <div class="row pt-20"></div>
+        <div class="row clearfix">
+            <div class="col-sm-12 col-xs-12  col-md-4">
+                <div class="info-box-header  bg-cyan" style="font-size: 18px; font-weight:600">
+                    <span class="">Nombre de Clients : {{getEffectif.nb_total}}</span>
+                </div>
+                <div class="" style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons text-cyan"> perm_identity</i>
+                        </div>
+                        <div class="content text-cyan d-flex align-items-center">
+                            <div class="text">
+                                <span><b> F : {{getEffectif.feminin}} </b> </span>
+                            </div>
+                            <div class="number count-to ml-auto"> M : {{getEffectif.masculin}} </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons text-cyan"> people</i>
+                        </div>
+                        <div class="content text-cyan d-flex align-items-center">
+                            <div class="text">
+                                <span> Groupes</span>
+                            </div>
+                            <div class="number count-to ml-auto" style="font-size:17px"> {{getEffectif.nb_groupe}}</div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons text-cyan">account_balance</i>
+                        </div>
+                        <div class="content text-cyan d-flex align-items-center">
+                            <div class="text">
+                                <span> Entreprises</span>
+                            </div>
+                            <div class="number count-to ml-auto" style="font-size:17px"> {{getEffectif.nb_entpse}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12  col-md-4">
+                <div class="info-box-header  bg-light-green" style="font-size: 18px; font-weight:600">
+                    <span class="">Nombre de Demandes : {{getEffectif.nb_request_total}}</span>
+                </div>
+                <div style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon " style="background-color: #f6f6f6">
+                            <i class="material-icons text-light-green">perm_identity</i>
+                        </div>
+                        <div class="content text-light-green d-flex align-items-center">
+                            <div class="text">
+                                <span> INDIVIDUS</span>
+                            </div>
+                            <div class="number count-to ml-auto"> {{getEffectif.nb_request_individu}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:-30px !important">
+                    <div class="info-box hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons text-light-green">people</i>
+                        </div>
+                        <div class="content text-light-green d-flex align-items-center">
+                            <div class="text">
+                                <span> GROUPES</span>
+                            </div>
+                            <div class="number count-to ml-auto"> {{getEffectif.nb_request_groupe}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:-30px !important">
+                    <div class="info-box hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons text-light-green">account_balance</i>
+                        </div>
+                        <div class="content text-light-green d-flex align-items-center">
+                            <div class="text">
+                                <span> ENTREPRISES</span>
+                            </div>
+                            <div class="number count-to ml-auto"> {{getEffectif.nb_request_entpse}} </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-4">
+                <div class="info-box-header  bg-cyan" style="font-size: 18px; font-weight:600">
+                    <span class="">Nombre de Credits : {{getEffectif.nb_credit_total}}</span>
+                </div>
+                <div class="" style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons text-cyan"> perm_identity</i>
+                        </div>
+                        <div class="content text-cyan d-flex align-items-center">
+                            <div class="text">
+                                <span> Individus </span>
+                            </div>
+                            <div class="number count-to ml-auto"> {{getEffectif.nb_credit_individu}} </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons text-cyan"> people</i>
+                        </div>
+                        <div class="content text-cyan d-flex align-items-center">
+                            <div class="text">
+                                <span> Groupes</span>
+                            </div>
+                            <div class="number count-to ml-auto" style="font-size:17px"> {{getEffectif.nb_credit_groupe}}</div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons text-cyan">account_balance</i>
+                        </div>
+                        <div class="content text-cyan d-flex align-items-center">
+                            <div class="text">
+                                <span> Entreprises</span>
+                            </div>
+                            <div class="number count-to ml-auto" style="font-size:17px"> {{getEffectif.nb_credit_entpse}}</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12 col-xs-12  col-md-4">
+                <div class="info-box-header  " style="font-size: 18px; font-weight:600; color:white; background-color: #699480 !important">
+                    <span class=""> Montants demandés : {{getEffectif.mont_request_total | number}}</span>
+                </div>
+                <div style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons" style="color: #699480  !important">perm_identity</i>
+                        </div>
+                        <div class="content d-flex align-items-center">
+                            <div class="text">
+                                <span>Individus</span>
+                            </div>
+                            <div class="number count-to ml-auto"> {{getEffectif.mont_request_individu | number}} </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon text-cyan" style="background-color: #f6f6f6">
+                            <i class="material-icons " style="color: #699480 !important">people</i>
+                        </div>
+                        <div class="content d-flex align-items-center">
+                            <div class="text">
+                                <span>Groupes</span>
+                            </div>
+                            <div class="number count-to ml-auto"> {{getEffectif.mont_request_groupe | number}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons " style="color: #699480 !important">account_balance</i>
+                        </div>
+                        <div class="content d-flex align-items-center">
+                            <div class="text">
+                                <span>Entreprises</span>
+                            </div>
+                            <div class="number count-to ml-auto"> {{getEffectif.mont_request_entpse | number}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-4">
+                <div class="info-box-header  bg-light-green" style="font-size: 18px; font-weight:600">
+                    <span class=""> Montant credits : {{getEffectif.mont_credit_total | number}}</span>
+                </div>
+                <div style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon " style="background-color: #f6f6f6">
+                            <i class="material-icons text-light-green">perm_identity</i>
+                        </div>
+                        <div class="content text-light-green d-flex align-items-center">
+                            <div class="text">
+                                <span> INDIVIDUS</span>
+                            </div>
+                            <div class="number count-to ml-auto"> {{getEffectif.mont_credit_individu | number}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:-30px !important">
+                    <div class="info-box hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons text-light-green">people</i>
+                        </div>
+                        <div class="content text-light-green d-flex align-items-center">
+                            <div class="text">
+                                <span> GROUPES</span>
+                            </div>
+                            <div class="number count-to ml-auto"> {{getEffectif.mont_credit_groupe | number}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:-30px !important">
+                    <div class="info-box hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons text-light-green">account_balance</i>
+                        </div>
+                        <div class="content text-light-green d-flex align-items-center">
+                            <div class="text">
+                                <span> ENTREPRISES</span>
+                            </div>
+                            <div class="number count-to ml-auto"> {{getEffectif.mont_credit_entpse | number}} </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12  col-md-4">
+                <div class="info-box-header  " style="font-size: 18px; font-weight:600; color:white; background-color: #699480 !important">
+                    <span class="">Montant remboursé : {{getEffectif.mont_regle_total | number}}</span>
+                </div>
+                <div style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons" style="color:#699480 !important">perm_identity</i>
+                        </div>
+                        <div class="content d-flex align-items-center">
+                            <div class="text">
+                                <span>Individus</span>
+                            </div>
+                            <div class="number count-to ml-auto"> {{getEffectif.mont_regle_individu | number}} </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon text-cyan" style="background-color: #f6f6f6">
+                            <i class="material-icons " style="color:#699480 !important">people</i>
+                        </div>
+                        <div class="content d-flex align-items-center">
+                            <div class="text">
+                                <span>Groupes</span>
+                            </div>
+                            <div class="number count-to ml-auto"> {{getEffectif.mont_regle_groupe | number}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons " style="color:#699480 !important">account_balance</i>
+                        </div>
+                        <div class="content d-flex align-items-center">
+                            <div class="text">
+                                <span>Entreprises</span>
+                            </div>
+                            <div class="number count-to ml-auto"> {{getEffectif.mont_regle_entpse | number}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12 col-xs-12  col-md-4"></div>
+            <div class="col-sm-12 col-xs-12  col-md-4">
+                <div class="info-box-header  bg-cyan" style="font-size: 18px; font-weight:600">
+                    <span class="">Taux Remboursement : {{getEffectif.taux_remb_total|number:'1.0-3':'fr'}}%</span>
+                </div>
+                <div class="" style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons text-cyan"> perm_identity</i>
+                        </div>
+                        <div class="content text-cyan d-flex align-items-center">
+                            <div class="text">
+                                <span> Individus </span>
+                            </div>
+                            <div class="number count-to ml-auto">{{getEffectif.taux_remb_individu|number:'1.0-3':'fr'}}% </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons text-cyan"> people</i>
+                        </div>
+                        <div class="content text-cyan d-flex align-items-center">
+                            <div class="text">
+                                <span> Groupes</span>
+                            </div>
+                            <div class="number count-to ml-auto" style="font-size:17px"> {{getEffectif.taux_remb_groupe|number:'1.0-3':'fr'}}%</div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="margin-top:-30px !important">
+                    <div class="info-box  hover-expand-effect">
+                        <div class="icon" style="background-color: #f6f6f6">
+                            <i class="material-icons text-cyan">account_balance</i>
+                        </div>
+                        <div class="content text-cyan d-flex align-items-center">
+                            <div class="text">
+                                <span> Entreprises</span>
+                            </div>
+                            <div class="number count-to ml-auto" style="font-size:17px"> {{getEffectif.taux_remb_entpse|number:'1.0-3':'fr'}}%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-sm-12 col-xs-12  col-md-4" [routerLink]="['/entity', 'client', 'liste-agent']" style="cursor: pointer;">
+                <div class="info-box-header  bg-light-green" style="font-size: 18px; font-weight:600">
+                    <span class="">Agents</span>
+                </div>
+                <div style="margin-top:-30px !important;">
+                    <div class="info-box  hover-expand-effect" style=" height: 170px;background-color: #f6f6f6">
+                        <div class="content text-light-green text-center" style="margin: auto;">
+                            <span class="number count-to" style="font-size:40px">{{getEffectif.nb_marchand}}</span>
+                            <span *ngIf="getEffectif.nb_marchand>1">Agents</span>
+                            <span *ngIf="getEffectif.nb_marchand<=1">Agent</span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,137 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "notificationSFD",
+            "otherEntityName": "notificationSFD",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "ligneCredit"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "credits",
+            "otherEntityName": "credit",
+            "otherEntityRelationshipName": "ligneCredit"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "phases",
+            "otherEntityName": "phase",
+            "otherEntityRelationshipName": "ligneCredit"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "revolvingRequests",
+            "otherEntityName": "revolvingRequest",
+            "otherEntityRelationshipName": "ligneCredit"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "echeancierSFD",
+            "otherEntityName": "echeancierSFD",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "ligneCredit"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "budget",
+            "otherEntityName": "budget",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "periodicity",
+            "otherEntityName": "periodicity",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "partner",
+            "otherEntityName": "partner",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "tauxSFDs",
+            "otherEntityName": "tauxSFD",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "ligneCredits"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "amount",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "libelle",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "duration",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "remboursement",
+            "fieldType": "Float"
+        }
+    ],
+    "changelogDate": "20170705215237",
+    "entityTableName": "cf_ligne_credit",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "microserviceName": "carmesfnmservice",
+    "searchEngine": "elasticsearch"
+}

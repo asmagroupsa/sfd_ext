@@ -1,0 +1,15 @@
+<div *ngIf="montant">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.caisseNouvelle.detail.title">Account Type</span> {{caisseNouvelle.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Solde de la caisse</span></dt>
+        <dd>
+            <span>{{montant.resultat}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+</div>

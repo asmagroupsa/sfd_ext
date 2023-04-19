@@ -1,0 +1,32 @@
+{
+    "sfdApp": {
+        "clotureBudget" : {
+            "home": {
+                "title": "ClotureBudgets",
+                "createLabel": "Créer un nouvelle Cloture Budget",
+                "createOrEditLabel": "Editer une Cloture Budget",
+                "search": "Rechercher une Cloture Budget"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Cloture Budget {{ id }} ?"
+            },
+            "detail": {
+                "title": "Cloture Budget"
+            },
+            "clotureDate": "Date Cloture",
+            "createdDate": "Date Création",
+            "createdBy": "Créé Par",
+            "lastModifiedBy": "Modifié Dernièrement Par",
+            "lastModifiedDate": "Date Dernière Modification",
+            "budget": "Budget",
+            "strategieCloture": "Strategie De Clôture"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "clotureBudget" : {
+            "created": "Une nouvelle Clôture Budget a été créé ",
+            "updated": "La Clôture Budget  a été mise à jour",
+            "deleted": "La Clôture Budget  a été supprimée"
+        }
+    }
+}

@@ -1,0 +1,253 @@
+<div class="ui dimmer" [ngClass]="{'active':!endLoad}">
+    <div class="ui loader"></div>
+</div>
+
+<div style="margin: auto;" class="container" *ngIf="endLoad">
+    <div id="print" #printZone style="display: inline-block; background-color: white; font-family: 'Times New Roman', Times, serif; margin: auto 100px; font-size: medium;"
+        class="browser-default">
+        <div class="print-header">
+            <span style="text-align:justify" *ngIf="_DePage.entete != null ;else elseBlock">
+                <img [src]="imageUrl+_DePage.entete" alt="entete de page">
+            </span>
+            <ng-template #elseBlock>
+                <img src="../../../content/images/header.jpg" alt="logo">
+            </ng-template>
+        </div>
+        <div class="wrapper">
+            <p class="page-break"></p>
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        <h1 class="text-align-center bold font-size-x-large" style="color:gray; ">CONTRAT DE PRET</h1>
+                    </td>
+                </tr>
+            </table>
+            <table class="table" style=" text-align:justify">
+                <tr style="text-align:justify">
+                    
+                    <td>
+                        <div>
+                            <span style="font-weight:bold">ENTRE</span>
+                            <br><br>
+
+                            <span style="text-align:justify"> <span style="font-weight:bold"> {{sfdName}} </span>
+                                 régie par la loi du 1er juillet 1901, enregistrée sous le n° ............................................................, immatriculée
+                                à l’INSAE sous le n° .......................... agréée sous les numéros ........................................................., dont
+                                le siège est à Cotonou, carré N° .........., quartier .............., BP ............ Cotonou, représentée par le Président de son Conseil
+                                d’Administration, Monsieur ..........................., demeurant et domicilié ès qualité audit siège, de nationalité béninoise, dénommée
+                                ci-après « le Prêteur »,
+                            </span>
+
+                            <br>
+                            <span> D’UNE PART,</span>
+                            <br>
+
+                            <br>
+                            <span style="text-align:justify">
+                                 Mr/Mme {{data.name}}, Agent marchant du Microcrédit Mobile (MCM), de nationalité ................., demeurant et domicilié au lieudit
+                                au ............................................... ................., Maison ..................................., Commune
+                                de .........................................., Tél. ............................, dénommée ci-après <span style="font-weight:bold">"l'Emprunteur"</span>. Ci-dessous
+                                individuellement désigné "Partie", et collectivement "Parties",
+                            </span>
+
+                        </div>
+                        <br>
+                        <br>
+                        <p>
+                            <span>D’AUTRE PART, </span>
+                           
+                            <br>
+                            <span>IL A ETE CONVENU CE QUI SUIT:</span>
+                        </p>
+                        <div style="text-align:justify">
+                            <span>EXPOSE DES MOTIFS</span>
+                            <br>
+                            <span><span style="font-weight:bold">{{sfdName}}</span>, et l’emprunteur sont en relation d’affaires. Dans ce cadre, et conformément aux
+                                conditions objet des présentes, <span style="font-weight:bold">{{sfdName}}</span> accorde à l’Emprunteur sur les ressources de
+                                FNM, un prêt dont les caractéristiques présentent comme suit :
+                            </span>
+                            <br>
+
+                            <br>
+                            <span>La présente convention de cautionnement s’articule autour des dispositions ci-après:</span>
+                            <br>
+                            <br>
+                            <span>Article 1: Montant du prêt et durée</span>
+                            <br>
+                            <span>
+                                <span style="font-weight:bold"> *Montant </span>
+                                <br> Il est alloué à l'Emprunteur, un prêt d'un montant de :
+                                <br>
+                                <span style="font-weight:bold" class="pl-2"> - Nominal :</span> ........................................................................... ({{data.nominal}}) FCFA
+                                <br>
+                                <span style="font-weight:bold" class="pl-2"> - Intérêts :</span> {{data.taux_interet}}% l’an, soit ....................................................................
+                                {{data.interet}} FCFA.
+                                <br>
+                                <span style="font-weight:bold" class="pl-2"> - Total dû :</span> {{amountTotal}} Francs CFA.
+                                
+                                <br>
+                                <span style="font-weight:bold"> * Durée :</span> 
+                                <br> Le présent crédit est consenti pour une durée de deux (02) ans, remboursable par échéances
+                                mensuelles.
+                            </span>
+
+                            <br>
+                            <!-- <div style="height: 200px;"></div> -->
+                            <p class="page-break"></p>
+
+                            <span style="font-weight:bold">Article 2 : Objet du prêt</span>
+                            <br>
+                            <span>
+                                Le présent crédit est destiné à l’achat de l’équipement de travail qui est le Terminal de Paiement Electronique (TPE).
+                            </span>
+                            <br>
+                            <br>
+
+                            <span style="font-weight:bold">Article 3 : Engagement </span>
+                            <br>
+                            <span>
+                                L’Emprunteur s’engage à rembourser le prêt en capital, intérêts et accessoires le jour de l’échéance, chacune des vingt-quatre
+                                (24) fractions mensuelles d’un montant de douze mille cinq cent (12.500) Francs CFA. Les
+                                paiements se font dans le système de façon automatique sur le compte CARMES ouvert à cet
+                                effet à {{sfdName}}. L’emprunteur remboursera le crédit conformément à l’échéancier qui lui
+                                sera remis par le prêteur et qui fait partie intégrante du présent contrat. Si le paiement
+                                d’une échéance due, en vertu du contrat, doit être effectué à une date qui n’est pas celle
+                                d’un jour ou d’une demi- journée ouvrée, le paiement devrait avoir lieu le premier jour ouvrable
+                                suivant. L’emprunteur s’engage à respecter l’objet du prêt indiqué à l’article 2. Le non-respect
+                                de cet engagement expose l’emprunteur à des poursuites judiciaires ou à toute autre sanction
+                                à l’appréciation du prêteur.
+                            </span>
+
+                            <br>
+                            <br>
+
+                            <span style="font-weight:bold"> Article 4 : Exigibilité de remboursement</span>
+                            <br>
+                            <span>
+                                Les sommes prêtées sont intégralement et immédiatement exigibles, en cas de :
+                                <br> · Non-conformité de l’utilisation à l’objet du financement.
+                                <br> · Non-respect par l’Emprunteur de l’un des engagements par lui contractés
+                                <br> · Si une déclaration faite par écrit par l’Emprunteur ou tout engagement, attestation ou
+                                document signé par l’Emprunteur ou fourni en application du présent contrat se révèle volontairement
+                                inexact.
+                            </span>
+                            <br>
+                            <!-- <span> -->
+
+                            <br>
+                            <br>
+
+
+                            <span style="font-weight:bold"> Article 5 : Remboursement par anticipation.</span>
+                            <br>
+                            <span>
+                                L’emprunteur a la faculté de rembourser par anticipation ledit prêt, à charge d’en prévenir le prêteur au moins quinze (15)
+                                jour à l’avance.
+                                <br> Il est expressément convenu entre les parties que le prêteur qu’une indemnité dont le montant
+                                équivaut à deux pourcent (2%) du capital remboursé par anticipation sera exigée de l’emprunteur
+                                au profit du prêteur, et que ce dernier bénéficiera d’une rétrocession d’intérêts perçus
+                                en trop.
+                                <br> Le prêteur cèdera à l’emprunteur l’équipement acheté à la fin du remboursement dudit crédit.
+                            </span>
+                            <br>
+
+
+                            <p class="page-break"></p>
+
+
+                            <span style="font-weight:bold">
+                                <br>
+                                <br> Article 6 : Frais et accessoires
+                            </span>
+                            <br>
+                            <span>
+                                Tous les frais relatifs à la présente convention sont à la charge de l’Emprunteur qu’il s’oblige à leur paiement avant la
+                                mise en place ou le déblocage du crédit.
+                                <br> Tous les frais de justice et de contentieux ou d’actes d’huissier qu’engendrait le non-respect
+                                des engagements pris par l’Emprunteur, lui seront imputés.
+                            </span>
+
+                            <br><br><br>
+                            <span style="font-weight:bold"> Article 7 : Election de domicile</span>
+                            <br>
+                            <span>
+                                Les parties conviennent d’élire domicile aux adresses ci-dessus énoncées.
+                                <br>
+                            </span>
+
+
+
+                            <br>
+                            <span style="font-weight:bold"> Article 8 : Règlement des litiges </span>
+                            <br>
+                            <span>
+                                Le Prêteur et l’Emprunteur s’engagent à régler à l’amiable, tout naître de la mise en différend pouvant application du présent
+                                contrat de prêt; En cas d’échec, la juridiction compétente sera habilitée à connaitre des
+                                faits.
+                                <br>
+                            </span>
+
+
+
+
+                            <br>
+                            <span style="font-weight:bold"> Article 9 : Entrée en vigueur </span>
+                            <br>
+                            <span>
+                                Le présent contrat de prêt entre en vigueur dès sa signature.Les parties conviennent d’élire domicile aux adresses ci-dessus
+                                énoncées.
+                                <br>
+                            </span>
+                            <br>
+                            <br>
+                          
+
+                            <br>
+                            <p>Fait à ............................................ en Trois (03) Exemplaires Originaux, le {{todayDate| date:'mediumDate'}}</p>
+                            <br>
+                            <br>
+                            <br>
+                     </div>
+                    </td>
+                </tr>
+            </table>
+            <br>
+               <!--  <span> Pour {{sfdName}} Microfinance</span>
+                <span style="float:right">L'Emprunteur (Lu et Approuvé)</span>
+                <br> -->
+
+                <table class=" ">
+                    <tr width=100>
+                        <td style="width: 43%;">Pour {{sfdName}}</td>
+                        <td style="width: 25%">
+                            <img #qrimage src="" alt="some code" width="100px">
+                        </td>
+                        <td style="text-align:end">
+                            <span>L'Emprunteur</span>
+                            <span>(Lu et approuvé)</span>
+                            <br> {{data.name}}
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <span>...............................................</span>
+                <span style="float:right">........................................................</span>
+
+            </div>
+
+            <div class="print-footer">
+                <!-- Page: -->
+                <span style="text-align:justify" *ngIf="_DePage.piedPage != null ;else elseBlock2">
+                    <img [src]="imageUrl+_DePage.piedPage" alt="pied de page" width="100%" height="50">
+                </span>
+                <ng-template #elseBlock2>
+                    <img src="../../../content/images/footer.jpg" alt="logo" width="100%" height="50">
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+    <button class="btn-floating btn-large waves-effect waves-light red" style="position: fixed; bottom: 25px; right: 25px;" (click)="printAsPdf('print')">
+        <i class="material-icons">Impr.</i>
+    </button>

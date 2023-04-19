@@ -1,0 +1,244 @@
+
+<div class="ui dimmer" [ngClass]="{'active':!hideLoader}">
+    <div class="ui loader"></div>
+</div>
+<div class="container" [hidden]="!hideLoader" >
+<iframe id="releve" width="100%" height="600" title="fiche d'identification" style="width:100%;min-height:600px" #printZone></iframe>
+</div>
+<!-- <div class="container" *ngIf="hideLoader" >
+    <div id="print" #printZone  class="col-md-12" >
+        <div class="print-header">
+            <span style="text-align:justify" *ngIf="_DePage.entete !== null ;else elseBlock">
+                <img [src]="imageUrl+_DePage.entete" alt="entete de page">
+            </span>
+            <ng-template #elseBlock>
+                <img src="../../../content/images/header.jpg" alt="logo">
+            </ng-template>
+           
+        </div>
+       
+        <div class="p-wrapper">
+                <p class="page-break">
+                    <span class="elm"></span>
+                </p>
+            
+            <div class="row top-space">
+                <div class="col-md-12">
+                    <table class="table table-bordered bx-sizing">
+                        <tbody>
+                            <tr class="bx-shadow">
+                                <td class="text-align-center bold font-size-x-large" style="color:gray; "> FICHE D'IDENTIFICATION </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="section-header bold style">Information sur le client</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="">
+                        <tr>
+                            <td style="width:100%">
+                                <table class="table table-bordered">
+                                    <tr>
+                                    </tr>
+                                    <tr>
+                                        <td>Nom Client: {{fiche.nomduclient}}</td>
+                                        <td colspan="2">Prénoms: {{fiche.prenomsduclient}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Date de Naissance: {{fiche.datedenaissance | date:'dd-MM-y'}}</td>
+                                        <td colspan="2">Lieu de Naissance : {{fiche.lieudenaissance}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Sexe: {{fiche.sexe}}</td>
+                                        <td colspan="2">Ville: {{fiche.ville}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Tél: {{fiche.tel}}</td>
+                                        <td>N. CNI/Passport: {{fiche.ncnipassport}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">Adresse: {{fiche.adresseBP}}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+
+                                <img [src]="fiche.picture_url" alt="" width="70" height="70">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="section-header bold"> Information sur le(la) conjointe</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Nom conjoint(e): {{fiche.nomconjoint}}
+                                </td>
+                                <td>
+                                    Prénom conjoint(e):
+                                </td>
+                                <td>
+                                    {{fiche.prenomsconjoint}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Profession : {{fiche.profession}}
+                                </td>
+                                <td>
+                                    Num Tél: {{fiche.ntel}}
+                                </td>
+                                <td>
+                                    adresse: {{fiche.adresse}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="section-header bold">Information sur l'entreprise</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Raison Social: {{fiche.raisonsocial}}
+                                </td>
+                                <td>
+                                    Prénom usuel du client : {{fiche.prenomusuelduclient}}
+                                </td>
+                                <td>
+                                    Adresse du siège: {{fiche["adresse_siège"]}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Lieu d'établissement :{{fiche.lieudetablissement}}
+                                </td>
+                                <td>
+                                    Titre: {{fiche.titre}}
+                                </td>
+                                <td>
+                                    Num RCCM :{{fiche.nrccm}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Banque :{{fiche.banque}}
+                                </td>
+                                <td colspan="3">
+                                    Num compte Bancaire: {{fiche.ndecomptebancaire}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+            <p class="page-break">
+                <span class="elm"></span>
+            </p>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="section-header bold"> Cautionnement Solidaire</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Nom Caution:{{fiche.nomcaution}}
+                                </td>
+                                <td>
+                                    Titre Caution: {{fiche.titrecaution}}
+                                </td>
+                                <td>
+                                    Num RCCM Caution : {{fiche.nrccmcaution}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Raison Sociale : {{fiche.raisonsocialcaution}}
+                                </td>
+                                <td>
+                                    Adresse Siège :{{adressesiege}}
+                                </td>
+                                <td>
+                                    Adresse succursal: {{fiche.adressesuccursal}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Valeur de la Boutique : {{fiche.valeurdelaboutique}}
+                                </td>
+                                <td colspan="2">
+                                    Articles vendus : {{fiche.articlesvendus}}
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td colspan="2">
+                                    Valeur totale des marchandises : {{fiche.valeurtotaledesmarchandises}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+      
+        </div>
+        <div class="print-footer">
+           
+            <span style="text-align:justify" *ngIf="_DePage.piedPage != null ;else elseBlock2">
+                <img [src]="imageUrl+_DePage.piedPage" alt="pied de page" width="100%" height="50">
+            </span>
+            <ng-template #elseBlock2>
+                <img src="../../../content/images/footer.jpg" alt="logo" width="100%" height="50">
+            </ng-template>
+        </div>
+    </div>
+    <div class="" style="height:400px"></div>
+</div> -->
+<!-- <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe> -->
+<!-- <a  class="btn-floating btn-large waves-effect waves-light red" style="position: fixed; bottom: 25px; right: 25px;" (click)="printAsPdf('print')">
+    <i class="material-icons">print</i>
+</a> -->

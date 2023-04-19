@@ -1,0 +1,47 @@
+<div *ngIf="trancheTauxFrais">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.trancheTauxFrais.detail.title">Tranche Taux Frais</span> {{trancheTauxFrais.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.trancheTauxFrais.minInterval">Min Interval</span></dt>
+        <dd>
+            <span>{{trancheTauxFrais.minInterval}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.trancheTauxFrais.maxInterval">Max Interval</span></dt>
+        <dd>
+            <span>{{trancheTauxFrais.maxInterval}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.trancheTauxFrais.valeur">Valeur</span></dt>
+        <dd>
+            <span>{{trancheTauxFrais.valeur}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.trancheTauxFrais.type">Type</span></dt>
+        <dd>
+            <span jhiFnmTranslate="{{'carmesfnmserviceApp.TauxFraisType.' + trancheTauxFrais.type}}">{{trancheTauxFrais.type}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.trancheTauxFrais.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{trancheTauxFrais.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.trancheTauxFrais.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{trancheTauxFrais.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.trancheTauxFrais.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{trancheTauxFrais.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.trancheTauxFrais.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{trancheTauxFrais.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','tranche-taux-frais', { outlets: { popup: 'tranche-taux-frais/'+ trancheTauxFrais.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

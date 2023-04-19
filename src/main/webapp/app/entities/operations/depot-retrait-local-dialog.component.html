@@ -1,0 +1,84 @@
+<form name="form" role="form" novalidate (ngSubmit)="save()" #form="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title">
+            <span>Dépot</span>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div *ngIf="save_">
+            <h4>Nom: {{c?.client?.name}}</h4>
+            <h4 *ngIf="c?.client?.firstName">Prénom: {{c?.client?.firstName}}</h4>
+        </div>
+        <br>
+        <div class="ui accordion">
+            <div class="title">
+                <i class="dropdown icon"></i>
+                <span>Recherche par nom du client</span>
+            </div>
+            <div class="input-field">
+                <label class="form-control-label oblige" for="name">Nom & Prenoms du client</label>
+                <input type="text" class="form-control" name="name" id="name" required (input)="onNameBlur($event.target.value)">
+            </div>
+            <table class="bordered striped highlight">
+                <thead>
+                    <tr>
+                        <th>Compte</th>
+                        <th>Nom & Prenoms</th>
+                        <th>Telephone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let c of cs"  (click)="model.compteClient = c.num_account; r = true">
+                        <td>{{c.num_account}}</td>
+                        <td>{{c.name}}</td>
+                        <td>{{c.telephone}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <div class="form-check">
+            <p>
+                <input type="radio" class="filled-in" id="d" [(ngModel)]="o" name="o" value="depot">
+                <label for="d">Depot</label>
+                <input type="radio" class="filled-in" id="r" [(ngModel)]="o" name="o" value="retrait">
+                <label for="r">Retrait</label>
+            </p>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label oblige active" for="compteClient">Compte Client</label>
+            <input type="text" class="form-control" name="compteClient" id="compteClient" [(ngModel)]="model.compteClient" required (input)="save_ = false; r = false">
+            <div [hidden]="!(form.controls.compteClient?.dirty && form.controls.compteClient?.invalid)">
+                <small class="form-text text-danger" [hidden]="!form.controls.compteClient?.errors?.required" jhiFnmTranslate="entity.validation.required">This field is required.</small>
+                <small class="form-text text-danger" [hidden]="!form.controls.compteClient?.errors?.pattern">Compte CLient incorect.</small>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="save_ || r">
+            <label class="form-control-label oblige" for="amount">Montant</label>
+            <input type="text" class="form-control" name="amount" id="amount" [ngModel]="modelMontant" required (formatNumberMyMiller)="model.montant = $event"
+            />
+            <div [hidden]="!(form.controls.amount?.dirty && form.controls.amount?.invalid)">
+                <small class="form-text text-danger" [hidden]="!form.controls.amount?.errors?.required" jhiFnmTranslate="entity.validation.required">This field is required.</small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="ui inline loader" [ngClass]="{active: loading.save}"></div>
+        <span>&nbsp;&nbsp;&nbsp;</span>
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <span>&nbsp;&nbsp;&nbsp;</span>
+        <button type="button" class="waves-effect waves-teal btn-flat" (click)="infoClient()" [disabled]="loading.save">
+            <span>Infos Client</span>
+        </button>
+        <span>&nbsp;&nbsp;&nbsp;</span>
+        <button *ngIf="save_ || r" type="submit" class="btn waves-effect waves-light" [disabled]="form.form.invalid || loading.save">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

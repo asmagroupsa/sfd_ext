@@ -1,0 +1,35 @@
+<div *ngIf="typeGarantie">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.typeGarantie.detail.title">Type Garantie</span> {{typeGarantie.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.typeGarantie.name">Name</span></dt>
+        <dd>
+            <span>{{typeGarantie.name}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.typeGarantie.code">Code</span></dt>
+        <dd>
+            <span>{{typeGarantie.code}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.typeGarantie.conditionGaranties">Condition Garanties</span></dt>
+        <dd>
+            <span *ngFor="let conditionGaranties of typeGarantie.conditionGaranties; let last = last">
+                <a [routerLink]="['/entity','condition-garantie', conditionGaranties?.id ]">{{conditionGaranties.id}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.typeGarantie.garantie">Garantie</span></dt>
+        <dd>
+            <div *ngIf="typeGarantie.garantieId">
+                <a [routerLink]="['/entity','garantie', typeGarantie.garantieId]">{{typeGarantie.garantieId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','type-garantie', { outlets: { popup: 'type-garantie/'+ typeGarantie.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary" *jhiHasAnyRessources="['carmesfnmservice/api/condition-garanties/updateConditionGarantie']">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

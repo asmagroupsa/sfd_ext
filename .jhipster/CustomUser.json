@@ -1,0 +1,45 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "agenceReference",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "sfdReference",
+            "fieldType": "String"
+        }
+        ,
+        {
+            "fieldName": "zoneReference",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "connecter",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170928154348",
+    "entityTableName": "cf_custom_user",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "searchEngine": "elasticsearch"
+}

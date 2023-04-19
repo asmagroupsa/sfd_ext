@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "fundingRequestType" : {
+            "home": {
+                "title": "FundingRequestTypes",
+                "createLabel": "Créer un nouveau type de financement",
+                "createOrEditLabel": "Editer un type de financement",
+                "search": "Recherche un type de financement"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le type de financement {{ id }} ?"
+            },
+            "detail": {
+                "title": "type de financement"
+            },
+            "name": "Nom",
+            "code": "Code",
+            "fundingRequests": "financement"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "fundingRequestType" : {
+            "created": "Un nouveau type de financement a été créé ",
+            "updated": "Le type de financement  a été mis à jour",
+            "deleted": "Le type de financement  a été supprimé"
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "sfdApp": {
+        "annee" : {
+            "home": {
+                "title": "Annees",
+                "createLabel": "Créer Une Nouvelle Annee",
+                "createOrEditLabel": "Editer Une Annee",
+                "search": "Recherche Une Annee"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer l'Annee {{ id }} ?"
+            },
+            "detail": {
+                "title": "Annee"
+            },
+            "name": "Nom",
+            "createdDate": "Date Création",
+            "createdBy": "Créée Par",
+            "lastModifiedBy": "Modifiée Dernièrement Par",
+            "lastModifiedDate": "Date Dernière Modification",
+            "budgets": "Budgets"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "annee" : {
+            "created": "Une nouvelle Annee a été créé ",
+            "updated": "L'Annee  a été mise à jour",
+            "deleted": "L'Annee  a été supprimée"
+        }
+    }
+}

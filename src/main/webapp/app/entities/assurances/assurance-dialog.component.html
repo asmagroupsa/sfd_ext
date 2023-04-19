@@ -1,0 +1,595 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h3 class="modal-title" id="myAddressLabel">Ajout des informations complémentaire d'assurance</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="input-field">
+            <label class="form-control-label active" for="field_home">Nom & Prénom Père</label>
+            <input type="text" class="form-control" name="nomPere" id="field_home" [(ngModel)]="InfosPere.nomPrenom"
+                required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div *ngIf="InfosPere.nomPrenom">
+            <div class="input-field">
+                <div class="form-group">
+                    <label class="form-control-label oblige" for="field_birthDate">Date de naissance père</label>
+                    <ngbd-datepicker-i18n [(ngModel)]="InfosPere.dateNaissance" name="birthDatepere" required="true"
+                        [minDate]="minDate" [maxDate]="maxDate"></ngbd-datepicker-i18n>
+                </div>
+            </div>
+
+            <div class="input-field">
+                <label class="form-control-label oblige active" for="field_phone">Téléphone Ex: 0022911223344/00229 11
+                    22 33 44</label>
+                <input type="text" class="form-control" name="phonepere" id="field_phone" [(ngModel)]="InfosPere.tel"
+                    pattern="^(00[1-9][0-9]{0,2})?[ ]?([0-9]{2}[- ]?){3}[0-9]{2}$" />
+                <div [hidden]="!(editForm.controls.phone?.dirty && (editForm.controls.phone?.invalid))">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.pattern">
+                        Le numéro de téléphone n'est pas correct
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required"
+                        jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+
+            <!-- <div class="input-field">
+                <label class="form-control-label active oblige" for="field_home">Téléphone</label>
+                <input type="text" class="form-control" name="nom" id="field_home" [(ngModel)]="InfosPere.tel" required
+                    maxlength="100" data-length="100" />
+                <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                        jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                        jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                        This field cannot be longer than 100 characters.
+                    </small>
+                </div>
+            </div> -->
+
+            <div class="input-field">
+                <label class="form-control-label active oblige" for="field_home">Adresse Père</label>
+                <input type="text" class="form-control" name="adresspere" id="field_home"
+                    [(ngModel)]="InfosPere.adresse" required maxlength="100" data-length="100" />
+                <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                        jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                        jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                        This field cannot be longer than 100 characters.
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+        <div class="input-field">
+            <label class="form-control-label active oblige" for="field_home">Nom & Prénom Mère</label>
+            <input type="text" class="form-control" name="nommere" id="field_home" [(ngModel)]="InfosMere.nomPrenom"
+                required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div *ngIf="InfosMere.nomPrenom">
+            <div class="input-field">
+                <div class="form-group">
+                    <label class="form-control-label oblige" for="field_birthDate">Date de naissance Mère</label>
+                    <ngbd-datepicker-i18n [(ngModel)]="InfosMere.dateNaissance" name="birthDatemere" required="true"
+                        [minDate]="minDate" [maxDate]="maxDate"></ngbd-datepicker-i18n>
+                </div>
+            </div>
+
+            <div class="input-field">
+                <label class="form-control-label oblige active" for="field_phone">Téléphone Ex: 0022911223344/00229 11
+                    22 33 44</label>
+                <input type="text" class="form-control" name="phonemere" id="field_phone" [(ngModel)]="InfosMere.tel"
+                    required pattern="^(00[1-9][0-9]{0,2})?[ ]?([0-9]{2}[- ]?){3}[0-9]{2}$" />
+                <div [hidden]="!(editForm.controls.phone?.dirty && (editForm.controls.phone?.invalid))">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.pattern">
+                        Le numéro de téléphone n'est pas correct
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required"
+                        jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="input-field">
+                    <label class="form-control-label active oblige" for="field_home">Adresse Mère</label>
+                    <input type="text" class="form-control" name="nommere" id="field_home"
+                        [(ngModel)]="InfosMere.adresse" required maxlength="100" data-length="100" />
+                    <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                            jhiFnmTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                            jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                            This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+
+        <!--  -->
+
+        <div class="input-field">
+            <label class="form-control-label active oblige" for="field_home">Nom & Prénom du conjoint(e)</label>
+            <input type="text" class="form-control" name="nomconjoint" id="field_home"
+                [(ngModel)]="InfosConjoint.nomPrenom" required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div *ngIf="InfosConjoint.nomPrenom">
+            <div class="input-field">
+                <div class="form-group">
+                    <label class="form-control-label oblige" for="field_birthDate">Date de naissance conjoint(e)
+                    </label>
+                    <ngbd-datepicker-i18n [(ngModel)]="InfosConjoint.dateNaissance" name="birthDateconjoint"
+                        required="true" [minDate]="minDate" [maxDate]="maxDate"></ngbd-datepicker-i18n>
+                </div>
+            </div>
+
+            <div class="input-field">
+                <label class="form-control-label oblige active" for="field_phone">Téléphone Ex: 0022911223344/00229 11
+                    22 33 44</label>
+                <input type="text" class="form-control" name="phoneconjoint" id="field_phone"
+                    [(ngModel)]="InfosConjoint.tel" required
+                    pattern="^(00[1-9][0-9]{0,2})?[ ]?([0-9]{2}[- ]?){3}[0-9]{2}$" />
+                <div [hidden]="!(editForm.controls.phone?.dirty && (editForm.controls.phone?.invalid))">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.pattern">
+                        Le numéro de téléphone n'est pas correct
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required"
+                        jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="input-field">
+                    <label class="form-control-label active oblige" for="field_home">Adresse conjoint</label>
+                    <input type="text" class="form-control" name="adressconjoint" id="field_home"
+                        [(ngModel)]="InfosConjoint.adresse" required maxlength="100" data-length="100" />
+                    <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                            jhiFnmTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                            jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                            This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+        <!--  -->
+
+        <div class="input-field">
+            <label class="form-control-label active oblige" for="field_home">Nom & Prénom du Père conjoint(e)</label>
+            <input type="text" class="form-control" name="nompereconjoint" id="field_home"
+                [(ngModel)]="InfosPereConjoint.nomPrenom" required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div *ngIf="InfosPereConjoint.nomPrenom">
+            <div class="input-field">
+                <div class="form-group">
+                    <label class="form-control-label oblige" for="field_birthDate">Date de naissance du Père Conjoint(e)
+                    </label>
+                    <ngbd-datepicker-i18n [(ngModel)]="InfosPereConjoint.dateNaissance" name="birthDatepereconjoint"
+                        required="true" [minDate]="minDate" [maxDate]="maxDate"></ngbd-datepicker-i18n>
+                </div>
+            </div>
+
+            <div class="input-field">
+                <label class="form-control-label oblige active" for="field_phone">Téléphone Ex: 0022911223344/00229 11
+                    22 33 44</label>
+                <input type="text" class="form-control" name="phonepereconjoint" id="field_home"
+                    [(ngModel)]="InfosPereConjoint.tel" required
+                    pattern="^(00[1-9][0-9]{0,2})?[ ]?([0-9]{2}[- ]?){3}[0-9]{2}$" />
+                <div [hidden]="!(editForm.controls.phone?.dirty && (editForm.controls.phone?.invalid))">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.pattern">
+                        Le numéro de téléphone n'est pas correct
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required"
+                        jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="input-field">
+                    <label class="form-control-label active oblige" for="field_home">Adresse du Père Conjoint(e)</label>
+                    <input type="text" class="form-control" name="adresspereconjoint" id="field_home"
+                        [(ngModel)]="InfosPereConjoint.adresse" required maxlength="100" data-length="100" />
+                    <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                            jhiFnmTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                            jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                            This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+        <!--  -->
+
+        <div class="input-field">
+            <label class="form-control-label active oblige" for="field_home">Nom & Prénom Mère du conjoint(e)</label>
+            <input type="text" class="form-control" name="nommereconjoint" id="field_home"
+                [(ngModel)]="InfosMereconjoint.nomPrenom" required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div *ngIf="InfosMereconjoint.nomPrenom">
+            <div class="input-field">
+                <div class="form-group">
+                    <label class="form-control-label oblige" for="field_birthDate">Date de naissance Mère du
+                        conjoint(e)</label>
+                    <ngbd-datepicker-i18n [(ngModel)]="InfosMereconjoint.dateNaissance" name="birthDatemerconjoint"
+                        required="true" [minDate]="minDate" [maxDate]="maxDate"></ngbd-datepicker-i18n>
+                </div>
+            </div>
+
+            <div class="input-field">
+                <label class="form-control-label oblige active" for="field_phone">Téléphone Ex: 0022911223344/00229 11
+                    22 33 44</label>
+                <input type="text" class="form-control" name="phonemereconjoint" id="field_home"
+                    [(ngModel)]="InfosMereconjoint.tel" required
+                    pattern="^(00[1-9][0-9]{0,2})?[ ]?([0-9]{2}[- ]?){3}[0-9]{2}$" />
+                <div [hidden]="!(editForm.controls.phone?.dirty && (editForm.controls.phone?.invalid))">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.pattern">
+                        Le numéro de téléphone n'est pas correct
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required"
+                        jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+
+                <div class="input-field">
+                    <label class="form-control-label active oblige" for="field_home">Adresse Mère du conjoint(e)</label>
+                    <input type="text" class="form-control" name="adressemereconjoint" id="field_home"
+                        [(ngModel)]="InfosMereconjoint.adresse" required maxlength="100" data-length="100" />
+                    <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                            jhiFnmTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                            jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                            This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+        <!--  -->
+
+        <div class="input-field">
+            <label class="form-control-label active oblige" for="field_home">Nom & Prénom Enfant 1</label>
+            <input type="text" class="form-control" name="nomenfant1" id="field_home"
+                [(ngModel)]="InfosEnfant1.nomPrenom" required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div *ngIf="InfosEnfant1.nomPrenom">
+            <div class="input-field">
+                <div class="form-group">
+                    <label class="form-control-label oblige" for="field_birthDate">Date de naissance Enfant 1</label>
+                    <ngbd-datepicker-i18n [(ngModel)]="InfosEnfant1.dateNaissance" name="birthDateenfant1" required="true"
+                        [minDate]="minDate" [maxDate]="maxDate"></ngbd-datepicker-i18n>
+                </div>
+            </div>
+
+            <div class="input-field">
+                <label class="form-control-label oblige active" for="field_phone">Téléphone Ex: 0022911223344/00229 11
+                    22 33 44</label>
+                <input type="text" class="form-control" name="phoneenfant1" id="field_home"
+                    [(ngModel)]="InfosEnfant1.tel" required
+                    pattern="^(00[1-9][0-9]{0,2})?[ ]?([0-9]{2}[- ]?){3}[0-9]{2}$" />
+                <div [hidden]="!(editForm.controls.phone?.dirty && (editForm.controls.phone?.invalid))">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.pattern">
+                        Le numéro de téléphone n'est pas correct
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required"
+                        jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="input-field">
+                    <label class="form-control-label active oblige" for="field_home">Adresse Enfant 1</label>
+                    <input type="text" class="form-control" name="adressenfant1" id="field_home"
+                        [(ngModel)]="InfosEnfant1.adresse" required maxlength="100" data-length="100" />
+                    <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                            jhiFnmTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                            jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                            This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+        <!--  -->
+
+        <div class="input-field">
+            <label class="form-control-label active oblige" for="field_home">Nom & Prénom Enfant 2</label>
+            <input type="text" class="form-control" name="nomenfant2" id="field_home"
+                [(ngModel)]="InfosEnfant2.nomPrenom" required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div *ngIf="InfosEnfant1.nomPrenom">
+            <div class="input-field">
+                <div class="form-group">
+                    <label class="form-control-label oblige" for="field_birthDate">Date de naissance Enfant 2</label>
+                    <ngbd-datepicker-i18n [(ngModel)]="InfosEnfant2.dateNaissance" name="birthDateenfant2" required="true"
+                        [minDate]="minDate" [maxDate]="maxDate"></ngbd-datepicker-i18n>
+                </div>
+            </div>
+
+            <div class="input-field">
+                <label class="form-control-label oblige active" for="field_phone">Téléphone Ex: 0022911223344/00229 11
+                    22 33 44</label>
+                <input type="text" class="form-control" name="phoneenfant2" id="field_home"
+                    [(ngModel)]="InfosEnfant2.tel" required
+                    pattern="^(00[1-9][0-9]{0,2})?[ ]?([0-9]{2}[- ]?){3}[0-9]{2}$" />
+                <div [hidden]="!(editForm.controls.phone?.dirty && (editForm.controls.phone?.invalid))">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.pattern">
+                        Le numéro de téléphone n'est pas correct
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required"
+                        jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+
+                <div class="input-field">
+                    <label class="form-control-label active oblige" for="field_home">Adresse Enfant 2</label>
+                    <input type="text" class="form-control" name="adressenfant2" id="field_home"
+                        [(ngModel)]="InfosEnfant2.adresse" required maxlength="100" data-length="100" />
+                    <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                            jhiFnmTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                            jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                            This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+        <!--  -->
+
+        <div class="input-field">
+            <label class="form-control-label active oblige" for="field_home">Nom & Prénom Enfant 3</label>
+            <input type="text" class="form-control" name="nomenfant3" id="field_home"
+                [(ngModel)]="InfosEnfant3.nomPrenom" required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div *ngIf="InfosEnfant3.nomPrenom">
+            <div class="input-field">
+                <div class="form-group">
+                    <label class="form-control-label oblige" for="field_birthDate">Date de naissance Enfant 3</label>
+                    <ngbd-datepicker-i18n [(ngModel)]="InfosEnfant3.dateNaissance" name="birthDate" required="true"
+                        [minDate]="minDate" [maxDate]="maxDate"></ngbd-datepicker-i18n>
+                </div>
+            </div>
+
+            <div class="input-field">
+                <label class="form-control-label oblige active" for="field_phone">Téléphone Ex: 0022911223344/00229 11
+                    22 33 44</label>
+                <input type="text" class="form-control" name="phoneenfant3" id="field_home"
+                    [(ngModel)]="InfosEnfant3.tel" required
+                    pattern="^(00[1-9][0-9]{0,2})?[ ]?([0-9]{2}[- ]?){3}[0-9]{2}$" />
+                <div [hidden]="!(editForm.controls.phone?.dirty && (editForm.controls.phone?.invalid))">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.pattern">
+                        Le numéro de téléphone n'est pas correct
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required"
+                        jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="input-field">
+                    <label class="form-control-label active oblige" for="field_home">Adresse Enfant 3</label>
+                    <input type="text" class="form-control" name="adressenfant3" id="field_home"
+                        [(ngModel)]="InfosEnfant3.adresse" required maxlength="100" data-length="100" />
+                    <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                            jhiFnmTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                            jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                            This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+
+        <!--  -->
+
+        <div class="input-field">
+            <label class="form-control-label active oblige" for="field_home">Nom & Prénom Enfant 4</label>
+            <input type="text" class="form-control" name="nomenfnant4" id="field_home"
+                [(ngModel)]="InfosEnfant4.nomPrenom" required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div *ngIf="InfosEnfant4.nomPrenom">
+            <div class="input-field">
+                <div class="form-group">
+                    <label class="form-control-label oblige" for="field_birthDate">Date de naissance Enfant 4</label>
+                    <ngbd-datepicker-i18n [(ngModel)]="InfosEnfant4.dateNaissance" name="birthDateenfant4" required="true"
+                        [minDate]="minDate" [maxDate]="maxDate"></ngbd-datepicker-i18n>
+                </div>
+            </div>
+
+            <div class="input-field">
+                <label class="form-control-label oblige active" for="field_phone">Téléphone Ex: 0022911223344/00229 11
+                    22 33 44</label>
+                <input type="text" class="form-control" name="phoneenfant4" id="field_home"
+                    [(ngModel)]="InfosEnfant4.tel" required
+                    pattern="^(00[1-9][0-9]{0,2})?[ ]?([0-9]{2}[- ]?){3}[0-9]{2}$" />
+                <div [hidden]="!(editForm.controls.phone?.dirty && (editForm.controls.phone?.invalid))">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.pattern">
+                        Le numéro de téléphone n'est pas correct
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required"
+                        jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+
+                <div class="input-field">
+                    <label class="form-control-label active oblige" for="field_home">Adresse Enfant 4</label>
+                    <input type="text" class="form-control" name="adressenfant4" id="field_home"
+                        [(ngModel)]="InfosEnfant4.adresse" required maxlength="100" data-length="100" />
+                    <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                            jhiFnmTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                            jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                            This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

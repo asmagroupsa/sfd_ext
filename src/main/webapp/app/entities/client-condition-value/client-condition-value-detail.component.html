@@ -1,0 +1,37 @@
+
+<div *ngIf="clientConditionValue">
+    <h2><span jhiFnmTranslate="sfdApp.clientConditionValue.detail.title">Client Condition Value</span> {{clientConditionValue.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.clientConditionValue.produitId">Produit Id</span></dt>
+        <dd>
+            <span>{{clientConditionValue.produitId}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.clientConditionValue.clientId">Client Id</span></dt>
+        <dd>
+            <span>{{clientConditionValue.clientId}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.clientConditionValue.conditionId">Condition Id</span></dt>
+        <dd>
+            <span>{{clientConditionValue.conditionId}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.clientConditionValue.conditionValeur">Condition Valeur</span></dt>
+        <dd>
+            <span>{{clientConditionValue.conditionValeur}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/entity','client-condition-value', { outlets: { popup: 'client-condition-value/'+ clientConditionValue.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

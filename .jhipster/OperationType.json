@@ -1,0 +1,55 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "operations",
+            "otherEntityName": "operation",
+            "otherEntityRelationshipName": "operationType"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "opCompteTrancheTFs",
+            "otherEntityName": "operationCompteTrancheTF",
+            "otherEntityRelationshipName": "operationType"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "ecritures",
+            "otherEntityName": "ecriture",
+            "otherEntityRelationshipName": "operationType"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        }
+    ],
+    "changelogDate": "20170705215228",
+    "entityTableName": "cf_operation_type",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceClass",
+    "microserviceName": "carmesfnmservice",
+    "searchEngine": "elasticsearch"
+}

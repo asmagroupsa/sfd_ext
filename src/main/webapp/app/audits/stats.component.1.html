@@ -1,0 +1,437 @@
+<div class="container">
+    <div class="animated fadeIn credits" *ngIf="!currentLigne && !currentCredit && !currentAgence && !currentLigneComity && !currentComity">
+        <div class="ui grid global">
+            <div class="col" *ngIf="global">
+                <!-- Situation globale -->
+                <div class="card-panel teal2">
+                    <!-- <div class="icon">
+                        <i class="fa fa-bank"></i>
+                    </div> -->
+                    <!-- <div class="white-text" style="display: table;">
+                        <div style="display: table-row">
+                            <div style="display: table-cell">www</div>
+                            <div style="display: table-cell">www</div>
+                        </div>
+                        <div style="display: table-row">
+                            <div style="display: table-cell">www</div>
+                            <div style="display: table-cell">www</div>
+                        </div>
+                    </div> -->
+                    <!-- <span class="white-text">
+                        {{global?.montant_pret | number}} &nbsp;&nbsp; prêté <br> {{global?.capital_remb | number}}&nbsp;&nbsp;
+                        remboursé <br> Intêret remboursé &nbsp;&nbsp;{{global?.interet_remb | number}}<br> {{global?.encours| number}}&nbsp;&nbsp; Encours <br>
+                    </span> -->
+                    <!-- <div class="stats icon">Taux global de remboursement : {{global?.taux_remb| number:'1.0-2'}}%</div> -->
+                    <div style="display: flex">
+                        <div class="icon">
+                            <i class="fa fa-bank"></i>
+                        </div>
+                        <div class="white-text" style="display: table; width: unset;">
+                            <div style="display: table-row">
+                                <div style="display: table-cell">Total de crédits:</div>
+                                <div style="display: table-cell" style="width: 20px;"></div>
+                                <div style="display: table-cell">{{global?.montant_pret | number}}</div>
+                            </div>
+                            <div style="display: table-row">
+                                <div style="display: table-cell">Capital remboursé:</div>
+                                <div style="display: table-cell" style="width: 20px;"></div>
+                                <div style="display: table-cell">{{global?.capital_remb | number}}</div>
+                            </div>
+                            <div style="display: table-row">
+                                <div style="display: table-cell">Intêret remboursé</div>
+                                <div style="display: table-cell" style="width: 20px;"></div>
+                                <div style="display: table-cell">{{global?.interet_remb | number}}</div>
+                            </div>
+                            <!-- <div style="display: table-row">
+                                <div style="display: table-cell"></div>
+                                <div style="display: table-cell" style="width: 20px;"></div>
+                                <div style="display: table-cell"></div>
+                            </div> -->
+                            <div style="display: table-row">
+                                <div style="display: table-cell">Encours</div>
+                                <div style="display: table-cell" style="width: 20px;"></div>
+                                <div style="display: table-cell">{{global?.encours| number}}</div>
+                            </div>
+                        </div>
+                        <div class="stats icon" style="text-align: right; flex-grow: 1;">Taux global de remboursement : {{global?.taux_remb| number:'1.0-2'}}%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" [ngStyle]="{'width.%':global?.taux_remb}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- LIGNES -->
+        <div>
+            <div class="accueil">
+                <div class="text-center situationTitle">
+                    Situation des lignes de crédits
+                </div>
+                <div class="ui grid centered">
+                    <div class="eight wide column" *ngFor="let ligne of lignes">
+                        <div class="card">
+                            <div class="text-center" style="padding: 8px;">
+                                <span class="card-title text-center">{{ligne?.name}}</span>
+                            </div>
+                            <div class="card-content">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div>
+                                        <div>Réf. Ligne Crédit:</div>
+                                        <div class="montant">{{ligne.reference}}</div>
+                                    </div>
+                                    <div>
+                                        <span style="font-size: 20px;">Taux de remboursement: </span>
+                                        <span class="taux">{{ligne?.taux_remb| number}}%</span>
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div>
+                                        <div>Montant Crédit:</div>
+                                        <div class="montant">{{ligne?.montant_pret | number}}</div>
+                                    </div>
+                                    <div>
+                                        <div>Capital remboursé:</div>
+                                        <div class="montant">{{ligne?.capital_remb | number}}</div>
+                                        <!-- <p></p> -->
+                                        <!-- <div>Montant Crédit:</div>
+                                        <div class="montant">{{ligne?.montant_pret | number}}</div> -->
+                                    </div>
+                                    <div>
+                                        <div>Intêret remboursé:</div>
+                                        <div class="montant">{{ligne?.interet_remb | number}}</div>
+                                        <br>
+                                        <div>Encours:</div>
+                                        <div class="montant">{{ligne?.encours | number}}</div>
+                                    </div>
+                                    <div>
+                                        <div>Total remboursé:</div>
+                                        <div class="montant">{{((ligne?.interet_remb || 0) + (ligne?.capital_remb || 0)) | number}}</div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="text-center">
+                                    <span class="taux">
+                                        <i class="fa fa-chart-pie"></i> {{ligne?.taux_remb| number}}% remboursé
+                                    </span>
+                                </div>
+                                <div class="in-line">
+                                    <div>
+                                        Réference &nbsp;&nbsp; <span class="montant">{{ligne.reference}}</span>
+                                    </div>
+                                </div>
+                                <div class="in-line">
+                                    <div>Prêté &nbsp;&nbsp; <span class="montant">{{ligne?.montant_pret | number}}</span>
+                                    </div>
+                                    <div>
+                                        Capital remboursé &nbsp;&nbsp; <span class="montant">{{ligne?.capital_remb | number}}</span>
+                                    </div>
+                                </div>
+                                <div class="in-line">
+                                    <div>
+                                        Intêret remboursé &nbsp;&nbsp; <span class="montant">{{ligne?.interet_remb | number}}</span>
+                                    </div>
+                                    <div>
+                                        Encours &nbsp;&nbsp; <span class="montant">{{ligne?.encours | number}}</span>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="card-action" *ngIf="ligne.montant_pret">
+                                <a class="btn2 halfway-fab waves-effect" (click)="getLigneCredit(ligne)" *ngIf="ligne.montant_pret">Crédits</a>
+                                <a class="btn2 waves-effect waves-light comite" (click)="getLigneCreditComite(ligne)">Comités</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="animated fadeIn credits" *ngIf="currentLigne && !currentCredit && !currentAgence">
+        <button class="circular ui icon button" (click)="previousState()">
+            <i class="angle left icon"></i>
+        </button>
+        <!-- CREDITS D'UNE LIGNE -->
+        <div class="credits">
+            <div>
+                <div class="text-center situationTitle">
+                    Situation des crédits de la ligne {{currentLigne?.name}}({{currentLigne?.reference}})
+                </div>
+                <div class="ui grid centered">
+                    <div class="eight wide column" *ngFor="let ligne of credits;let index = index">
+                        <div class="card">
+                            <div class="text-center" style="padding: 8px;">
+                                <span class="card-title text-center">{{ligne?.name}}</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="text-center">
+                                    <span class="taux">
+                                        <i class="fa fa-chart-pie"></i> {{ligne?.taux_remb| number}}% remboursé
+                                    </span>
+                                </div>
+                                <div class="in-line">
+                                    <div>
+                                        Réference &nbsp;&nbsp; <span class="montant">{{ligne.reference}}</span>
+                                    </div>
+                                </div>
+                                <div class="in-line">
+                                    <div>Prêté &nbsp;&nbsp; <span class="montant">{{ligne?.montant_pret | number}}</span>
+                                    </div>
+                                    <div>
+                                        Capital remboursé &nbsp;&nbsp; <span class="montant">{{ligne?.capital_remb | number}}</span>
+                                    </div>
+                                </div>
+                                <div class="in-line">
+                                    <div>
+                                        Intêret remboursé &nbsp;&nbsp; <span class="montant">{{ligne?.interet_remb | number}}</span>
+                                    </div>
+                                    <div>
+                                        Encours &nbsp;&nbsp; <span class="montant">{{ligne?.encours | number}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-action" *ngIf="ligne.type_client === 'MUTUEL' && ligne.montant_pret">
+                                <a class="btn2-floating halfway-fab waves-effect waves-light" (click)="getCreditIndividu(ligne)">Crédits</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="animated fadeIn credits" *ngIf="currentCredit && !currentAgence">
+        <button class="circular ui icon button" (click)="previousState()">
+            <i class="angle left icon"></i>
+        </button>
+        <!-- INDIVIDU CREDITS D'UN CREDIT -->
+        <div class="credits">
+            <div>
+                <div class="text-center situationTitle">
+                    Situation des crédits des individus du groupe {{currentCredit?.name}}({{currentCredit?.reference}})
+                </div>
+                <div class="ui grid centered">
+                    <div class="eight wide column" *ngFor="let ligne of creditsIndividu">
+                        <div class="card">
+                            <div class="text-center" style="padding: 8px;">
+                                <span class="card-title text-center">{{ligne?.name}}</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="text-center">
+                                    <span class="taux">
+                                        <i class="fa fa-chart-pie"></i> {{ligne?.taux_remb| number}}% remboursé
+                                    </span>
+                                </div>
+                                <div class="in-line">
+                                    <div>
+                                        Réference &nbsp;&nbsp; <span class="montant">{{ligne.code_client}}</span>
+                                    </div>
+                                </div>
+                                <div class="in-line">
+                                    <div>Prêté &nbsp;&nbsp; <span class="montant">{{ligne?.montant_pret | number}}</span>
+                                    </div>
+                                    <div>
+                                        Capital remboursé &nbsp;&nbsp; <span class="montant">{{ligne?.capital_remb | number}}</span>
+                                    </div>
+                                </div>
+                                <div class="in-line">
+                                    <div>
+                                        Intêret remboursé &nbsp;&nbsp; <span class="montant">{{ligne?.interet_remb | number}}</span>
+                                    </div>
+                                    <div>
+                                        Encours &nbsp;&nbsp; <span class="montant">{{ligne?.encours | number}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- agence infos -->
+    <div class="animated fadeIn credits" *ngIf="currentAgence">
+        <button class="circular ui icon button" (click)="previousState()">
+            <i class="angle left icon"></i>
+        </button>
+        <div class="ui grid">
+            <div class="col">
+                <!-- Situation globale -->
+                <div class="card-panel teal2">
+                    <div class="icon">
+                        <i class="fa fa-bank"></i>
+                    </div>
+                    <span class="white-text">
+                        {{ agenceGlobal?.montant_pret | number}} &nbsp;&nbsp; prêté <br> {{ agenceGlobal?.capital_remb | number}}&nbsp;&nbsp;
+                        remboursé <br> Intêret remboursé &nbsp;&nbsp;{{ agenceGlobal?.interet_remb | number}}<br> {{ agenceGlobal?.encours
+                        | number}}&nbsp;&nbsp; Encours <br>
+                    </span>
+                    <div class="stats icon">
+                        {{ agenceGlobal?.taux_remb| number:'1.0-2'}}%
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" [ngStyle]="{'width.%':agenceGlobal?.taux_remb}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="credits">
+            <div>
+                <div class="text-center situationTitle">
+                    Situation des crédits de l'agence {{currentAgence?.name}}({{currentAgence?.codeAgence}})
+                </div>
+                <div class="ui grid centered">
+                    <div class="eight wide column" *ngFor="let ligne of agenceCredits">
+                        <div class="card">
+                            <div class="text-center" style="padding: 8px;">
+                                <span class="card-title text-center">{{ligne?.name}}</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="text-center">
+                                    <span class="taux">
+                                        <i class="fa fa-chart-pie"></i> {{ligne?.taux_remb| number}}% remboursé
+                                    </span>
+                                </div>
+                                <div class="in-line">
+                                    <div>
+                                        Réference &nbsp;&nbsp; <span class="montant">{{ligne.code_client}}</span>
+                                    </div>
+                                </div>
+                                <div class="in-line">
+                                    <div>Prêté &nbsp;&nbsp; <span class="montant">{{ligne?.montant_pret | number}}</span>
+                                    </div>
+                                    <div>
+                                        Capital remboursé &nbsp;&nbsp; <span class="montant">{{ligne?.capital_remb | number}}</span>
+                                    </div>
+                                </div>
+                                <div class="in-line">
+                                    <div>
+                                        Intêret remboursé &nbsp;&nbsp; <span class="montant">{{ligne?.interet_remb | number}}</span>
+                                    </div>
+                                    <div>
+                                        Encours &nbsp;&nbsp; <span class="montant">{{ligne?.encours | number}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-action" *ngIf="ligne.type_client === 'MUTUEL' &&ligne.montant_pret">
+                                <a class="btn2-floating halfway-fab waves-effect waves-light" (click)="getCreditIndividu(ligne)">Crédits</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- comites -->
+    <div class="animated fadeIn credits" *ngIf="currentLigneComity && !currentComity && !currentAgence">
+        <button class="circular ui icon button" (click)="previousState()">
+            <i class="angle left icon"></i>
+        </button>
+        <!-- CREDITS D'UNE LIGNE -->
+        <div class="credits">
+            <div>
+                <div class="text-center situationTitle">
+                    Situation des comités de la ligne {{currentLigneComity?.name}}({{currentLigneComity?.reference}})
+                </div>
+                <div class="ui grid centered">
+                    <div class="eight wide column" *ngFor="let ligne of comites">
+                        <div class="card">
+                            <div class="text-center" style="padding: 8px;">
+                                <span class="card-title text-center">{{ligne?.name}}</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="text-center">
+                                    <span class="taux">
+                                        <i class="fa fa-chart-pie"></i> {{ligne?.taux_remb| number}}% remboursé
+                                    </span>
+                                </div>
+                                <div class="in-line">
+                                    <div>
+                                        Réference &nbsp;&nbsp; <span class="montant">{{ligne.reference}}</span>
+                                    </div>
+                                </div>
+                                <div class="in-line">
+                                    <div>Prêté &nbsp;&nbsp; <span class="montant">{{ligne?.montant_pret | number}}</span>
+                                    </div>
+                                    <div>
+                                        Capital remboursé &nbsp;&nbsp; <span class="montant">{{ligne?.capital_remb | number}}</span>
+                                    </div>
+                                </div>
+                                <div class="in-line">
+                                    <div>
+                                        Intêret remboursé &nbsp;&nbsp; <span class="montant">{{ligne?.interet_remb | number}}</span>
+                                    </div>
+                                    <div>
+                                        Encours &nbsp;&nbsp; <span class="montant">{{ligne?.encours | number}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-action">
+                                <a class="btn2-floating halfway-fab waves-effect waves-light" (click)="getComiteCredit(ligne)">Crédits</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- comite detail -->
+    <div class="animated fadeIn credits" *ngIf="currentComity && !currentAgence && !creditsIndividu">
+        <button class="circular ui icon button" (click)="previousState()">
+            <i class="angle left icon"></i>
+        </button>
+        <!-- CREDITS D'UNE LIGNE -->
+        <div class="credits">
+            <div class="ui grid centered">
+                <div class="text-center situationTitle">
+                    Situation des crédits du comité {{currentComity?.name}}({{currentComity?.reference}})
+                </div>
+                <div class="ui grid centered">
+                    <div class="eight wide column" *ngFor="let ligne of comityCredits">
+                        <div class="card">
+                            <div class="text-center" style="padding: 8px;">
+                                <span class="card-title text-center">{{ligne?.name}}</span>
+                                <!--  -->
+                            </div>
+                            <div class="card-content">
+                                <div class="text-center">
+                                    <span class="taux">
+                                        <i class="fa fa-chart-pie"></i> {{ligne?.taux_remb| number}}% remboursé
+                                    </span>
+                                </div>
+                                <div class="in-line">
+                                    <div>
+                                        Réference &nbsp;&nbsp; <span class="montant">{{ligne.reference}}</span>
+                                    </div>
+                                </div>
+                                <div class="in-line">
+                                    <div>Prêté &nbsp;&nbsp; <span class="montant">{{ligne?.montant_pret | number}}</span>
+                                    </div>
+                                    <div>
+                                        Capital remboursé &nbsp;&nbsp; <span class="montant">{{ligne?.capital_remb | number}}</span>
+                                    </div>
+                                </div>
+                                <div class="in-line">
+                                    <div>
+                                        Intêret remboursé &nbsp;&nbsp; <span class="montant">{{ligne?.interet_remb | number}}</span>
+                                    </div>
+                                    <div>
+                                        Encours &nbsp;&nbsp; <span class="montant">{{ligne?.encours | number}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-action" *ngIf="ligne.type_client === 'MUTUEL'">
+                                <a class="btn2-floating halfway-fab waves-effect waves-light" (click)="getCreditIndividu(ligne)">Crédits</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui compact selection dropdown">
+    <i class="dropdown icon"></i>
+    <div class="text">Par agence</div>
+    <div class="menu">
+        <div class="item" (click)="getByAgence(agence)" *ngFor="let agence of listeAgences">{{ agence?.name}}</div>
+    </div>
+</div>

@@ -1,0 +1,319 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+
+.card-block.pb-0 button {
+    box-shadow: none;
+}
+
+.hipster {
+    display: inline-block;
+    width: 347px;
+    height: 497px;
+    // background: url("../../content/images/hipster.png") no-repeat center top;
+    background-size: contain;
+}
+/* option:hover {
+  background-color: rgb(96, 125, 139) !important;
+}  */
+
+/* wait autoprefixer update to allow simple generation of high pixel density media query */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min--moz-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (min-device-pixel-ratio: 2),
+only screen and (min-resolution: 192dpi),
+only screen and (min-resolution: 2dppx) {
+    .hipster {
+        // background: url("../../content/images/hipster2x.png") no-repeat center top;
+        background-size: contain;
+    }
+}
+
+.contenu {
+    padding: 30px 1px 90px 1px;
+}
+
+.demo-cards {
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.demo-charts {
+    min-height: 150px;
+}
+
+.demo-cards .demo-separator {
+    height: 32px;
+}
+
+.demo-cards .mdl-card__title.mdl-card__title {
+    color: white;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.demo-cards ul {
+    padding: 0;
+}
+
+.demo-cards h3 {
+    font-size: 1em;
+}
+
+.demo-updates .mdl-card__title {
+    min-height: 200px;
+    /*  background-image: url('../../content/images/unsplash/5.jpg'); */
+    background-position: 90% 100%;
+    background-repeat: no-repeat;
+}
+
+.container {
+    width: 100%;
+}
+
+.demo-cards .mdl-card__actions a {
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+.demo-options h3 {
+    margin: 0;
+}
+
+.demo-options .mdl-checkbox__box-outline {
+    border-color: rgba(255, 255, 255, 0.89);
+}
+
+.demo-options ul {
+    margin: 0;
+    list-style-type: none;
+}
+
+.demo-options li {
+    margin: 4px 0;
+}
+
+.demo-options .material-icons {
+    color: rgba(255, 255, 255, 0.89);
+}
+
+.demo-options .mdl-card__actions {
+    height: 64px;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.wlcmBox {
+    text-align: center;
+}
+
+.wlcmTxt {
+    margin: 30px auto;
+    width: 70%;
+}
+
+.wlcmLog {
+    margin: auto;
+}
+
+.wlcmLog a {
+    margin: 0 20px;
+}
+
+.info-box {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    height: 56px;
+    display: flex;
+    cursor: default;
+    background-color: #fff;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.info-box-header {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    height: 56px;
+    display: flex;
+    cursor: default;
+    background-color: #fff;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.info-box-header span {
+    margin: auto;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.info-box .icon {
+    display: inline-block;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.12);
+    width: 62px;
+}
+
+.info-box .icon i {
+    color: #fff;
+    /*  font-size: 50px; */
+    line-height: 58px;
+}
+
+.info-box .icon .chart.chart-bar {
+    height: 100%;
+    line-height: 100px;
+}
+
+.info-box .icon .chart.chart-bar canvas {
+    vertical-align: baseline !important;
+}
+
+.info-box .icon .chart.chart-pie {
+    height: 100%;
+    line-height: 123px;
+}
+
+.info-box .icon .chart.chart-pie canvas {
+    vertical-align: baseline !important;
+}
+
+.info-box .icon .chart.chart-line {
+    height: 100%;
+    line-height: 115px;
+}
+
+.info-box .icon .chart.chart-line canvas {
+    vertical-align: baseline !important;
+}
+
+.info-box .content {
+    display: inline-block;
+    padding: 0px 10px;
+    margin-top: -8px;
+    width: 85%;
+}
+
+.info-box .content .text {
+    /*  font-size: 14px; */
+    text-transform: lowercase;
+   /*  margin-top: 11px; */
+    color: #555;
+}
+
+.info-box .content .number {
+    font-size: 14px;
+    font-weight: 500;
+    /*  margin-top: 0px; */
+    color: #555;
+}
+
+.info-box.hover-zoom-effect .icon {
+    overflow: hidden;
+}
+
+.info-box.hover-zoom-effect .icon i {
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.info-box.hover-zoom-effect:hover .icon i {
+    opacity: 0.4;
+    -moz-transform: rotate(-32deg) scale(1.4);
+    -ms-transform: rotate(-32deg) scale(1.4);
+    -o-transform: rotate(-32deg) scale(1.4);
+    -webkit-transform: rotate(-32deg) scale(1.4);
+    transform: rotate(-32deg) scale(1.4);
+}
+
+.info-box.hover-expand-effect:after {
+    background-color: rgba(0, 0, 0, 0.05);
+    content: '.';
+    position: absolute;
+    left: 80px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    color: transparent;
+    -moz-transition: all 0.95s;
+    -o-transition: all 0.95s;
+    -webkit-transition: all 0.95s;
+    transition: all 0.95s;
+}
+
+.info-box.hover-expand-effect:hover:after {
+    width: 100%;
+}
+
+.home_widget {
+    margin-bottom: 30px;
+}
+
+.home_widget .card {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.home_widget .card-header {
+    background: none;
+    padding: 20px;
+    position: relative;
+    border-bottom: 1px solid rgba(204, 204, 204, 0.35);
+    font-size: 16px;
+}
+
+.spinkit {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin-right: 5px;
+    margin-top: 5px;
+    display: inline;
+}
+
+.dot1,
+.dot2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #faf2f2;
+    opacity: 0.6;
+    display: inline;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+    animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.dot2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+    0%,
+    100% {
+        -webkit-transform: scale(0.0)
+    }
+    50% {
+        -webkit-transform: scale(1.0)
+    }
+}
+
+@keyframes sk-bounce {
+    0%,
+    100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    }
+    50% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
+}

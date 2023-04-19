@@ -1,0 +1,87 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "clients",
+            "otherEntityName": "client",
+            "otherEntityRelationshipName": "sfdUsers"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "agences",
+            "otherEntityName": "agence",
+            "otherEntityRelationshipName": "sfdUsers"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "creditRequests",
+            "otherEntityName": "creditRequest",
+            "otherEntityRelationshipName": "sfdUsers"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "etudes",
+            "otherEntityName": "etude",
+            "otherEntityRelationshipName": "sfdUsers"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "comityMembers",
+            "otherEntityName": "comityMber",
+            "otherEntityRelationshipName": "sfdUsers"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "comityMberFNMs",
+            "otherEntityName": "comityMberFNM",
+            "otherEntityRelationshipName": "serviceUser"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "reference",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20170705215147",
+    "entityTableName": "cf_service_user",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "microserviceName": "carmesfnmservice",
+    "searchEngine": "elasticsearch"
+}

@@ -1,0 +1,141 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "creditRequests",
+            "otherEntityName": "creditRequest",
+            "otherEntityRelationshipName": "produit"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "contrats",
+            "otherEntityName": "contrat",
+            "otherEntityRelationshipName": "produit"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "ligneRequests",
+            "otherEntityName": "ligneRequest",
+            "otherEntityRelationshipName": "produit"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "eligibles",
+            "otherEntityName": "eligible",
+            "otherEntityRelationshipName": "produit"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "produits",
+            "relationshipName": "typeGaranties",
+            "otherEntityName": "typeGarantie",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "produits",
+            "relationshipName": "conditionss",
+            "otherEntityName": "conditions",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "produits",
+            "relationshipName": "fraiss",
+            "otherEntityName": "frais",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "produits",
+            "relationshipName": "tranchePenals",
+            "otherEntityName": "tranchePenal",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "produits",
+            "relationshipName": "tauxs",
+            "otherEntityName": "taux",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "periodicity",
+            "otherEntityName": "periodicity",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "libelle",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "duration",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "etudiable",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20170705215201",
+    "entityTableName": "cf_produit",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "microserviceName": "carmesfnmservice",
+    "searchEngine": "elasticsearch"
+}

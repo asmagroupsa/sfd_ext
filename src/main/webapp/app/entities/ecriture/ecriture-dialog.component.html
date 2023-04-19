@@ -1,0 +1,75 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myEcritureLabel" [jhiFnmTranslate]="ecriture.id ? 'sfdApp.ecriture.home.createOrEditLabel' : 'sfdApp.ecriture.home.createLabel'">Create or edit a Ecriture</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!--<div class="form-group" [hidden]="!ecriture.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="ecriture.id" readonly />
+        </div>-->
+        <!--<div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.ecriture.codeTypeOperation" for="field_codeTypeOperation">Code Type Operation</label>
+            <input type="text" class="form-control" name="codeTypeOperation" id="field_codeTypeOperation" [(ngModel)]="ecriture.codeTypeOperation" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.codeTypeOperation?.dirty && editForm.controls.codeTypeOperation?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.codeTypeOperation?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.ecriture.libelle" for="field_libelle">Libelle</label>
+            <input type="text" class="form-control" name="libelle" id="field_libelle" [(ngModel)]="ecriture.libelle" maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                   This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.ecriture.sens" for="field_sens">Sens</label>
+            <select class="ui fluid search dropdown" name="sens" [(ngModel)]="ecriture.sens" id="field_sens" required>
+                <option value="DEBIT" jhiFnmTranslate="sfdApp.Sens.DEBIT">DEBIT</option>
+                <option value="CREDIT" jhiFnmTranslate="sfdApp.Sens.CREDIT">CREDIT</option>
+            </select>
+            <div [hidden]="!(editForm.controls.sens?.dirty && editForm.controls.sens?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.sens?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <!-- <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.ecriture.ecritureCommission" for="field_ecritureCommission">Ecriture Commission</label>
+            <select class="ui fluid search dropdown" id="field_ecritureCommission" name="ecritureCommission" [(ngModel)]="ecriture.ecritureCommissionId" required>
+                <option [ngValue]="ecritureCommissionOption.id" *ngFor="let ecritureCommissionOption of ecriturecommissions; trackBy: trackEcritureCommissionById">{{ecritureCommissionOption.id}}</option>
+            </select>
+        </div> -->
+        <div [hidden]="!(editForm.controls.ecritureCommission?.dirty && editForm.controls.ecritureCommission?.invalid)">
+            <small class="form-text text-danger" [hidden]="!editForm.controls.ecritureCommission?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.ecriture.operationType" for="field_operationType">Operation Type</label>
+            <select class="ui fluid search dropdown" id="field_operationType" name="operationType" [(ngModel)]="ecriture.operationTypeId" required>
+                <option [ngValue]="operationTypeOption.id" *ngFor="let operationTypeOption of operationtypes; trackBy: trackOperationTypeById">{{operationTypeOption.name}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.operationType?.dirty && editForm.controls.operationType?.invalid)">
+            <small class="form-text text-danger" [hidden]="!editForm.controls.operationType?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

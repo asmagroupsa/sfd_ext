@@ -1,0 +1,88 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.frais.home.title">Frais</span>
+        <button class="btn btn-primary float-right create-frais" [routerLink]="['/entity','type-contrat', { outlets: { popup: ['types-contrat-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" jhiFnmTranslate="sfdApp.typesContrat.home.createLabel">
+                Create new Frais
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.typesContrat.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="typesContrat;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+
+                    <th jhiSortBy="code">
+                        <span jhiFnmTranslate="sfdApp.typesContrat.code">Code</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="libelle">
+                        <span jhiFnmTranslate="sfdApp.typesContrat.libelle">Libelle</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="typeClient">
+                        <span jhiFnmTranslate="sfdApp.typesContrat.typeClient">Type Client</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th class="text-right">Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let typesContrat of typesContrat  | recherche:currentSearch ;trackBy: trackId">
+                    <td>{{typesContrat.code}}</td>
+                    <td>{{typesContrat.libelle}}</td>
+                    <td>{{typesContrat.typeClient}}</td>
+
+
+                    <td class="text-right">
+                        <div *jhiHasAnyRessources="'carmesfnmservice/api/type-contrats/getAllTypesContrats'" class="btn-group flex-btn-group-container">
+                            <!-- <button type="submit" [routerLink]="['/entity','typesContrat', typesContrat.id ]" class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                            </button> -->
+                            <button *jhiHasAnyRessources="['carmesfnmservice/api/type-contrats/updateTypeContrat']" type="submit" [routerLink]="['/entity','typesContrat', { outlets: { popup: 'typesContrat-client/'+ typesContrat.id + '/edit'} }]"
+                                replaceUrl="true" class="btn btn-primary btn-sm">
+                                <span class="fa fa-pencil"></span>
+                            </button>
+                            <button *jhiHasAnyRessources="['carmesfnmservice/api/type-contrats/deleteTypeContrat']" type="submit" [routerLink]="['/entity','typesContrat', { outlets: { popup: 'typesContrat/'+ typesContrat.id + '/delete'} }]"
+                                replaceUrl="true" class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="typesContrat && typesContrat.length">
+        <div class="row justify-content-center">
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page"
+                (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+{
+    "sfdApp": {
+        "categorieCondition" : {
+            "home": {
+                "title": "Catégorie Condition",
+                "createLabel": "Créer une nouvelle Catégorie de Condition",
+                "createOrEditLabel": "Editer une Catégorie de Condition",
+                "search": "Recherche Catégorie Condition"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Catégorie Condition {{ id }} ?"
+            },
+            "detail": {
+                "title": "Catégorie Condition"
+            },
+            "name": "Nom",
+            "conditions": "Conditions"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "categorieCondition" : {
+            "created": "Une nouvelle Catégorie Condition a été créée ",
+            "updated": "La Catégorie Condition  a été mise à jour",
+            "deleted": "La Catégorie Condition  a été supprimée"
+        }
+    }
+}

@@ -1,0 +1,37 @@
+
+<div *ngIf="clientConditionNote">
+    <h2><span jhiFnmTranslate="sfdApp.clientConditionNote.detail.title">Client Condition Note</span> {{clientConditionNote.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.clientConditionNote.produitId">Produit Id</span></dt>
+        <dd>
+            <span>{{clientConditionNote.produitId}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.clientConditionNote.clientId">Client Id</span></dt>
+        <dd>
+            <span>{{clientConditionNote.clientId}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.clientConditionNote.noteMin">Note Min</span></dt>
+        <dd>
+            <span>{{clientConditionNote.noteMin}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.clientConditionNote.note">Note</span></dt>
+        <dd>
+            <span>{{clientConditionNote.note}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/entity','client-condition-note', { outlets: { popup: 'client-condition-note/'+ clientConditionNote.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

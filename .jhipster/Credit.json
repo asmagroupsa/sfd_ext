@@ -1,0 +1,101 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "notificationClient",
+            "otherEntityName": "notificationClient",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "credit"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "operations",
+            "otherEntityName": "operation",
+            "otherEntityRelationshipName": "credit"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "echeancierClient",
+            "otherEntityName": "echeancierClient",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "credit"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "account",
+            "otherEntityName": "compte",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "ligneCredit",
+            "otherEntityName": "ligneCredit",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "creditDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "startDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "endDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "amount",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "lastModifiedDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20170705215217",
+    "entityTableName": "cf_credit",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "microserviceName": "carmesfnmservice",
+    "searchEngine": "elasticsearch"
+}

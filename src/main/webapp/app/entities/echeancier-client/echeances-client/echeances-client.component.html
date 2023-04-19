@@ -1,0 +1,133 @@
+<div *ngIf="idEcheancier">
+    <h2>
+        <span jhiFnmTranslate="sfdApp.echeancesClient.home.title">Echeances Clients</span>
+        <button class="btn btn-primary float-right create-echeances-client" [routerLink]="['/entity','echeances-client', { outlets: { popup: ['echeances-client-new'] } }]" style="display:none;">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.echeancesClient.home.createLabel">
+            Create new Echeances Client
+            </span>
+        </button>
+    </h2>
+    <!-- <jhi-alert></jhi-alert> -->
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.echeancesClient.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="echeancesClients;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="compteId"><span jhiFnmTranslate="sfdApp.echeancesClient.compte">Compte</span> <span class="fa fa-sort"></span></th>
+                    <!-- <th jhiSortBy="libelle"><span jhiFnmTranslate="sfdApp.echeancesClient.libelle">Libelle</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="numEcheance"><span jhiFnmTranslate="sfdApp.echeancesClient.numEcheance">Num Echeance</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="echeanceDate"><span jhiFnmTranslate="sfdApp.echeancesClient.echeanceDate">Echeance Date</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="capital"><span jhiFnmTranslate="sfdApp.echeancesClient.capital">Capital</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="interet"><span jhiFnmTranslate="sfdApp.echeancesClient.interet">Interet</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="epargne"><span jhiFnmTranslate="sfdApp.echeancesClient.epargne">Epargne</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="total"><span jhiFnmTranslate="sfdApp.echeancesClient.total">Total</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="payer" class="text-center"><span jhiFnmTranslate="sfdApp.echeancesClient.payer">Payer</span> <span class="fa fa-sort"></span></th>
+                    <!-- <th jhiSortBy="createdDate"><span jhiFnmTranslate="sfdApp.echeancesClient.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>-->
+                    <!-- <th jhiSortBy="createdBy"><span jhiFnmTranslate="sfdApp.echeancesClient.createdBy">Created By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedBy"><span jhiFnmTranslate="sfdApp.echeancesClient.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedDate"><span jhiFnmTranslate="sfdApp.echeancesClient.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th> -->
+                    <!--  <th jhiSortBy="echeancierClientId"><span jhiFnmTranslate="sfdApp.echeancesClient.echeancierClient">Echeancier Client</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th class="text-right">Actions</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let echeancesClient of echeancesClients | echeancier:idEcheancier | recherche:currentSearch ;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','echeances-client', echeancesClient.id ]">{{echeancesClient.id}}</a></td> -->
+                    <td>{{echeancesClient.libelle}}</td>
+                    <td>{{echeancesClient.numEcheance}}</td>
+                    <td>{{echeancesClient.echeanceDate | date:'dd-MM-y'}}</td>
+                    <td>{{echeancesClient.capital}}</td>
+                    <td>{{echeancesClient.interet}}</td>
+                    <td>{{echeancesClient.epargne}}</td>
+                    <td>{{echeancesClient.total}}</td>
+                    <td class="text-center">
+                        <span jhiFnmTranslate="sfdApp.echeancesClient.yes" *ngIf="echeancesClient.payer">Oui</span>
+                        <span jhiFnmTranslate="sfdApp.echeancesClient.no" *ngIf="!echeancesClient.payer">Non</span>
+                    </td>
+                    <!-- <td>{{echeancesClient.createdDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>{{echeancesClient.createdBy}}</td> -->
+                    <!-- <td>{{echeancesClient.lastModifiedBy}}</td> -->
+                    <!-- <td>{{echeancesClient.lastModifiedDate | date:'dd-MM-y'}}</td> -->
+                    <!--  <td>
+                        <div *ngIf="echeancesClient.compteId">
+                            <a [routerLink]="['/entity','compte-client', echeancesClient.compteId  ]">{{echeancesClient.compteId}}</a>
+                        </div>
+                    </td> -->
+                    <!-- <td>
+                        <div *ngIf="echeancesClient.echeancierClientId">
+                            <a [routerLink]="['/entity','echeancier-client', echeancesClient.echeancierClientId  ]">{{echeancesClient.echeancierClientId}}</a>
+                        </div>
+                    </td> -->
+                    <!-- <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['/entity','echeances-client', echeancesClient.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                             <span class="hidden-md-down" jhiFnmTranslate="entity.action.view">View</span> 
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','echeances-client', { outlets: { popup: 'echeances-client/'+ echeancesClient.id + '/edit'} }]"
+                                replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                             <span class="hidden-md-down" jhiFnmTranslate="entity.action.edit">Edit</span> 
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','echeances-client', { outlets: { popup: 'echeances-client/'+ echeancesClient.id + '/delete'} }]"
+                                replaceUrl="true" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                             <span class="hidden-md-down" jhiFnmTranslate="entity.action.delete">Delete</span> 
+                        </button>
+                        </div>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="echeancesClients && echeancesClients.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <!--  <div class="row justify-content-center">
+             <ngb-pagination  [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems"   [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div> -->
+    </div>
+
+</div>
+<!-- <div id="print-container" class="print">
+    <ul id="print-picker" class="print-list" [ngClass]="{open:printed}">
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="nl"><a class="waves-effect waves-teal btn-flat">Nederlands</a></li>
+        <li data-value="fr"><a class="waves-effect waves-teal btn-flat">Français</a></li>
+        <li data-value="de"><a class="waves-effect waves-teal btn-flat">Deutsch</a></li>
+    </ul>
+    <div class="print-toggle" (click)="printed = !printed"><span class="printor-current" id="tx-live-lang-current">Impression</span>
+        <i class="fa fa-print"></i>
+    </div>
+</div> -->

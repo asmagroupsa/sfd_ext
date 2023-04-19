@@ -1,0 +1,100 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.operationCompteTrancheTF.home.title">Operation Compte Tranche TFS</span>
+        <button class="btn btn-primary float-right create-operation-compte-tranche-tf" [routerLink]="['/entity','operation-compte-tranche-tf', { outlets: { popup: ['operation-compte-tranche-tf-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.operationCompteTrancheTF.home.createLabel">
+            Create new Operation Compte Tranche TF
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.operationCompteTrancheTF.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="operationCompteTrancheTFS;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="createdDate"><span jhiFnmTranslate="sfdApp.operationCompteTrancheTF.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>-->
+                    <!-- <th jhiSortBy="createdBy"><span jhiFnmTranslate="sfdApp.operationCompteTrancheTF.createdBy">Created By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedBy"><span jhiFnmTranslate="sfdApp.operationCompteTrancheTF.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedDate"><span jhiFnmTranslate="sfdApp.operationCompteTrancheTF.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="accountTypeId"><span jhiFnmTranslate="sfdApp.operationCompteTrancheTF.accountType">Account Type</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="operationTypeId"><span jhiFnmTranslate="sfdApp.operationCompteTrancheTF.operationType">Operation Type</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="francheTauxFraisId"><span jhiFnmTranslate="sfdApp.operationCompteTrancheTF.francheTauxFrais">Franche Taux Frais</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let operationCompteTrancheTF of operationCompteTrancheTFS  | recherche:currentSearch ;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','operation-compte-tranche-tf', operationCompteTrancheTF.id ]">{{operationCompteTrancheTF.id}}</a></td> -->
+                    <!-- <td>{{operationCompteTrancheTF.createdDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>{{operationCompteTrancheTF.createdBy}}</td> -->
+                    <!-- <td>{{operationCompteTrancheTF.lastModifiedBy}}</td> -->
+                    <!-- <td>{{operationCompteTrancheTF.lastModifiedDate | date:'dd-MM-y'}}</td> -->
+                    <td>
+                        <div *ngIf="operationCompteTrancheTF.accountTypeId">
+                            <a [routerLink]="['/entity','account-type', operationCompteTrancheTF.accountTypeId  ]">{{operationCompteTrancheTF.accountTypeId}}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="operationCompteTrancheTF.operationTypeId">
+                            <a [routerLink]="['/entity','operation-type', operationCompteTrancheTF.operationTypeId  ]">{{operationCompteTrancheTF.operationTypeId}}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="operationCompteTrancheTF.francheTauxFraisId">
+                            <a [routerLink]="['/entity','tranche-taux-frais', operationCompteTrancheTF.francheTauxFraisId  ]">{{operationCompteTrancheTF.francheTauxFraisId}}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['/entity','operation-compte-tranche-tf', operationCompteTrancheTF.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.view">View</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','operation-compte-tranche-tf', { outlets: { popup: 'operation-compte-tranche-tf/'+ operationCompteTrancheTF.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.edit">Edit</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','operation-compte-tranche-tf', { outlets: { popup: 'operation-compte-tranche-tf/'+ operationCompteTrancheTF.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.delete">Delete</span> -->
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="operationCompteTrancheTFS && operationCompteTrancheTFS.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>

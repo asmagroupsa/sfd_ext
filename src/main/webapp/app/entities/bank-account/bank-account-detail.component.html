@@ -1,0 +1,37 @@
+<div *ngIf="bankAccount">
+    <h2><span jhiFnmTranslate="sfdApp.bankAccount.detail.title">Bank Account</span> {{bankAccount.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.bankAccount.bankNumber">Bank Number</span></dt>
+        <dd>
+            <span>{{bankAccount.bankNumber}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.bankAccount.managerName">Manager Name</span></dt>
+        <dd>
+            <span>{{bankAccount.managerName}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.bankAccount.managerContact">Manager Contact</span></dt>
+        <dd>
+            <span>{{bankAccount.managerContact}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.bankAccount.date">Date</span></dt>
+        <dd>
+            <span>{{bankAccount.date | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.bankAccount.bank">Bank</span></dt>
+        <dd>
+            <div *ngIf="bankAccount.bankId">
+                <a [routerLink]="['/bank', bankAccount.bankId]">{{bankAccount.bankId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/', { outlets: { popup: 'bank-account/'+ bankAccount.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

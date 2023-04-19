@@ -1,0 +1,34 @@
+{
+    "sfdApp": {
+        "eligible" : {
+            "home": {
+                "title": "Eligibles",
+                "createLabel": "Créer un nouveau Eligible",
+                "createOrEditLabel": "Editer un Eligible",
+                "search": "Recherche pour Eligible"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Eligible {{ id }} ?"
+            },
+            "detail": {
+                "title": "Eligible"
+            },
+            "sfdReference": "Sfd Reference",
+            "zoneReference": "Zone Reference",
+            "status": "Status",
+            "createdDate": "Date création",
+            "createdBy": "Créé par",
+            "lastModifiedBy": "Modifié dernièrement par",
+            "lastModifiedDate": "Date dernière modification",
+            "produit": "Produit",
+            "sfd": "Sfd"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "eligible" : {
+            "created": "Un nouveau Eligible a été créé ",
+            "updated": "L'Eligible  a été mis à jour",
+            "deleted": "L'Eligible  a été supprimé"
+        }
+    }
+}

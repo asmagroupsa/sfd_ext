@@ -1,0 +1,36 @@
+{
+    "sfdApp": {
+        "contrat" : {
+            "home": {
+                "title": "Contrats",
+                "createLabel": "Créer un nouveau Contrat",
+                "createOrEditLabel": "Editer un Contrat",
+                "search": "Recherche Un Contrat"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Contrat {{ id }} ?"
+            },
+            "detail": {
+                "title": "Contrat"
+            },
+            "code": "Code",
+            "contratDate": "Date Contrat",
+            "duree": "Durée",
+            "unity": "Unité",
+            "clotureDate": "Date Clôture",
+            "createdDate": "Date Création",
+            "createdBy": "Créer par",
+            "lastModifiedBy": "Modifié Dernièrement Par",
+            "lastModifiedDate": "Date Dernière Modification",
+            "sfd": "Sfd",
+            "produit": "Produit"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "contrat" : {
+            "created": "Un nouveau Contrat a été créé ",
+            "updated": "Le Contrat  a été mis à jour",
+            "deleted": "Le Contrat  a été supprimé"
+        }
+    }
+}

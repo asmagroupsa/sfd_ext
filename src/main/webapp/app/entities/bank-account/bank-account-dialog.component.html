@@ -1,0 +1,66 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBankAccountLabel" [jhiFnmTranslate]="bankAccount.id ? 'sfdApp.bankAccount.home.createOrEditLabel' : 'sfdApp.bankAccount.home.createLabel'">Create or edit a Bank Account</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label class="form-control-label oblige" jhiFnmTranslate="sfdApp.bankAccount.bankNumber" for="field_bankNumber">Bank Number</label>
+            <input type="text" class="form-control" name="bankNumber" id="field_bankNumber" [(ngModel)]="bankAccount.bankNumber" required />
+            <div [hidden]="!(editForm.controls.bankNumber?.dirty && editForm.controls.bankNumber?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.bankNumber?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.bankAccount.managerName" for="field_managerName">Manager Name</label>
+            <input type="text" class="form-control" name="managerName" id="field_managerName" [(ngModel)]="bankAccount.managerName" maxlength="100" />
+            <div [hidden]="!(editForm.controls.managerName?.dirty && editForm.controls.managerName?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.managerName?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.bankAccount.managerContact" for="field_managerContact">Manager Contact</label>
+            <input type="tel" class="form-control" name="managerContact" id="field_managerContact" [(ngModel)]="bankAccount.managerContact" maxlength="15" data-length="15" pattern="^([0-9]{0,3})[-_. ]?([0-9]{2}[-_. ]?){3}[0-9]{2}$" />
+            <div [hidden]="!(editForm.controls.managerContact?.dirty && editForm.controls.managerContact?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.managerContact?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 15 }">
+                    This field cannot be longer than 15 characters.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.managerContact?.errors?.pattern">
+                    Le numéro de téléphone n'est pas correct
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.bankAccount.date" for="field_date">Date</label>
+            <div class="input-group">
+                <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker #dateDp="ngbDatepicker" [(ngModel)]="bankAccount.date" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.bankAccount.bank" for="field_bank">Bank</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_bank" name="bank" [(ngModel)]="bankAccount.bankId">
+                <option [ngValue]="null">Aucun</option>
+                <option [ngValue]="bankOption.id" *ngFor="let bankOption of banks">{{bankOption.libelle}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp; <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

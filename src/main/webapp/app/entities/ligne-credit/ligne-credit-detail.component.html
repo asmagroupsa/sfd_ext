@@ -1,0 +1,171 @@
+<button class="circular ui icon button" (click)="previousState()">
+    <i class="angle left icon"></i>
+</button>
+<div class="container">
+    <div class="back-header">
+
+        <h3>Informations détaillées sur la ligne de crédit</h3>
+    </div>
+    <div class="back-footer"></div>
+    <div class="contenu">
+        <h6 class="text-center">
+            {{ligneCredit?.libelle}} <br>
+            <em style="text-align:center">code: {{ligneCredit?.code}}</em>
+        </h6>
+        <br><br>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xl-4 text-center">
+                <p>
+                    <strong>
+                     La nature du credit
+                  </strong> <br> {{ficheLigne?.nature_credit}}
+                </p>
+                <p>
+                    <strong>
+                    Le type du credit
+                </strong>
+                    <br> {{ficheLigne?.type_credit}}
+                </p>
+                <p>
+                    <strong>
+                        La date d'ouverture
+                    </strong>
+                    <br> {{ficheLigne?.date_ouverture | date:'dd-MM-y'}}
+                </p>
+                <p>
+                    <strong>
+                        La date d'effet
+                    </strong>
+                    <br> {{ficheLigne?.dateeffet | date:'dd-MM-y'}}
+                </p>
+                <p>
+                    <strong>
+                        Le délai de grâce
+                    </strong>
+                    <br> {{ficheLigne?.delai_grace}}
+                </p>
+                <p>
+                    <strong>
+                        Le différé
+                    </strong>
+                    <br> {{ficheLigne?.differe}}
+                </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xl-4 text-center">
+                <p>
+                    <strong>
+                        Le montant de la ligne
+                    </strong>
+                    <br> {{ficheLigne?.montant| currency:'XAF':true:'2.0'}}
+                </p>
+                <p>
+                    <strong>
+                        La durée
+                    </strong>
+                    <br> {{ficheLigne?.duree}}
+                </p>
+                <p>
+                    <strong>
+                        Le nombre d'echeances
+                    </strong>
+                    <br> {{ficheLigne?.nombre_echeance}}
+                </p>
+                <p>
+                    <strong>
+                        La periodicite
+                    </strong>
+                    <br> {{ficheLigne?.periodicite}}
+                </p>
+                <p>
+                    <strong>
+                        Le taux d'interêt
+                    </strong>
+                    <br> {{ficheLigne?.tauxinteret}}%
+                </p>
+                <p>
+                    <strong>
+                        Le taux d'épargne
+                    </strong>
+                    <br> {{ficheLigne?.tauxepargne}}%
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 
+   <div *ngIf="ligneCredit">
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.ligneCredit.amount">Amount</span></dt>
+        <dd>
+            <span>{{ligneCredit.amount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ligneCredit.libelle">Libelle</span></dt>
+        <dd>
+            <span>{{ligneCredit.libelle}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ligneCredit.code">Code</span></dt>
+        <dd>
+            <span>{{ligneCredit.code}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ligneCredit.duration">Duration</span></dt>
+        <dd>
+            <span>{{ligneCredit.duration}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ligneCredit.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{ligneCredit.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ligneCredit.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{ligneCredit.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ligneCredit.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{ligneCredit.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ligneCredit.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{ligneCredit.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ligneCredit.remboursement">Remboursement</span></dt>
+        <dd>
+            <span>{{ligneCredit.remboursement}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ligneCredit.notificationSFD">Notification SFD</span></dt>
+        <dd>
+            <div *ngIf="ligneCredit.notificationSFDId">
+                <a [routerLink]="['/entity','notification-sfd', ligneCredit.notificationSFDId]">{{ligneCredit.notificationSFDId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ligneCredit.budget">Budget</span></dt>
+        <dd>
+            <div *ngIf="ligneCredit.budgetId">
+                <a [routerLink]="['/entity','budget', ligneCredit.budgetId]">{{ligneCredit.budgetId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ligneCredit.periodicity">Periodicity</span></dt>
+        <dd>
+            <div *ngIf="ligneCredit.periodicityId">
+                <a [routerLink]="['/entity','periodicity', ligneCredit.periodicityId]">{{ligneCredit.periodicityId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ligneCredit.partner">Partner</span></dt>
+        <dd>
+            <div *ngIf="ligneCredit.partnerId">
+                <a [routerLink]="['/entity','partner', ligneCredit.partnerId]">{{ligneCredit.partnerId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','ligne-credit', { outlets: { popup: 'ligne-credit/'+ ligneCredit.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary" *jhiHasAnyRessources="['carmesfnmservice/api/ligne-credits/updateLigneCredit']">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+  </div>
+-->

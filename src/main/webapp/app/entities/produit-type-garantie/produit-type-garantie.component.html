@@ -1,0 +1,87 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.tranchePenal.home.title">Tranche Penals</span>
+        <button *jhiHasAnyRessources="['carmesfnmservice/api/tranche-penals/createTranchePenal']" class="btn btn-primary float-right create-tranche-penal" [routerLink]="['/entity','produit-type-garantie', { outlets: { popup: ['produit-type-garantie-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" jhiFnmTranslate="sfdApp.tranchePenal.home.createLabel">
+                Create new Tranche Penal
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.produitTypeGarantie.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">{{principal.loading}}</div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="produitTypeGaranties; else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th class="numerotab">N°</th>
+                    <th jhiSortBy="produitId">
+                        <span>Produit</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="typeGarantieId">
+                        <span>Type garantie</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="amount">
+                        <span>Frais/Taux</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="typeValeur">
+                        <span>Type de valeur</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let produitTypeGarantie of produitTypeGaranties|recherche:currentSearch;let index=index;">
+                    <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>{{produitTypeGarantie.produit?.libelle}}</td>
+                    <td>{{produitTypeGarantie.typeGarantie?.name}}</td>
+                    <td *ngIf="produitTypeGarantie.typeValeur == 'FRAIS'">{{produitTypeGarantie.amount|currency:'XAF':true:'2.0-3'}}</td>
+                    <td *ngIf="produitTypeGarantie.typeValeur == 'TAUX'">{{produitTypeGarantie.amount}}%</td>
+                    <td>{{produitTypeGarantie.typeValeur}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button *jhiHasAnyRessources="['carmesfnmservice/api/tranche-penals/updateTranchePenal']" type="submit" [routerLink]="['/entity','produit-type-garantie', { outlets: { popup: 'produit-type-garantie/'+ produitTypeGarantie.id + '/edit'} }]" replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                                <span class="fa fa-pencil"></span>
+                            </button>
+                            <button *jhiHasAnyRessources="['carmesfnmservice/api/tranche-penals/deleteTranchePenal']" type="submit" [routerLink]="['/entity','produit-type-garantie', { outlets: { popup: 'produit-type-garantie/'+ produitTypeGarantie.id + '/delete'} }]" replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="produitTypeGaranties && produitTypeGaranties.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>

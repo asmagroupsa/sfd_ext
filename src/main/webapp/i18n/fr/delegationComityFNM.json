@@ -1,0 +1,33 @@
+{
+    "sfdApp": {
+        "delegationComityFNM" : {
+            "home": {
+                "title": "DelegationComityFNMS",
+                "createLabel": "Créer une nouvelle Délégation Comity FNM",
+                "createOrEditLabel": "Editer un Délégation comity FNM",
+                "search": "Recherche Délégation comity FNM"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Délégation comity FNM {{ id }} ?"
+            },
+            "detail": {
+                "title": "Délégation comity FNM"
+            },
+            "nbMember": "Nb Member",
+            "maxAmount": "Max Amount",
+            "globalMaxAmount": "Global Max Amount",
+            "delegationSignatureFileUrl": "Delegation Signature File Url",
+            "reference": "Reference",
+            "libelle": "Libelle",
+            "creditComitieFNMs": "Crédit Comité FN Ms",
+            "delegatedMemberFNMs": "Délégué Membre FN Ms"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "delegationComityFNM" : {
+            "created": "Une nouvelle Délégation comité FNM a été créé ",
+            "updated": "La Délégation comité FNM  a été mise à jour",
+            "deleted": "La Délégation comité FNM  a été supprimée"
+        }
+    }
+}

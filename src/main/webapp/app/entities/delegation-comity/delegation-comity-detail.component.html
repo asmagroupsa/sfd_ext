@@ -1,0 +1,32 @@
+<div *ngIf="delegationComity">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.delegationComity.detail.title">Delegation Comity</span> {{delegationComity.id}}</h2>
+    <hr> -->
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.delegationComity.nbMember">Nb Member</span></dt>
+        <dd>
+            <span>{{delegationComity.nbMember}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.delegationComity.maxAmount">Max Amount</span></dt>
+        <dd>
+            <span>{{delegationComity.maxAmount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.delegationComity.globalMaxAmount">Global Max Amount</span></dt>
+        <dd>
+            <span>{{delegationComity.globalMaxAmount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.delegationComity.delegationSignatureFileUrl">Delegation Signature File Url</span></dt>
+        <dd>
+            <span>{{delegationComity.delegationSignatureFileUrl}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','delegation-comity', { outlets: { popup: 'delegation-comity/'+ delegationComity.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

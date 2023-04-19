@@ -1,0 +1,10 @@
+{
+    "carmesfnmserviceApp": {
+        "TauxFraisType": {
+            "null": "",
+            "FRAIS": "FRAIS",
+            "TAUX": "TAUX",
+            "AUCUN": "AUCUN"
+        }
+    }
+}

@@ -1,0 +1,73 @@
+<div>
+    <br>
+    <h3>
+        <span jhiFnmTranslate="sfdApp.phase.home.title"></span>
+        <button class="btn btn-primary float-right jh-create-entity create-poste" [routerLink]="['/entity','phase', { outlets: { popup: ['phase-new'] } }]" [queryParams]="{produitId: q.produitId}">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" jhiFnmTranslate="sfdApp.poste.home.createLabel">
+                Create new Poste
+            </span>
+        </button>
+    </h3>
+    <jhi-alert></jhi-alert>
+    <!-- <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.poste.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div> -->
+    <br />
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader"></div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="phases;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiFnmTranslate="sfdApp.phase.code"></th>
+                    <th jhiFnmTranslate="sfdApp.phase.libelle"></th>
+                    <th jhiFnmTranslate="sfdApp.phase.produit"></th>
+                    <th jhiFnmTranslate="sfdApp.phase.montant"></th>
+                    <th>Active</th>
+                    <th class='text-right'>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let phase of phases | recherche:currentSearch">
+                    <td>{{phase.code}}</td>
+                    <td>{{phase.libelle}}</td>
+                    <td>{{phase.produit?.libelle}}</td>
+                    <td>{{phase.montant | currency:'XAF':true:'2.0-3'}}</td>
+                    <td>{{phase.status ? 'Oui' : 'Non'}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <!-- <button type="submit" [routerLink]="['/entity','poste', poste.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            </button> -->
+                            <button type="submit" [routerLink]="['/entity','phase', { outlets: { popup: 'phase/'+ phase.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                                <span class="fa fa-pencil"></span>
+                            </button>
+                            <button type="submit" [routerLink]="['/entity','phase', { outlets: { popup: 'phase/'+ phase.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- <div *ngIf="postes && postes.length">
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div> -->
+</div>

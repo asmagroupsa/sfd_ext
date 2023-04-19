@@ -1,0 +1,9 @@
+{
+    "sfdApp": {
+        "Sens" : {
+            "null": "",
+            "DEBIT": "DEBIT",
+            "CREDIT": "CREDIT"
+        }
+    }
+}

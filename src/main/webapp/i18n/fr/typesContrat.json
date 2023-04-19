@@ -1,0 +1,34 @@
+{
+    "sfdApp": {
+        "typesContrat" : {
+            "home": {
+                "title": "Type de contrat",
+                "createLabel": "Créer un nouveau type de contrat",
+                "createOrEditLabel": "Editer un Type de contrat",
+                "search": "Recherche pour Type de contrat"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Type de contrat {{ id }} ?"
+            },
+            "detail": {
+                "title": "Type de contrat"
+            },
+            "libelle": "Libellé",
+            "amount": "Montant",
+            "createdDate": "Date création",
+            "createdBy": "Créé par",
+            "lastModifiedBy": "Modifié dernièrement par",
+            "lastModifiedDate": "Date dernière modification",
+            "code": "code",
+            "typeClient": "type client",
+            "produits": "Produits"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "frais" : {
+            "created": "Un nouveau Type de contrat a été créé ",
+            "updated": "Le Type de contrat  a été mis à jour",
+            "deleted": "Le Type de contrat  a été supprimé"
+        }
+    }
+}

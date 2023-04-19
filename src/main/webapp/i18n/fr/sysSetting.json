@@ -1,0 +1,27 @@
+{
+    "sfdApp": {
+        "sysSetting": {
+            "home": {
+                "title": "paramètre du système",
+                "createLabel": "Créer un nouveau paramètre du système",
+                "createOrEditLabel": "Editer un paramètre du système",
+                "search": "Recherche pour paramètre du système"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le paramètre du système {{ id }} ?"
+            },
+            "detail": {
+                "title": "paramètre du système"
+            },
+            "name": "Non",
+            "valeur": "Valeur"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "sysSetting": {
+            "created": "Un nouveau paramètre du système a été créé ",
+            "updated": "Le paramètre du système  a été mis à jour",
+            "deleted": "Le paramètre du système  a été supprimé"
+        }
+    }
+}

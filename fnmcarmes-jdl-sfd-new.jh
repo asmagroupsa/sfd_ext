@@ -1,0 +1,1607 @@
+// JDL definition for application 'carmesfnmservice' generated with command 'jhipster export-jdl'
+
+entity Address (cf_address) {
+  home String required maxlength(100),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  geoLong Float,
+  geoLat Float,
+  observation TextBlob
+}
+entity Client (cf_client) {
+  userReference String maxlength(50),
+  name String required maxlength(100),
+  code String required maxlength(50),
+  cpteCarmes String required,
+  email String maxlength(50),
+  bp String required maxlength(10),
+  fax String required maxlength(15),
+  phone String required maxlength(15),
+  birthDate LocalDate,
+  sex String required maxlength(15),
+  birthPlace String maxlength(50),
+  conjointName String maxlength(50),
+  conjointPhone String maxlength(50),
+  pictureUrl String maxlength(50),
+  contactPersonName String maxlength(50),
+  contactPersonPhone String maxlength(50),
+  identityCard String maxlength(50),
+  fingerPrintLeft String maxlength(50),
+  fingerPrintRight String maxlength(50),
+  signature String maxlength(50),
+  commercialRegisterNumber String maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  firstName String maxlength(50),
+  alias String maxlength(50),
+  denomination String maxlength(100),
+  ifus String maxlength(50),
+  maidenName String maxlength(50),
+  employee Boolean,
+  apparente Boolean,
+  motherName String maxlength(100),
+  fatherName String
+}
+entity Leader (cf_leader) {
+  name String required maxlength(50),
+  firstName String required maxlength(50),
+  address String maxlength(50),
+  sex String maxlength(50),
+  title String maxlength(50),
+  phone String required maxlength(50),
+  birthDate LocalDate,
+  email String maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Agence (cf_agence) {
+  userReference String maxlength(50),
+  name String required maxlength(50),
+  codeAgence String required maxlength(50),
+  address String required maxlength(50),
+  email String maxlength(50),
+  bp String maxlength(50),
+  fax String maxlength(50),
+  phone String required maxlength(50),
+  geoLat String maxlength(50),
+  geoLong String maxlength(50),
+  pictureUrl String maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity ServiceUser (cf_service_user) {
+  lastLNme String maxlength(50),
+  firstName String maxlength(50),
+  phone String maxlength(30),
+  email String maxlength(50),
+  login String maxlength(50),
+  reference String maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Civility (cf_civility) {
+  name String required maxlength(10)
+}
+entity SituationMat (cf_situation_mat) {
+  name String required maxlength(15)
+}
+entity IdCardType (cf_id_card_type) {
+  name String required maxlength(50),
+  code String required maxlength(50)
+}
+entity Profession (cf_profession) {
+  name String required maxlength(100)
+}
+entity Nationality (cf_nationality) {
+  name String required maxlength(50)
+}
+entity Country (cf_country) {
+  name String required maxlength(50)
+}
+entity City (cf_city) {
+  name String required maxlength(50)
+}
+entity District (cf_district) {
+  name String required maxlength(50)
+}
+entity TownShip (cf_town_ship) {
+  name String required maxlength(50)
+}
+entity Departement (cf_departement) {
+  name String required maxlength(50)
+}
+entity Literacy (cf_literacy) {
+  niveau String required maxlength(50)
+}
+entity SchoolLevel (cf_school_level) {
+  niveau String required maxlength(50)
+}
+entity CreditRequest (cf_credit_request) {
+  userReference String maxlength(50),
+  reference String required maxlength(50),
+  requestDate LocalDate required,
+  amount Float required,
+  duration Integer,
+  interestRate Float,
+  nbrDiffere Integer,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  clientLib String maxlength(100),
+  expressionRequest TextBlob
+}
+entity Produit (cf_produit) {
+  code String required maxlength(50),
+  libelle String required maxlength(50),
+  duration Integer,
+  etudiable Boolean required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  comitable Boolean required,
+  formable Boolean required,
+  notifiable Boolean required,
+  creditable Boolean required,
+  contractable Boolean required,
+  penalitable Boolean required,
+  eligibilite Boolean required,
+  amountMax Float,
+  amountMin Float,
+  interestRate Float
+}
+entity RequestRaison (cf_request_raison) {
+  name String required maxlength(100)
+}
+entity CreditRequestStatus (cf_request_status) {
+  name String required maxlength(50)
+}
+entity Etude (cf_etude) {
+  userReference String maxlength(50),
+  visitDate LocalDate,
+  etudeDate LocalDate,
+  procesVerbal TextBlob,
+  result Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  geoLat Float,
+  geoLong Float,
+  client String maxlength(100),
+  adress String maxlength(100)
+}
+entity EtudeType (cf_etude_type) {
+  name String required maxlength(50),
+  code String required
+}
+entity CreditComity (cf_credit_comity) {
+  code String required maxlength(50),
+  startDate LocalDate required,
+  endDate LocalDate,
+  nbrDossierAssigne Integer,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  typeValidation TypeValidation required,
+  closed Boolean required,
+  closedDate LocalDate
+}
+entity ComityMber (cf_comity_mber) {
+  userReference String maxlength(50),
+  status Boolean,
+  nominationDate LocalDate required,
+  endNominationDate LocalDate,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  user String maxlength(100)
+}
+entity NotificationClient (cf_notification_client) {
+  notificationDate LocalDate required,
+  status Boolean required,
+  rate Float required,
+  nbrDiffere Integer,
+  amount Float required,
+  typeEcheancier String required maxlength(50),
+  nbreEcheance Integer required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Periodicity (cf_periodicity) {
+  denominateur Double,
+  unite Unite,
+  codePeriodicite String,
+  constante Double,
+  libPeriodicite String
+}
+entity Conditions (cf_conditions) {
+  name String required maxlength(50),
+  valeur String maxlength(10),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Frais (cf_frais) {
+  libelle String required maxlength(50),
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  typeValeur TauxFraisType
+}
+entity ConditionGarantie (cf_condition_garantie) {
+  name String required maxlength(50),
+  valeur String maxlength(10),
+  document String maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity TypeGarantie (cf_type_garantie) {
+  name String required maxlength(50),
+  code String required maxlength(50)
+}
+entity Taux (cf_taux) {
+  libelle String required maxlength(50),
+  valeur Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity TranchePenal (cf_tranche_penal) {
+  minDay Integer required,
+  maxDay Integer required,
+  penalRate Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Credit (cf_credit) {
+  endDate LocalDate,
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  decaisser Boolean required,
+  modeEcheance ModeEcheance,
+  reference String,
+  rembourser Boolean,
+  employee Boolean,
+  apparente Boolean,
+  startDate LocalDate,
+  client String maxlength(100)
+}
+entity EcheancierClient (cf_echeancier_client) {
+  startDate LocalDate required,
+  tauxEpargne Float required,
+  tauxInteret Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  amount Float,
+  nbDiffere Integer
+}
+entity EcheancesClient (cf_echeances_client) {
+  libelle String required maxlength(50),
+  numEcheance Integer required,
+  echeanceDate LocalDate required,
+  capital Integer required,
+  interet Float required,
+  epargne Integer required,
+  total Float required,
+  payer Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  capitalPayer Boolean,
+  interetPayer Boolean,
+  epargnePayer Boolean
+}
+entity TypeRembt (cf_type_rembt) {
+  name String required maxlength(50),
+  code String required maxlength(20)
+}
+entity Rembt (cf_rembt) {
+  rembDate LocalDate required,
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  interet Double,
+  epargne Double,
+  penalite Double,
+  capital Double
+}
+entity RembtPenal (cf_rembt_penal) {
+  amount Float required,
+  rembPenalDate LocalDate,
+  rembPenalPayer Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Compte (cf_compte) {
+  numAccount String maxlength(50),
+  balance Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity AccountType (cf_account_type) {
+  name String required maxlength(50),
+  code String required maxlength(50),
+  initiale String maxlength(50)
+}
+entity Operation (cf_operation) {
+  title String required maxlength(100),
+  amount Float required,
+  observation String,
+  compenser Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  ecritureCode String required maxlength(50),
+  comptable Boolean required
+}
+entity Compensation (cf_compensation) {
+  amount Float required,
+  bankAccount String required maxlength(50),
+  consommer Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity CompensationType (cf_compensation_type) {
+  name String required maxlength(50),
+  code String required maxlength(30)
+}
+entity OperationType (cf_operation_type) {
+  name String required maxlength(50),
+  description TextBlob,
+  code String required maxlength(50)
+}
+entity TauxCommission (cf_taux_commission) {
+  name String required maxlength(50),
+  valeur Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Commission (cf_commission) {
+  taux Float required,
+  valeur Float required,
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  compenser Boolean,
+  carmesAccount String required,
+  comptable Boolean required
+}
+entity ContrainteCompte (cf_contrainte_compte) {
+  name String required maxlength(50),
+  valeur Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  typeTraitement TypeTraitement required,
+  typeValeur TauxFraisType
+}
+entity Terme (cf_terme) {
+  minInterval Integer required,
+  maxInterval Integer required,
+  libelle String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Garantie (cf_garantie) {
+  valeur String required maxlength(50),
+  name String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  numAccount String,
+  numAccountGarantie String,
+  constituer Boolean,
+  liberer Boolean
+}
+entity DocumentGarantie (cf_document_garantie) {
+  reference String required maxlength(50),
+  filePath String required maxlength(50),
+  name String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity LigneCredit (cf_ligne_credit) {
+  amount Float required,
+  libelle String required maxlength(50),
+  code String required maxlength(50),
+  duration Integer required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  remboursement Float
+}
+entity Phase (cf_phase) {
+  name String required maxlength(50)
+}
+entity EcheancierSFD (cf_echeancier_sfd) {
+  startDate LocalDate,
+  tauxEpargne Integer,
+  tauxInteret Integer required,
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  nbDiffere Integer
+}
+entity FraisGestion (cf_frais_gestion) {
+  libelle String required maxlength(50),
+  minPercent Float required,
+  maxPercent Float required,
+  valeur Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity RemboursementSFD (cf_remboursement_sfd) {
+  rembDate LocalDate,
+  amount Float,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity TauxSFD (cf_taux_sfd) {
+  libelle String required maxlength(50),
+  valeur String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity TypeClient (cf_type_client) {
+  name String required maxlength(50),
+  code String required maxlength(20)
+}
+entity TypeMembre (cf_type_membre) {
+  name String required maxlength(50),
+  code String required maxlength(20)
+}
+entity CompteCommission (cf_compte_commission) {
+  title String required maxlength(100),
+  amount Float required,
+  taux Float,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Budget (cf_budget) {
+  amount Float required,
+  amountRequested Float required,
+  ammountReport Float required,
+  activeDate LocalDate,
+  carmesAccount String required maxlength(50),
+  active Boolean required,
+  cloture Boolean required,
+  sommeTotalLigne Float required,
+  codeActivation String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  montantActive Float
+}
+entity CallResponse (cf_call_response) {
+  amount Float required,
+  responseDate LocalDate required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity FundingRequest (cf_funding_request) {
+  amount Float required,
+  requestDate LocalDate required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity FundingRequestType (cf_funding_request_type) {
+  name String required maxlength(50),
+  code String required maxlength(30)
+}
+entity Partner (cf_partner) {
+  name String required maxlength(50),
+  address String required maxlength(100),
+  phone String required maxlength(50),
+  email String required maxlength(50),
+  logo String required maxlength(100),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Annee (cf_annee) {
+  name String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity ClotureBudget (cf_cloture_budget) {
+  clotureDate LocalDate,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity StrategieCloture (cf_strategie_cloture) {
+  name String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity TranchePenalSFD (cf_tranche_penal_sfd) {
+  minDay Integer,
+  maxDay Integer,
+  penalRate Integer,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity SFD (cf_sfd) {
+  code String required maxlength(50),
+  name String required maxlength(50),
+  address String required maxlength(100),
+  phone String required maxlength(50),
+  email String required maxlength(50),
+  fax String required maxlength(50),
+  bp String required maxlength(50),
+  city String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  compteCarmes String required maxlength(20)
+}
+entity Contrat (cf_contrat) {
+  code String required maxlength(50),
+  contratDate LocalDate,
+  duree Integer,
+  unity Unite,
+  clotureDate LocalDate,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity EcheancesSFD (cf_echeances_sfd) {
+  libelle String required maxlength(50),
+  numEcheance Integer required,
+  echeanceDate LocalDate required,
+  capital Integer required,
+  interet Float required,
+  epargne Integer required,
+  total Float required,
+  payer Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity NotificationSFD (cf_notification_sfd) {
+  rate Float,
+  notificationDate LocalDate,
+  status Boolean,
+  nbrDiffere Integer,
+  amount Float required,
+  typeEcheancier String required maxlength(50),
+  nbreEcheance Integer required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity LigneRequest (cf_ligne_request) {
+  requestDate LocalDate,
+  amount Float required,
+  nbreBenef Integer,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity RevolvingRequest (cf_revolving_request) {
+  amount Float required,
+  nbreBenef Integer,
+  status RequestStatus required,
+  dureeProduction Integer,
+  rembRateRequired Float required,
+  rembRate Float required,
+  availableRefundAmount Float required,
+  nextDueDate LocalDate required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity RevolvingResponse (cf_revolving_response) {
+  amount Float required,
+  status Boolean,
+  rembRate Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Activeur (cf_activeur) {
+  name String required maxlength(50),
+  firstName String required maxlength(50),
+  status Boolean,
+  code String required maxlength(50),
+  phone String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity GroupMember (cf_group_member) {
+  status Boolean,
+  memberRole String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Eligible (cf_eligible) {
+  status Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity FraisGestionAccorde (cf_frais_gestion_accorde) {
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Setting (cf_setting) {
+  name String required maxlength(50),
+  valeur String required maxlength(100)
+}
+entity RembtPenalSFD (cf_rembt_penal_sfd) {
+  amount Float required,
+  rembPenalDate LocalDate,
+  rembPenalPayer Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Activation (cf_activation) {
+  amount Float required,
+  code String required maxlength(50),
+  operation Integer,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Ecriture (cf_ecriture) {
+  codeTypeOperation String maxlength(50),
+  libelle String maxlength(100),
+  sens Sens required,
+  codeEcriture String required maxlength(50)
+}
+entity EcritureCommission (cf_ecriture_commission) {
+  rate Float required
+}
+entity TypeComite (cf_type_comite) {
+  name String required maxlength(50),
+  code String required maxlength(50)
+}
+entity Formation (cf_formation) {
+  formateur String maxlength(50),
+  avis String maxlength(100),
+  nbHour Integer,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  lieu String maxlength(50),
+  dateFormation LocalDate,
+  createdDate LocalDate required
+}
+entity Matiere (cf_matiere) {
+  name String required maxlength(100)
+}
+entity SettingSFD (cf_setting_sfd) {
+  name String required maxlength(50),
+  valeur String required maxlength(100)
+}
+entity CreditComityFNM (cf_credit_comity_fnm) {
+  code String required maxlength(50),
+  startDate LocalDate required,
+  endDate LocalDate,
+  nbrDossierAssigne Integer,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  typeValidation TypeValidation required,
+  closed Boolean required,
+  closedDate LocalDate
+}
+entity ComityMberFNM (cf_comity_mber_fnm) {
+  userReference String maxlength(50),
+  status Boolean,
+  nominationDate LocalDate required,
+  endNominationDate LocalDate,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  user String maxlength(100)
+}
+entity Prelevement (cf_prelevement) {
+  taux Float required,
+  valeur Float required,
+  amount Float required,
+  encaisser Boolean required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  account String required,
+  comptable Boolean required
+}
+entity TypeAlgo (c_type_algo) {
+  name String required maxlength(50),
+  code String required maxlength(50)
+}
+entity EcriturePrelevement (cf_ecriture_prelevement) {
+  minInterval Integer required,
+  maxInterval Integer required,
+  valeur Float required,
+  typeValeur TauxFraisType
+}
+entity EcritureOperationAccount (ecriture_operation_account)
+entity Mise (cf_mise) {
+  amount Float required,
+  encaisser Boolean required,
+  account String required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  comptable Boolean required
+}
+entity Disponibilite (cf_disponibilite_member) {
+  presence Boolean required
+}
+entity DisponibiliteFNM (cf_disponibilite_member_fnm) {
+  presence Boolean required
+}
+entity Validation (cf_validation_dossier) {
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  explanation String maxlength(100),
+  client String maxlength(100),
+  result ValidationResult
+}
+entity Dossier (cf_comity_dossier) {
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  client String maxlength(100)
+}
+entity ValidationFNM (cf_validation_dossier_fnm) {
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  explanation String maxlength(100),
+  sfd String maxlength(100),
+  result ValidationResult
+}
+entity DossierFNM (cf_comity_dossier_fnm) {
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity SuperTypeOperation (cf_super_type_operation) {
+  name String maxlength(50),
+  code String required maxlength(50)
+}
+entity SysSetting (cf_sys_setting) {
+  name String required maxlength(100),
+  valeur String required maxlength(100)
+}
+entity Compteur (compteur) {
+  libelle String maxlength(100),
+  longueur Integer,
+  valeur Integer,
+  initiale String maxlength(5),
+  typeCompteur String
+}
+entity ProduitTypeGarantie (cf_produit_type_garantie) {
+  amount Float,
+  typeValeur TauxFraisType
+}
+entity TauxEpargne (cf_taux_epargne) {
+  libelle String required maxlength(50),
+  valeur Float required,
+  typeValeur TauxFraisType
+}
+entity TypeGarantieConditionGaranties (type_garantie_condition_garanties) {
+  conditionGarantiesId Long,
+  typeGarantiesId Long
+}
+entity ConditionAcces (cf_condition_acces) {
+  name String required maxlength(50),
+  valeur String
+}
+entity CategorieProduit (cf_categorie_produit) {
+  name String required maxlength(50),
+  code String required
+}
+entity Poste (cf_poste) {
+  name String required maxlength(100)
+}
+entity DelegationComity (cf_delegation_comity) {
+  nbMember Integer,
+  maxAmount Float,
+  globalMaxAmount Float,
+  delegationSignatureFileUrl String maxlength(100)
+}
+entity DelegatedMember (cf_delegated_member) {
+  status Boolean,
+  nominationDate LocalDate required,
+  endNominationDate LocalDate,
+  user String maxlength(100)
+}
+entity DelegationComityFNM (cf_delegation_comity_fnm) {
+  nbMember Integer,
+  maxAmount Float,
+  globalMaxAmount Float,
+  delegationSignatureFileUrl String maxlength(100)
+}
+entity DelegatedMemberFNM (cf_delegated_member_fnm) {
+  status Boolean,
+  nominationDate LocalDate required,
+  endNominationDate LocalDate,
+  user String maxlength(100)
+}
+
+enum TypeValidation {
+  INDIVIDUAL,
+  GROUP
+}
+
+enum Unite {
+  JOUR,
+  SEMAINE,
+  MOIS,
+  ANNEE
+}
+
+enum TauxFraisType {
+  FRAIS,
+  TAUX,
+  AUCUN
+}
+
+enum ModeEcheance {
+  DEGRESSIF,
+  LINEAIRE,
+  CONSTANT
+}
+
+enum TypeTraitement {
+  AUTO,
+  MANUEL
+}
+
+enum RequestStatus {
+  SEND,
+  PROCESSED
+}
+
+enum Sens {
+  DEBIT,
+  CREDIT
+}
+
+enum ValidationResult {
+  ACCEPTER,
+  REJETER,
+  ATTENTE
+}
+
+relationship OneToOne {
+  NotificationClient{creditRequest required} to CreditRequest,
+  Credit{notificationClient required} to NotificationClient{credit},
+  EcheancierClient{credit required} to Credit{echeancierClient},
+  RembtPenal{echeancesClient required} to EcheancesClient{rembtPenal},
+  LigneCredit{notificationSFD required} to NotificationSFD{ligneCredit},
+  EcheancierSFD{ligneCredit required} to LigneCredit{echeancierSFD},
+  NotificationSFD{ligneRequest required} to LigneRequest{notificationSFD},
+  RevolvingResponse{revolvingRequest required} to RevolvingRequest{revolvingResponse},
+  FraisGestionAccorde{ligneCredit required} to LigneCredit,
+  RembtPenalSFD{echeancesSFD(libelle) required} to EcheancesSFD
+}
+relationship OneToMany {
+  District{addresss} to Address{district},
+  Client{addresss} to Address{client},
+  Agence{clients} to Client{agence},
+  Civility{clients} to Client{civility},
+  SituationMat{clients} to Client{situationMat},
+  IdCardType{clients} to Client{idCarteType},
+  Profession{clients} to Client{profession},
+  Nationality{clients} to Client{nationality},
+  Country{clients} to Client{country},
+  Literacy{clients} to Client{literacy},
+  SchoolLevel{clients} to Client{schoolLevel},
+  TypeClient{clients} to Client{typeClient},
+  Leader{clients} to Client{leader},
+  Poste{clients} to Client{poste},
+  SFD{agences} to Agence{sfd},
+  Departement{citys} to City{departement},
+  TownShip{districts} to District{townShip},
+  City{townShips} to TownShip{city},
+  Country{departements} to Departement{country},
+  CreditRequestStatus{creditRequests} to CreditRequest{requestStatus},
+  RequestRaison{creditRequests} to CreditRequest{requestObject},
+  Produit{creditRequests} to CreditRequest{produit},
+  Periodicity{creditRequests} to CreditRequest{periodicity},
+  Client{creditRequests} to CreditRequest{client},
+  CategorieProduit{produits} to Produit{categorieProduit},
+  EtudeType{etudes} to Etude{etudeType},
+  CreditRequest{etudes} to Etude{creditRequest},
+  Agence{creditComitys} to CreditComity{agence},
+  TypeComite{creditComities} to CreditComity{typeComite required},
+  DelegationComity{creditComities} to CreditComity{delegationComity},
+  TypeMembre{comityMembers} to ComityMber{typeMembre},
+  Compte{credits} to Credit{account},
+  LigneCredit{credits} to Credit{ligneCredit},
+  EcheancierClient{echeancesClients} to EcheancesClient{echeancierClient},
+  EcheancesClient{remboursements} to Rembt{echeancesClient(libelle) required},
+  TypeRembt{remboursements} to Rembt{typeRembt required},
+  AccountType{accounts} to Compte{accountType},
+  Client{comptes} to Compte{client},
+  Compte{operations} to Operation{account},
+  Credit{operations} to Operation{credit},
+  Compensation{operations} to Operation{compensation},
+  OperationType{operations} to Operation{operationType},
+  Client{compensations} to Compensation{client},
+  CompensationType{compensations} to Compensation{compensationType},
+  SuperTypeOperation{operationTypes} to OperationType{superTypeOperation required},
+  Compensation{commissions} to Commission{compensation},
+  Operation{commissions} to Commission{operation},
+  TypeAlgo{contrainteComptes} to ContrainteCompte{typeAlgo required},
+  TypeGarantie{garanties} to Garantie{typeGarantie},
+  Credit{garanties} to Garantie{credit},
+  Garantie{documentGaranties} to DocumentGarantie{garantie},
+  Budget{ligneCredits} to LigneCredit{budget},
+  Periodicity{ligneCredits} to LigneCredit{periodicity},
+  Partner{ligneCredits} to LigneCredit{partner},
+  LigneCredit{phases} to Phase{ligneCredit},
+  EcheancesSFD{remboursements} to RemboursementSFD{echeancesSFD(libelle) required},
+  Budget{compteCommissions} to CompteCommission{budget},
+  Annee{budgets} to Budget{annee},
+  Budget{callResponses} to CallResponse{budget},
+  FundingRequest{callResponses} to CallResponse{fundingRequest},
+  FundingRequestType{fundingRequests} to FundingRequest{fundingRequestType},
+  Partner{fundingRequests} to FundingRequest{partner},
+  Budget{clotureBudgets} to ClotureBudget{budget},
+  StrategieCloture{clotureBudgets} to ClotureBudget{strategieCloture},
+  Client{sfds} to SFD{client},
+  SFD{contrats} to Contrat{sfd},
+  Produit{contrats} to Contrat{produit},
+  EcheancierSFD{echeancesSFDs} to EcheancesSFD{echeancierSFD},
+  Produit{ligneRequests} to LigneRequest{produit},
+  SFD{ligneRequests} to LigneRequest{sfd},
+  LigneCredit{revolvingRequests} to RevolvingRequest{ligneCredit},
+  Client{groupMembers} to GroupMember{client required},
+  Client{groups} to GroupMember{clt required},
+  Produit{eligibles} to Eligible{produit},
+  SFD{eligibles} to Eligible{sfd},
+  Departement{eligibles} to Eligible{departement},
+  FraisGestion{fraisGestionAcoordes} to FraisGestionAccorde{fraisGestion required},
+  Budget{activations} to Activation{budget(createdDate) required},
+  OperationType{ecritures} to Ecriture{operationType required},
+  Taux{ecritureCommissions} to EcritureCommission{taux required},
+  Ecriture{ecritureCommissions} to EcritureCommission{ecriture},
+  SFD{settingSFDs} to SettingSFD{sfd required},
+  DelegationComityFNM{creditComitieFNMs} to CreditComityFNM{delegationComityFNM},
+  Operation{prelevements} to Prelevement{operation required},
+  Ecriture{ecriturePrelevements} to EcriturePrelevement{ecriture},
+  AccountType{ecritureOperationAccounts} to EcritureOperationAccount{accountType},
+  OperationType{ecritureOperationAccounts} to EcritureOperationAccount{operationType},
+  Ecriture{ecritureOperationAccounts} to EcritureOperationAccount{ecriture},
+  Operation{mises} to Mise{operation required},
+  CreditComity{disponibilites} to Disponibilite{creditComity required},
+  DelegatedMember{disponibilites} to Disponibilite{delegatedMember},
+  CreditComityFNM{disponibilitesFNM} to DisponibiliteFNM{creditComityFNM required},
+  DelegatedMemberFNM{disponibiliteFNMs} to DisponibiliteFNM{delegatedMemberFNM},
+  Dossier{validations} to Validation{dossier required},
+  DelegatedMember{validations} to Validation{delegatedMember},
+  CreditComity{dossiers} to Dossier{creditComity required},
+  CreditRequest{dossiers} to Dossier{creditRequest required},
+  DossierFNM{validationFNM} to ValidationFNM{dossierFNM required},
+  DelegatedMemberFNM{validationFNMs} to ValidationFNM{delegatedMemberFNM},
+  LigneRequest{dossiersFNM} to DossierFNM{ligneRequest required},
+  CreditComityFNM{dossiersFNM} to DossierFNM{creditComityFNM required},
+  Produit{produitTypeGaranties} to ProduitTypeGarantie{produit},
+  TypeGarantie{produitTypeGaranties} to ProduitTypeGarantie{typeGarantie},
+  Produit{tauxEpargnes} to TauxEpargne{produit},
+  DelegationComity{delegatedMembers} to DelegatedMember{delegationComity},
+  ComityMber{delegatedMembers} to DelegatedMember{comityMber},
+  DelegationComityFNM{delegatedMemberFNMs} to DelegatedMemberFNM{delegationComityFNM},
+  ComityMberFNM{delegatedMemberFNMs} to DelegatedMemberFNM{comityMberFNM}
+}
+relationship ManyToMany {
+  Produit{conditionss} to Conditions{produits},
+  Produit{fraiss} to Frais{produits},
+  Produit{tranchePenals} to TranchePenal{produits},
+  Produit{tauxs} to Taux{produits},
+  Produit{accountTypes} to AccountType{produits},
+  Produit{periodicities} to Periodicity{produits},
+  Produit{conditionAccess} to ConditionAcces{produits},
+  NotificationClient{formations} to Formation{notificationClients},
+  TypeGarantie{conditionGaranties} to ConditionGarantie{typeGaranties},
+  ContrainteCompte{accountTypes} to AccountType{contrainteComptes},
+  TauxSFD{ligneCredits} to LigneCredit{tauxSFDs},
+  Budget{activeurs} to Activeur{budgets},
+  Formation{matieres(name) required} to Matiere{formations}
+}
+
+dto Address with mapstruct
+paginate Address with pagination
+service Address with serviceClass
+search Address with elasticsearch
+microservice Address with carmesfnmservice
+dto Client with mapstruct
+paginate Client with pagination
+service Client with serviceClass
+search Client with elasticsearch
+microservice Client with carmesfnmservice
+dto Leader with mapstruct
+paginate Leader with pagination
+service Leader with serviceClass
+search Leader with elasticsearch
+microservice Leader with carmesfnmservice
+dto Agence with mapstruct
+paginate Agence with pagination
+service Agence with serviceClass
+search Agence with elasticsearch
+dto ServiceUser with mapstruct
+paginate ServiceUser with pagination
+service ServiceUser with serviceClass
+search ServiceUser with elasticsearch
+dto Civility with mapstruct
+service Civility with serviceClass
+search Civility with elasticsearch
+dto SituationMat with mapstruct
+service SituationMat with serviceClass
+search SituationMat with elasticsearch
+dto IdCardType with mapstruct
+service IdCardType with serviceClass
+search IdCardType with elasticsearch
+dto Profession with mapstruct
+paginate Profession with pagination
+service Profession with serviceClass
+search Profession with elasticsearch
+dto Nationality with mapstruct
+service Nationality with serviceClass
+search Nationality with elasticsearch
+dto Country with mapstruct
+service Country with serviceClass
+search Country with elasticsearch
+dto City with mapstruct
+paginate City with pagination
+service City with serviceClass
+search City with elasticsearch
+dto District with mapstruct
+paginate District with pagination
+service District with serviceClass
+search District with elasticsearch
+dto TownShip with mapstruct
+paginate TownShip with pagination
+service TownShip with serviceClass
+search TownShip with elasticsearch
+dto Departement with mapstruct
+paginate Departement with pagination
+service Departement with serviceClass
+search Departement with elasticsearch
+dto Literacy with mapstruct
+service Literacy with serviceClass
+search Literacy with elasticsearch
+dto SchoolLevel with mapstruct
+service SchoolLevel with serviceClass
+search SchoolLevel with elasticsearch
+dto CreditRequest with mapstruct
+paginate CreditRequest with pagination
+service CreditRequest with serviceClass
+search CreditRequest with elasticsearch
+microservice CreditRequest with carmesfnmservice
+dto Produit with mapstruct
+paginate Produit with pagination
+service Produit with serviceClass
+search Produit with elasticsearch
+microservice Produit with carmesfnmservice
+dto RequestRaison with mapstruct
+paginate RequestRaison with pagination
+service RequestRaison with serviceClass
+search RequestRaison with elasticsearch
+dto CreditRequestStatus with mapstruct
+paginate CreditRequestStatus with pagination
+service CreditRequestStatus with serviceClass
+search CreditRequestStatus with elasticsearch
+dto Etude with mapstruct
+paginate Etude with pagination
+service Etude with serviceClass
+search Etude with elasticsearch
+microservice Etude with carmesfnmservice
+dto EtudeType with mapstruct
+service EtudeType with serviceClass
+search EtudeType with elasticsearch
+microservice EtudeType with carmesfnmservice
+dto CreditComity with mapstruct
+paginate CreditComity with pagination
+service CreditComity with serviceClass
+search CreditComity with elasticsearch
+microservice CreditComity with carmesfnmservice
+dto ComityMber with mapstruct
+paginate ComityMber with pagination
+service ComityMber with serviceClass
+search ComityMber with elasticsearch
+microservice ComityMber with carmesfnmservice
+dto NotificationClient with mapstruct
+paginate NotificationClient with pagination
+service NotificationClient with serviceClass
+search NotificationClient with elasticsearch
+microservice NotificationClient with carmesfnmservice
+dto Periodicity with mapstruct
+paginate Periodicity with pagination
+service Periodicity with serviceClass
+search Periodicity with elasticsearch
+microservice Periodicity with carmesfnmservice
+dto Conditions with mapstruct
+paginate Conditions with pagination
+service Conditions with serviceClass
+search Conditions with elasticsearch
+dto Frais with mapstruct
+paginate Frais with pagination
+service Frais with serviceClass
+search Frais with elasticsearch
+microservice Frais with carmesfnmservice
+dto ConditionGarantie with mapstruct
+paginate ConditionGarantie with pagination
+service ConditionGarantie with serviceClass
+search ConditionGarantie with elasticsearch
+dto TypeGarantie with mapstruct
+service TypeGarantie with serviceClass
+search TypeGarantie with elasticsearch
+microservice TypeGarantie with carmesfnmservice
+dto Taux with mapstruct
+paginate Taux with pagination
+service Taux with serviceClass
+search Taux with elasticsearch
+dto TranchePenal with mapstruct
+paginate TranchePenal with pagination
+service TranchePenal with serviceClass
+search TranchePenal with elasticsearch
+dto Credit with mapstruct
+paginate Credit with pagination
+service Credit with serviceClass
+search Credit with elasticsearch
+microservice Credit with carmesfnmservice
+dto EcheancierClient with mapstruct
+paginate EcheancierClient with pagination
+service EcheancierClient with serviceClass
+search EcheancierClient with elasticsearch
+microservice EcheancierClient with carmesfnmservice
+dto EcheancesClient with mapstruct
+paginate EcheancesClient with pagination
+service EcheancesClient with serviceClass
+search EcheancesClient with elasticsearch
+microservice EcheancesClient with carmesfnmservice
+dto TypeRembt with mapstruct
+paginate TypeRembt with pagination
+service TypeRembt with serviceClass
+search TypeRembt with elasticsearch
+microservice TypeRembt with carmesfnmservice
+dto Rembt with mapstruct
+paginate Rembt with pagination
+service Rembt with serviceClass
+search Rembt with elasticsearch
+microservice Rembt with carmesfnmservice
+dto RembtPenal with mapstruct
+paginate RembtPenal with pagination
+service RembtPenal with serviceClass
+search RembtPenal with elasticsearch
+dto Compte with mapstruct
+paginate Compte with pagination
+service Compte with serviceClass
+search Compte with elasticsearch
+microservice Compte with carmesfnmservice
+dto AccountType with mapstruct
+service AccountType with serviceClass
+search AccountType with elasticsearch
+microservice AccountType with carmesfnmservice
+dto Operation with mapstruct
+paginate Operation with pagination
+service Operation with serviceClass
+search Operation with elasticsearch
+microservice Operation with carmesfnmservice
+dto Compensation with mapstruct
+paginate Compensation with pagination
+service Compensation with serviceClass
+search Compensation with elasticsearch
+dto CompensationType with mapstruct
+paginate CompensationType with pagination
+service CompensationType with serviceClass
+search CompensationType with elasticsearch
+dto OperationType with mapstruct
+service OperationType with serviceClass
+search OperationType with elasticsearch
+microservice OperationType with carmesfnmservice
+dto TauxCommission with mapstruct
+paginate TauxCommission with pagination
+service TauxCommission with serviceClass
+search TauxCommission with elasticsearch
+microservice TauxCommission with carmesfnmservice
+dto Commission with mapstruct
+paginate Commission with pagination
+service Commission with serviceClass
+search Commission with elasticsearch
+microservice Commission with carmesfnmservice
+dto ContrainteCompte with mapstruct
+paginate ContrainteCompte with pagination
+service ContrainteCompte with serviceClass
+search ContrainteCompte with elasticsearch
+microservice ContrainteCompte with carmesfnmservice
+dto Terme with mapstruct
+service Terme with serviceClass
+search Terme with elasticsearch
+dto Garantie with mapstruct
+paginate Garantie with pagination
+service Garantie with serviceClass
+search Garantie with elasticsearch
+microservice Garantie with carmesfnmservice
+dto DocumentGarantie with mapstruct
+paginate DocumentGarantie with pagination
+service DocumentGarantie with serviceClass
+search DocumentGarantie with elasticsearch
+dto LigneCredit with mapstruct
+paginate LigneCredit with pagination
+service LigneCredit with serviceClass
+search LigneCredit with elasticsearch
+microservice LigneCredit with carmesfnmservice
+dto Phase with mapstruct
+service Phase with serviceClass
+search Phase with elasticsearch
+dto EcheancierSFD with mapstruct
+paginate EcheancierSFD with pagination
+service EcheancierSFD with serviceClass
+search EcheancierSFD with elasticsearch
+microservice EcheancierSFD with carmesfnmservice
+dto FraisGestion with mapstruct
+service FraisGestion with serviceClass
+search FraisGestion with elasticsearch
+microservice FraisGestion with carmesfnmservice
+dto RemboursementSFD with mapstruct
+paginate RemboursementSFD with pagination
+service RemboursementSFD with serviceClass
+search RemboursementSFD with elasticsearch
+dto TauxSFD with mapstruct
+paginate TauxSFD with pagination
+service TauxSFD with serviceClass
+search TauxSFD with elasticsearch
+dto TypeClient with mapstruct
+service TypeClient with serviceClass
+search TypeClient with elasticsearch
+microservice TypeClient with carmesfnmservice
+dto TypeMembre with mapstruct
+service TypeMembre with serviceClass
+search TypeMembre with elasticsearch
+microservice TypeMembre with carmesfnmservice
+dto CompteCommission with mapstruct
+paginate CompteCommission with pagination
+service CompteCommission with serviceClass
+search CompteCommission with elasticsearch
+dto Budget with mapstruct
+paginate Budget with pagination
+service Budget with serviceClass
+search Budget with elasticsearch
+dto CallResponse with mapstruct
+paginate CallResponse with pagination
+service CallResponse with serviceClass
+search CallResponse with elasticsearch
+dto FundingRequest with mapstruct
+paginate FundingRequest with pagination
+service FundingRequest with serviceClass
+search FundingRequest with elasticsearch
+dto FundingRequestType with mapstruct
+paginate FundingRequestType with pagination
+service FundingRequestType with serviceClass
+search FundingRequestType with elasticsearch
+dto Partner with mapstruct
+paginate Partner with pagination
+service Partner with serviceClass
+search Partner with elasticsearch
+microservice Partner with carmesfnmservice
+dto Annee with mapstruct
+service Annee with serviceClass
+search Annee with elasticsearch
+dto ClotureBudget with mapstruct
+paginate ClotureBudget with pagination
+service ClotureBudget with serviceClass
+search ClotureBudget with elasticsearch
+dto StrategieCloture with mapstruct
+service StrategieCloture with serviceClass
+search StrategieCloture with elasticsearch
+dto TranchePenalSFD with mapstruct
+paginate TranchePenalSFD with pagination
+service TranchePenalSFD with serviceClass
+search TranchePenalSFD with elasticsearch
+microservice TranchePenalSFD with carmesfnmservice
+dto SFD with mapstruct
+paginate SFD with pagination
+service SFD with serviceClass
+search SFD with elasticsearch
+dto Contrat with mapstruct
+paginate Contrat with pagination
+service Contrat with serviceClass
+search Contrat with elasticsearch
+dto EcheancesSFD with mapstruct
+paginate EcheancesSFD with pagination
+service EcheancesSFD with serviceClass
+search EcheancesSFD with elasticsearch
+dto NotificationSFD with mapstruct
+paginate NotificationSFD with pagination
+service NotificationSFD with serviceClass
+search NotificationSFD with elasticsearch
+dto LigneRequest with mapstruct
+paginate LigneRequest with pagination
+service LigneRequest with serviceClass
+search LigneRequest with elasticsearch
+microservice LigneRequest with carmesfnmservice
+dto RevolvingRequest with mapstruct
+paginate RevolvingRequest with pagination
+service RevolvingRequest with serviceClass
+search RevolvingRequest with elasticsearch
+dto RevolvingResponse with mapstruct
+paginate RevolvingResponse with pagination
+service RevolvingResponse with serviceClass
+search RevolvingResponse with elasticsearch
+dto Activeur with mapstruct
+paginate Activeur with pagination
+service Activeur with serviceClass
+search Activeur with elasticsearch
+microservice Activeur with carmesfnmservice
+dto GroupMember with mapstruct
+paginate GroupMember with pagination
+service GroupMember with serviceClass
+search GroupMember with elasticsearch
+dto Eligible with mapstruct
+paginate Eligible with pagination
+service Eligible with serviceClass
+search Eligible with elasticsearch
+dto FraisGestionAccorde with mapstruct
+paginate FraisGestionAccorde with pagination
+service FraisGestionAccorde with serviceClass
+search FraisGestionAccorde with elasticsearch
+dto Setting with mapstruct
+paginate Setting with pagination
+service Setting with serviceClass
+search Setting with elasticsearch
+dto RembtPenalSFD with mapstruct
+paginate RembtPenalSFD with pagination
+service RembtPenalSFD with serviceClass
+search RembtPenalSFD with elasticsearch
+dto Activation with mapstruct
+paginate Activation with pagination
+service Activation with serviceClass
+search Activation with elasticsearch
+dto Ecriture with mapstruct
+paginate Ecriture with pagination
+service Ecriture with serviceClass
+search Ecriture with elasticsearch
+microservice Ecriture with carmesfnmservice
+dto EcritureCommission with mapstruct
+paginate EcritureCommission with pagination
+service EcritureCommission with serviceClass
+search EcritureCommission with elasticsearch
+microservice EcritureCommission with carmesfnmservice
+dto TypeComite with mapstruct
+service TypeComite with serviceClass
+search TypeComite with elasticsearch
+dto Formation with mapstruct
+paginate Formation with pagination
+service Formation with serviceClass
+search Formation with elasticsearch
+microservice Formation with carmesfnmservice
+dto Matiere with mapstruct
+paginate Matiere with pagination
+service Matiere with serviceClass
+search Matiere with elasticsearch
+microservice Matiere with carmesfnmservice
+dto SettingSFD with mapstruct
+paginate SettingSFD with pagination
+service SettingSFD with serviceClass
+search SettingSFD with elasticsearch
+dto CreditComityFNM with mapstruct
+paginate CreditComityFNM with pagination
+service CreditComityFNM with serviceClass
+search CreditComityFNM with elasticsearch
+microservice CreditComityFNM with carmesfnmservice
+dto ComityMberFNM with mapstruct
+paginate ComityMberFNM with pagination
+service ComityMberFNM with serviceClass
+search ComityMberFNM with elasticsearch
+microservice ComityMberFNM with carmesfnmservice
+dto Prelevement with mapstruct
+paginate Prelevement with pagination
+service Prelevement with serviceClass
+search Prelevement with elasticsearch
+microservice Prelevement with carmesfnmservice
+dto TypeAlgo with mapstruct
+service TypeAlgo with serviceClass
+search TypeAlgo with elasticsearch
+microservice TypeAlgo with carmesfnmservice
+dto EcriturePrelevement with mapstruct
+paginate EcriturePrelevement with pagination
+service EcriturePrelevement with serviceClass
+search EcriturePrelevement with elasticsearch
+microservice EcriturePrelevement with carmesfnmservice
+dto EcritureOperationAccount with mapstruct
+paginate EcritureOperationAccount with pagination
+service EcritureOperationAccount with serviceClass
+search EcritureOperationAccount with elasticsearch
+microservice EcritureOperationAccount with carmesfnmservice
+dto Mise with mapstruct
+paginate Mise with pagination
+service Mise with serviceClass
+search Mise with elasticsearch
+microservice Mise with carmesfnmservice
+dto Disponibilite with mapstruct
+paginate Disponibilite with pagination
+service Disponibilite with serviceClass
+search Disponibilite with elasticsearch
+microservice Disponibilite with carmesfnmservice
+dto DisponibiliteFNM with mapstruct
+paginate DisponibiliteFNM with pagination
+service DisponibiliteFNM with serviceClass
+search DisponibiliteFNM with elasticsearch
+microservice DisponibiliteFNM with carmesfnmservice
+dto Validation with mapstruct
+paginate Validation with pagination
+service Validation with serviceClass
+search Validation with elasticsearch
+microservice Validation with carmesfnmservice
+dto Dossier with mapstruct
+paginate Dossier with pagination
+service Dossier with serviceClass
+search Dossier with elasticsearch
+microservice Dossier with carmesfnmservice
+dto ValidationFNM with mapstruct
+paginate ValidationFNM with pagination
+service ValidationFNM with serviceClass
+search ValidationFNM with elasticsearch
+microservice ValidationFNM with carmesfnmservice
+dto DossierFNM with mapstruct
+paginate DossierFNM with pagination
+service DossierFNM with serviceClass
+search DossierFNM with elasticsearch
+microservice DossierFNM with carmesfnmservice
+dto SuperTypeOperation with mapstruct
+paginate SuperTypeOperation with pagination
+service SuperTypeOperation with serviceClass
+search SuperTypeOperation with elasticsearch
+microservice SuperTypeOperation with carmesfnmservice
+dto Compteur with mapstruct
+paginate Compteur with pagination
+service Compteur with serviceClass
+search Compteur with elasticsearch
+microservice Compteur with carmesfnmservice
+dto ProduitTypeGarantie with mapstruct
+paginate ProduitTypeGarantie with pagination
+service ProduitTypeGarantie with serviceClass
+search ProduitTypeGarantie with elasticsearch
+microservice ProduitTypeGarantie with carmesfnmservice
+dto TauxEpargne with mapstruct
+paginate TauxEpargne with pagination
+service TauxEpargne with serviceClass
+search TauxEpargne with elasticsearch
+microservice TauxEpargne with carmesfnmservice
+dto TypeGarantieConditionGaranties with mapstruct
+service TypeGarantieConditionGaranties with serviceClass
+search TypeGarantieConditionGaranties with elasticsearch
+microservice TypeGarantieConditionGaranties with carmesfnmservice
+dto ConditionAcces with mapstruct
+paginate ConditionAcces with pagination
+service ConditionAcces with serviceClass
+search ConditionAcces with elasticsearch
+microservice ConditionAcces with carmesfnmservice
+dto CategorieProduit with mapstruct
+paginate CategorieProduit with pagination
+service CategorieProduit with serviceClass
+search CategorieProduit with elasticsearch
+microservice CategorieProduit with carmesfnmservice
+dto Poste with mapstruct
+paginate Poste with pagination
+service Poste with serviceClass
+search Poste with elasticsearch
+microservice Poste with carmesfnmservice
+dto DelegationComity with mapstruct
+paginate DelegationComity with pagination
+service DelegationComity with serviceClass
+search DelegationComity with elasticsearch
+microservice DelegationComity with carmesfnmservice
+dto DelegatedMember with mapstruct
+paginate DelegatedMember with pagination
+service DelegatedMember with serviceClass
+search DelegatedMember with elasticsearch
+microservice DelegatedMember with carmesfnmservice
+dto DelegationComityFNM with mapstruct
+paginate DelegationComityFNM with pagination
+service DelegationComityFNM with serviceClass
+search DelegationComityFNM with elasticsearch
+dto DelegatedMemberFNM with mapstruct
+paginate DelegatedMemberFNM with pagination
+service DelegatedMemberFNM with serviceClass
+search DelegatedMemberFNM with elasticsearch

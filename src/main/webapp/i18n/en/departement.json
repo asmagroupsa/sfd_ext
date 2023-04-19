@@ -1,0 +1,30 @@
+{
+    "sfdApp": {
+        "departement" : {
+            "home": {
+                "title": "Departements",
+                "createLabel": "Create a new Departement",
+                "createOrEditLabel": "Create or edit a Departement",
+                "search": "Search for Departement"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Departement {{ id }}?"
+            },
+            "detail": {
+                "title": "Departement"
+            },
+            "name": "Name",
+            "reference": "Reference",
+            "citys": "Citys",
+            "country": "Country",
+            "zone": "Zone"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "departement" : {
+            "created": "A new Departement is created ",
+            "updated": "A Departement is updated ",
+            "deleted": "A Departement is deleted "
+        }
+    }
+}

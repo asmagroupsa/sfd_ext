@@ -1,0 +1,196 @@
+<button class="circular ui icon button" (click)="previousState()">
+    <i class="angle left icon"></i>
+</button>
+<div class="movie-card" *ngIf="client">
+    <div class="ui grid">
+        <div class="five wide column"></div>
+        <div class="five wide column">{{sfdName}}</div>
+        <div class="five wide column"></div>
+    </div>
+    <br>
+    <h4 class="ui horizontal divider header">
+        <i class="user icon"></i> Fiche détaillée du client
+        <samp>{{civility}}</samp>
+        <strong>{{client?.name}} {{client?.firstName}}
+            <em *ngIf="client?.alias">dit {{client?.alias}}</em>
+        </strong> {{client?.denomination}}
+    </h4>
+    <br>
+    <div class="container">
+
+        <a>
+            <img [src]="picture" alt="cover" class="cover" />
+        </a>
+        <div class="hero">
+            <div class="details">
+                <div class="title1">
+                    <samp>{{civility}}</samp>
+                    <strong>
+                        {{client?.name}} {{client?.firstName}}
+                        <em *ngIf="client?.alias">dit {{client?.alias}}</em>
+                    </strong> {{client?.denomination}}
+                    <span>
+                        {{client?.typeClientId | type}}
+                    </span>
+                </div>
+                <div class="title2" *ngIf="client?.maidenName">Nom de jeune fille: {{client?.maidenName}}</div>
+
+                <span class="likes" *ngIf="client?.sex && client?.sex !== 'Autre'">Sexe: {{client?.sex}}</span>
+
+            </div>
+            <!-- end details -->
+
+        </div>
+        <!-- end hero -->
+
+        <div class="description">
+
+            <div class="column1">
+                <span class="tag" *ngIf="client?.employee">Employé au poste {{poste}}</span>
+                <span class="tag" *ngIf="client?.apparente">Est apparenté</span>
+                <span class="tag" *ngIf="client?.situationMatId">{{situationmat}}</span>
+                <span class="tag" *ngIf="client?.professionId">{{profession}}</span>
+                <span class="tag" *ngIf="client?.nationalityId">{{nationality}}</span>
+                <span class="tag" *ngIf="client?.literacyId">{{literacy}}</span>
+                <span class="tag" *ngIf="client?.schoolLevelId">{{schoollevel}}</span>
+            </div>
+            <!-- end column1 -->
+
+            <div class="column2">
+
+                <div>
+                    <div class="ui grid">
+                        <div class="eight wide column" [ngClass]="{opaque:!client?.cpteCarmes}">
+                            Compte carmes: {{client?.cpteCarmes}}
+                        </div>
+                        <div class="eight wide column" [ngClass]="{opaque:!client?.code}">
+                            Code client: {{client?.code}}
+                        </div>
+                    </div>
+                    <h4 class="ui horizontal divider header">
+                        <i class="user outline icon"></i> Identité
+                    </h4>
+                    <div class="ui grid">
+                        <div class="eight wide column" [ngClass]="{opaque:!client?.birthPlace}">
+                            Lieu de naissance: {{client?.birthPlace}}
+                        </div>
+                        <div class="eight wide column" [ngClass]="{opaque:!client?.birthDate}">
+                            Date de naissance: {{client?.birthDate | date:'dd-MM-y'}}
+                        </div>
+                        <div class="eight wide column" [ngClass]="{opaque:!client?.fatherName}">
+                            Nom du père: {{client?.fatherName}}
+                        </div>
+                        <div class="eight wide column" [ngClass]="{opaque:!client?.motherName}">
+                            Nom de la mère: {{client?.motherName}}
+                        </div>
+                        <div class="five wide column" [ngClass]="{opaque:!client?.identityCard}">
+                            Piéce d'identité: {{idcardtype}} {{client?.identityCard}}
+                        </div>
+                        <div class="five wide column" [ngClass]="{opaque:!client?.ifus}">
+                            IFU: {{client?.ifus}}
+                        </div>
+                        <div class="five wide column" [ngClass]="{opaque:!client?.commercialRegisterNumber}">
+                            Numéro de régistre commercial: {{client?.commercialRegisterNumber}}
+                        </div>
+                        <div class="four wide column" [ngClass]="{opaque:!client?.conjointName}">
+                            Nom du conjoint: {{client?.conjointName}}
+                        </div>
+                        <div class="four wide column" [ngClass]="{opaque:!client?.conjointPhone}">
+                            Tél. du conjoint: {{client?.conjointPhone}}
+                        </div>
+                        <div class="four wide column" [ngClass]="{opaque:!client?.contactPersonName}">
+                            Nom de la personne à contacter: {{client?.contactPersonName}}
+                        </div>
+                        <div class="four wide column" [ngClass]="{opaque:!client?.contactPersonPhone}">
+                            Tél. du contact: {{client?.contactPersonPhone}}
+                        </div>
+                    </div>
+                    <h4 class="ui horizontal divider header" *ngIf="client?.groups && client?.groups.length">
+                        <i class="user outline icon"></i><i class="user outline icon"></i> &nbsp;Membres du groupe
+                    </h4>
+                    <div class="ui grid" *ngIf="client?.groups && client?.groups.length">
+                        <br>
+                        <table>
+                            <tr>
+                                <th>Nom & prénoms</th>
+                                <th>Role</th>
+                            </tr>
+                            <tr *ngFor="let membre of client?.groups">
+                                <td>{{membre?.client?.name}} {{membre?.client?.firstName}}</td>
+                                <td><span>{{membre.memberRole}}</span></td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+                    <h4 class="ui horizontal divider header">
+                        <i class="bookmark icon"></i> Adresse
+                    </h4>
+                    <div class="ui grid">
+                        <div class="four wide column" [ngClass]="{opaque:!client?.phone}">
+                            Téléphone: {{client?.phone}}
+                        </div>
+                        <div class="four wide column" [ngClass]="{opaque:!client?.email}">
+                            Email: {{client?.email}}
+                        </div>
+                        <div class="four wide column" [ngClass]="{opaque:!client?.bp}">
+                            Boite postale: {{client?.bp}}
+                        </div>
+                        <div class="four wide column" [ngClass]="{opaque:!client?.fax}">
+                            Fax: {{client?.fax}}
+                        </div>
+                    </div>
+                    <h4 class="ui horizontal divider header" *ngIf="client?.dissout" style="color: red;">
+                        <i class="bookmark icon"></i> Observation
+                    </h4>
+                    <p *ngIf="client?.dissout" style="color: black;">{{client?.raisonDissolution || client?.raison_dissolution}}</p>
+                    <h4 class="ui horizontal divider header" *ngIf="client?.leaderId">
+                        <i class="tag icon"></i> Leader
+                    </h4>
+                    <div class="ui tall stacked segment" *ngIf="client?.leaderId">
+                        <p>Nom du leader: {{leader?.name}} {{leader?.firstName}}</p>
+                        <p>Adresse: {{leader?.address}}</p>
+                        <p>Sexe: {{leader?.sex}}</p>
+                        <p>Titre: {{leader?.title}}</p>
+                        <p>Téléphone: {{leader?.phone}}</p>
+                        <p>Date de naissance: {{leader?.birthDate | date:'dd-MM-y'}}</p>
+                        <p>Email: {{leader?.email}}</p>
+                    </div>
+                </div>
+                <h4 class="ui horizontal divider header">L'agent ou le chargé de prêt ayant enrolé le client</h4>
+                <div class="row" style="color: #000000">
+                    <div class="col-sm-4">
+                        <img [src]="getImgSrc(createBy?.photo)" alt="cover" width="75" height="75" style="border-radius: 100%;">
+                    </div>
+                    <div class="col-sm-8">
+                        <div>Nom et Prénoms: {{createBy?.name}}</div>
+                        <div>Numéro de téléphone: {{createBy?.phone}}</div>
+                        <div>Compte Carmes: {{createBy?.compte_carmes}}</div>
+                    </div>
+                </div>
+                <!-- end avatars -->
+            </div>
+            <!-- end column2 -->
+        </div>
+        <!-- end description -->
+    </div>
+    <!-- end container -->
+    <!-- <div class="container">
+        <a>
+            <img [src]="agentEnrole?.photo" alt="cover" class="cover" />
+        </a>
+        <div>L'agent ou le chargé de prêt ayant enrolé le client</div>
+        <div>
+            <p *ngIf="agentEnrole?.cpteCarmes">N° Compte Carmes: {{agentEnrole?.cpteCarmes}}</p>
+            <p *ngIf="agentEnrole?.name">Nom et Prénoms: {{agentEnrole?.name}} </p>
+            <p *ngIf="agentEnrole?.phone">Numéro de téléphone: {{agentEnrole?.phone}}</p>
+        </div>
+    </div> -->
+</div>
+<!-- end movie-card -->
+<!-- <div class="ui compact selection dropdown">
+    <i class="dropdown icon"></i>
+    <div class="text">Impressions</div>
+    <div class="menu">
+        <div class="item" (click)="print()" jhiFnmTranslate="impressions.clients.detail">Imprimer la fiche détaillée</div>
+    </div>
+</div> -->

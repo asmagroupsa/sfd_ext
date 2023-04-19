@@ -1,0 +1,40 @@
+<div *ngIf="taux">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.taux.detail.title">Taux</span> {{taux.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.taux.libelle">Libelle</span></dt>
+        <dd>
+            <span>{{taux.libelle}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.taux.valeur">Valeur</span></dt>
+        <dd>
+            <span>{{taux.valeur}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.taux.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{taux.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.taux.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{taux.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.taux.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{taux.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.taux.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{taux.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','taux', { outlets: { popup: 'taux/'+ taux.id + '/edit'} }]" replaceUrl="true"
+        class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

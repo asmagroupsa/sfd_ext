@@ -1,0 +1,153 @@
+<div class="ui dimmer" [ngClass]="{'active': !hideLoader}">
+    <div class="ui loader"></div>
+</div>
+<div class="container" *ngIf="hideLoader">
+    <div id="print" #printZone class="col-md-12">
+        <div class="o-wrapper">
+            <div class="">
+                <div class="row">
+                    <div class="doc_header_">
+                        <div class="logo_name">
+                            <span> {{data.nomDonneurOrdre}} </span>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class=" doc_right">
+                        <span>ORDRE DE VIREMENT</span>
+                    </div>
+                </div>
+                <br />
+                <br>
+                <div class="row">
+                    <div class="col-sm-12 doc_center_text">
+                        <span>Par le débit de mon compte N°</span>
+                    </div>
+                </div>
+                <br>
+                <div class="row wrap" style="margin-top: 10px; margin-left: 10px;">
+                    <div class="first_divs" *ngFor="let elm of emit?.codePays?.split('') ">
+                        <div align="center">{{elm}}</div>
+                    </div>
+                    <div class="first_divs" *ngFor="let elm of emit.codeBank?.split(''); let last=last">
+                        <div align="center" [ngStyle]="{'border-right':last ? '1px solid black' : ''}">{{elm}}</div>
+                    </div>
+                    <div style="margin-right:6px; display:inline-block"></div>
+                    <div style="margin-right:6px; display:inline-block"></div>
+                    <div class="first_divs" *ngFor="let elm of emit.codeAgence?.split('');let last=last">
+                        <div align="center" [ngStyle]="{'border-right':last ? '1px solid black' : '' }">{{elm}}</div>
+                    </div>
+                    <div style="margin-right:6px; display:inline-block"></div>
+                    <div class="first_divs" *ngFor="let elm of emit.numAccount?.split(''); let last=last">
+                        <div align="center" [ngStyle]="{'border-right':last ? '1px solid black' : ''}">{{elm}}</div>
+                    </div>
+                    <div style="margin-right:6px; display:inline-block"></div>
+                    <div class="first_divs" *ngFor="let elm of emit.rib?.split('');let last=last">
+                        <div align="center" [ngStyle]="{'border-right':last ? '1px solid black' : ''}">{{elm}}</div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 15px; margin-left: 10px;">
+                    <div class="col-sm-12 para_tex">
+                        <p>Intitulé:
+                            <span class="infos">{{data.intituleOrdre}}</span>
+                        </p>
+                        <br>
+                        <p>Veuillez virer en faveur de:
+                            <span class="infos2">{{data.nomBeneficiaire}}</span>
+                        </p>
+                    </div>
+                </div>
+                <br>
+                <div class="row" style="margin-top: 15px; margin-left: 10px;">
+                    <div class="first_divs" *ngFor="let elm of benef.codePays?.split('')">
+                        <div align="center">{{elm}}</div>
+                    </div>
+                    <div class="first_divs" *ngFor="let elm of benef.codeBank?.split('');let last=last">
+                        <div align="center" [ngStyle]="{'border-right':last ? '1px solid black' : ''}">{{elm}}</div>
+                    </div>
+                    <div style="margin-right:6px; display:inline-block"></div>
+                    <div style="margin-right:6px; display:inline-block"></div>
+                    <div class="first_divs " *ngFor="let elm of benef.codeAgence?.split('');let last=last">
+                        <div align="center" [ngStyle]="{'border-right':last ? '1px solid black' : '' }">{{elm}}</div>
+                    </div>
+                    <div style="margin-right:6px; display:inline-block"></div>
+                    <div class="first_divs" *ngFor="let elm of benef.numAccount?.split('');let last=last">
+                        <div align="center" [ngStyle]="{'border-right':last ? '1px solid black' : ''}">{{elm}}</div>
+                    </div>
+                    <div style="margin-right:6px; display:inline-block"></div>
+                    <div class="first_divs" *ngFor="let elm of benef.rib?.split('');let last=last">
+                        <div align="center" [ngStyle]="{'border-right':last ? '1px solid black' : ''}">{{elm}}</div>
+                    </div>
+                </div>
+                <br>
+                <div class="row" style="margin-top: 15px; margin-left: 10px;">
+                    <div class="col-sm-12 para_tex">
+                        <p>Banque:
+                            <span class="infos"> {{data.bankLibelle}}</span>
+                        </p>
+                        <br>
+                        <p>La somme de:
+                            <span class="infos3"> {{data.montantVirement | currency:'XAF':true:'2.0'}}</span>
+                        </p>
+                        <br>
+                        <p>
+                            Montant En Lettre:
+                            <span class="infos">
+                                {{montant_en_lettre.toUpperCase()}} Francs CFA
+                            </span>
+                        </p>
+                        <br>
+                        <p>Motif: {{data.motifVirement}}</p>
+                        <br>
+                        <!-- <div class="row">
+                            <span style="margin-top: 30px">
+                                Date: {{todayDate | date:'mediumDate'}}
+                            </span>
+                            <div  style="margin-left: 150px;">
+                                <div class="" style="display: inline-block; max-width:120px;">
+                                    <p>DAVID FANNANKPO</p>
+                                    <img src="../../../content/images/daf.jpeg" alt="" width="60%">
+                                    <p>D.A.F ASMAB</p>
+                                </div>
+                                <div class="signateurde" style="display: inline-block; max-width:120px">
+                                    <p> BRUN PIERRE LUCIEN </p>
+                                    <img src="../../../content/images/SIGNATURE_ADMI_ASMAB_JPEG.jpeg" alt="" width="80%">
+                                    <p>A.P ASMAB</p>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9 doc_bottom">
+                        <span>Reservée à la banque</span>
+                    </div>
+                    <br><br>
+                    <div class="row" style="display:block; text-align: center;margin-left:42%; margin-top:10px">
+                        <img #qrimage src="" style="width: 85px;height: 85px" alt="some code">
+                    </div>
+                </div>
+                <!-- <div class="row" style="margin-top: -60px">
+                    <div class="">
+                        <img src="../../../content/images/daf.jpeg" alt="">
+                    </div>
+                    <div class="" style="margin-left: 350px; float: right">
+                        <img src="../../../content/images/de.jpeg" alt="">
+                    </div>
+                </div> -->
+                <!-- <div class="row" style="margin-top: -60px">
+                    <div class="">
+                        <span>D.A.F ASMAB</span>
+                    </div>
+                    <div class="" style="margin-left: 350px; float: right">
+                        <span>D.E ASMAB</span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<iframe name="print_frame" id="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+<a class="btn-floating btn-large waves-effect waves-light red" style="position: fixed; bottom: 25px; right: 25px;"
+    (click)="printAsPdf('print')">
+    <i class="material-icons">print</i>
+</a>

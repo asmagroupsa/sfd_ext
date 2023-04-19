@@ -1,0 +1,31 @@
+{
+    "sfdApp": {
+        "clientConditionNote" : {
+            "home": {
+                "title": "Note Condition Client",
+                "createLabel": "Créer une nouvelle Note Condition Client",
+                "createOrEditLabel": "Editer une Note Condition Client",
+                "search": "Recherche une Note Condition Client"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Note Condition Client {{ id }} ?"
+            },
+            "detail": {
+                "title": "Client Condition Note"
+            },
+            "agenceReference": "Agence Reference",
+            "produitId": "Id Produit",
+            "clientId": "Id Client",
+            "noteMin": "Note Minimum",
+            "note": "Note",
+            "code": "Code"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "clientConditionNote" : {
+            "created": "Une nouvelle Note Condition Client a été créée ",
+            "updated": "La Note Condition Client  a été mise à jour",
+            "deleted": "La Note Condition Client  a été supprimée"
+        }
+    }
+}

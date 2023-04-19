@@ -1,0 +1,19 @@
+<div *ngIf="civility">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.civility.detail.title">Civility</span> {{civility.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.civility.name">Name</span></dt>
+        <dd>
+            <span>{{civility.name}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','civility', { outlets: { popup: 'civility/'+ civility.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

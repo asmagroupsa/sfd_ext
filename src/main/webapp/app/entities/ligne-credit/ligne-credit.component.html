@@ -1,0 +1,166 @@
+<div>
+    <h2 *ngIf="!params || !params?.bailleur">
+        <span jhiFnmTranslate="sfdApp.ligneCredit.home.title">Ligne Credits</span>
+        <button *jhiHasAnyRessources="['carmesfnmservice/api/ligne-credits/createLigneCredit']" class="btn btn-primary float-right create-ligne-credit" [routerLink]="['/entity','ligne-credit', { outlets: { popup: ['ligne-credit-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" jhiFnmTranslate="sfdApp.ligneCredit.home.createLabel">
+                Create new Ligne Credit
+            </span>
+        </button>
+    </h2>
+    <h3 *ngIf="params?.bailleur">
+        <span>Les lignes de crédits pour le bailleur {{partner(params?.bailleur).name}}</span>
+        <button class="btn btn-primary float-right create-ligne-credit" [routerLink]="['/entity','ligne-credit', { outlets: { popup: ['ligne-credit-new'] } }]" [queryParams]="{'id':params?.bailleur}" *jhiHasAnyRessources="['carmesfnmservice/api/ligne-credits/createLigneCredit']">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" jhiFnmTranslate="sfdApp.ligneCredit.home.createLabel">
+                Create new Ligne Credit
+            </span>
+        </button>
+    </h3>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.ligneCredit.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="ligneCredits;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th class="numerotab">N°</th>
+                    <th>Réference</th>
+                    <th jhiSortBy="partnerId">
+                        <span jhiFnmTranslate="sfdApp.ligneCredit.partner">Partner</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th>
+                        <span jhiFnmTranslate="sfdApp.ligneCredit.date">Date de mise en place</span>
+                    </th>
+                    <th jhiSortBy="libelle">
+                        <span jhiFnmTranslate="sfdApp.ligneCredit.libelle">Libelle</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="amount">
+                        <span jhiFnmTranslate="sfdApp.ligneCredit.amount">Amount</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="duration">
+                        <span jhiFnmTranslate="sfdApp.ligneCredit.duration">Duration</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="periodicityId">
+                        <span jhiFnmTranslate="sfdApp.ligneCredit.periodicity">Periodicity</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <!-- <th jhiSortBy="differe">
+                        <span jhiFnmTranslate="sfdApp.ligneCredit.differe">Différé</span>
+                        <span class="fa fa-sort"></span>
+                    </th> -->
+                    <th jhiSortBy="differe">
+                        <span jhiFnmTranslate="sfdApp.ligneCredit.tauxInteret">Taux d'Interêt</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <!-- <th jhiSortBy="remboursement">
+                        <span jhiFnmTranslate="sfdApp.ligneCredit.remboursement">Remboursement</span>
+                        <span class="fa fa-sort"></span>
+                    </th> -->
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ligneCredit of ligneCredits | partner:params?.bailleur | recherche:currentSearch ;let index = index;trackBy: trackId">
+                <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>{{ligneCredit.code}}</td>
+                    <td>{{ligneCredit.partner?.name}}
+                        <!-- <div *ngIf="ligneCredit.partnerId">
+                            <a>{{partner(ligneCredit.partnerId).name}}</a>
+                        </div> -->
+                    </td>
+                    <td>{{ligneCredit.createdDate | date:'dd-MM-y'}}</td>
+                    <td>{{ligneCredit.libelle}}</td>
+                    <td>{{ligneCredit.amount| currency:'XAF':true:'2.0'}}</td>
+                    <td>{{ligneCredit.duration}} mois</td>
+
+                    <td>
+                        <div *ngIf="ligneCredit.periodicityId">
+                            <a>{{period(ligneCredit.periodicityId).libPeriodicite}}</a>
+                        </div>
+                    </td>
+                    <!-- <td>{{ligneCredit.differe}}</td> -->
+                    <td>{{ligneCredit.tauxInteret}}%</td>
+                    <!-- <td>{{ligneCredit.remboursement?(ligneCredit.remboursement | currency:'XAF':true:'2.0'):'0 FCFA'}}</td> -->
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button *jhiHasAnyRessources="'carmesfnmservice/api/ligne-credits/getAllLigneCredits'" type="submit" [routerLink]="['/entity','ligne-credit', ligneCredit.id ]" class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                            </button>
+                            <!-- <span *ngIf="!localFlag"> -->
+                            <span *ngIf="!ligneCredit.budgetId">
+                                    <button *jhiHasAnyRessources="['carmesfnmservice/api/ligne-credits/updateLigneCredit']" type="submit" [routerLink]="['/entity','ligne-credit', { outlets: { popup: 'ligne-credit/'+ ligneCredit.id + '/edit'} }]"
+                                        replaceUrl="true" class="btn btn-primary btn-sm">
+                                        <span class="fa fa-pencil"></span>
+                            </button>
+                            </span>
+                            <!-- </span> -->
+                            <div class="ui dropdown">
+                                <div class="text" style="display:none"></div>
+                                <i class="ellipsis vertical icon"></i>
+                                <div class="left menu">
+                                    <!-- <div *jhiHasAnyRessources="['carmesfnmservice/api/echeancier-clients/createEcheancierClient']" class="item">
+                                        <div [routerLink]="['/entity','echeancier-client', { outlets: { popup: ['echeancier-sfd-new'] } }]" [queryParams]="{ligne:ligneCredit.id}" *ngIf="!ligneCredit.budgetId">
+                                            <i class="folder icon"></i> Ajouter une échéance à la ligne
+                                        </div>
+                                    </div> -->
+                                    <!-- <div class="item" [routerLink]="['/entity','ligne-credit', { outlets: { popup: 'ligne-credit/'+ ligneCredit.id + '/echeances'} }]" *jhiHasAnyRessources="['carmesfnmservice/api/echeancier-clients/getAllEcheancierClients']">Les échéances de la ligne</div> -->
+                                    <!-- <div class="divider"></div> -->
+                                    <!-- <div class="item">
+                                        <i class="print icon"></i> Imprimer cette ligne de crédit
+                                    </div> -->
+                                    <div class="item" (click)="showComplements(ligneCredit)">Compléments de la ligne</div>
+                                    <!-- <div class="item" [routerLink]="['/entity','ligne-credit', ligneCredit.id,'echeance-of-ligne-credit-sheet']" *ngIf="ligneCredit.decaisser">Echéances de la ligne</div> -->
+                                    <div class="item" [routerLink]="['/entity','credit-menu','fiche-ligne']" [queryParams]="{ligneCreditId: ligneCredit.id, ligneCreditReference: ligneCredit.code}" *ngIf="ligneCredit.decaisser">Echéances de la ligne</div>
+                                    <div class="item" [routerLink]="['/entity','credit-comity']" [queryParams]="{ligneCredit: toJSON(ligneCredit)}">Les comités de la ligne</div>
+                                    <div class="item" (click)="openSoldeLigneCreditDialogDialog(ligneCredit)">Solde de la ligne</div>
+                                    <div class="item" [routerLink]="['/entity','credit','liste-credits-impayes']" [queryParams]="{ligneCreditId: ligneCredit.id}">Crédits impayés</div>
+                                    <div class="item" [routerLink]="['/state', 'liste-retrait']" [queryParams]="{ligneCreditId: ligneCredit.id}">Liste des retraits</div>
+                                    <div class="item" [routerLink]="['/entity','ligne-credit', ligneCredit.id,'rapatriements-ligne-credit']">Crédits rapatriés</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="ligneCredits && ligneCredits.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>
+<!-- <div class="ui compact selection dropdown">
+    <i class="dropdown icon"></i>
+    <div class="text">Impressions</div>
+    <div class="menu">
+        <div class="item" jhiFnmTranslate="impressions.ligne.all">Toutes les lignes de crédit</div>
+    </div>
+</div> -->

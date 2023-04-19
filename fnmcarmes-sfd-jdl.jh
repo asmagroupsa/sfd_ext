@@ -1,0 +1,920 @@
+// JDL definition for application 'carmesfnmservice' generated with command 'jhipster export-jdl'
+
+entity Address (cf_address) {
+  home String required maxlength(100),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Client (cf_client) {
+  name String required maxlength(100),
+  code String required maxlength(50),
+  cpteCarmes String required,
+  email String maxlength(50),
+  bp String required maxlength(10),
+  fax String required maxlength(15),
+  phone String required maxlength(15),
+  birthDate LocalDate,
+  sex String required maxlength(15),
+  birthPlace String maxlength(50),
+  conjointName String maxlength(50),
+  conjointPhone String maxlength(50),
+  pictureUrl String maxlength(50),
+  contactPersonName String maxlength(50),
+  contactPersonPhone String maxlength(50),
+  identityCard String maxlength(50),
+  fingerPrintLeft String maxlength(50),
+  fingerPrintRight String maxlength(50),
+  signature String maxlength(50),
+  commercialRegisterNumber String maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Leader (cf_leader) {
+  name String required maxlength(50),
+  firstName String required maxlength(50),
+  address String maxlength(50),
+  sex String maxlength(50),
+  title String maxlength(50),
+  phone String required maxlength(50),
+  birthDate LocalDate,
+  email String maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Agence (cf_agence) {
+  name String required maxlength(50),
+  codeAgence String required maxlength(50),
+  address String required maxlength(50),
+  email String maxlength(50),
+  bp String maxlength(50),
+  fax String maxlength(50),
+  phone String required maxlength(50),
+  geoLat String maxlength(50),
+  geoLong String maxlength(50),
+  pictureUrl String maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity ServiceUser (cf_service_user) {
+  reference String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Civility (cf_civility) {
+  name String required maxlength(10)
+}
+entity SituationMat (cf_situation_mat) {
+  name String required maxlength(15)
+}
+entity IdCardType (cf_id_card_type) {
+  name String required maxlength(50),
+  code String required maxlength(50)
+}
+entity Profession (cf_profession) {
+  name String required maxlength(100)
+}
+entity Nationality (cf_nationality) {
+  name String required maxlength(50)
+}
+entity Country (cf_country) {
+  name String required maxlength(50)
+}
+entity City (cf_city) {
+  name String required maxlength(50)
+}
+entity District (cf_district) {
+  name String required maxlength(50)
+}
+entity TownShip (cf_town_ship) {
+  name String required maxlength(50)
+}
+entity Departement (cf_departement) {
+  name String required maxlength(50)
+}
+entity Literacy (cf_literacy) {
+  niveau String required maxlength(50)
+}
+entity SchoolLevel (cf_school_level) {
+  niveau String required maxlength(50)
+}
+entity CreditRequest (cf_credit_request) {
+  reference String required maxlength(50),
+  requestDate LocalDate required,
+  amount Float required,
+  duration Integer,
+  interestRate Float,
+  nbrDiffere Integer,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Produit (cf_produit) {
+  code String required maxlength(50),
+  libelle String required maxlength(50),
+  duration Integer,
+  etudiable Boolean required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity RequestRaison (cf_request_raison) {
+  name String required maxlength(100)
+}
+entity CreditRequestStatus (cf_request_status) {
+  name String required maxlength(50)
+}
+entity Etude (cf_etude) {
+  visitDate LocalDate,
+  etudeDate LocalDate,
+  procesVerbal TextBlob,
+  result Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity EtudeType (cf_etude_type) {
+  name String required maxlength(50),
+  code String required
+}
+entity CreditComity (cf_credit_comity) {
+  code String required maxlength(50),
+  startDate LocalDate required,
+  endDate LocalDate,
+  nbrDossierAssigne Integer,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  typeValidation TypeValidation required
+}
+entity ComityMber (cf_comity_mber) {
+  status Boolean,
+  nominationDate LocalDate required,
+  endNominationDate LocalDate,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity ADmdeMbreCteCredit (cf_a_dmde_mbre_cte_cred) {
+  amount Float required,
+  status Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity NotificationClient (cf_notification_client) {
+  notificationDate LocalDate required,
+  status Boolean required,
+  rate Float required,
+  nbrDiffere Integer,
+  amount Float required,
+  typeEcheancier String required maxlength(50),
+  nbreEcheance Integer required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Periodicity (cf_periodicity) {
+  name String required maxlength(50),
+  valeur Integer,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Conditions (cf_conditions) {
+  name String required maxlength(50),
+  valeur String maxlength(10),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Frais (cf_frais) {
+  libelle String required maxlength(50),
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity ConditionGarantie (cf_condition_garantie) {
+  name String required maxlength(50),
+  valeur String maxlength(10),
+  document String maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity TypeGarantie (cf_type_garantie) {
+  name String required maxlength(50),
+  code String required maxlength(50)
+}
+entity Taux (cf_taux) {
+  libelle String required maxlength(50),
+  valeur Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity TranchePenal (cf_tranche_penal) {
+  minDay Integer required,
+  maxDay Integer required,
+  penalRate Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Credit (cf_credit) {
+  creditDate LocalDate required,
+  startDate LocalDate required,
+  endDate LocalDate,
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity EcheancierClient (cf_echeancier_client) {
+  startDate LocalDate required,
+  tauxEpargne Float required,
+  tauxInteret Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity EcheancesClient (cf_echeances_client) {
+  libelle String required maxlength(50),
+  numEcheance Integer required,
+  echeanceDate LocalDate required,
+  capital Integer required,
+  interet Float required,
+  epargne Integer required,
+  total Float required,
+  payer Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity TypeRembt (cf_type_rembt) {
+  name String required maxlength(50),
+  code String required maxlength(20)
+}
+entity Rembt (cf_rembt) {
+  rembDate LocalDate required,
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity RembtPenal (cf_rembt_penal) {
+  amount Float required,
+  rembPenalDate LocalDate,
+  rembPenalPayer Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Compte (cf_compte) {
+  numAccount String maxlength(50),
+  balance Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity AccountType (cf_account_type) {
+  name String required maxlength(50),
+  code String required maxlength(50)
+}
+entity Operation (cf_operation) {
+  title String required maxlength(100),
+  amount Float required,
+  observation String,
+  compenser Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Compensation (cf_compensation) {
+  amount Float required,
+  bankAccount String required maxlength(50),
+  consommer Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity CompensationType (cf_compensation_type) {
+  name String required maxlength(50),
+  code String required maxlength(30)
+}
+entity OperationType (cf_operation_type) {
+  name String required maxlength(50),
+  description TextBlob,
+  code String required maxlength(50)
+}
+entity TauxCommission (cf_taux_commission) {
+  name String required maxlength(50),
+  valeur Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Commission (cf_commission) {
+  taux Float required,
+  valeur Float required,
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  compenser Boolean,
+  carmesAccount String required
+}
+entity TrancheTauxFrais (cf_tranche_taux_frais) {
+  minInterval Integer required,
+  maxInterval Integer required,
+  valeur Float required,
+  type TauxFraisType required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity OperationCompteTrancheTF (cf_op_cpte_trch_t_f) {
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity ContrainteCompte (cf_contrainte_compte) {
+  name String required maxlength(50),
+  valeur Float required,
+  type TauxFraisType required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Terme (cf_terme) {
+  minInterval Integer required,
+  maxInterval Integer required,
+  libelle String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Garantie (cf_garantie) {
+  document String required maxlength(50),
+  valeur String required maxlength(50),
+  name String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity DocumentGarantie (cf_document_garantie) {
+  reference String required maxlength(50),
+  filePath String required maxlength(50),
+  name String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity LigneCredit (cf_ligne_credit) {
+  amount Float required,
+  libelle String required maxlength(50),
+  code String required maxlength(50),
+  duration Integer required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  remboursement Float
+}
+entity Phase (cf_phase) {
+  name String required maxlength(50)
+}
+entity EcheancierSFD (cf_echeancier_sfd) {
+  startDate LocalDate,
+  tauxEpargne Integer,
+  tauxInteret Integer required,
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity FraisGestion (cf_frais_gestion) {
+  libelle String required maxlength(50),
+  minPercent Float required,
+  maxPercent Float required,
+  valeur Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity RemboursementSFD (cf_remboursement_sfd) {
+  rembDate LocalDate,
+  amount Float,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity TauxSFD (cf_taux_sfd) {
+  libelle String required maxlength(50),
+  valeur String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity TypeClient (cf_type_client) {
+  name String required maxlength(50),
+  code String required maxlength(20)
+}
+entity Unity (cf_unity) {
+  name String required maxlength(50),
+  code String required maxlength(50)
+}
+entity TypeMembre (cf_type_membre) {
+  name String required maxlength(50),
+  code String required maxlength(20)
+}
+entity CompteCommission (cf_compte_commission) {
+  title String required maxlength(100),
+  amount Float required,
+  taux Float,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Budget (cf_budget) {
+  amount Float required,
+  amountRequested Float required,
+  ammountReport Float required,
+  activeDate LocalDate,
+  carmesAccount String required maxlength(50),
+  active Boolean required,
+  cloture Boolean required,
+  sommeTotalLigne Float required,
+  codeActivation String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  montantActive Float
+}
+entity CallResponse (cf_call_response) {
+  amount Float required,
+  responseDate LocalDate required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity FundingRequest (cf_funding_request) {
+  amount Float required,
+  requestDate LocalDate required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity FundingRequestType (cf_funding_request_type) {
+  name String required maxlength(50),
+  code String required maxlength(30)
+}
+entity Partner (cf_partner) {
+  name String required maxlength(50),
+  address String required maxlength(100),
+  phone String required maxlength(50),
+  email String required maxlength(50),
+  logo String required maxlength(100),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Annee (cf_annee) {
+  name String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity ClotureBudget (cf_cloture_budget) {
+  clotureDate LocalDate,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity StrategieCloture (cf_strategie_cloture) {
+  name String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity TranchePenalSFD (cf_tranche_penal_sfd) {
+  minDay Integer,
+  maxDay Integer,
+  penalRate Integer,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity SFD (cf_sfd) {
+  code String required maxlength(50),
+  name String required maxlength(50),
+  address String required maxlength(100),
+  phone String required maxlength(50),
+  email String required maxlength(50),
+  fax String required maxlength(50),
+  bp String required maxlength(50),
+  city String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  compteCarmes String required maxlength(20)
+}
+entity Contrat (cf_contrat) {
+  code String required maxlength(50),
+  contratDate LocalDate,
+  duree Integer,
+  unity Unite,
+  clotureDate LocalDate,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity EcheancesSFD (cf_echeances_sfd) {
+  libelle String required maxlength(50),
+  numEcheance Integer required,
+  echeanceDate LocalDate required,
+  capital Integer required,
+  interet Float required,
+  epargne Integer required,
+  total Float required,
+  payer Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity NotificationSFD (cf_notification_sfd) {
+  rate Float,
+  notificationDate LocalDate,
+  status Boolean,
+  nbrDiffere Integer,
+  amount Float required,
+  typeEcheancier String required maxlength(50),
+  nbreEcheance Integer required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity LigneRequest (cf_ligne_request) {
+  requestDate LocalDate,
+  amount Float required,
+  nbreBenef Integer,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity RevolvingRequest (cf_revolving_request) {
+  amount Float required,
+  nbreBenef Integer,
+  status RequestStatus required,
+  dureeProduction Integer,
+  rembRateRequired Float required,
+  rembRate Float required,
+  availableRefundAmount Float required,
+  nextDueDate LocalDate required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity RevolvingResponse (cf_revolving_response) {
+  amount Float required,
+  status Boolean,
+  rembRate Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Activeur (cf_activeur) {
+  name String required maxlength(50),
+  firstName String required maxlength(50),
+  status Boolean,
+  code String required maxlength(50),
+  phone String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity GroupMember (cf_group_member) {
+  status Boolean,
+  memberRole String required maxlength(50),
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Eligible (cf_eligible) {
+  status Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity FraisGestionAccorde (cf_frais_gestion_accorde) {
+  amount Float required,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Setting (cf_setting) {
+  name String required maxlength(50),
+  valeur String required maxlength(100)
+}
+entity RembtPenalSFD (cf_rembt_penal_sfd) {
+  amount Float required,
+  rembPenalDate LocalDate,
+  rembPenalPayer Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Activation (cf_activation) {
+  amount Float required,
+  code String required maxlength(50),
+  operation Integer,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Ecriture (cf_ecriture) {
+  codeTypeOperation String maxlength(50),
+  libelle String maxlength(100),
+  sens Sens required
+}
+entity EcritureCommission (cf_ecriture_commission) {
+  rate Float required
+}
+entity TypeComite (cf_type_comite) {
+  name String required maxlength(50),
+  code String required maxlength(50)
+}
+entity TypePartner (cf_type_partner) {
+  name String required maxlength(50),
+  code String required maxlength(50)
+}
+entity Formation (cf_formation) {
+  formateur String maxlength(50),
+  avis String maxlength(100),
+  nbHour Integer,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity Matiere (cf_matiere) {
+  name String required maxlength(100)
+}
+entity SettingSFD (cf_setting_sfd) {
+  name String required maxlength(50),
+  valeur String required maxlength(100)
+}
+entity CreditComityFNM (cf_credit_comity_fnm) {
+  code String required maxlength(50),
+  startDate LocalDate required,
+  endDate LocalDate,
+  nbrDossierAssigne Integer,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate,
+  typeValidation TypeValidation required
+}
+entity ComityMberFNM (cf_comity_mber_fnm) {
+  status Boolean,
+  nominationDate LocalDate required,
+  endNominationDate LocalDate,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+entity ComityMberLigne (cf_comity_mber_ligne) {
+  amount Float required,
+  status Boolean,
+  createdDate LocalDate required,
+  createdBy String required maxlength(50),
+  lastModifiedBy String maxlength(50),
+  lastModifiedDate LocalDate
+}
+
+enum TypeValidation {
+  INDIVIDUAL,
+  GROUP
+}
+
+enum TauxFraisType {
+  FRAIS,
+  TAUX,
+  AUCUN
+}
+
+enum Unite {
+  JOUR,
+  SEMAINE,
+  MOIS,
+  ANNEE
+}
+
+enum RequestStatus {
+  SEND,
+  PROCESSED
+}
+
+enum Sens {
+  DEBIT,
+  CREDIT
+}
+
+relationship OneToOne {
+  NotificationClient{creditRequest required} to CreditRequest,
+  Credit{notificationClient required} to NotificationClient{credit},
+  EcheancierClient{credit required} to Credit{echeancierClient},
+  RembtPenal{echeancesClient required} to EcheancesClient{rembtPenal},
+  LigneCredit{notificationSFD required} to NotificationSFD{ligneCredit},
+  EcheancierSFD{ligneCredit required} to LigneCredit{echeancierSFD},
+  NotificationSFD{ligneRequest required} to LigneRequest{notificationSFD},
+  RevolvingResponse{revolvingRequest required} to RevolvingRequest{revolvingResponse},
+  FraisGestionAccorde{ligneCredit required} to LigneCredit,
+  RembtPenalSFD{echeancesSFD(libelle) required} to EcheancesSFD,
+  Ecriture{ecritureCommission required} to EcritureCommission{ecriture}
+}
+relationship OneToMany {
+  District{addresss} to Address{district},
+  Client{addresss} to Address{client},
+  Agence{clients} to Client{agence},
+  Civility{clients} to Client{civility},
+  SituationMat{clients} to Client{situationMat},
+  IdCardType{clients} to Client{idCarteType},
+  Profession{clients} to Client{profession},
+  Nationality{clients} to Client{nationality},
+  Country{clients} to Client{country},
+  Literacy{clients} to Client{literacy},
+  SchoolLevel{clients} to Client{schoolLevel},
+  TypeClient{clients} to Client{typeClient},
+  ServiceUser{clients} to Client{sfdUsers},
+  Leader{clients} to Client{leader},
+  ServiceUser{agences} to Agence{sfdUsers},
+  SFD{agences} to Agence{sfd},
+  Departement{citys} to City{departement},
+  TownShip{districts} to District{townShip},
+  City{townShips} to TownShip{city},
+  Country{departements} to Departement{country},
+  CreditRequestStatus{creditRequests} to CreditRequest{requestStatus},
+  RequestRaison{creditRequests} to CreditRequest{requestObject},
+  ServiceUser{creditRequests} to CreditRequest{sfdUsers},
+  Produit{creditRequests} to CreditRequest{produit},
+  Periodicity{creditRequests} to CreditRequest{periodicity},
+  Client{creditRequests} to CreditRequest{client},
+  Periodicity{produits} to Produit{periodicity},
+  EtudeType{etudes} to Etude{etudeType},
+  ServiceUser{etudes} to Etude{sfdUsers},
+  CreditRequest{etudes} to Etude{creditRequest},
+  Agence{creditComitys} to CreditComity{agence},
+  TypeComite{creditComities} to CreditComity{typeComite required},
+  ServiceUser{comityMembers} to ComityMber{sfdUsers},
+  TypeMembre{comityMembers} to ComityMber{typeMembre},
+  CreditRequest{assDmdMbreCmteCdits} to ADmdeMbreCteCredit{creditRequest},
+  ComityMber{assDmdMbreCmteCdits} to ADmdeMbreCteCredit{comityMember},
+  CreditComity{assDmdMbreCmteCdits} to ADmdeMbreCteCredit{creditComity},
+  Unity{periodicitys} to Periodicity{unity},
+  Garantie{typeGaranties} to TypeGarantie{garantie},
+  Compte{credits} to Credit{account},
+  LigneCredit{credits} to Credit{ligneCredit},
+  Compte{echeancesClients} to EcheancesClient{compte},
+  EcheancierClient{echeancesClients} to EcheancesClient{echeancierClient},
+  EcheancesClient{remboursements} to Rembt{echeancesClient(libelle) required},
+  TypeRembt{remboursements} to Rembt{typeRembt required},
+  AccountType{accounts} to Compte{accountType},
+  Client{comptes} to Compte{client},
+  Compte{operations} to Operation{account},
+  Credit{operations} to Operation{credit},
+  Compensation{operations} to Operation{compensation},
+  OperationType{operations} to Operation{operationType},
+  Ecriture{operations} to Operation{ecriture required},
+  Client{compensations} to Compensation{client},
+  CompensationType{compensations} to Compensation{compensationType},
+  Compensation{commissions} to Commission{compensation},
+  Operation{commissions} to Commission{operation},
+  AccountType{opCompteTrancheTFs} to OperationCompteTrancheTF{accountType},
+  OperationType{opCompteTrancheTFs} to OperationCompteTrancheTF{operationType},
+  TrancheTauxFrais{opCompteTrancheTFs} to OperationCompteTrancheTF{francheTauxFrais},
+  CreditRequest{garantie} to Garantie{creditRequest required},
+  Garantie{documentGaranties} to DocumentGarantie{garantie},
+  Budget{ligneCredits} to LigneCredit{budget},
+  Periodicity{ligneCredits} to LigneCredit{periodicity},
+  Partner{ligneCredits} to LigneCredit{partner},
+  LigneCredit{phases} to Phase{ligneCredit},
+  EcheancesSFD{remboursements} to RemboursementSFD{echeancesSFD(libelle) required},
+  Budget{compteCommissions} to CompteCommission{budget},
+  Annee{budgets} to Budget{annee},
+  Budget{callResponses} to CallResponse{budget},
+  FundingRequest{callResponses} to CallResponse{fundingRequest},
+  FundingRequestType{fundingRequests} to FundingRequest{fundingRequestType},
+  Partner{fundingRequests} to FundingRequest{partner},
+  TypePartner{partners} to Partner{typePartner required},
+  Budget{clotureBudgets} to ClotureBudget{budget},
+  StrategieCloture{clotureBudgets} to ClotureBudget{strategieCloture},
+  Client{sfds} to SFD{client},
+  SFD{contrats} to Contrat{sfd},
+  Produit{contrats} to Contrat{produit},
+  EcheancierSFD{echeancesSFDs} to EcheancesSFD{echeancierSFD},
+  Produit{ligneRequests} to LigneRequest{produit},
+  SFD{ligneRequests} to LigneRequest{sfd},
+  LigneCredit{revolvingRequests} to RevolvingRequest{ligneCredit},
+  Client{groupMembers} to GroupMember{client required},
+  Client{groups} to GroupMember{clt required},
+  Produit{eligibles} to Eligible{produit},
+  SFD{eligibles} to Eligible{sfd},
+  Departement{eligibles} to Eligible{departement},
+  FraisGestion{fraisGestionAcoordes} to FraisGestionAccorde{fraisGestion required},
+  Budget{activations} to Activation{budget(createdDate) required},
+  OperationType{ecritures} to Ecriture{operationType(name) required},
+  Taux{ecritureCommissions} to EcritureCommission{taux required},
+  NotificationClient{formations} to Formation{notificationClient required},
+  SFD{settingSFDs} to SettingSFD{sfd required},
+  ServiceUser{comityMberFNMs} to ComityMberFNM{serviceUser required},
+  ComityMberFNM{comityMberLignes} to ComityMberLigne{comityMberFNM required},
+  CreditComityFNM{comityMberLignes} to ComityMberLigne{creditComityFNM required}
+}
+relationship ManyToMany {
+  Produit{typeGaranties} to TypeGarantie{produits},
+  Produit{conditionss} to Conditions{produits},
+  Produit{fraiss} to Frais{produits},
+  Produit{tranchePenals} to TranchePenal{produits},
+  Produit{tauxs} to Taux{produits},
+  TypeGarantie{conditionGaranties} to ConditionGarantie{typeGaranties},
+  ContrainteCompte{accountTypes} to AccountType{contrainteComptes},
+  TauxSFD{ligneCredits} to LigneCredit{tauxSFDs},
+  Budget{activeurs} to Activeur{budgets},
+  Formation{matieres(name) required} to Matiere{formations}
+}
+
+paginate * with pagination except Civility, SituationMat, IdCardType, Nationality, Country, Literacy, SchoolLevel, EtudeType, ComityType, TypeGarantie, AccountType, OperationType, TrancheTauxFraisType,Terme, Phase, FraisGestion, TypeClient, Unity, TypeMembre, Annee, StrategieCloture, TypeComite,TypePartner
+
+dto *  with mapstruct
+
+service *  with serviceClass
+
+search *  with elasticsearch 
+
+microservice * with carmesfnmservice

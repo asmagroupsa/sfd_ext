@@ -1,0 +1,48 @@
+{
+    "sfdApp": {
+        "etude": {
+            "home": {
+                "title": "Etudes",
+                "createLabel": "Créer une nouvelle Etude",
+                "createOrEditLabel": "Editer une Etude",
+                "search": "Recherche une etude"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Etude {{ id }} ?"
+            },
+            "detail": {
+                "title": "Etude"
+            },
+            "name": "Nom du client",
+            "produit": "Produit",
+            "agenceReference": "Reference de l'agence",
+            "userReference": "Reference de l'utilisateur",
+            "visitDate": "Date de la visite",
+            "etudeDate": "Date de l'étude",
+            "lieu": "Lieu géolocalisé",
+            "referenceEtude": "Réference de l'étude",
+            "procesVerbal": "Procès Verbal",
+            "result": "Résultat",
+            "createdDate": "Date création",
+            "createdBy": "Créé par",
+            "lastModifiedBy": "Modifié dernièrement par",
+            "lastModifiedDate": "Date dernière modification",
+            "geoLat": "Latitude",
+            "geoLong": "Longitude",
+            "amount": "Montant de l'étude",
+            "duration": "Durée",
+            "client": "Client",
+            "adress": "Adresse",
+            "reference": "Réference",
+            "etudeType": "Le type d'étude",
+            "creditRequest": "Demande de crédit"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "etude": {
+            "created": "Un nouveau Etude a été créé ",
+            "updated": "Le Etude  a été mis à jour",
+            "deleted": "Le Etude  a été supprimé"
+        }
+    }
+}

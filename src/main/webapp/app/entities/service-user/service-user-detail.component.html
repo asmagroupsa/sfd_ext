@@ -1,0 +1,36 @@
+<div *ngIf="serviceUser">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.serviceUser.detail.title">Service User</span> {{serviceUser.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.serviceUser.reference">Reference</span></dt>
+        <dd>
+            <span>{{serviceUser.reference}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.serviceUser.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{serviceUser.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.serviceUser.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{serviceUser.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.serviceUser.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{serviceUser.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.serviceUser.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{serviceUser.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','service-user', { outlets: { popup: 'service-user/'+ serviceUser.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

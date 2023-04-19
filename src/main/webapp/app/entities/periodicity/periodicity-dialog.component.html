@@ -1,0 +1,106 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPeriodicityLabel" [jhiFnmTranslate]="periodicity.id ? 'sfdApp.periodicity.home.createOrEditLabel' : 'sfdApp.periodicity.home.createLabel'">Create or edit a Periodicity</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!--<div class="form-group" [hidden]="!periodicity.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="periodicity.id" readonly />
+        </div>-->
+        <div class="row">
+            <div class="input-field col s4">
+                <input placeholder="0" id="first_name" type="number" class="validate" [(ngModel)]="periodicity.constante" name="constante" required>
+                <label for="first_name" class="oblige">durée</label>
+            </div>
+            <div [hidden]="!(editForm.controls.constante?.dirty && (editForm.controls.constante?.invalid || editForm.controls.constante?.value < 1))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.constante?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" *ngIf="editForm.controls.constante?.value < 1">
+                    La durée doit être supérieur à un (01).
+                </small>
+            </div>
+            <div class="input-field col s8">
+                <label class="ui sub header oblige">unité</label>
+                <select class="ui dropdown" [(ngModel)]="periodicity.unite" name="unite" required style="width:100%">
+                    <option value="" disabled>Choix de l'unité (*)</option>
+                    <option value="ANNEE">ANNEE</option>
+  <option value="MOIS">MOIS</option>
+  <option value="SEMAINE">SEMAINE</option>
+  <option value="JOUR">JOUR</option>
+</select>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.periodicity.libelle" for="field_name">Libellé</label>
+            <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="periodicity.libPeriodicite" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.periodicity.code" for="field_codePeriodicite">Code</label>
+            <input type="text" class="form-control" name="codePeriodicite" id="field_codePeriodicite" [(ngModel)]="periodicity.codePeriodicite" required/>
+        </div>
+        <!-- <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.periodicity.createdDate" for="field_createdDate">Created Date</label>
+            <div class="input-group">
+                <input id="field_createdDate" type="text" class="form-control" name="createdDate" ngbDatepicker #createdDateDp="ngbDatepicker" [(ngModel)]="periodicity.createdDate" required/>
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="createdDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdDate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>-->
+        <!--  <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.periodicity.createdBy" for="field_createdBy">Created By</label>
+            <input type="text" class="form-control" name="createdBy" id="field_createdBy" [(ngModel)]="periodicity.createdBy" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdBy?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdBy?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <!--<div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.periodicity.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+            <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy" [(ngModel)]="periodicity.lastModifiedBy" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.lastModifiedBy?.dirty && editForm.controls.lastModifiedBy?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.lastModifiedBy?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <!--  <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.periodicity.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+            <div class="input-group">
+                <input id="field_lastModifiedDate" type="text" class="form-control" name="lastModifiedDate" ngbDatepicker #lastModifiedDateDp="ngbDatepicker" [(ngModel)]="periodicity.lastModifiedDate" />
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="lastModifiedDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>-->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving || editForm.controls.minDay?.value < 0" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

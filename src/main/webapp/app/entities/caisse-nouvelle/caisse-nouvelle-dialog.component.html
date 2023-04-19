@@ -1,0 +1,143 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCaisseNouvelleLabel" [jhiFnmTranslate]="caisseNouvelle.id ? 'sfdApp.caisseNouvelle.home.createOrEditLabel' : 'sfdApp.caisseNouvelle.home.createLabel'">Create or edit a fund</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label class="form-control-label active oblige" for="field_compteCarmes">Compte Carmes</label>
+            <input type="text" class="form-control" name="compteCarmes" id="field_compteCarmes" [(ngModel)]="caisseNouvelle.compteCarmes" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.compteCarmes?.dirty && editForm.controls.compteCarmes?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.compteCarmes?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.compteCarmes?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="agences.length > 1">
+            <label  for="field_agenceReference" class="oblige">Agence</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_agenceReference" name="agenceReference" [(ngModel)]="caisseNouvelle.agenceReference" required>
+                <option [ngValue]="null" disabled></option>
+                <option [ngValue]="a.codeAgence" *ngFor="let a of agences">{{a.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label active oblige" for="field_libelle">Nom de la caisse</label>
+            <input type="text" class="form-control" name="libelle" id="field_libelle" [(ngModel)]="caisseNouvelle.libelle" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label active oblige" for="field_firstname">Prénoms caissier/caissière</label>
+            <input type="text" class="form-control" name="firstname" id="field_firstname" [(ngModel)]="caisseNouvelle.firstname" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.firstname?.dirty && editForm.controls.firstname?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.firstname?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.firstname?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label active oblige" for="field_name">Identifiant caissier/caissière</label>
+            <input type="text" class="form-control" name="username" id="field_username" [(ngModel)]="caisseNouvelle.username" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.username?.dirty && editForm.controls.username?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.username?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.username?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label active oblige" for="field_name">Password</label>
+            <input type="password"  class="form-control" name="password" id="field_password" [(ngModel)]="caisseNouvelle.password" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.password?.dirty && editForm.controls.password?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.password?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.password?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label active oblige" for="field_name">Email</label>
+            <input type="email" min="1" class="form-control" name="email" id="field_email" [(ngModel)]="caisseNouvelle.email" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label active oblige" for="field_name">Téléphone</label>
+            <input type="tel" min="1" class="form-control" name="telephone" id="field_telephone" [(ngModel)]="caisseNouvelle.telephone" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.telephone?.dirty && editForm.controls.telephone?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.telephone?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.telephone?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label active oblige" for="field_retraitMaxAmount">Retrait Maximum</label>
+            <input type="number" min="1" class="form-control" name="retraitMaxAmount" id="field_retraitMaxAmount" [(ngModel)]="caisseNouvelle.retraitMaxAmount" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.retraitMaxAmount?.dirty && editForm.controls.retraitMaxAmount?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.retraitMaxAmount?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.retraitMaxAmount?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label active oblige" for="field_soldetMaxAmount">Solde maximum</label>
+            <input type="number" min="1" class="form-control" name="soldetMaxAmount" id="field_soldetMaxAmount" [(ngModel)]="caisseNouvelle.soldetMaxAmount" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.soldetMaxAmount?.dirty && editForm.controls.soldetMaxAmount?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.soldetMaxAmount?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.soldetMaxAmount?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

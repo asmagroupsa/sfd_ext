@@ -1,0 +1,32 @@
+{
+    "sfdApp": {
+        "typeCreditRetard" : {
+            "home": {
+                "title": "Type of credit in arrears",
+                "createLabel": "Create a new type of overdue credit",
+                "createOrEditLabel": "Create or edit an overdue credit type",
+                "search": "Search overdue credit type"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete overdue credit type {{ id }}?"
+            },
+            "detail": {
+                "title": "Overdue credit type"
+            },
+            "name": "Title",
+            "code": "Code",
+            "initiale": "Title",
+            "accounts": "Type of credit in arrears",
+            "ecritureOperationAccounts": "Ecriture Operation Accounts",
+            "produits": "Produits",
+            "contrainteComptes": "Contrainte Comptes"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "typeCreditRetard" : {
+            "created": "A new Account Type is created ",
+            "updated": "A Account Type is updated ",
+            "deleted": "A Account Type is deleted "
+        }
+    }
+}

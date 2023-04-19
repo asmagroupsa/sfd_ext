@@ -1,0 +1,66 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.produit.home.title">Produits</span>
+        <button *jhiHasAnyRessources="['carmesfnmservice/api/produits/createProduit']"
+            class="btn btn-primary float-right create-produit"
+            [routerLink]="['/entity','request-partner', { outlets: { popup: ['request-partner-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" jhiFnmTranslate="sfdApp.produit.home.createLabel">
+                Create new Produit
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br>
+    <ng-template #elseBlock>
+        <div class="ui active centered loader" style="margin:70px auto;">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th class="numerotab">N°</th>
+                    <th jhiSortBy="bailleur"><span>Bailleur</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="bailleur"><span>Etat</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="bailleur"><span>Date</span> <span class="fa fa-sort"></span></th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="requestPartners;else elseBlock">
+                <tr *ngFor="let request of requestPartners; let index = index;">
+                    <td class="numerotab">{{index + 1}}</td>
+                    <td>{{request.nomPartenaire}}</td>
+                    <td>{{request.etat.replace('_', ' ')}}</td>
+                    <td>{{request.createdDate | date:'dd-MM-y'}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                [routerLink]="['/entity','request-partner', { outlets: { popup: 'request-partner/'+ request.id + '/confirm'} }]"
+                                class="btn btn-info btn-sm"
+                                *ngIf="request.sens == 'BAILLEUR' && request.etat == 'EN_ATTENTE'">
+                                <span class="fa fa-check"></span>
+                            </button>
+                            <button *jhiHasAnyRessources="['carmesfnmservice/api/deleteProduit']" type="submit"
+                                [routerLink]="['/entity','request-partner', { outlets: { popup: 'request-partner/'+ request.id + '/delete'} }]"
+                                replaceUrl="true" class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="requestPartners && requestPartners.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage">
+            </ngb-pagination>
+        </div>
+    </div>
+</div>

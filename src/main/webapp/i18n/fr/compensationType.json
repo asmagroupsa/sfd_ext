@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "compensationType" : {
+            "home": {
+                "title": "Type Compensation",
+                "createLabel": "Créer un nouveau Type Compensation",
+                "createOrEditLabel": "Editer un Type Compensation",
+                "search": "Rechercher un Type Compensation"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer ce Type Compensation {{ id }} ?"
+            },
+            "detail": {
+                "title": "Type Compensation"
+            },
+            "name": "Nom",
+            "code": "Code",
+            "compensations": "Compensations"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "compensationType" : {
+            "created": "Un nouveau Type Compensation a été créé ",
+            "updated": "Le Type Compensation   a été mis à jour",
+            "deleted": "Le Type Compensation  a été supprimé"
+        }
+    }
+}

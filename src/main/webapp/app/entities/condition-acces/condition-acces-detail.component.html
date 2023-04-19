@@ -1,0 +1,24 @@
+<div *ngIf="conditionAcces">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.conditionAcces.detail.title">Condition Acces</span> {{conditionAcces.id}}</h2>
+    <hr> -->
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.conditionAcces.name">Name</span></dt>
+        <dd>
+            <span>{{conditionAcces.name}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.conditionAcces.valeur">Valeur</span></dt>
+        <dd>
+            <span>{{conditionAcces.valeur}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','condition-acces', { outlets: { popup: 'condition-acces/'+ conditionAcces.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

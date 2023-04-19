@@ -1,0 +1,44 @@
+<div *ngIf="conditionGarantie">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.conditionGarantie.detail.title">Condition Garantie</span> {{conditionGarantie.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.conditionGarantie.name">Name</span></dt>
+        <dd>
+            <span>{{conditionGarantie.name}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.conditionGarantie.valeur">Valeur</span></dt>
+        <dd>
+            <span>{{conditionGarantie.valeur}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.conditionGarantie.document">Document</span></dt>
+        <dd>
+            <span>{{conditionGarantie.document}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.conditionGarantie.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{conditionGarantie.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.conditionGarantie.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{conditionGarantie.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.conditionGarantie.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{conditionGarantie.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.conditionGarantie.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{conditionGarantie.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','condition-garantie', { outlets: { popup: 'condition-garantie/'+ conditionGarantie.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

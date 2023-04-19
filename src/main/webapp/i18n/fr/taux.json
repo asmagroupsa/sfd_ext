@@ -1,0 +1,33 @@
+{
+    "sfdApp": {
+        "taux": {
+            "home": {
+                "title": "Tauxes",
+                "createLabel": "Créer un nouveau Taux",
+                "createOrEditLabel": "Editer un Taux",
+                "search": "Recherche pour Taux"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Taux {{ id }} ?"
+            },
+            "detail": {
+                "title": "Taux"
+            },
+            "libelle": "Libelle",
+            "valeur": "Valeur",
+            "createdDate": "Créé le",
+            "createdBy": "Créé par",
+            "lastModifiedBy": "Modifié par",
+            "lastModifiedDate": "Modifié le",
+            "ecritureCommissions": "Ecriture Commissions",
+            "produits": "Produits"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "taux": {
+            "created": "Un nouveau Taux a été créé ",
+            "updated": "Le Taux  a été mis à jour",
+            "deleted": "Le Taux  a été supprimé"
+        }
+    }
+}

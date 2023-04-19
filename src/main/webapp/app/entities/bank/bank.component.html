@@ -1,0 +1,86 @@
+<div>
+    <h3>
+        <span jhiFnmTranslate="sfdApp.bank.home.title">Banks</span>
+        <button class="btn btn-primary float-right jh-create-entity create-bank" [routerLink]="['/entity/bank', { outlets: { popup: ['bank-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" jhiFnmTranslate="sfdApp.bank.home.createLabel">
+                Create new Bank
+            </span>
+        </button>
+    </h3>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.bank.home.search'|fnmtranslate:langue.lang|async}}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="banks">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id">
+                        <span jhiFnmTranslate="global.field.id">ID</span>
+                        <span class="fa fa-sort"></span>
+                    </th> -->
+                    <th class="numerotab">N°</th>
+                    <th jhiSortBy="libelle">
+                        <span jhiFnmTranslate="sfdApp.bank.libelle">Libelle</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="phone">
+                        <span jhiFnmTranslate="sfdApp.bank.phone">Phone</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bank of banks;let index = index;">
+                    <!-- <td>
+                        <a [routerLink]="['../bank', bank.id ]">{{bank.id}}</a>
+                    </td> -->
+                    <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>{{bank.libelle}}</td>
+                    <td>{{bank.phone}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <!-- <button type="submit" [routerLink]="['/entity/bank', bank.id ]" class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                            </button> -->
+                            <button type="submit" [routerLink]="['/entity/bank', { outlets: { popup: 'bank/'+ bank.id + '/edit'} }]" replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                                <span class="fa fa-pencil"></span>
+                                <!-- <span class="d-none d-md-inline" jhiFnmTranslate="entity.action.edit">Edit</span> -->
+                            </button>
+                            <button type="submit" [routerLink]="['/entity/bank', { outlets: { popup: 'bank/'+ bank.id + '/delete'} }]" replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                                <!-- <span class="d-none d-md-inline" jhiFnmTranslate="entity.action.delete">Delete</span> -->
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="banks && banks.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page"
+                (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="ui tiny modal affectation" style="height:200px;">
+    <div class="header">
+        Suppression d'affectation {{title}}
+    </div>
+    <div class="content">
+        <p>
+            Confirmer la suppression de l'affectaion
+        </p>
+    </div>
+    <div class="actions">
+        <div class="ui red button" (click)="closeModal()" [ngClass]="{disabled:isProcess}">
+            Annuler
+        </div>
+        <div class="ui teal right labeled icon button" (click)="process()" [ngClass]="{loading:isProcess,disabled:isProcess}">
+            Confirmer
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+<div>
+    <h3 style="margin-top:20px">
+        <span>
+        <span jhiFnmTranslate="sfdApp.affectation.home.title">Affectation</span>
+        <span>{{title}}</span>
+        </span>
+        <button class="btn btn-primary float-right create-affectation" [routerLink]="['/entity','affectation', { outlets: { popup: ['affectation-new'] } }]" [queryParams]="{type:params.type}" *jhiHasAnyRessources="createRessource">
+            <span class="fa fa-plus"></span>
+        </button>
+    </h3>
+    <jhi-alert></jhi-alert>
+    <div class="row" *ngIf="affectations">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.affectation.home.search' | fnmtranslate : langue.lang | async }}">
+                    <!-- <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button> -->
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="row">
+        <div class="form-group col-6" *ngIf="listeAgences.length > 1">
+            <label class="form-control-label active" for="field_agence">Choisissez une agence</label>
+            <select class="ui fluid search dropdown" name="agence" [(ngModel)]="agence" id="field_agence" (change)="queryChargeDePret()">
+             <option [ngValue]="null">Veuillez choisir une agence</option>
+                <option [ngValue]="agence.codeAgence" *ngFor="let agence of listeAgences">{{agence.name}}</option>
+            </select>
+        </div>
+        <div class="form-group chargeDePret" [ngClass]="{'col-12':listeAgences.length == 1,'col-6':listeAgences.length > 1}">
+            <label class="form-control-label active" for="field_chargeDePret">Les chargés de prêts</label>
+            <select class="ui fluid search dropdown" name="chargeDePret" [(ngModel)]="chargeDePret" id="field_chargeDePret" (change)="onChargeChange()">
+                <option [ngValue]="cp.userReference" *ngFor="let cp of charges">{{cp?.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="table-responsive" *ngIf="affectations;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr>
+                    <th class="numerotab">N°</th>
+                    <th *ngIf="params['type'] !== 'dossier'">Photo</th>
+                    <th>Réference</th>
+                    <th>Nom & prénoms</th>
+                    <th *ngIf="params['type'] == 'agent'">Login(Cpt. CARMES)</th>
+                    <th *ngIf="params['type'] == 'agent'">Téléphone</th>
+                    <th *ngIf="params['type'] == 'client'">Type client</th>
+                    <th>Date d'affectation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let affectation of affectations|recherche:currentSearch;let index = index;">
+                    <td class="numerotab">{{(index + 1)}}</td>
+                    <td *ngIf="params['type'] !=  'dossier'">
+                        <img [src]="getImgSrc(affectation?.photo)" alt="photo" class="ui circular image" style="width:40px;height:40px;">
+                    </td>
+                    <td>{{affectation.code || affectation.referenceRequest || affectation.userReference || affectation.reference_request}}</td>
+                    <td>{{affectation.name || affectation.dossier}}</td>
+
+                    <td *ngIf="params['type'] == 'agent'">{{affectation?.login}}</td>
+                    <td *ngIf="params['type'] == 'agent'">{{affectation.phone}}</td>
+                    <td *ngIf="params['type'] == 'client'">{{getTypeClientLabel(affectation.typeclient)}}</td>
+                    <td>{{((affectation.date_affectation || affectation.dateAffectation) | date:'mediumDate') || '--'}}</td>
+                    <!-- <td class="text-right"> -->
+                    <!-- *jhiHasAnyRessources="'carmesfnmservice/api/affectation/getAffectation'" -->
+                    <!-- <div class="btn-group flex-btn-group-container"> -->
+                    <!-- *jhiHasAnyRessources="['carmesfnmservice/api/affectation/deleteAffectation']" -->
+                    <!-- <button type="submit" (click)="deleteAffectation(affectation)" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                        </button>
+                        </div>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

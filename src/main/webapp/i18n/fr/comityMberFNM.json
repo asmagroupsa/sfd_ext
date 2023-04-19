@@ -1,0 +1,35 @@
+{
+    "sfdApp": {
+        "comityMberFNM" : {
+            "home": {
+                "title": "Comité Membre FNM",
+                "createLabel": "Créer un nouveau Comité Member FNM",
+                "createOrEditLabel": "Editer un Comité Member FNM",
+                "search": "Recherche un Comité Membre FNM"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Comité Membre FNM {{ id }} ?"
+            },
+            "detail": {
+                "title": "Comité Membre FNM"
+            },
+            "userReference": "Référence Utilisateur",
+            "status": "Statue",
+            "nominationDate": "Date Nomination",
+            "endNominationDate": "Fin de la Date De Nomination",
+            "createdDate": "Date Création",
+            "createdBy": "Créé Par",
+            "lastModifiedBy": "Modifié Dernièrement Par",
+            "lastModifiedDate": "Date Dernière Modification",
+            "user": "Utilisteur",
+            "delegatedMemberFNMs": "Membre Délégué FN Ms"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "comityMberFNM" : {
+            "created": "Un nouveau Comité Membre FNM a été créé ",
+            "updated": "Le Comité Membre FNM  a été mis à jour",
+            "deleted": "Le Comité Membre FNM  a été supprimé"
+        }
+    }
+}

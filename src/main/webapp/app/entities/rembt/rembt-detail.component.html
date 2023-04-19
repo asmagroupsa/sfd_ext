@@ -1,0 +1,52 @@
+<div *ngIf="rembt">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.rembt.detail.title">Rembt</span> {{rembt.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.rembt.rembDate">Remb Date</span></dt>
+        <dd>
+            <span>{{rembt.rembDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.rembt.amount">Amount</span></dt>
+        <dd>
+            <span>{{rembt.amount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.rembt.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{rembt.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.rembt.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{rembt.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.rembt.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{rembt.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.rembt.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{rembt.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.rembt.echeancesClient">Echeances Client</span></dt>
+        <dd>
+            <div *ngIf="rembt.echeancesClientId">
+                <a [routerLink]="['/entity','echeances-client', rembt.echeancesClientId]">{{rembt.echeancesClientLibelle}}</a>
+            </div>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.rembt.typeRembt">Type Rembt</span></dt>
+        <dd>
+            <div *ngIf="rembt.typeRembtId">
+                <a [routerLink]="['/entity','type-rembt', rembt.typeRembtId]">{{rembt.typeRembtId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','rembt', { outlets: { popup: 'rembt/'+ rembt.id + '/edit'} }]" replaceUrl="true"
+        class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

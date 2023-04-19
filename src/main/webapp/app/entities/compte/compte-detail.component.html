@@ -1,0 +1,52 @@
+<div *ngIf="compte">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.compte.detail.title">Compte</span> {{compte.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.compte.numAccount">Num Account</span></dt>
+        <dd>
+            <span>{{compte.numAccount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compte.balance">Balance</span></dt>
+        <dd>
+            <span>{{compte.balance}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compte.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{compte.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compte.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{compte.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compte.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{compte.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compte.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{compte.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compte.accountType">Account Type</span></dt>
+        <dd>
+            <div *ngIf="compte.accountTypeId">
+                <a [routerLink]="['/entity','account-type', compte.accountTypeId]">{{compte.accountTypeId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.compte.client">Client</span></dt>
+        <dd>
+            <div *ngIf="compte.clientId">
+                <a [routerLink]="['/entity','client', compte.clientId]">{{compte.clientId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','compte-client', { outlets: { popup: 'compte/'+ compte.id + '/edit'} }]" replaceUrl="true"
+        class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

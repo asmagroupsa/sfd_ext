@@ -1,0 +1,96 @@
+<h4 class="ui dividing header">Criteres de recherche</h4>
+<div class="ui grid form">
+    <div class="column four wide">
+        <div class="field">
+            <label>Type client</label>
+            <select class="browser-default ui dropdown">
+                <option value="">Tout</option>
+                <option *ngFor="let type of typesClient" value="{{type.id}}">{{type.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="column four wide">
+        <div class="field">
+            <label>Nom & Prenoms</label>
+            <input type="text" class="browser-default">
+        </div>
+    </div>
+    <div class="column four wide">
+        <div class="field">
+            <label>Code client</label>
+            <input type="text" class="browser-default">
+        </div>
+    </div>
+    <div class="column four wide">
+        <div class="field">
+            <label>Compte Carmes</label>
+            <input type="text" class="browser-default">
+        </div>
+    </div>
+    <div class="column four wide">
+        <div class="field">
+            <label>Sexe</label>
+            <select class="browser-default ui dropdown">
+                <option value="">Tout</option>
+                <option value="M">F</option>
+                <option value="M">M</option>
+            </select>
+        </div>
+    </div>
+    <div class="column four wide">
+        <div class="field">
+            <label>Pays</label>
+            <select class="browser-default ui dropdown">
+                <option value="">Tout</option>
+                <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="column four wide">
+        <div class="field">
+            <label>Nationalite</label>
+            <select class="browser-default ui dropdown">
+                <option value="">Tout</option>
+                <option *ngFor="let nationality of nationalities" value="{{nationality.id}}">{{nationality.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="column four wide">
+        <div class="field">
+            <label>Situation matrimoniale</label>
+            <select class="browser-default ui dropdown">
+                <option value="">Tout</option>
+                <option *ngFor="let situationMatrimoniale of situationMatrimoniales" value="{{situationMatrimoniale.id}}">{{situationMatrimoniale.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="column four wide">
+        <div class="field">
+            <label>Agence</label>
+            <select class="browser-default ui dropdown">
+                <option value="">Tout</option>
+                <option *ngFor="let agence of agences" value="{{agence.id}}">{{agence.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="column four wide">
+        <div class="field">
+            <label>Date debut</label>
+            <input type="date" class="browser-default">
+        </div>
+    </div>
+    <div class="column four wide">
+        <div class="field">
+            <label>Date fin</label>
+            <input type="date" class="browser-default">
+        </div>
+    </div>
+    <div class="column four wide">
+        <div class="field">
+            <label>Grouper par</label>
+            <select class="browser-default ui dropdown">
+                <option *ngFor="let criterion of groupCriteria" value="{{criterion.value}}">{{criterion.libelle}}</option>
+            </select>
+        </div>
+    </div>
+</div>

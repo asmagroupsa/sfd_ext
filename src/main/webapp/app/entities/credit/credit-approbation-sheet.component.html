@@ -1,0 +1,467 @@
+<!--loader-->
+<div class="ui dimmer" [ngClass]="{'active': !hideLoader}">
+    <div class="ui loader"></div>
+</div>
+<div class="container">
+
+    <div id="print" *ngIf="hideLoader" class="col-md-12">
+        <div class="print-header">
+            <span style="text-align:justify" *ngIf="_DePage.entete !=null ;else elseBlock">
+                <img [src]="imageUrl+_DePage.entete" alt="entete de page">
+            </span>
+            <ng-template #elseBlock>
+                <img src="../../../content/images/header.jpg" alt="logo">
+            </ng-template>
+        
+        </div>
+        <div class="wrapper">
+            <p class="page-break">Section A</p>
+            <div class="row top-space">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="text-align-center bold font-size-x-large" style="color:gray; "> FICHE D'APPROBATION DE CREDIT </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--  Custumer section-->
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="section-header bold style">Le client</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td style="width:100%">
+                                <table class="table">
+                                    <tr>
+                                        <td> N. Client: {{fiche.nclient}}</td>
+                                        <td>Nom Client: {{fiche.nomduclient}}</td>
+                                        <td>Prénoms: {{fiche.prenoms}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Situation matrimoniale: {{fiche.situationmatrimoniale}}</td>
+                                        <td colspan="2">Adresse: {{fiche.adresse}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Catégorie: {{fiche.categorie}</td>
+                                        <td>Personne à charge: {{fiche.personneacharge}}</td>
+                                        <td>Revenus: {{fiche.revenus}} Fcfa</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"> Bien possédés: {{fiche.bienpossedes}}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <img src="../../../content/images/avatar.png" alt="logo" width="70" height="70">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!--Operating account Section  -->
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="section-header bold">Compte d'exploitation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Chiffre d'affaire :
+                                </td>
+                                <td>
+                                    {{fiche.chiffresdaffaire}} Fcfa/mois
+                                </td>
+                                <td>
+                                    %
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Cout d'achat des marchandises :
+                                </td>
+                                <td>
+                                    {{fiche.coutdachatdesmarchandises}} Fcfa/mois
+                                </td>
+                                <td>
+                                    %
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Salaire :
+                                </td>
+                                <td>
+                                    {{fiche.salaires}} Fcfa/mois
+                                </td>
+                                <td>
+                                    %
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Autres dépenses:
+                                </td>
+                                <td>
+                                    {{fiche.autresdepenses}} Fcfa/mois
+                                </td>
+                                <td>
+                                    %
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Amortissement:
+                                </td>
+                                <td>
+                                    {{fiche.amortissement}} Fcfa/mois
+                                </td>
+                                <td>
+                                    %
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Bénéfice d'exploitation :
+                                </td>
+                                <td>
+                                    {{fiche.beneficedexploitation}} Fcfa/mois
+                                </td>
+                                <td>
+                                    %
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Raison Social: {{fiche.raisonsociale}}
+                                </td>
+                                <td>
+                                    Status Juridique : {{fiche.statutjuridique}}
+                                </td>
+                                <td>
+                                    Année de démarrage: {{fiche.anneededemarrage}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Lieu de Vente :{{fiche.lieudevente}}
+                                </td>
+                                <td>
+                                    Nbr employé : {{fiche.nbredemployes}}
+                                </td>
+                                <td>
+                                    Employés rénumérés :{{fiche.employesrenumeres}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Activités: {{fiche.activites}}
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Break point -->
+            <p class="page-break"></p>
+
+            <!-- Business office section  -->
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="section-header bold">L'entreprise</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Raison Social: {{fiche.raisonsociale}}
+                                </td>
+                                <td>
+                                    Status Juridique : {{fiche.statutjuridique}}
+                                </td>
+                                <td>
+                                    Année de démarrage: {{fiche.anneededemarrage}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Lieu de Vente :{{fiche.lieudevente}}
+                                </td>
+                                <td>
+                                    Nbr employé : {{fiche.nbredemployes}}
+                                </td>
+                                <td>
+                                    Employés rénumérés :{{fiche.employesrenumeres}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    Activités: {{fiche.activites}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="section-header bold"> Patrimoine</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Actifs immobilisé: {{fiche.actifimmobilise}}
+                                </td>
+                                <td>
+                                    Actifs circulant :{{fiche.actifcirculant}}
+                                </td>
+                                <td>
+                                    Disponibilité :{{fiche.disponibilite}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Capitaux propres : {{fiche.capitauxpropres}}
+                                </td>
+                                <td colspan="2">
+                                    Dette a+ d'un an: {{fiche.dettesaplusdunan}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="section-header bold"> Demande de crédit</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    N. Dmde Credit:
+                                </td>
+                                <td>
+                                    Montant dernier Credit : {{fiche.montantderniercredit}}
+                                </td>
+                                <td colspan="2">
+                                    Date dernier credit : {{fiche.datederniercredit}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Montant sollicité : {{fiche.montantsollicite}}
+                                </td>
+                                <td>
+                                    Motif du credit :
+                                </td>
+                                <td colspan="2">
+                                    {{fiche.motifducredit}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Nbr d'échéances : {{fiche.nbredecheances}}
+                                </td>
+                                <td>
+                                    Délais de grace : {{fiche.delaidegrace}}
+                                </td>
+                                <td>
+                                    Nbre de retards :
+                                </td>
+                                <td>
+                                    Date demande : {{fiche.datedemande}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="section-header bold"> Proposition du chargé de prêt et chef service crédit </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Date : {{fiche.date}}
+                                </td>
+                                <td>
+                                    Montant credit : {{fiche.montantcredit}}
+                                </td>
+                                <td>
+                                    Remboursement : {{fiche.remboursement}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Chargé de prêt : {{fiche.chargedepret}}
+                                </td>
+                                <td>
+                                    Observations : {{fiche.observations}}
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Break point -->
+            <p class="page-break"></p>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="section-header bold"> La décision du comité de crédit </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Décision :
+                                </td>
+                                <td>
+                                    <form class="form-inline">
+                                        <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <span class="custom-control-indicator"></span>
+                                            <span class="custom-control-description">Approuvé</span>
+                                        </label>
+                                        <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <span class="custom-control-indicator"></span>
+                                            <span class="custom-control-description">Suspendu</span>
+                                        </label>
+                                        <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <span class="custom-control-indicator"></span>
+                                            <span class="custom-control-description">Repos</span>
+                                        </label>
+                                        <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <span class="custom-control-indicator"></span>
+                                            <span class="custom-control-description">Rejet</span>
+                                        </label>
+                                    </form>
+                                </td>
+                                <td>
+                                    Date du comité : {{fiche.dateducomite}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Montant accordé : {{fiche.montantaccorde}}
+                                </td>
+                                <td>
+                                    Nbr échéances : {{fiche.nbreEcheance}}
+                                </td>
+                                <td>
+                                    Remboursement : {{fiche.remboursement}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Taux Caution :
+                                </td>
+                                <td>
+                                    Montant caution : {{fiche.tauxcaution}}
+                                </td>
+                                <td>
+                                    Frais de dossier :{{fiche.fraisdedossier}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    Banque : {{fiche.banque}}
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Signature</th>
+                                <th>Président du comité de crédit</th>
+                                <th>Last Vice Président</th>
+                                <th>Sécrétaire général</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr rowspan="9">
+                                <td></td>
+                                <td>XXXXXXXXX</td>
+                                <td>XXXXXXX</td>
+                                <td>XXXXXXXXX</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="print-footer">
+            <!-- Page: -->
+            <span style="text-align:justify" *ngIf="_DePage.piedPage != null ;else elseBlock2">
+                <img [src]="imageUrl+_DePage.piedPage" alt="pied de page" width="100%" height="50">
+            </span>
+            <ng-template #elseBlock2>
+                <img src="../../../content/images/footer.jpg" alt="logo" width="100%" height="50">
+            </ng-template>
+        </div>
+    </div>
+</div>
+<a class="btn-floating btn-large waves-effect waves-light red" style="position: fixed; bottom: 25px; right: 25px;" (click)="printAsPdf('print')">
+    <i class="material-icons">print</i>
+</a> 
+<!-- 
+</div> -->

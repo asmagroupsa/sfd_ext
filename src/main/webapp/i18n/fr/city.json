@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "city" : {
+            "home": {
+                "title": "Ville",
+                "createLabel": "Créer une nouvelle Ville",
+                "createOrEditLabel": "Editer une Ville",
+                "search": "Rechercher Une Ville"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le City {{ id }} ?"
+            },
+            "detail": {
+                "title": "Ville"
+            },
+            "name": "Nom",
+            "townShips": "Town Ships",
+            "departement": "Département"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "city" : {
+            "created": "Une nouvelle City a été créé ",
+            "updated": "La Ville  a été mis à jour",
+            "deleted": "La Ville a été supprimée"
+        }
+    }
+}

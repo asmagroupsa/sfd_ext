@@ -1,0 +1,36 @@
+{
+    "sfdApp": {
+        "compte": {
+            "home": {
+                "title": "Comptes",
+                "createLabel": "Créer un nouveau Compte",
+                "createOrEditLabel": "Editer un Compte",
+                "search": "Recherche un Compte"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Compte {{ id }} ?"
+            },
+            "detail": {
+                "title": "Compte"
+            },
+            "agenceReference": "Référence Agence",
+            "numAccount": "Numero De Compte",
+            "balance": "Balance",
+            "createdDate": "Date Création",
+            "createdBy": "Créé Par",
+            "lastModifiedBy": "Créé Dernièrement Par",
+            "lastModifiedDate": "Date Dernière Modification",
+            "credits": "Credits",
+            "operations": "Operations",
+            "accountType": "Type Compte",
+            "client": "Client"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "compte": {
+            "created": "Un nouveau Compte a été créé ",
+            "updated": "Le Compte  a été mis à jour",
+            "deleted": "Le Compte  a été supprimé"
+        }
+    }
+}

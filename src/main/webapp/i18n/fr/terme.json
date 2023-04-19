@@ -1,0 +1,32 @@
+{
+    "sfdApp": {
+        "terme": {
+            "home": {
+                "title": "Termes",
+                "createLabel": "Créer un nouveau Terme",
+                "createOrEditLabel": "Editer un Terme",
+                "search": "Recherche pour Terme"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Terme {{ id }} ?"
+            },
+            "detail": {
+                "title": "Terme"
+            },
+            "minInterval": "Min Interval",
+            "maxInterval": "Max Interval",
+            "libelle": "Libelle",
+            "createdDate": "Creé le ",
+            "createdBy": "Créé par ",
+            "lastModifiedBy": "Modifié par",
+            "lastModifiedDate": "Modifié le "
+        }
+    },
+    "carmesfnmserviceApp": {
+        "terme": {
+            "created": "Un nouveau Terme a été créé ",
+            "updated": "Le Terme  a été mis à jour",
+            "deleted": "Le Terme  a été supprimé"
+        }
+    }
+}

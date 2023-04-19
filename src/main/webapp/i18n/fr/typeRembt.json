@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "typeRembt": {
+            "home": {
+                "title": "TypeRemboussements",
+                "createLabel": "Créer un nouveau Type Remboussement",
+                "createOrEditLabel": "Editer un Type Remboussement",
+                "search": "Recherche pour Type Remboussement"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Type Remboussement {{ id }} ?"
+            },
+            "detail": {
+                "title": "Type Remboussement"
+            },
+            "name": "Nom",
+            "code": "Code",
+            "remboursements": "Rembourssements"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "typeRembt": {
+            "created": "Un nouveau Type Remboussement a été créé ",
+            "updated": "Le Type Remboussement  a été mis à jour",
+            "deleted": "Le Type Remboussement  a été supprimé"
+        }
+    }
+}

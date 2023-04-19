@@ -1,0 +1,34 @@
+{
+    "sfdApp": {
+        "trancheTauxFrais": {
+            "home": {
+                "title": "TrancheTauxFrais",
+                "createLabel": "Créer un nouveau Tranche Taux Frais",
+                "createOrEditLabel": "Editer un Tranche Taux Frais",
+                "search": "Recherche pour Tranche Taux Frais"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Tranche Taux Frais {{ id }} ?"
+            },
+            "detail": {
+                "title": "Tranche Taux Frais"
+            },
+            "minInterval": "Min Interval",
+            "maxInterval": "Max Interval",
+            "valeur": "Valeur",
+            "type": "Type",
+            "createdDate": "Crée le ",
+            "createdBy": "Créé par",
+            "lastModifiedBy": "Modifié par",
+            "lastModifiedDate": "Modifié le ",
+            "opCompteTrancheTFs": "Op Compte Tranche T Fs"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "trancheTauxFrais": {
+            "created": "Une nouvelle Tranche Taux Frais a été créé ",
+            "updated": "La Tranche Taux Frais  a été mis à jour",
+            "deleted": "La Tranche Taux Frais  a été supprimé"
+        }
+    }
+}

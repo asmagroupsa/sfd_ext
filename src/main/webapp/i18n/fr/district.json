@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "district" : {
+            "home": {
+                "title": "Quartiers",
+                "createLabel": "Créer un nouveau Quartier",
+                "createOrEditLabel": "Editer un Quartier",
+                "search": "Recherche pour Quartier"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Quartier {{ id }} ?"
+            },
+            "detail": {
+                "title": "Quartier"
+            },
+            "name": "Nom",
+            "addresss": "Addresse",
+            "townShip": "Commune"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "district" : {
+            "created": "Un nouveau Quartier a été créé ",
+            "updated": "Le Quartier a été mis à jour",
+            "deleted": "Le Quartier a été supprimé"
+        }
+    }
+}

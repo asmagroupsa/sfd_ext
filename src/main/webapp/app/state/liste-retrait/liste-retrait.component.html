@@ -1,0 +1,23 @@
+<div style="display: flex; flex-direction: column; height: 100%;">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; align-items: flex-end;">
+        <h2>Liste des retraits</h2>
+        <div style="display: flex;">
+            <div style="width: 150px;">
+                <label for="date1" class="form-control-label">Du</label>
+                <ngbd-datepicker-i18n name="date1" [(ngModel)]="date1" (ngModelChange)="getData()"></ngbd-datepicker-i18n>
+            </div>
+            <div style="width: 10px;"></div>
+            <div style="width: 150px;">
+                <label for="date2" class="form-control-label">Au</label>
+                <ngbd-datepicker-i18n name="date2" [(ngModel)]="date2" (ngModelChange)="getData()"></ngbd-datepicker-i18n>
+            </div>
+        </div>
+    </div>
+    <div class="ui segment" style="box-shadow: unset; border: none; flex-grow: 2;" *ngIf="loading">
+        <p></p>
+        <div class="ui active inverted dimmer">
+            <div class="ui loader massive"></div>
+        </div>
+    </div>
+    <iframe style="width: 100%; flex-grow: 2;" [hidden]="loading" #iframe></iframe>
+</div>

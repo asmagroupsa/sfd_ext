@@ -1,0 +1,26 @@
+{
+    "sfdApp": {
+        "customUser" : {
+            "home": {
+                "title": "CustomUsers",
+                "createLabel": "Créer un nouveau Custom User",
+                "createOrEditLabel": "Editer un Custom User",
+                "search": "Rechercher un Custom User"
+            },
+            "created": "Un nouveau Custom User a été créé ",
+            "updated": "Le Custom User  a été mis à jour",
+            "deleted": "Le Custom User  a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Custom User {{ id }} ?"
+            },
+            "detail": {
+                "title": "Custom User"
+            },
+            "code": "Code",
+            "agenceReference": "référene agence",
+            "sfdReference": "Référence SFD",
+            "zoneReference": "Référence Zone",
+            "user": "Utilisateur"
+        }
+    }
+}

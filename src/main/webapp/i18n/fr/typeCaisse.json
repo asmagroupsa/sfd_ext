@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "typeCaisse" : {
+            "home": {
+                "title": "Type de Caisses",
+                "createLabel": "Créer un nouveau Type de Caisse",
+                "createOrEditLabel": "Editer un Type de Caisse",
+                "search": "Recherche pour Type de Caisse"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Type de Caisse {{ id }} ?"
+            },
+            "detail": {
+                "title": "Type de Caisse"
+            },
+            "code": "Code",
+            "name": "Nom",
+            "caisses": "Caisses"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "typeCaisse" : {
+            "created": "Un nouveau Type de Caisse a été créé ",
+            "updated": "Le Type de Caisse  a été mis à jour",
+            "deleted": "Le Type de Caisse  a été supprimé"
+        }
+    }
+}

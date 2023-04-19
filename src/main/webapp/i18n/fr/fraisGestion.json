@@ -1,0 +1,34 @@
+{
+    "sfdApp": {
+        "fraisGestion" : {
+            "home": {
+                "title": "FraisGestions",
+                "createLabel": "Créer un nouveau Frais Gestion",
+                "createOrEditLabel": "Editer un Frais Gestion",
+                "search": "Recherche pour Frais Gestion"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Frais Gestion {{ id }} ?"
+            },
+            "detail": {
+                "title": "Frais Gestion"
+            },
+            "libelle": "Libelle",
+            "minPercent": "Min Percent",
+            "maxPercent": "Max Percent",
+            "valeur": "Valeur",
+            "createdDate": "Date création",
+            "createdBy": "Créé par",
+            "lastModifiedBy": "Modifié dernièrement par",
+            "lastModifiedDate": "Date dernière modification",
+            "fraisGestionAcoordes": "Frais Gestion Acoordes"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "fraisGestion" : {
+            "created": "Un nouveau Frais Gestion a été créé ",
+            "updated": "Le Frais Gestion  a été mis à jour",
+            "deleted": "Le Frais Gestion  a été supprimé"
+        }
+    }
+}

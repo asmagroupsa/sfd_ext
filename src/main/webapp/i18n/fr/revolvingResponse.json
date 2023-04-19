@@ -1,0 +1,34 @@
+{
+    "sfdApp": {
+        "revolvingResponse": {
+            "home": {
+                "title": "RevolvingResponses",
+                "createLabel": "Créer un nouveau Revolving Response",
+                "createOrEditLabel": "Editer un Revolving Response",
+                "search": "Recherche pour Revolving Response"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Revolving Response {{ id }} ?"
+            },
+            "detail": {
+                "title": "Revolving Response"
+            },
+            "sfdReference": "Sfd Reference",
+            "amount": "Montant",
+            "status": "Status",
+            "rembRate": "Remb Rate",
+            "createdDate": "Créer le",
+            "createdBy": "Créer par",
+            "lastModifiedBy": "Modifier par",
+            "lastModifiedDate": "Modifier le",
+            "revolvingRequest": "Revolving Request"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "revolvingResponse": {
+            "created": "Un nouveau Revolving Response a été créé ",
+            "updated": "Le Revolving Response  a été mis à jour",
+            "deleted": "Le Revolving Response  a été supprimé"
+        }
+    }
+}

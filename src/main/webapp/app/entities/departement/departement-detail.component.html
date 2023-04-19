@@ -1,0 +1,25 @@
+<div *ngIf="departement">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.departement.detail.title">Departement</span> {{departement.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.departement.name">Name</span></dt>
+        <dd>
+            <span>{{departement.name}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.departement.country">Country</span></dt>
+        <dd>
+            <div *ngIf="departement.countryId">
+                <a [routerLink]="['/entity','country', departement.countryId]">{{departement.countryId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','departement', { outlets: { popup: 'departement/'+ departement.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

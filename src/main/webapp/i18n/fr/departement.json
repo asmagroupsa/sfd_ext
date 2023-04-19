@@ -1,0 +1,30 @@
+{
+    "sfdApp": {
+        "département" : {
+            "home": {
+                "title": "Les départements",
+                "createLabel": "Créer un nouveau département",
+                "createOrEditLabel": "Editer un département",
+                "search": "Rechercher Un Département"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le département {{ id }} ?"
+            },
+            "detail": {
+                "title": "Département"
+            },
+            "name": "Nom",
+            "reference": "Référence",
+            "citys": "Ville",
+            "country": "Pays",
+            "zone": "Zone"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "département" : {
+            "created": "Un nouveau département a été créé ",
+            "updated": "Le département a été mis à jour",
+            "deleted": "Le département a été supprimé"
+        }
+    }
+}

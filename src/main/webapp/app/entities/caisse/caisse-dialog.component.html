@@ -1,0 +1,93 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCaisseLabel" [jhiFnmTranslate]="caisse.id ? 'sfdApp.caisse.home.createOrEditLabel' : 'sfdApp.caisse.home.createLabel'">Create or edit a Caisse</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!-- <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.caisse.reference" for="form-group_reference">Reference</label>
+            <input type="text" class="form-control" name="reference" id="form-group_reference" [(ngModel)]="caisse.reference" required />
+        </div> -->
+        <div class="form-group" *ngIf="agences.length > 1">
+            <label jhiFnmTranslate="sfdApp.client.agence" for="field_agence" class="oblige">Agence</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_agence" name="agence" [(ngModel)]="caisse.agenceReference" required>
+                <option [ngValue]="null" disabled></option>
+                <option [ngValue]="a.codeAgence" *ngFor="let a of agences">{{a.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.caisse.libelle" for="form-group_libelle">Libelle</label>
+            <input type="text" class="form-control" name="libelle" id="form-group_libelle" [(ngModel)]="caisse.libelle" required />
+            <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This form-group is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.caisse.retraitMaxAmount" for="form-group_retraitMaxAmount">Retrait Max Amount</label>
+            <input type="number" class="form-control" name="retraitMaxAmount" id="form-group_retraitMaxAmount" [(ngModel)]="caisse.retraitMaxAmount" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.caisse.soldeMaxAmount" for="form-group_soldeMaxAmount">Solde Max Amount</label>
+            <input type="number" class="form-control" name="soldeMaxAmount" id="form-group_soldeMaxAmount" [(ngModel)]="caisse.soldeMaxAmount" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.caisse.solde" for="form-group_solde">Solde</label>
+            <input type="number" class="form-control" name="solde" id="form-group_solde" [(ngModel)]="caisse.solde" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.caisse.dateOuverture" for="form-group_dateOuverture">Date Ouverture</label>
+            <ngbd-datepicker-i18n [(ngModel)]="caisse.dateOuverture" name="dateOuverture" required="true"></ngbd-datepicker-i18n>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.caisse.modeCaisse" for="form-group_modeCaisse">Mode Caisse</label>
+            <select class="ui fluid search dropdown" name="modeCaisse" [(ngModel)]="caisse.modeCaisse" id="form-group_modeCaisse">
+                <option value="EXTERNE">EXTERNE</option>
+                <option value="INTERNE">INTERNE</option>
+                <option value="AUCUN">AUCUN</option>
+            </select>
+        </div>
+        <!-- <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.caisse.agenceReference" for="form-group_agenceReference">Agence Reference</label>
+            <input type="text" class="form-control" name="agenceReference" id="form-group_agenceReference" [(ngModel)]="caisse.agenceReference" required />
+            <div [hidden]="!(editForm.controls.agenceReference?.dirty && editForm.controls.agenceReference?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.agenceReference?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This form-group is required.
+                </small>
+            </div>
+        </div> -->
+
+        <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.caisse.compteComptable" for="form-group_compteComptable">Compte Comptable</label>
+            <select class="ui fluid search dropdown" id="form-group_compteComptable" name="compteComptable" [(ngModel)]="caisse.compteComptableId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="c.id" *ngFor="let c of compteComptables">{{c.libelle}}</option>
+            </select>
+        </div>
+        <!--  <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.caisse.journal" for="form-group_journal">Journal</label>
+            <select class="ui fluid search dropdown" id="form-group_journal" name="journal" [(ngModel)]="caisse.journalId">
+                <option [ngValue]="null">Aucun</option>
+                <option [ngValue]="journalOption.id" *ngFor="let journalOption of journals; trackBy: trackJournalById">{{journalOption.libelle}}</option>
+            </select>
+        </div> -->
+        <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.caisse.typeCaisse" for="form-group_typeCaisse">Type Caisse</label>
+            <select class="ui fluid search dropdown" id="form-group_typeCaisse" name="typeCaisse" [(ngModel)]="caisse.typeCaisse">
+                <option [ngValue]="null"></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button>&nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

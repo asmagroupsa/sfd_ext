@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "typeClient": {
+            "home": {
+                "title": "Les types de clients",
+                "createLabel": "Créer un nouveau type client",
+                "createOrEditLabel": "Editer un type client",
+                "search": "Recherche un type client"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le type client {{ id }} ?"
+            },
+            "detail": {
+                "title": "Type Client"
+            },
+            "name": "Nom",
+            "code": "Code",
+            "clients": "Clients"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "typeClient": {
+            "created": "Un nouveau type tlient a été créé ",
+            "updated": "Le type client  a été mis à jour",
+            "deleted": "Le type client  a été supprimé"
+        }
+    }
+}

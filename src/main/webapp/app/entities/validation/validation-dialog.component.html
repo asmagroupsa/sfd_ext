@@ -1,0 +1,203 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save(editForm.form.invalid)" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myValidationLabel" [jhiFnmTranslate]="validation.id ? 'sfdApp.validation.home.createOrEditLabel' : 'sfdApp.validation.home.createLabel'">Create or edit a Validation</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <span>
+                <input [(ngModel)]="valideResult" value="ACCEPTER" name="group1" type="radio" id="valide" checked #valide/>
+                <label for="valide">Valider</label>
+            </span>&nbsp;&nbsp;&nbsp;
+            <span>
+                <input [(ngModel)]="valideResult" value="REJETER" name="group1" type="radio" id="nonvalide" />
+                <label for="nonvalide">Rejeter</label>
+            </span>
+            <span>
+                <input [(ngModel)]="valideResult" value="ATTENTE" name="group1" type="radio" id="attente" #attente/>
+                <label for="attente">Mise en attente</label>
+            </span>
+        </div>
+        <!-- <div class="form-group">
+            <span>
+                <input name="group1" type="radio" id="valide" checked #valide/>
+                <label for="valide">Validé</label>
+            </span>&nbsp;&nbsp;&nbsp;
+            <span>
+                <input name="group1" type="radio" id="nonvalide"/>
+                <label for="nonvalide">Non validé</label>
+            </span>
+            <span>
+                <input name="group1" type="radio" id="attente" #attente/>
+                <label for="attente">Mise en attente</label>
+            </span>
+        </div> -->
+        <div class="form-group" style="overflow-y:auto;">
+            <label jhiFnmTranslate="sfdApp.validation.dossier" for="field_dossier">Dossier</label>
+            <table class="bordered striped highlight">
+                <thead>
+                    <tr>
+                        <th>Actions</th>
+                        <th>Reference de la demande</th>
+                        <th>Nom du client</th>
+                        <th>Montant accordé</th>
+                        <th>Montant étude détaillée</th>
+                        <th>Montant étude préalable</th>
+                        <th jhiFnmTranslate="sfdApp.validation.amount">Montant de la demande</th>
+                        <th>Durée étude préalable</th>
+                        <th>durée étude détaillée</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!dossiers || !dossiers.length" style="text-align:center;margin:10px;">
+                        <td colSpan="6" style="text-align:center;margin:10px;">Ce comité n'a pas de dossiers à valider</td>
+                    </tr>
+                    <tr *ngFor="let dossier of dossiers;let i = index">
+                        <td>
+                            <p class="checkParent">
+                                <input type="radio" name="dossier" [id]="dossier.dossier" (change)="onChange($event,dossier)" />
+                                <label [for]="dossier.dossier"></label>
+                            </p>
+                        </td>
+                        <td>{{dossier.reference}}</td>
+                        <td>{{dossier.name}}</td>
+                        <td>{{dossier?.amount_valider| currency:'XAF':true:'2.0'}}</td>
+                        <td>{{dossier?.amont_det| currency:'XAF':true:'2.0'}}</td>
+                        <td>{{dossier?.amont_pre| currency:'XAF':true:'2.0'}}</td>
+                        <td>{{dossier.amount| currency:'XAF':true:'2.0'}}</td>
+                        <td>{{dossier?.duration_pre}} mois</td>
+                        <td>{{dossier?.duration_det}} mois</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <select class="ui fluid search dropdown" class="form-control" id="field_dossier" name="dossier" [(ngModel)]="validation.dossierId"
+                required multiple>
+                <option [ngValue]="null" disabled>Choisissez le dossier</option>
+                <option [ngValue]="dossierOption.id" *ngFor="let dossierOption of dossiers; trackBy: trackDossierById">{{dossierOption.id}}</option>
+            </select> -->
+        </div>
+        <!-- <div class="form-group" style="overflow-y:auto;">
+            <label jhiFnmTranslate="sfdApp.validation.dossier" for="field_dossier">Dossier</label>
+            <table class="bordered striped highlight">
+                <thead>
+                    <tr>
+                        <th>Actions</th>
+                        <th>Reference de la demande</th>
+                        <th>Nom du client</th>
+                        <th>Montant</th>
+                        <th>Montant étude préalable</th>
+                        <th>Durée étude préalable</th>
+                        <th>Montant étude détaillée</th>
+                        <th>durée étude détaillée</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dossier of dossiers;let i = index">
+                        <td>
+                            <p class="checkParent">
+                                <input type="checkbox" [id]="dossier.dossier" (change)="onChange($event,dossier)" />
+                                <label [for]="dossier.dossier"></label>
+                            </p>
+                        </td>
+                        <td>{{dossier.reference}}</td>
+                        <td>{{dossier.name}}</td>
+                        <td>{{dossier.amount| currency:'XAF':true:'2.0'}}</td>
+                        <td>{{dossier?.amont_pre| currency:'XAF':true:'2.0'}}</td>
+                        <td>{{dossier?.duration_pre}} mois</td>
+                        <td>{{dossier?.amont_det| currency:'XAF':true:'2.0'}}</td>
+                        <td>{{dossier?.duration_det}} mois</td>
+                    </tr>
+                </tbody>
+            </table>
+            select class="ui fluid search dropdown" class="form-control" id="field_dossier" name="dossier" [(ngModel)]="validation.dossierId"
+                required multiple>
+                <option [ngValue]="null" disabled>Choisissez le dossier</option>
+                <option [ngValue]="dossierOption.id" *ngFor="let dossierOption of dossiers; trackBy: trackDossierById">{{dossierOption.id}}</option>
+            </select>
+        </div> -->
+        <!-- <div class="form-group" [hidden]="!validation.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="validation.id" readonly />
+        </div> -->
+        <!-- <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.validation.reference" for="field_reference">Reference</label>
+            <input type="text" class="form-control" name="reference" id="field_reference" [(ngModel)]="validation.reference" required maxlength="20" />
+            <div [hidden]="!(editForm.controls.reference?.dirty && editForm.controls.reference?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.reference?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.reference?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 20 }">
+                   This field cannot be longer than 20 characters.
+                </small>
+            </div>
+        </div> -->
+        <div class="input-field" [hidden]="!accepter">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.validation.amount" for="field_amount">Amount</label>
+            <input type="text" class="form-control" name="amount" id="field_amount" [ngModel]="validationAmount" readonly>
+            <!-- <div [hidden]="!(editForm.controls.amount?.dirty && (editForm.controls.amount?.invalid || isUpper()))">
+                <small class="form-text text-danger" [hidden]="!isUpper()">{{isUpperMsg}}</small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.required" jhiFnmTranslate="entity.validation.required">This field is required.</small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.number" jhiFnmTranslate="entity.validation.number">This field should be a number.</small>
+            </div> -->
+        </div>
+        <br>
+        <!-- <div class="form-group" [hidden]="!accepter">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.validation.duration" for="field_duration">Duration</label>
+            <input type="number" class="form-control" name="duration" id="field_duration" [(ngModel)]="validation.duration" [required]="accepter"/>
+            <div [hidden]="!(editForm.controls.duration?.dirty && editForm.controls.duration?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.duration?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.duration?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div> -->
+        <div class="input-field">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.validation.explanation" for="field_explanation">Explanation</label>
+            <input type="text" class="form-control" name="explanation" id="field_explanation" [(ngModel)]="validation.explanation" maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.explanation?.dirty && editForm.controls.explanation?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.explanation?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+
+        <div [hidden]="!(editForm.controls.dossier?.dirty && editForm.controls.dossier?.invalid)">
+            <small class="form-text text-danger" [hidden]="!editForm.controls.dossier?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <!-- <div class="form-group">
+            <label class="oblige">Type de validation</label>
+            <select class="ui fluid search dropdown" class="form-control" id="typevalide" name="typevalide" [(ngModel)]="validation.typeValide" required>
+                <option value="INDIVIDUAL">Validation Individuelle</option>
+                <option value="GROUP">Validation par groupe</option>
+            </select>
+        </div> -->
+        <!-- <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.validation.comityMber" for="field_comityMber" class="oblige">Comity Mber</label>
+            <select class="ui fluid search dropdown" class="form-control" id="field_comityMber" name="comityMber" [(ngModel)]="validation.comityMberId" required>
+                <option [ngValue]="null" disabled>Choisissez le membre</option>
+                <option [ngValue]="comityMberOption.id" *ngFor="let comityMberOption of comitymbers; trackBy: trackComityMberById">{{comityMberOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.comityMber?.dirty && editForm.controls.comityMber?.invalid)">
+            <small class="form-text text-danger" [hidden]="!editForm.controls.comityMber?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div> -->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button>&nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving || !checkeds.length || isUpper()" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

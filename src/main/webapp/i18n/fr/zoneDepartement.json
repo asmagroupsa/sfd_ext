@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "zoneDepartement": {
+            "home": {
+                "title": "ZoneDepartements",
+                "createLabel": "Créer une nouvelle Zone Departement",
+                "createOrEditLabel": "Editer une Zone Departement",
+                "search": "Recherche pour Zone Departement"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Zone Departement {{ id }} ?"
+            },
+            "detail": {
+                "title": "Zone Departement"
+            },
+            "name": "Nom",
+            "reference": "Référence",
+            "departements": "Departements"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "zoneDepartement": {
+            "created": "Une nouvelle Zone Departement a été créé ",
+            "updated": "La Zone Departement  a été mis à jour",
+            "deleted": "La Zone Departement  a été supprimé"
+        }
+    }
+}

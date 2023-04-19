@@ -1,0 +1,156 @@
+<ng-template #ayantDroit let-c="close" let-d="dismiss">
+    <div class="modal-header" id="confirm-decaissement-modal-header">
+        <h4 class="modal-title">Les ayants droits du client </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div style="font-size: large;">
+            <!-- <div>
+                - Liste des ayants droits
+
+                <ul>
+                    <li *ngFor="let ayantDroit of listAyantDroit">
+                        {{ayantDroit.nom_prenom}}
+                    </li>
+                </ul>
+            </div> -->
+            <p>Liste des ayants droits du client</p>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Type bénéficiaire</th>
+                        <th scope="col">Frais Obsèque</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ayantDroit of listAyantDroit; index as i">
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>{{ ayantDroit.nom_prenom }}</td>
+                        <td>{{ ayantDroit.type_beneficiaire }}</td>
+                        <td>{{ ayantDroit.frais_obseque }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" (click)="d()">FERMER</button>&nbsp;&nbsp;&nbsp;
+        <!-- <button type="button" class="btn waves-effect waves-light" (click)="process()">DECAISSER</button> -->
+    </div>
+</ng-template>
+<div>
+    <h2>
+        <span>Assurés</span>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <jhi-alert-error></jhi-alert-error>
+    <br />
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="ui form" name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch"
+                        name="currentSearch" placeholder="Rechercher un client assuré">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br />
+
+
+    <div class="table-responsive" *ngIf="listAssurance ;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th class="numerotab">N°</th>
+                    <th jhiSortBy="logo"><span>Nom & Prénom</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="address"><span>N° Police</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="name"><span>Montant Crédit</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="phone"><span>Option d'assurance</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="email"><span>Tarif</span> <span class="fa fa-sort"></span></th>
+                    <!-- <th jhiSortBy="createdDate"><span jhiFnmTranslate="sfdApp.partner.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>-->
+                    <!-- <th jhiSortBy="createdBy"><span jhiFnmTranslate="sfdApp.partner.createdBy">Created By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedBy"><span jhiFnmTranslate="sfdApp.partner.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedDate"><span jhiFnmTranslate="sfdApp.partner.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="typePartnerId"><span jhiFnmTranslate="sfdApp.partner.typePartner">Type Partner</span> <span class="fa fa-sort"></span></th> -->
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    *ngFor="let assurances of listAssurance | recherche:currentSearch ;let index = index;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','partner', partner.id ]">{{partner.id}}</a></td> -->
+                    <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>{{assurances.name}} {{assurances.first_name}} </td>
+                    <td>{{assurances.num_police}}</td>
+                    <td>{{assurances.montant_credit}}</td>
+                    <td>{{assurances.options}}</td>
+                    <td>{{assurances.tarif}}</td>
+                    <!-- <td>{{partner.createdDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>{{partner.createdBy}}</td> -->
+                    <!-- <td>{{partner.lastModifiedBy}}</td> -->
+                    <!-- <td>{{partner.lastModifiedDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>
+                        <div *ngIf="partner.typePartnerId">
+                            <a [routerLink]="['/entity','type-partner', partner.typePartnerId  ]">{{partner.typePartnerId}}</a>
+                        </div>
+                    </td> -->
+                    <td class="text-right">
+                        <div class="ui dropdown">
+                            <div class="text" style="display:none"></div>
+                            <i class="ellipsis vertical icon"></i>
+                            <div class="left menu">
+                                <div class="item" (click)="ayantDroits(assurances, ayantDroit)"> Voir les ayant droit
+                                </div>
+                                <div class="item"
+                                    [routerLink]="['/entity','assurance', assurances.num_police,'assurance-releve']">
+                                    contrat</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="listAssurance && listAssurance.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage">
+            </ngb-pagination>
+        </div>
+    </div>
+</div>
+<!-- <div class="ui compact selection dropdown">
+    <i class="dropdown icon"></i>
+    <div class="text">Impressions</div>
+    <div class="menu">
+        <div class="item" jhiFnmTranslate="impressions.partners.all">Tous les bailleurs</div>
+    </div>
+</div> -->
+<div class="ui segment" style="box-shadow: unset; border: none; background: unset;" *ngIf="loading">
+    <p></p>
+    <div class="ui active inverted dimmer" style="background-color: unset;">
+        <div class="ui loader"></div>
+    </div>
+</div>

@@ -1,0 +1,126 @@
+<div>
+    <h2 class="liste-header">
+        <span jhiFnmTranslate="sfdApp.caisse.home.title">Caisses</span>
+        <!-- <button class="btn btn-primary float-right jh-create-entity create-caisse" (click)="transfert()"> -->
+        <button class="btn btn-primary float-right jh-create-entity create-caisse" (click)="transfertCaisse()">
+        <!-- <button class="btn btn-primary float-right jh-create-entity create-caisse" [routerLink]="['/entity', 'caisse', {outlets: { popup: ['caisse-new']}}]"> -->
+            <span class="fa fa-plus"></span>
+            <!-- <span class="hidden-sm-down" jhiFnmTranslate="sfdApp.caisse.home.createLabel">
+                Create new Caisse
+            </span> -->
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.caisse.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="ui two item menu">
+        <a *ngFor="let t of types" class="item" [ngClass]="{active: currentType.id === t.code}" (click)="onTypeClick(t.code)">{{t.libelle}}</a>
+    </div>
+    <div class="table-responsive" *ngIf="caisses">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="reference">
+                        <span jhiFnmTranslate="sfdApp.caisse.reference">Reference</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="libelle">
+                        <span jhiFnmTranslate="sfdApp.caisse.libelle">Libelle</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="retraitMaxAmount">
+                        <span jhiFnmTranslate="sfdApp.caisse.retraitMaxAmount">Retrait Max Amount</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="soldeMaxAmount">
+                        <span jhiFnmTranslate="sfdApp.caisse.soldeMaxAmount">Solde Max Amount</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="solde">
+                        <span jhiFnmTranslate="sfdApp.caisse.solde">Solde</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="dateOuverture">
+                        <span jhiFnmTranslate="sfdApp.caisse.dateOuverture">Date Ouverture</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="modeCaisse">
+                        <span jhiFnmTranslate="sfdApp.caisse.modeCaisse">Mode Caisse</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <!-- <th jhiSortBy="agenceReference"><span jhiFnmTranslate="sfdApp.caisse.agenceReference">Agence Reference</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="compteComptableId">
+                        <span jhiFnmTranslate="sfdApp.caisse.compteComptable">Compte Comptable</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="journalId">
+                        <span jhiFnmTranslate="sfdApp.caisse.journal">Journal</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <!-- <th jhiSortBy="typeCaisseId"><span jhiFnmTranslate="sfdApp.caisse.typeCaisse">Type Caisse</span> <span class="fa fa-sort"></span></th> -->
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let caisse of caisses">
+                    <td>{{caisse.reference}}</td>
+                    <td>{{caisse.libelle}}</td>
+                    <td>{{caisse.retraitMaxAmount}}</td>
+                    <td>{{caisse.soldeMaxAmount}}</td>
+                    <td>{{caisse.solde}}</td>
+                    <td>{{caisse.dateOuverture | date:'mediumDate'}}</td>
+                    <td jhiFnmTranslate="{{'carmesfnmserviceApp.ModeCaisse.' + caisse.modeCaisse}}">{{caisse.modeCaisse}}</td>
+                    <td>
+                        <div *ngIf="caisse.compteComptableId">
+                            <a [routerLink]="['/entity','compte-comptable', caisse.compteComptableId  ]">{{caisse.compteComptableId}}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="caisse.journalId">
+                            <a [routerLink]="['/entity','journal', caisse.journalId  ]">{{caisse.journalId}}</a>
+                        </div>
+                    </td>
+                    <!--  <td>
+                        <div *ngIf="caisse.typeCaisseId">
+                            <a [routerLink]="['../type-caisse', caisse.typeCaisseId  ]">{{caisse.typeCaisseId}}</a>
+                        </div>
+                    </td> -->
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['/entity','caisse', caisse.id ]" class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                            </button>
+                            <button type="submit" [routerLink]="['/entity','caisse', { outlets: { popup: 'caisse/'+ caisse.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                                <span class="fa fa-pencil"></span>
+                            </button>
+                            <button type="submit" [routerLink]="['/entity','caisse', { outlets: { popup: 'caisse/'+ caisse.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="caisses && caisses.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

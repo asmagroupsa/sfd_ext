@@ -1,0 +1,80 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myDelegationComityLabel" [jhiFnmTranslate]="delegationComity.id ? 'sfdApp.delegationComity.home.createOrEditLabel' : 'sfdApp.delegationComity.home.createLabel'">Create or edit a Delegation Comity</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!-- <div class="form-group" *ngIf="agences.length > 1">
+            <label jhiFnmTranslate="sfdApp.client.agence" for="field_agence" class="oblige">Agence</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_agence" name="agence" [(ngModel)]="delegationComity.agenceReference"
+                required>
+                <option [ngValue]="null" disabled>Choisissez l'agence</option>
+                <option [ngValue]="agence.codeAgence" *ngFor="let agence of agences">{{agence.name}}</option>
+            </select>
+        </div> -->
+        <!-- <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.delegationComity.reference" for="field_reference">Reference</label>
+            <input type="text" class="form-control" name="reference" id="field_reference" [(ngModel)]="delegationComity.reference" required
+            />
+            <div [hidden]="!(editForm.controls.reference?.dirty && editForm.controls.reference?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.reference?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+            </div>
+        </div> -->
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.delegationComity.libelle" for="field_libelle">Libelle</label>
+            <input type="text" class="form-control" name="libelle" id="field_libelle" [(ngModel)]="delegationComity.libelle" maxlength="50" required />
+            <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <!-- <div class="input-field">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.delegationComity.nbMember" for="field_nbMember">Nb Member</label>
+            <input type="number" min="1" class="form-control" name="nbMember" id="field_nbMember" [(ngModel)]="delegationComity.nbMember" />
+        </div> -->
+        <div class="input-field">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.delegationComity.maxAmount" for="field_maxAmount">Max Amount</label>
+            <input type="number" min="1" class="form-control" name="maxAmount" id="field_maxAmount" [ngModel]="delegationComity.maxAmount" (formatNumberMyMiller)="delegationComity.maxAmount = $event" />
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.delegationComity.globalMaxAmount" for="field_globalMaxAmount">Global Max Amount</label>
+            <input type="number" min="1" class="form-control" name="globalMaxAmount" id="field_globalMaxAmount" [ngModel]="delegationComity.globalMaxAmount" (formatNumberMyMiller)="delegationComity.globalMaxAmount = $event" />
+        </div>
+        <!--  <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="form-control-label label" for="firstName" (click)="file.click()" #labelPhoto>
+                        {{label}}
+                    </label>
+                    <input type="file" class="form-control" id="photo" name="photo" style="display:none;" #file (change)="onChangeFile(labelPhoto)">
+                </div>
+            </div>
+        </div> -->
+        <div class="file-field input-field">
+            <div class="btn">
+                <span jhiFnmTranslate="sfdApp.delegationComity.delegationSignatureFileUrl">Delegation Signature File Url</span>
+                <input type="file" #file [(ngModel)]="delegationComity.delegationSignatureFileUrl" name="delegationSignatureFileUrl" (change)="onChangeFile()">
+            </div>
+            <div class=" file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <em *ngIf="isSending" style="color:rgb(238, 151, 151)">La pièce jointe est en cours d'envoi</em>
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving || isSending" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

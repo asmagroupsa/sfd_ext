@@ -1,0 +1,63 @@
+{
+    "sfdApp": {
+        "produit": {
+            "home": {
+                "title": "Produits",
+                "createLabel": "Créer un nouveau produit",
+                "createOrEditLabel": "Editer un produit",
+                "search": "Rechercher un produit"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Produit {{ id }} ?"
+            },
+            "detail": {
+                "title": "Produit"
+            },
+            "typeClients": "Cibles",
+            "typeGaranties": "Les types de garanties",
+            "periodicity": "Périodicité",
+            "duree": "Durée",
+            "code": "Code",
+            "libelle": "Désignation",
+            "duration": "Durée",
+            "etudiable": "Etudiable",
+            "createdDate": "Créer le",
+            "createdBy": "Créer par",
+            "lastModifiedBy": "Modifier par",
+            "lastModifiedDate": "Modifier le",
+            "comitable": "Comité",
+            "formable": "Formable",
+            "notifiable": "Notification",
+            "creditable": "Crédit",
+            "contractable": "Contrat",
+            "penalitable": "Penalité",
+            "eligibilite": "Eligibilite",
+            "amountMax": "Montant maximun",
+            "amountMin": "Montant minimun",
+            "interestRate": "Taux d'interêt",
+            "noteMinConditionAcces": "Note Min Condition d'accès",
+            "activerConditionAcces": "Activer Condition d'accès",
+            "creditRequests": "Demande de crédit",
+            "contrats": "Contrats",
+            "ligneRequests": "Demande de la ligne de crédit",
+            "eligibles": "Eligibles",
+            "produitTypeGaranties": "Produit Type Garanties",
+            "tauxEpargnes": "Taux Epargnes",
+            "conditionss": "Conditions",
+            "fraiss": "Frais",
+            "tranchePenals": "Tranche Penals",
+            "tauxs": "Taux",
+            "accountTypes": "Types de comptes",
+            "periodicities": "Périodicités",
+            "conditionAccess": "Conditions d'accès",
+            "categorieProduit": "Categorie de produit"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "produit": {
+            "created": "Un nouveau Produit a été créé ",
+            "updated": "Le Produit  a été mis à jour",
+            "deleted": "Le Produit  a été supprimé"
+        }
+    }
+}

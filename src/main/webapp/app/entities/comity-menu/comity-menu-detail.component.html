@@ -1,0 +1,56 @@
+<div *ngIf="comityMber">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.comityMber.detail.title">Comity Mber</span> {{comityMber.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.comityMber.status">Status</span></dt>
+        <dd>
+            <span>{{comityMber.status}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.comityMber.nominationDate">Nomination Date</span></dt>
+        <dd>
+            <span>{{comityMber.nominationDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.comityMber.endNominationDate">End Nomination Date</span></dt>
+        <dd>
+            <span>{{comityMber.endNominationDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.comityMber.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{comityMber.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.comityMber.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{comityMber.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.comityMber.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{comityMber.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.comityMber.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{comityMber.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.comityMber.sfdUsers">Sfd Users</span></dt>
+        <dd>
+            <div *ngIf="comityMber.sfdUsersId">
+                <a [routerLink]="['/entity','service-user', comityMber.sfdUsersId]">{{comityMber.sfdUsersId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.comityMber.typeMembre">Type Membre</span></dt>
+        <dd>
+            <div *ngIf="comityMber.typeMembreId">
+                <a [routerLink]="['/entity','type-membre', comityMber.typeMembreId]">{{comityMber.typeMembreId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','comity-mber', { outlets: { popup: 'comity-mber/'+ comityMber.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

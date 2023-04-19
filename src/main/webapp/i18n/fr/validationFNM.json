@@ -1,0 +1,36 @@
+{
+    "sfdApp": {
+        "validationFNM": {
+            "home": {
+                "title": "ValidationFNMS",
+                "createLabel": "Créer une nouvelle Validation FNM",
+                "createOrEditLabel": "Editer une Validation FNM",
+                "search": "Recherche pour Validation FNM"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Validation FNM {{ id }} ?"
+            },
+            "detail": {
+                "title": "Validation FNM"
+            },
+            "amount": "Montant",
+            "createdDate": "créé le ",
+            "createdBy": "Créé par",
+            "lastModifiedBy": "modifié par",
+            "lastModifiedDate": "modifié le ",
+            "explanation": "Explanation",
+            "sfd": "Sfd",
+            "result": "Résult",
+            "reference": "Référence",
+            "dossierFNM": "Dossier FNM",
+            "delegatedMemberFNM": "Membre de la delegation FNM"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "validationFNM": {
+            "created": "Une nouvelle Validation FNM a été créé ",
+            "updated": "La Validation FNM  a été mis à jour",
+            "deleted": "La Validation FNM  a été supprimé"
+        }
+    }
+}

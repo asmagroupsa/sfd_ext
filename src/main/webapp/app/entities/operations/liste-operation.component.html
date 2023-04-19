@@ -1,0 +1,84 @@
+<div>
+    <h2>
+        <span>Les Opérations d'un compte client</span>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group client">
+                <label for="field_client">Choisissez le client pour afficher ses opérations</label>
+                <select id="field_client" class="ui fluid search dropdown" (change)="onClientChange()" [(ngModel)]="currentClient">
+                    <option value="null" disabled>Choisissez le client</option>
+                    <option [ngValue]="client" *ngFor="let client of clients">
+                        {{client.name}} {{client.firstName}} {{client.denomination}} ({{client.code}})
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group compte">
+                <label for="field_compte">Choisissez le compte du client selectionné</label>
+                <select id="field_compte" class="ui fluid search dropdown" (change)="onCompteChange()" [(ngModel)]="currentCompte">
+                    <option value="null" disabled>Choisissez le compte</option>
+                    <option [ngValue]="compte.numAccount" *ngFor="let compte of accounts">
+                        {{compte?.accountType?.name}} Num {{compte?.numAccount}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <br/> 
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Rechercher une opération">
+                   <!--  <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button> -->
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="operations">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr>
+                    <th class="numerotab">N°</th>
+                    <th>Observations</th>
+                    <th>Crédit</th>
+                    <th>Débit</th>
+                    <th>Sens</th>
+                    <th>Créer le</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let operation of operations | recherche:currentSearch;let index = index;">
+                    <td class="numerotab">{{(index + 1)}}</td>
+                    <td>{{operation.observation}}</td>
+                    <td>{{operation.credit}}</td>
+                    <td>{{operation.debit}}</td>
+                    <td>{{operation.sens}}</td>
+                    <td>{{operation.created_date|date:'medium'}}</td>
+                </tr>
+                <tr *ngIf="operations?.length">
+                    <td></td>
+                    <td>
+                        <em>Total</em>
+                    </td>
+                    <td>
+                        <strong>{{totaldebitCredit(false)}}</strong>
+                    </td>
+                    <td>
+                        <strong>{{totaldebitCredit()}}</strong>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

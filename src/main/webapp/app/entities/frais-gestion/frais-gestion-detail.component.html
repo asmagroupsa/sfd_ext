@@ -1,0 +1,48 @@
+<div *ngIf="fraisGestion">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.fraisGestion.detail.title">Frais Gestion</span> {{fraisGestion.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.fraisGestion.libelle">Libelle</span></dt>
+        <dd>
+            <span>{{fraisGestion.libelle}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.fraisGestion.minPercent">Min Percent</span></dt>
+        <dd>
+            <span>{{fraisGestion.minPercent}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.fraisGestion.maxPercent">Max Percent</span></dt>
+        <dd>
+            <span>{{fraisGestion.maxPercent}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.fraisGestion.valeur">Valeur</span></dt>
+        <dd>
+            <span>{{fraisGestion.valeur}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.fraisGestion.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{fraisGestion.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.fraisGestion.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{fraisGestion.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.fraisGestion.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{fraisGestion.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.fraisGestion.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{fraisGestion.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','frais-gestion', { outlets: { popup: 'frais-gestion/'+ fraisGestion.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

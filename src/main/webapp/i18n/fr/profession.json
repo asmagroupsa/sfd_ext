@@ -1,0 +1,27 @@
+{
+    "sfdApp": {
+        "profession": {
+            "home": {
+                "title": "Professions",
+                "createLabel": "Créer un nouveau Profession",
+                "createOrEditLabel": "Editer un Profession",
+                "search": "Recherche pour Profession"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Profession {{ id }} ?"
+            },
+            "detail": {
+                "title": "Profession"
+            },
+            "name": "Nom",
+            "clients": "Clients"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "profession": {
+            "created": "Un nouveau Profession a été créé ",
+            "updated": "Le Profession  a été mis à jour",
+            "deleted": "Le Profession  a été supprimé"
+        }
+    }
+}

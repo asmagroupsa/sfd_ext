@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [{
+            "relationshipType": "many-to-one",
+            "relationshipName": "ressource",
+            "otherEntityName": "ressource",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [ {
+        "fieldName": "authority",
+        "fieldType": "String",
+        "fieldValidateRules": [
+            "required",
+            "maxlength"
+        ],
+        "fieldValidateRulesMaxlength": 200
+    }],
+    "changelogDate": "20170928154349",
+    "service": "serviceClass",
+    "entityTableName": "cf_authority_ressource",
+    "pagination": "pagination"
+}

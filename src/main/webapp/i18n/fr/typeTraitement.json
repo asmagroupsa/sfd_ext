@@ -1,0 +1,9 @@
+{
+    "sfdApp": {
+        "TypeTraitement" : {
+            "null": "",
+            "AUTO": "AUTO",
+            "MANUEL": "MANUEL"
+        }
+    }
+}
