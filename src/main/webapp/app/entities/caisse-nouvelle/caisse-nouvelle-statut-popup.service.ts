@@ -7,7 +7,6 @@ import { CaisseNouvelleStatut } from './caisse-nouvelle-statut.model';
 @Injectable()
 export class CaisseNouvelleStatutPopupService {
   private isOpen = false;
-  caisseNouvelleStatut :  CaisseNouvelleStatut = new CaisseNouvelleStatut();
   constructor(
     private modalService: NgbModal,
     private router: Router,
@@ -21,7 +20,11 @@ export class CaisseNouvelleStatutPopupService {
     this.isOpen = true;
 
     if (id) {
-        return this.caisseNouvelleStatutModalRef(component, this.caisseNouvelleStatut.id = id);
+       let caisseNouvelleStatut :  CaisseNouvelleStatut = new CaisseNouvelleStatut();
+       caisseNouvelleStatut = {
+        id : id,
+       }
+        return this.caisseNouvelleStatutModalRef(component,  caisseNouvelleStatut);
 
     } else {
 

@@ -43,6 +43,10 @@
         "alimentationCaisse" : {
             "created": "Fund successfully fed ",
             "updated": "Fund successfully fed"
+        },
+        "etatCaisse" : {
+            "close": "Case successfully closed",
+            "open": "Cash register successfully opened"
         }
     }
 }

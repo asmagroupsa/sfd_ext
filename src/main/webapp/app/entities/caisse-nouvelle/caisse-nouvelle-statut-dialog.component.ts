@@ -19,6 +19,7 @@ declare let select_init: any;
 })
 export class CaisseNouvelleStatutDialogComponent implements OnInit {
   caisseNouvelleStatut: CaisseNouvelleStatut;
+  etat: any;
   authorities: any[];
   isSaving: boolean;
   agences = [];
@@ -48,6 +49,13 @@ export class CaisseNouvelleStatutDialogComponent implements OnInit {
   }
 
   save() {
+    this.etat == this.caisseNouvelleStatut.etat;
+    console.log('Etat' + this.caisseNouvelleStatut.etat);
+    console.log('id' + this.caisseNouvelleStatut.id);
+
+    //this.caisseNouvelleStatut.etat = this.etat;
+    console.log(this.caisseNouvelleStatut);
+
     this.isSaving = true;
     /* if (this.caisseNouvelleStatut.id !== undefined) {
       this.subscribeToSaveResponse(
@@ -79,7 +87,7 @@ export class CaisseNouvelleStatutDialogComponent implements OnInit {
 
   private onSaveSuccess(result: CaisseNouvelleStatut, isCreated: boolean) {
     this.alertService.success(
-      isCreated ? 'carmesfnmserviceApp.caisseNouvelle.created' : 'carmesfnmserviceApp.caisseNouvelle.updated',
+      (isCreated && this.etat == 'FERME') ? 'carmesfnmserviceApp.etatCaisse.close' : 'carmesfnmserviceApp.etatCaisse.open',
       { param: result.id },
       null
     );

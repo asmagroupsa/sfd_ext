@@ -43,6 +43,10 @@
         "alimentationCaisse" : {
             "created": "Caisse alimentée avec succès ",
             "updated": "Caisse alimentée avec succès"
+        },
+        "etatCaisse" : {
+            "close": "Caisse fermé avec succès",
+            "open": "Caisse ouvert avec succès"
         }
     }
 }
