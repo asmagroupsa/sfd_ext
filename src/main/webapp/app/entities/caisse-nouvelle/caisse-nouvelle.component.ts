@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { Subscription } from 'rxjs';
 
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
+import { ITEMS_PER_PAGE, Principal, ResponseWrapper, UserData } from '../../shared';
 import { LanguesService } from '../../shared/myTranslation/langues';
 import { CaisseNouvelle } from './caisse-nouvelle.model';
 import { CaisseNouvelleService } from './caisse-nouvelle.service';
@@ -19,6 +19,9 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
   eventSubscriber: Subscription;
   currentSearch: string;
   itemsPerPage: number;
+  agences = [];
+  agenceReference : any;
+  codeCaisse : any = '';
 
   constructor(
     private caisseNouvelleService: CaisseNouvelleService,
@@ -81,6 +84,18 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
       this.currentAccount = account;
     });
     this.registerChangeInCaisseNouvelles();
+    this.agences = UserData.getInstance().listeAgences;
+
+        if (this.agences.length == 1) {
+            this.agenceReference = this.agences[0].codeAgence;
+        }else if (this.agences.length > 1){
+            this.agenceReference = this.agences[0].codeAgence;
+        }
+  }
+
+  onAgenceChange(){
+    this.caisseNouvelles = [];
+    this.loadAll();
   }
 
   ngOnDestroy() {

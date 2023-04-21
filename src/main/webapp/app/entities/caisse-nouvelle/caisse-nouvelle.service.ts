@@ -21,6 +21,7 @@ export class CaisseNouvelleService {
     private createCaisseUrl = HOST_MVN + '/api/user/add-caisse?';
     //private getInfosCaisseUrl = HOST + '/api/sfd/liste-caisse-agence?agence_reference=0000AG13&codecaisse=000CAIS3';
     private getInfosCaisseUrl = HOST + '/api/sfd/liste-caisse-agence?agence_reference=0000AG13&codecaisse=';
+    private getListeCaisseUrl = HOST + '/api/sfd/liste-caisse-agence?';
     //private getInfosCaisseUrl = HOST_MVN + '/api/sfd/liste-caisse-agence?agence_reference=0000AG13&codecaisse=000CAIS3';
     private alimenterCaisseAgenceUrl = HOST + '/api/sfd/alimentation-caisse-agence?';
     private alimenterCaisseSfdUrl = HOST + '/api/sfd/alimentation-caisse-agence?';
@@ -59,7 +60,7 @@ export class CaisseNouvelleService {
         const options = createRequestOption();
         return this.http
             .get(this.createCaisseUrl +
-                `first_name=${copy.firstname}`
+                `name=${copy.libelle}` + `&first_name=${copy.firstname}`
                 + `&username=${copy.username}` + `&tel=${copy.telephone}`
                 + `&password=${copy.password}` + `&email=${copy.email}`
                 + `&agence_reference=${copy.agenceReference}` + `&created_by=${UserData.getInstance().userReference}`
@@ -95,8 +96,21 @@ export class CaisseNouvelleService {
             'sfdReference.equals': UserData.getInstance().getSFDReference()
         }));
         return this.http
-            //.get(this.getResourceUrl + `sfd_id=${UserData.getInstance().sfdId}`, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .get(this.getInfosCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+            .map((res: Response) => this.convertResponse(res));
+    }
+
+    // http://185.98.137.71:8787/api/sfd/liste-caisse-agence?agence_reference=0000AG13&codecaisse=
+    queryOk(req?: any, agence_reference? : any, codeCaisse?: any): Observable<ResponseWrapper> {
+        const options = createRequestOption(Object.assign({}, req, {
+            NO_QUERY: true,
+            'sfdReference.equals': UserData.getInstance().getSFDReference()
+        }));
+        return this.http
+            .get(this.getListeCaisseUrl
+                + `agence_reference=${agence_reference}`
+                + `&codecaisse=${codeCaisse}`
+            , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => this.convertResponse(res));
     }
 

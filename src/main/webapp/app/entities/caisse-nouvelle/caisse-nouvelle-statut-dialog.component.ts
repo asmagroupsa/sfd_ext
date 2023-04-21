@@ -49,7 +49,9 @@ export class CaisseNouvelleStatutDialogComponent implements OnInit {
   }
 
   save() {
-    this.etat == this.caisseNouvelleStatut.etat;
+    this.etat = this.caisseNouvelleStatut.etat;
+
+    console.log(this.etat);
     console.log('Etat' + this.caisseNouvelleStatut.etat);
     console.log('id' + this.caisseNouvelleStatut.id);
 
@@ -87,7 +89,7 @@ export class CaisseNouvelleStatutDialogComponent implements OnInit {
 
   private onSaveSuccess(result: CaisseNouvelleStatut, isCreated: boolean) {
     this.alertService.success(
-      (isCreated && this.etat == 'FERME') ? 'carmesfnmserviceApp.etatCaisse.close' : 'carmesfnmserviceApp.etatCaisse.open',
+      (isCreated && this.etat == 'FERMER') ? 'carmesfnmserviceApp.etatCaisse.close' : 'carmesfnmserviceApp.etatCaisse.open',
       { param: result.id },
       null
     );
