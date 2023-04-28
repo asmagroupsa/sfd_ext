@@ -1,33 +1,32 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { Subscription } from 'rxjs';
 
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper, UserData } from '../../shared';
+import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { LanguesService } from '../../shared/myTranslation/langues';
-import { CaisseNouvelle } from './caisse-nouvelle.model';
-import { CaisseNouvelleService } from './caisse-nouvelle.service';
+import { OperationCaisse } from './operation-caisse.model';
+import { OperationCaisseService } from './operation-caisse.service';
 
 declare let select_init: any;
 @Component({
-  selector: 'jhi-caisse-nouvelle',
-  templateUrl: './caisse-nouvelle.component.html'
+  selector: 'jhi-operation-caisse-type',
+  templateUrl: './operation-caisse.component.html'
 })
-export class CaisseNouvelleComponent implements OnInit, OnDestroy {
-  caisseNouvelles: any[];
+export class OperationCaisseComponent implements OnInit, OnDestroy {
+  category: { id: number; code; name: string };
+  premiereCategories: { id: number; code; name: string }[] = [];
+  deuxiemeCategories: { id: number; code; name: string }[] = [];
+  operationCaisses: OperationCaisse[];
   currentAccount: any;
   eventSubscriber: Subscription;
   currentSearch: string;
   itemsPerPage: number;
-  agences = [];
-  agenceReference : any;
-  codeCaisse : any = '';
 
   constructor(
-    private caisseNouvelleService: CaisseNouvelleService,
+    private operationCaisseService: OperationCaisseService,
     private alertService: JhiAlertService,
     private eventManager: JhiEventManager,
-    private cdr: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     public principal: Principal,
     public langue: LanguesService
@@ -44,33 +43,23 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
   }
   loadAll() {
     if (this.currentSearch) {
-      this.caisseNouvelleService
+      this.operationCaisseService
         .search({
           query: this.currentSearch
         })
         .subscribe(
-          (res: ResponseWrapper) => {
-            console.log(res),
-            this.caisseNouvelles = res.json
-          },
+          (res: ResponseWrapper) => (this.operationCaisses = res.json),
           (res: ResponseWrapper) => this.onError(res.json)
         );
       return;
     }
-    this.caisseNouvelleService.queryTest().subscribe(
+    this.operationCaisseService.query().subscribe(
       (res: ResponseWrapper) => {
-        this.caisseNouvelles = res.json;
+        this.operationCaisses = res.json;
         this.currentSearch = '';
       },
       (res: ResponseWrapper) => this.onError(res.json)
     );
-    /* this.caisseNouvelleService.query(this.agenceReference, this.codeCaisse).subscribe(
-        (res: ResponseWrapper) => {
-          this.caisseNouvelles = res.json;
-          this.currentSearch = '';
-        },
-        (res: ResponseWrapper) => this.onError(res.json)
-      ); */
   }
 
   search(query) {
@@ -86,40 +75,45 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
   ngOnInit() {
+    this.premiereCategories = [
+        { id: 1, code: 'VIREMENT', name: 'Virement caisse à caisse' },
+        { id: 2, code: 'DEPOT', name: 'Dépôts' },
+        { id: 3, code: 'RETRAIT', name: 'Retraits' }
+      ];
+      this.deuxiemeCategories = [
+        { id: 4, code: 'COMPTEEPARGNE', name: 'Ouverture compte épargne' },
+        { id: 5, code: 'ENCAISSEMENT', name: 'Encaissement Divers' },
+        { id: 6, code: 'DECAISSEMENT', name: 'Décaissement Divers' },
+      ];
+      this.category = this.premiereCategories[0];
     this.loadAll();
     this.principal.identity().then(account => {
       this.currentAccount = account;
     });
-    this.registerChangeInCaisseNouvelles();
-    this.agences = UserData.getInstance().listeAgences;
-
-        if (this.agences.length == 1) {
-            this.agenceReference = this.agences[0].codeAgence;
-        }else if (this.agences.length > 1){
-            this.agenceReference = this.agences[0].codeAgence;
-        }
-  }
-
-  onAgenceChange(){
-    this.caisseNouvelles = [];
-    this.loadAll();
+    this.registerChangeInOperationCaisses();
   }
 
   ngOnDestroy() {
     if (this.eventSubscriber) this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: CaisseNouvelle) {
+  trackId(index: number, item: OperationCaisse) {
     return item.id;
   }
-  registerChangeInCaisseNouvelles() {
+  registerChangeInOperationCaisses() {
     this.eventSubscriber = this.eventManager.subscribe(
-      'caisseNouvelleListModification',
+      'operationCaisseListModification',
       response => this.loadAll()
     );
   }
 
   private onError(error) {
     this.alertService.error(error.message, null, null);
+  }
+  changeCategorie(categorie: any) {
+    this.category = categorie;
+    console.log(this.category);
+
+    select_init();
   }
 }

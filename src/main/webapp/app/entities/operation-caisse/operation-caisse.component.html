@@ -1,0 +1,63 @@
+<div>
+    <h2 class="liste-header">
+        <span>Caisses</span>
+        <button class="btn btn-primary float-right jh-create-entity
+            create-caisse"
+            [routerLink]="['/entity','operation-caisse', { outlets: { popup:
+            ['operation-caisse-new'] } }]"
+            [queryParams]="{type:category?.code}">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"
+                jhiFnmTranslate="sfdApp.operationCaisse.home.createLabel">
+                Create new Caisse
+            </span>
+        </button>
+    </h2>
+    <!-- <h2 class="liste-header">
+        <span jhiFnmTranslate="sfdApp.caisseNouvelle.home.title">Fund</span>
+        <button class="btn btn-primary float-right create-caisse-nouvelle" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: ['caisse-nouvelle-new'] } }]" >
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.caisseNouvelle.home.createLabel">
+                Create a new fund
+            </span>
+        </button>
+    </h2> -->
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control"
+                        [(ngModel)]="currentSearch" id="currentSearch"
+                        name="currentSearch" placeholder="">
+                    <button class="btn-floating waves-effect waves-light"
+                        (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light"
+                        (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="ui five item menu" *ngIf="premiereCategories &&
+        premiereCategories.length">
+        <a *ngFor="let categorie of premiereCategories" class="item"
+            [ngClass]="{active:category?.id==categorie?.id}"
+            (click)="changeCategorie(categorie)">
+            {{categorie.name}}
+        </a>
+    </div>
+    <div class="ui five item menu" *ngIf="deuxiemeCategories &&
+        deuxiemeCategories.length">
+        <a *ngFor="let categorie of deuxiemeCategories" class="item"
+            [ngClass]="{active:category?.id==categorie?.id}"
+            (click)="changeCategorie(categorie)">
+            {{categorie.name}}
+        </a>
+    </div>
+    <br/>
+    </div>

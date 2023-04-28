@@ -399,6 +399,12 @@ export class BreadcrumbsComponent implements OnInit {
                         translate: 'menus.caisses.caisse',
                         // ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
                     },
+                    {
+                        label: 'Opération',
+                        url: '/entity/operation-caisse',
+                        translate: 'menus.caisses.caisse',
+                        // ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
+                    },
                     /* {
                         label: 'Caisse principale',
                         url: '/entity/caisse',

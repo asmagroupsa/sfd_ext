@@ -115,6 +115,7 @@ import { SfdAssuranceModule } from './assurances/assurance.module';
 import { SfdPhaseModule } from './phase/phase.module';
 import { SfdTypeCreditRetardModule } from './type-credit-retard/type-credit-retard.module';
 import { SfdCaisseNouvelleModule } from './caisse-nouvelle/caisse-nouvelle.module';
+import { SfdOperationCaisseModule } from './operation-caisse/operation-caisse.module';
 
 
 export function authorityRessource() {
@@ -433,6 +434,10 @@ export function clientConditionNote() {
 export function clientConditionValue() {
     return SfdClientConditionValueModule;
 }
+
+export function operationCaisse() {
+    return SfdOperationCaisseModule;
+}
 export function caisseNouvelle() {
     return SfdCaisseNouvelleModule;
 }
@@ -486,6 +491,10 @@ export function compteComptable() {
             {
                 path: 'guichet',
                 loadChildren: guichet
+            },
+            {
+                path: 'operation-caisse',
+                loadChildren: operationCaisse
             },
             {
                 path: 'caisse-nouvelle',

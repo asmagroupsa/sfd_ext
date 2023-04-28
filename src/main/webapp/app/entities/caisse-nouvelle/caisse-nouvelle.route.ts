@@ -21,6 +21,7 @@ import { AlimentationCaissePopupComponent } from './alimentation-caisse-dialog.c
 import { AlimentationCaisseSfdPopupComponent } from './alimentation-caisse-sfd-dialog.component';
 import { CaisseNouvelleDetailSoldeComponent } from './caisse-nouvelle-detail-solde.component';
 import { CaisseNouvelleStatutPopupComponent } from './caisse-nouvelle-statut-dialog.component';
+import { CaisseOperationComponent } from './caisse-operation.component';
 
 export const caisseNouvelleRoute: Routes = [
     {
@@ -49,7 +50,16 @@ export const caisseNouvelleRoute: Routes = [
             pageTitle: 'sfdApp.caisseNouvelle.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }
+    },
+    {
+        path: 'operation-caisse',
+        component: CaisseOperationComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'sfdApp.caisseNouvelle.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
 ];
 
 export const caisseNouvellePopupRoute: Routes = [

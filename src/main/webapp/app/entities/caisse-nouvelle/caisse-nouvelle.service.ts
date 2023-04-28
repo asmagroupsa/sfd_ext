@@ -90,7 +90,7 @@ export class CaisseNouvelleService {
             });
     }
 
-    query(req?: any): Observable<ResponseWrapper> {
+    queryTest(req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(Object.assign({}, req, {
             NO_QUERY: true,
             'sfdReference.equals': UserData.getInstance().getSFDReference()
@@ -101,7 +101,7 @@ export class CaisseNouvelleService {
     }
 
     // http://185.98.137.71:8787/api/sfd/liste-caisse-agence?agence_reference=0000AG13&codecaisse=
-    queryOk(req?: any, agence_reference? : any, codeCaisse?: any): Observable<ResponseWrapper> {
+    query(req?: any, agence_reference? : any, codeCaisse?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(Object.assign({}, req, {
             NO_QUERY: true,
             'sfdReference.equals': UserData.getInstance().getSFDReference()
