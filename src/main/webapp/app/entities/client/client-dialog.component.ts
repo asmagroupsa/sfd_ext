@@ -458,6 +458,7 @@ identificationComplete = null;
         this.loadingArray.produit = true;
         this.produitService.getGroupProduits().subscribe((produits) => {
             this.produits = produits;
+            console.log(this.produits);
             this.loadingArray.produit = false;
         });
     }
@@ -916,7 +917,7 @@ identificationComplete = null;
             this.compteCarmesIsValid = false;
             this.loadingArray.carmes = true;
             this.identificationComplete = null;
-            
+
              this.clientService
                 .verifierCompteCarmes(this.client.cpteCarmes)
                 .subscribe((res) => {
@@ -950,11 +951,11 @@ identificationComplete = null;
                                 this.alertService.error('CE COMPTE CARMES EXISTE DEJA');
                         }else if (res === 'ERROR_CARMES_REQUEST'){ this.alertService.error('IMPOSSIBLE DE JOINDRE LE SERVEUR CARMES');
                         }else if (res === 'Compte CARMES incorrect') {
-                            this.alertService.error(`Le compte CARMES est incorrect`); 
-                            
+                            this.alertService.error(`Le compte CARMES est incorrect`);
+
                             }else if (res === 'NON_CARMES') {
-                            this.alertService.error(`CE COMPTE CARMES N' EXISTE PAS`); 
-                            
+                            this.alertService.error(`CE COMPTE CARMES N' EXISTE PAS`);
+
                             }else if(/^[0-9]+\* ?/.test(res)){
                                 this.identificationComplete = true;
                          this.loadingArray.carmes = false;
@@ -972,7 +973,7 @@ identificationComplete = null;
                                 this.client.contactPersonName = infosCarmes[8];
                                 this.client.contactPersonPhone = infosCarmes[9];
                                 this.client.email = infosCarmes[11];
-                                this.client.ifus = infosCarmes[13]; 
+                                this.client.ifus = infosCarmes[13];
                         }
                         }, (err) => {
                             this.loadingArray.carmes = false;

@@ -24,11 +24,12 @@
             "montant": "Montant",
             "sexe": "Sexe",
             "typeClient": "Le type de client",
-            "birthday": "Date de naissance",
+            "birthDate": "Date de naissance",
             "nomClient": "Nom du client",
-            "nationalite": "Nationalité du client",
-            "motif": "Nationalité du client",
-            "profession": "Profession du client"
+            "nationality": "Nationalité du client",
+            "motif": "Motif",
+            "profession": "Profession du client",
+            "produit": "Produit"
         }
     },
     "carmesfnmserviceApp": {

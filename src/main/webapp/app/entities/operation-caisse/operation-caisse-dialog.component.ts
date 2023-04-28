@@ -15,6 +15,7 @@ import { Profession, ProfessionService } from '../profession';
 import { Nationality, NationalityService } from '../nationality';
 import { ProduitService } from '../produit';
 import { TypeClient, TypeClientService } from '../type-client';
+import { CaisseNouvelleService } from '../caisse-nouvelle';
 declare let select_init: any;
 @Component({
     selector: 'jhi-operation-caisse-dialog',
@@ -31,7 +32,8 @@ export class OperationCaisseDialogComponent implements OnInit {
     params: any;
 
     nationalities: Nationality[];
-    produits: any[] = [];
+    caisseNouvelles: any[];
+    produits: any[];
     agences = [];
 
     loadingArray = {
@@ -40,6 +42,13 @@ export class OperationCaisseDialogComponent implements OnInit {
         country: false,
         produit: false,
     };
+    isDecaissement: boolean = false;
+    isEncaissement: boolean = false;
+    isVirement: boolean = false;
+    isDepot: boolean = false;
+    isRetrait: boolean = false;
+    isEpargne: boolean = false;
+
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -49,6 +58,7 @@ export class OperationCaisseDialogComponent implements OnInit {
         private nationalityService: NationalityService,
         private produitService: ProduitService,
         private typeClientService: TypeClientService,
+        private caisseNouvelleService: CaisseNouvelleService,
         private eventManager: JhiEventManager,
         public langue: LanguesService,
         private activatedRoute: ActivatedRoute,
@@ -57,20 +67,26 @@ export class OperationCaisseDialogComponent implements OnInit {
         activatedRoute.queryParams.subscribe(params => {
             this.params = params;
             if (params['type'] == 'VIREMENT') {
+                this.isVirement = true;
                 this.type = { id: 1, code: 'VIREMENT', name: 'Virement caisse à caisse' };
             } else if (params['type'] == 'DEPOT') {
+                this.isDepot = true;
                 this.type = { id: 2, code: 'DEPOT', name: 'Dépôts' };
             } else if (params['type'] == 'RETRAIT') {
+                this.isRetrait = true;
                 this.type = { id: 3, code: 'RETRAIT', name: 'Retraits' }
             } else if (params['type'] == 'COMPTEEPARGNE') {
+                this.isEpargne = true;
                 this.type = { id: 4, code: 'COMPTEEPARGNE', name: 'Ouverture compte épargne' };
             } else if (params['type'] == 'ENCAISSEMENT') {
+                this.isEncaissement = true;
                 this.type = { id: 5, code: 'ENCAISSEMENT', name: 'Encaissement Divers' };
             } else if (params['type'] == 'DECAISSEMENT') {
+                this.isDecaissement = true;
                 this.type = { id: 6, code: 'DECAISSEMENT', name: 'Décaissement Divers' }
             }
         });
-     }
+    }
     ngAfterViewInit() {
         select_init((query, id) => {
             if (id === 'produit_id') {
@@ -117,6 +133,15 @@ export class OperationCaisseDialogComponent implements OnInit {
         if (this.agences.length == 1) {
             this.operationCaisse.agenceReference = this.agences[0].codeAgence;
         }
+
+        this.caisseNouvelleService.queryTest().subscribe(
+            (res: ResponseWrapper) => {
+                this.caisseNouvelles = res.json;
+                console.log(res.json);
+            },
+            (res: ResponseWrapper) => this.onError(res.json)
+        );
+
         this.professionService.query().subscribe(
             (res: ResponseWrapper) => {
                 this.professions = res.json;
@@ -129,7 +154,7 @@ export class OperationCaisseDialogComponent implements OnInit {
         this.nationalityService.query().subscribe(
             (res: ResponseWrapper) => {
                 this.nationalities = res.json;
-                console.log( res.json);
+                console.log(res.json);
 
                 this.loadingArray.nationality = false;
             },
@@ -140,14 +165,28 @@ export class OperationCaisseDialogComponent implements OnInit {
         this.produitService.getGroupProduits().subscribe((produits) => {
             this.produits = produits;
             console.log(produits);
+            console.log('produits');
+            console.log(this.produits);
 
             this.loadingArray.produit = false;
         });
 
+        /* this.loadingArray.produit = true;
+        this.produitService.getGroupProduits().subscribe(
+            (res: ResponseWrapper) => {
+                this.produits = res.json;
+                console.log( res.json);
+
+                this.loadingArray.produit = false;
+            },
+            (res: ResponseWrapper) => this.onError(res.json)
+        ); */
+
+
         this.typeClientService.query({ size: 1000 }).subscribe(
             (res: ResponseWrapper) => {
                 this.typeclients = res.json;
-                console.log( res.json);
+                console.log(res.json);
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
@@ -158,7 +197,7 @@ export class OperationCaisseDialogComponent implements OnInit {
     }
 
     save() {
-        this.isSaving = true;
+        /* this.isSaving = true;
         if (this.operationCaisse.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.operationCaisseService.update(this.operationCaisse),
@@ -170,42 +209,41 @@ export class OperationCaisseDialogComponent implements OnInit {
                 this.operationCaisseService.create(this.operationCaisse),
                 true
             );
-        }
-
+        } */
         if (this.type.code == 'VIREMENT') {
-            this.operationCaisse.agenceReference = 'xxx';
+            // this.operationCaisse.agenceReference = 'xxx';
             this.subscribeToSaveResponse(
-                this.operationCaisseService.create(this.operationCaisse),
+                this.operationCaisseService.virementCaisseToCaisse(this.operationCaisse),
                 true
             );
         } else if (this.type.code == 'DEPOT') {
-            this.operationCaisse.agenceReference = 'xxx';
+            // this.operationCaisse.agenceReference = 'xxx';
             this.subscribeToSaveResponse(
-                this.operationCaisseService.create(this.operationCaisse),
+                this.operationCaisseService.depotCaisse(this.operationCaisse),
                 true
             );
         } else if (this.type.code == 'RETRAIT') {
-            this.operationCaisse.agenceReference = 'xxx';
+            // this.operationCaisse.agenceReference = 'xxx';
             this.subscribeToSaveResponse(
-                this.operationCaisseService.create(this.operationCaisse),
+                this.operationCaisseService.retraitCaisse(this.operationCaisse),
                 true
             );
         } else if (this.type.code == 'COMPTEEPARGNE') {
-            this.operationCaisse.agenceReference = 'xxx';
+            // this.operationCaisse.agenceReference = 'xxx';
             this.subscribeToSaveResponse(
-                this.operationCaisseService.create(this.operationCaisse),
+                this.operationCaisseService.ouvertureCompteEpargne(this.operationCaisse),
                 true
             );
         } else if (this.type.code == 'ENCAISSEMENT') {
-            this.operationCaisse.agenceReference = 'xxx';
+            // this.operationCaisse.agenceReference = 'xxx';
             this.subscribeToSaveResponse(
-                this.operationCaisseService.create(this.operationCaisse),
+                this.operationCaisseService.encaissement(this.operationCaisse),
                 true
             );
         } else if (this.type.code == 'DECAISSEMENT') {
-            this.operationCaisse.agenceReference = 'xxx';
+            // this.operationCaisse.agenceReference = 'xxx';
             this.subscribeToSaveResponse(
-                this.operationCaisseService.create(this.operationCaisse),
+                this.operationCaisseService.decaissement(this.operationCaisse),
                 true
             );
         }

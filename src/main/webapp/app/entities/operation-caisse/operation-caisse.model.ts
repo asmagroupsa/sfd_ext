@@ -2,6 +2,9 @@ export class OperationCaisse {
   constructor(
     public id?: number,
     public comptecarmesclient?: string,
+    public comptecarmescaisse?: string,
+    public comptecarmescaisseenvoi?: string,
+    public comptecarmescaisserecu?: string,
     public nomClient?: string,
     public birthDate?: string,
     public telephone?: string,

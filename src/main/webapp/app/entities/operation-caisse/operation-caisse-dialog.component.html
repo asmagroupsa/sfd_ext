@@ -12,7 +12,7 @@
             <label for="id" jhiFnmTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id" [(ngModel)]="operationCaisse.id" readonly />
         </div>-->
-        <div class="form-group" *ngIf="agences.length > 1">
+        <div class="form-group" *ngIf="agences.length > 1 && (!isDecaissement && !isEncaissement && !isRetrait)">
             <label  for="field_agenceReference" class="oblige">Agence</label>
             <select class="ui fluid search dropdown sfd-dropdown" id="field_agenceReference" name="agenceReference" [(ngModel)]="operationCaisse && operationCaisse.agenceReference" required>
                 <option [ngValue]="null" disabled></option>
@@ -20,7 +20,15 @@
             </select>
         </div>
 
-        <div class="form-group">
+         <div class="form-group" *ngIf="caisseNouvelles && (!isVirement)">
+            <label  for="field_caisse" class="oblige">Caisse</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_caisse" name="comptecarmescaisse" [(ngModel)]="operationCaisse && operationCaisse.comptecarmescaisse" required>
+                <option [ngValue]="null" disabled></option>
+                <option [ngValue]="c.comptecarmescaisse" *ngFor="let c of caisseNouvelles">{{c.libelle}}</option>
+            </select>
+        </div>
+
+        <div class="form-group" *ngIf="(!isDecaissement && !isEncaissement && !isRetrait && !isVirement)">
             <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.operationCaisse.comptecarmesclient" for="field_comptecarmesclient">Virtual Accompt</label>
             <input type="text" class="form-control" name="comptecarmesclient" id="field_comptecarmesclient" [(ngModel)]="operationCaisse && operationCaisse.comptecarmesclient" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.comptecarmesclient?.dirty && editForm.controls.comptecarmesclient?.invalid)">
@@ -32,7 +40,8 @@
                 </small>
             </div>
         </div>
-        <div class="form-group">
+
+        <!-- <div class="form-group"  *ngIf="(!isDecaissement && !isEncaissement && !isVirement)">
             <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.operationCaisse.comptecarmesclient" for="field_name">Name</label>
             <input type="text" class="form-control" name="comptecarmesclient" id="field_comptecarmesclient" [(ngModel)]="operationCaisse && operationCaisse.comptecarmesclient" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.comptecarmesclient?.dirty && editForm.controls.comptecarmesclient?.invalid)">
@@ -43,7 +52,34 @@
                    This field cannot be longer than 50 characters.
                 </small>
             </div>
+        </div> -->
+
+        <div class="form-group" *ngIf="isVirement && (!isDecaissement && !isEncaissement && !isRetrait)">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.operationCaisse.comptecarmescaisseenvoi" for="field_name">Name</label>
+            <input type="text" class="form-control" name="comptecarmescaisseenvoi" id="field_comptecarmescaisseenvoi" [(ngModel)]="operationCaisse && operationCaisse.comptecarmescaisseenvoi" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.comptecarmescaisseenvoi?.dirty && editForm.controls.comptecarmescaisseenvoi?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.comptecarmescaisseenvoi?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.comptecarmescaisseenvoi?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
         </div>
+
+        <div class="form-group"  *ngIf="isVirement && (!isDecaissement && !isEncaissement && !isRetrait)">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.operationCaisse.comptecarmescaisserecu" for="field_name">Name</label>
+            <input type="text" class="form-control" name="comptecarmescaisserecu" id="field_comptecarmescaisserecu" [(ngModel)]="operationCaisse && operationCaisse.comptecarmescaisserecu" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.comptecarmescaisserecu?.dirty && editForm.controls.comptecarmescaisserecu?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.comptecarmescaisserecu?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.comptecarmescaisserecu?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
         <div class="form-group">
             <label class="form-control-label active oblige" for="field_montant">Montant</label>
             <input type="number" min="1" class="form-control" name="montant" id="field_montant" [(ngModel)]="operationCaisse && operationCaisse.montant" required maxlength="50" data-length="50" />
@@ -57,18 +93,18 @@
             </div>
         </div>
 
-        <!-- <div class="form-group">
-            <label for="produit_id" class="oblige">Produit</label>
-            <div class="ui icon input field" [ngClass]="{loading: loadingArray.produit}" style="width: 100%;">
+        <div class="form-group" *ngIf="(!isDecaissement && !isEncaissement && !isRetrait && !isVirement)">
+            <label  jhiFnmTranslate="sfdApp.operationCaisse.produit" for="produit_id" class="oblige">Produit</label>
+            <div *ngIf="produits" class="ui icon input field" [ngClass]="{loading: loadingArray.produit}" style="width: 100%;">
                 <select class="ui fluid search dropdwno sfd-dropdown" id="produit_id" name="produit" [(ngModel)]="operationCaisse && operationCaisse.produitId" required>
                     <option [ngValue]="null" disabled>Choisissez le produit</option>
-                    <option [ngValue]="produit.categorieProduit.id" *ngFor="let produit of produits">{{produit.categorieProduit.name}}</option>
+                    <option [ngValue]="produit.id" *ngFor="let produit of produits">{{produit.libelle}}</option>
                 </select>
                 <i class="icon"></i>
             </div>
-        </div> -->
+        </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="(!isDecaissement && !isEncaissement && !isRetrait)">
             <label jhiFnmTranslate="sfdApp.operationCaisse.typeClient" for="field_typeClient" class="oblige">Type Client</label>
             <select class="ui fluid search dropdown sfd-dropdown" id="field_typeClient" name="typeClient" [(ngModel)]="operationCaisse && operationCaisse.typeClientId" required>
                 <option [ngValue]="null" disabled>Choisissez le type de client</option>
@@ -77,7 +113,7 @@
         </div>
 
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="(!isDecaissement && !isEncaissement && !isRetrait)">
             <label class="form-control-label active oblige" for="field_nomClient" jhiFnmTranslate="sfdApp.operationCaisse.nomClient" >Nom du client</label>
             <input type="text" class="form-control" name="nomClient" id="field_nomClient" [(ngModel)]="operationCaisse && operationCaisse.nomClient" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.nomClient?.dirty && editForm.controls.nomClient?.invalid)">
@@ -90,12 +126,13 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="(!isDecaissement && !isEncaissement && !isRetrait)">
             <label class="form-control-label oblige" jhiFnmTranslate="sfdApp.operationCaisse.birthDate" for="field_birthDate">Birth Date</label>
             <ngbd-datepicker-i18n [ngModel]="operationCaisse && operationCaisse.birthDate" name="birthDate" required="true" ></ngbd-datepicker-i18n>
             <!-- <ngbd-datepicker-i18n [(ngModel)]="client.birthDate" name="birthDate" required="true""></ngbd-datepicker-i18n> -->
         </div>
-        <div class="form-group">
+
+        <div class="form-group" *ngIf="(!isDecaissement && !isEncaissement && !isRetrait)">
             <label jhiFnmTranslate="sfdApp.operationCaisse.sexe" for="field_sex" class="oblige">Sexe</label>
             <select class="ui fluid search dropdown sfd-dropdown" id="field_sex" name="sexe" [(ngModel)]="operationCaisse && operationCaisse.sexe" required>
                 <option [ngValue]="null" disabled>Sélectionner le sexe</option>
@@ -104,7 +141,7 @@
             </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="(!isDecaissement && !isEncaissement && !isRetrait)">
             <label class="form-control-label active oblige" for="field_name" jhiFnmTranslate="sfdApp.operationCaisse.email" >Email</label>
             <input type="email" min="1" class="form-control" name="email" id="field_email" [(ngModel)]="operationCaisse && operationCaisse.email" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
@@ -117,7 +154,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="(!isDecaissement && !isEncaissement && !isRetrait)">
             <label class="form-control-label active oblige" for="field_name"  jhiFnmTranslate="sfdApp.operationCaisse.telephone" >Téléphone</label>
             <input type="tel" min="1" class="form-control" name="telephone" id="field_telephone" [(ngModel)]="operationCaisse && operationCaisse.telephone" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.telephone?.dirty && editForm.controls.telephone?.invalid)">
@@ -131,7 +168,7 @@
         </div>
 
 
-        <div class="form-group" >
+        <div class="form-group" *ngIf="(!isDecaissement && !isEncaissement && !isRetrait)" >
             <label jhiFnmTranslate="sfdApp.operationCaisse.profession" class="oblige" for="field_profession">Profession</label>
             <div class="ui icon input field" [ngClass]="{loading: loadingArray.profession}" style="width: 100%;">
                 <select required class="ui fluid search dropdown sfd-dropdown" id="field_profession" name="profession" [(ngModel)]="operationCaisse && operationCaisse.professionId">
@@ -143,7 +180,7 @@
         </div>
 
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="(!isDecaissement && !isEncaissement && !isRetrait)">
             <label jhiFnmTranslate="sfdApp.operationCaisse.nationality" for="field_nationality" class='oblige'>Nationality</label>
             <div class="ui icon input field" [ngClass]="{loading: loadingArray.nationality}" style="width: 100%;">
                 <select class="ui fluid search dropdown sfd-dropdown" id="field_nationality" name="nationality" [(ngModel)]="operationCaisse && operationCaisse.nationalityId" required>
@@ -154,12 +191,27 @@
             </div>
         </div>
 
+
+        <div class="form-group" *ngIf="(isDecaissement || isEncaissement) && (!isRetrait) ">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.operationCaisse.motif" for="field_motif">Motif</label>
+            <input type="text" class="form-control" name="motif" id="field_motif" [(ngModel)]="operationCaisse && operationCaisse.motif" required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.motif?.dirty && editForm.controls.motif?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.motif?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.motif?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                   This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+
     </div>
     <div class="modal-footer">
         <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
             <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
         </button> &nbsp;&nbsp;&nbsp;
-        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+        <button type="submit" [disabled]=" isSaving" class="btn waves-effect waves-light">
+            <!-- <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light"> -->
             <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
         </button>
     </div>
