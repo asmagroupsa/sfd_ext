@@ -18,6 +18,7 @@ import { ProduitService } from '../produit';
 import { NationalityService } from '../nationality';
 import { TypeClientService } from '../type-client';
 import { ProfessionService } from '../profession';
+import { CaisseNouvelleService } from '../caisse-nouvelle';
 
 const ENTITY_STATES = [...OperationCaisseRoute, ...OperationCaissePopupRoute];
 
@@ -44,7 +45,8 @@ const ENTITY_STATES = [...OperationCaisseRoute, ...OperationCaissePopupRoute];
     ProduitService,
     NationalityService,
     ProfessionService,
-    TypeClientService
+    TypeClientService,
+    CaisseNouvelleService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -107,7 +107,7 @@ getTauxCommissions() {
             .map((r) => r.json());
     }
 
-    getGroupProduits() {
+    getGroupProduits(): Observable<any>{
         const o = createRequestOption();
 
         o.params = o.params || new URLSearchParams();
