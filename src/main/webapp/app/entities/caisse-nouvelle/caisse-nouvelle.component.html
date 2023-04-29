@@ -70,8 +70,8 @@
                     <td>{{caisseNouvelle.libelle}}</td>
                     <td>{{caisseNouvelle.etatCaisse}}</td>
                     <td>{{caisseNouvelle.dateOuverture}}</td>
-                    <td>{{caisseNouvelle.retraitMaxAmount}}</td>
-                    <td>{{caisseNouvelle.soldetMaxAmount}}</td>
+                    <td>{{caisseNouvelle.retraitMaxAmount | currency:'XAF':true:'2.0'}}</td>
+                    <td>{{caisseNouvelle.soldetMaxAmount | currency:'XAF':true:'2.0'}}</td>
                     <!-- <td>{{caisseNouvelle.code}}</td> -->
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

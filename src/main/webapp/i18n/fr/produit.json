@@ -56,8 +56,8 @@
     "carmesfnmserviceApp": {
         "produit": {
             "created": "Un nouveau Produit a été créé ",
-            "updated": "Le Produit  a été mis à jour",
-            "deleted": "Le Produit  a été supprimé"
+            "updated": "Le Produit a été mis à jour",
+            "deleted": "Le Produit a été supprimé"
         }
     }
 }

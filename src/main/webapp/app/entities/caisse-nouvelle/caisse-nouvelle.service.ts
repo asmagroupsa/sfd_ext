@@ -14,23 +14,20 @@ import { CaisseNouvelleStatut } from './caisse-nouvelle-statut.model';
 
 @Injectable()
 export class CaisseNouvelleService {
-    private resourceUrl = HOST + '/api/sfd/create-type-retard-credit?';
-    private getResourceUrl = HOST + '/api/sfd/type-retard-credit-par-sfd?';
+    private resourceUrl = HOST + '/api/sfd/create-type-retard-credit';
+    private getResourceUrl = HOST + '/api/sfd/type-retard-credit-par-sfd';
     private resourceSearchUrl = HOST + '/api/_search/account-types';
     //private createCaisseUrl = HOST + '/api/user/add-caisse?';
-    private createCaisseUrl = HOST_MVN + '/api/user/add-caisse?';
-    //private getInfosCaisseUrl = HOST + '/api/sfd/liste-caisse-agence?agence_reference=0000AG13&codecaisse=000CAIS3';
-    private getInfosCaisseUrl = HOST + '/api/sfd/liste-caisse-agence?agence_reference=0000AG13&codecaisse=';
-    private getListeCaisseUrl = HOST + '/api/sfd/liste-caisse-agence?';
-    //private getInfosCaisseUrl = HOST_MVN + '/api/sfd/liste-caisse-agence?agence_reference=0000AG13&codecaisse=000CAIS3';
-    private alimenterCaisseAgenceUrl = HOST + '/api/sfd/alimentation-caisse-agence?';
-    private alimenterCaisseSfdUrl = HOST + '/api/sfd/alimentation-caisse-agence?';
-    private soldeCaisseUrl = HOST + '/api/sfd/affiche-solde-caisse?';
-    private statutCaisseUrl = HOST + '/api/sfd/update-caisse-etat?';
+    private createCaisseUrl = HOST_MVN + '/api/user/add-caisse';
+    private getInfosCaisseUrl = HOST + '/api/sfd/liste-caisse-agence';
+    private getListeCaisseUrl = HOST + '/api/sfd/liste-caisse-agence';
+    private alimenterCaisseAgenceUrl = HOST + '/api/sfd/alimentation-caisse-agence';
+    private alimenterCaisseSfdUrl = HOST + '/api/sfd/alimentation-caisse-agence';
+    private soldeCaisseUrl = HOST + '/api/sfd/affiche-solde-caisse';
+    private statutCaisseUrl = HOST + '/api/sfd/update-caisse-etat';
 
 
-    // http://185.98.137.71:8787/api/sfd/info-caisse-agence?agence_reference=0000AG13&codecaisse=000CAIS3
-
+    
     constructor(private http: Http) { }
 
     //http://185.98.137.71:8989/api/user/add-caisse?name=Caisse2&first_name=Marc&username=AGRAN&tel=965874856&password=admin123&email=jojopo@gmail.com&agence_reference=0000AG43&created_by=121&retraitmax=15000&soldemax=2000&comptecarmes=981421234
@@ -90,9 +87,10 @@ export class CaisseNouvelleService {
             });
     }
 
-    queryTest(req?: any): Observable<ResponseWrapper> {
+    queryTest(agence,req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(Object.assign({}, req, {
             NO_QUERY: true,
+            agence_reference: agence,
             'sfdReference.equals': UserData.getInstance().getSFDReference()
         }));
         return this.http

@@ -94,10 +94,9 @@ export class ProduitDialogComponent implements OnInit {
         private periodicityService: PeriodicityService,
         private eventManager: JhiEventManager,
         public principal: Principal,
-        private activatedRoute: ActivatedRoute,
+        activatedRoute: ActivatedRoute,
         private typeClientService: TypeClientService,
         private contratService: TypesContratService,
-        private http: Http,
         private penalityService: PenalityService
     ) {
         activatedRoute.queryParams.subscribe(params => {
@@ -319,27 +318,27 @@ export class ProduitDialogComponent implements OnInit {
         this.alertService.error(error.message, null, null);
     }
 
-    trackTypeGarantieById(index: number, item: TypeGarantie) {
+    trackTypeGarantieById(item: TypeGarantie) {
         return item.id;
     }
 
-    trackConditionsById(index: number, item: ConditionAcces) {
+    trackConditionsById(item: ConditionAcces) {
         return item.id;
     }
 
-    trackFraisById(index: number, item: Frais) {
+    trackFraisById(item: Frais) {
         return item.id;
     }
 
-    trackTranchePenalById(index: number, item: TranchePenal) {
+    trackTranchePenalById(item: TranchePenal) {
         return item.id;
     }
 
-    trackTauxById(index: number, item: TauxEpargne) {
+    trackTauxById(item: TauxEpargne) {
         return item.id;
     }
 
-    trackPeriodicityById(index: number, item: Periodicity) {
+    trackPeriodicityById(item: Periodicity) {
         return item.id;
     }
 

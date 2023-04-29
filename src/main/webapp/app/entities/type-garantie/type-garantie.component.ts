@@ -1,18 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {
     JhiEventManager,
-    JhiParseLinks,
-    JhiPaginationUtil,
-    JhiLanguageService,
     JhiAlertService
 } from 'ng-jhipster';
 
 import { TypeGarantie } from './type-garantie.model';
 import { TypeGarantieService } from './type-garantie.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 import { LanguesService } from '../../shared/myTranslation/langues';
 import { ConditionGarantieService } from '../condition-garantie/condition-garantie.service';
 import { ConditionGarantie } from '../condition-garantie/condition-garantie.model';
@@ -41,7 +37,7 @@ export class TypeGarantieComponent implements OnInit, OnDestroy {
         private conditionGarantieService: ConditionGarantieService,
         private alertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private activatedRoute: ActivatedRoute,
+        activatedRoute: ActivatedRoute,
         public principal: Principal,
         public langue: LanguesService
     ) {

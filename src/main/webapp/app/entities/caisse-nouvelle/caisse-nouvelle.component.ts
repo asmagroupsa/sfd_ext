@@ -20,6 +20,7 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
   currentSearch: string;
   itemsPerPage: number;
   agences = [];
+  agence:any;
   agenceReference : any;
   codeCaisse : any = '';
 
@@ -27,8 +28,7 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
     private caisseNouvelleService: CaisseNouvelleService,
     private alertService: JhiAlertService,
     private eventManager: JhiEventManager,
-    private cdr: ChangeDetectorRef,
-    private activatedRoute: ActivatedRoute,
+    activatedRoute: ActivatedRoute,
     public principal: Principal,
     public langue: LanguesService
   ) {
@@ -46,6 +46,7 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
     if (this.currentSearch) {
       this.caisseNouvelleService
         .search({
+          agence: this.agence,
           query: this.currentSearch
         })
         .subscribe(
@@ -57,7 +58,7 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
         );
       return;
     }
-    this.caisseNouvelleService.queryTest().subscribe(
+    this.caisseNouvelleService.queryTest(this.agence).subscribe(
       (res: ResponseWrapper) => {
         this.caisseNouvelles = res.json;
         this.currentSearch = '';
@@ -109,13 +110,13 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
     if (this.eventSubscriber) this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: CaisseNouvelle) {
+  trackId(item: CaisseNouvelle) {
     return item.id;
   }
   registerChangeInCaisseNouvelles() {
     this.eventSubscriber = this.eventManager.subscribe(
       'caisseNouvelleListModification',
-      response => this.loadAll()
+      () => this.loadAll()
     );
   }
 

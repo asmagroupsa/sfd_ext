@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            <label class="form-control-label active oblige" for="field_firstname">Prénoms caissier/caissière</label>
+            <label class="form-control-label active oblige" for="field_firstname">Prénoms du caissier/caissière</label>
             <input type="text" class="form-control" name="firstname" id="field_firstname" [(ngModel)]="caisseNouvelle.firstname" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.firstname?.dirty && editForm.controls.firstname?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.firstname?.errors?.required" jhiFnmTranslate="entity.validation.required">

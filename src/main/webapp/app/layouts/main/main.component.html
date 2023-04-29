@@ -159,7 +159,7 @@
                         <div class="drop-content">
                             <a [routerLink]="['/entity','produit']"
                                 *jhiHasAnyRessources="'carmesfnmservice/api/produits/getAllProduits'">La liste des
-                                Produit
+                                Produits
                                 <span class="sub-alert-badge"></span>
                             </a>
                             <a [routerLink]="['/entity','type-garantie']"
@@ -193,7 +193,7 @@
                                 <span class="sub-alert-badge"></span>
                             </a>
                             <a [routerLink]="['/entity','penality']"
-                                *jhiHasAnyRessources="'carmesfnmservice/api/tranche-penals/getAllTranchePenals'">Penalites
+                                *jhiHasAnyRessources="'carmesfnmservice/api/tranche-penals/getAllTranchePenals'">Pénalités
                                 <span class="sub-alert-badge"></span>
                             </a>
                             <a [routerLink]="['/entity','produit-type-garantie']"
@@ -212,13 +212,13 @@
                         <div class="drop-content">
                             <a [routerLink]="['/entity','partner']"
                                 *jhiHasAnyRessources="'carmesfnmservice/api/partners/getAllPartners'">
-                                <span jhiFnmTranslate='menus.partners.partner'> Banques</span>
+                                <span jhiFnmTranslate='menus.partners.partner'> Les Banques</span>
                                 <span class="sub-alert-badge"></span>
                             </a>
                             <div *ngIf="!localFlag">
                                 <a [routerLink]="['/entity','ligne-request']"
                                     *jhiHasAnyRessources="'carmesfnmservice/api/ligne-requests/getAllLigneRequests'">Demande
-                                    de ligne de credit
+                                    de ligne de crédit
                                     <span class="sub-alert-badge"></span>
                                 </a>
                             </div>
