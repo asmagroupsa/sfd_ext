@@ -1,14 +1,14 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myCaisseNouvelleLabel" [jhiFnmTranslate]="alimentationCaisseSfd.id ? 'sfdApp.caisseNouvelle.home.alimenterCaisse' : 'sfdApp.caisseNouvelle.home.alimenterCaisse'">Feeding of the box</h4>
+        <h4 class="modal-title" id="myCaisseNouvelleLabel" [jhiFnmTranslate]="alimentationCaisseSfd.id ? 'sfdApp.caisseNouvelle.home.alimenterCaisseSfd' : 'sfdApp.caisseNouvelle.home.alimenterCaisseSfd'">Feeding of the box</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
 
         <div class="form-group">
-            <label class="form-control-label active oblige" for="field_comptecarmeagence">Compte Carmes de l'agence</label>
+            <label class="form-control-label active oblige" for="field_comptecarmeagence">Compte CARMES de l'agence</label>
             <input type="text" class="form-control" name="comptecarmeagence" id="field_comptecarmeagence" [(ngModel)]="alimentationCaisseSfd.comptecarmeagence" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.comptecarmeagence?.dirty && editForm.controls.comptecarmeagence?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.comptecarmeagence?.errors?.required" jhiFnmTranslate="entity.validation.required">
@@ -21,7 +21,7 @@
         </div>
 
         <div class="form-group">
-            <label class="form-control-label active oblige" for="field_comptecarmessfd">Compte Carmes du SFD</label>
+            <label class="form-control-label active oblige" for="field_comptecarmessfd">Compte CARMES du SFD</label>
             <input type="text" class="form-control" name="comptecarmessfd" id="field_comptecarmessfd" [(ngModel)]="alimentationCaisseSfd.comptecarmessfd" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.comptecarmessfd?.dirty && editForm.controls.comptecarmessfd?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.comptecarmessfd?.errors?.required" jhiFnmTranslate="entity.validation.required">
@@ -35,7 +35,7 @@
 
         <div class="form-group">
             <label class="form-control-label active oblige" for="field_montant">Montant</label>
-            <input type="number" min="1" class="form-control" name="montant" id="field_soldetMaxAmount" [(ngModel)]="alimentationCaisseSfd.montant" required maxlength="50" data-length="50" />
+            <input type="number" min="1" class="form-control" name="montant" id="field_soldetMaxAmount" [(ngModel)]="alimentationCaisseSfd.montant" required maxlength="50" data-length="50" (formatNumberMyMiller)="alimentationCaisseSfd.montant = $event"/>
             <div [hidden]="!(editForm.controls.montant?.dirty && editForm.controls.montant?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.montant?.errors?.required" jhiFnmTranslate="entity.validation.required">
                    This field is required.

@@ -164,7 +164,7 @@
                     <div class="col-sm-8">
                         <div>Nom et Prénoms: {{createBy?.name}}</div>
                         <div>Numéro de téléphone: {{createBy?.phone}}</div>
-                        <div>Compte Carmes: {{createBy?.compte_carmes}}</div>
+                        <div>Compte CARMES: {{createBy?.compte_carmes}}</div>
                     </div>
                 </div>
                 <!-- end avatars -->
@@ -180,7 +180,7 @@
         </a>
         <div>L'agent ou le chargé de prêt ayant enrolé le client</div>
         <div>
-            <p *ngIf="agentEnrole?.cpteCarmes">N° Compte Carmes: {{agentEnrole?.cpteCarmes}}</p>
+            <p *ngIf="agentEnrole?.cpteCarmes">N° Compte CARMES: {{agentEnrole?.cpteCarmes}}</p>
             <p *ngIf="agentEnrole?.name">Nom et Prénoms: {{agentEnrole?.name}} </p>
             <p *ngIf="agentEnrole?.phone">Numéro de téléphone: {{agentEnrole?.phone}}</p>
         </div>

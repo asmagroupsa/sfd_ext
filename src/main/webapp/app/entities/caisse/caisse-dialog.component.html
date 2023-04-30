@@ -19,7 +19,7 @@
         </div>
 
         <div class="form-group">
-            <label class="form-control-label" jhiFnmTranslate="sfdApp.caisse.libelle" for="form-group_libelle">Libelle</label>
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.caisse.libelle" for="form-group_libelle">Libellé</label>
             <input type="text" class="form-control" name="libelle" id="form-group_libelle" [(ngModel)]="caisse.libelle" required />
             <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.required" jhiFnmTranslate="entity.validation.required">

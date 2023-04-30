@@ -12,12 +12,12 @@ import { EventBus } from '../../shared/model/functions';
 export class OperationCaisseService {
   private resourceUrl = HOST + '/api/sfd/';
   private resourceSearchUrl = HOST + '/api/_search/account-types';
-  private resourceEpargneUrl = HOST + '/apisfd/ouverture-compte-epargne?';
-  private resourceDepotCaisseUrl = HOST + '/api/sfd/depot-caisse?';
-  private resourceRetraitCaisseUrl = HOST + '/api/sfd/retrait-caisse?';
-  private resourceVirememntCaisseUrl = HOST + '/api/sfd/virement-caisse-a-caisse?';
-  private resourceEncaissementUrl = HOST + '/api/sfd/encaissement-divers?';
-  private resourceDecaissentUrl = HOST + '/api/sfd/decaissement-divers?';
+  private resourceEpargneUrl = HOST + '/apisfd/ouverture-compte-epargne';
+  private resourceDepotCaisseUrl = HOST + '/api/sfd/depot-caisse';
+  private resourceRetraitCaisseUrl = HOST + '/api/sfd/retrait-caisse';
+  private resourceVirememntCaisseUrl = HOST + '/api/sfd/virement-caisse-a-caisse';
+  private resourceEncaissementUrl = HOST + '/api/sfd/encaissement-divers';
+  private resourceDecaissentUrl = HOST + '/api/sfd/decaissement-divers';
 
   constructor(private http: Http) { }
 
@@ -30,16 +30,24 @@ export class OperationCaisseService {
     const copy = this.convert(operationCaisse);
     console.log(copy);
     console.log(operationCaisse);
-    const options = createRequestOption();
+    const options = createRequestOption({
+      comptecarmescaisse:copy.comptecarmescaisse,
+      montant:copy.montant,
+        comptecarmesclient:copy.comptecarmesclient,
+      produitid:copy.produitId,
+      email:copy.email,
+      phone:copy.telephone,
+      sexe:copy.sexe,
+      typeClientid:copy.typeClientId,
+      agence_reference:copy.agenceReference,
+      profession_id:copy.professionId,
+      birthday:copy.birthDate,
+    nomClient:copy.nomClient,
+    nationalite_id:copy.nationalityId
+      
+    });
     return this.http
-        .get(this.resourceEpargneUrl +
-            `comptecarmescaisse=${copy.comptecarmescaisse}`
-            + `&montant=${copy.montant}` + `&comptecarmesclient=${copy.comptecarmesclient}`
-            + `&produitid=${copy.produitId}` + `&email=${copy.email}`
-            + `&phone=${copy.telephone}` + `&sexe=${copy.sexe}`
-            + `&typeClientid=${copy.typeClientId}` + `&agence_reference=${copy.agenceReference}`
-            + `&profession_id=${copy.professionId}` + `&birthday=${copy.birthDate}`
-            + `&nomClient=${copy.nomClient}` + `&nationalite_id=${copy.nationalityId}`
+        .get(this.resourceEpargneUrl
             , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
         .map((res: Response) => {
             return res.json();
@@ -54,17 +62,19 @@ depotCaisse(operationCaisse: OperationCaisse): Observable<any> {
     const copy = this.convert(operationCaisse);
     console.log(copy);
     console.log(operationCaisse);
-    const options = createRequestOption();
+    const options = createRequestOption({
+      comptecarmescaisse:copy.comptecarmescaisse,
+      montant:copy.montant, comptecarmesclient:copy.comptecarmesclient,
+      created_by:copy.montant, email:copy.email,
+      phone:copy.telephone, sexe:copy.sexe,
+      typeClientid:copy.typeClientId, agence_reference:copy.agenceReference,
+      profession_id:copy.professionId, birthday:copy.birthDate,
+      nomClient:copy.nomClient, nationalite_id:copy.nationalityId,
+      
+    });
     return this.http
-        .get(this.resourceDepotCaisseUrl +
-            `comptecarmescaisse=${copy.comptecarmescaisse}`
-            + `&montant=${copy.montant}` + `&comptecarmesclient=${copy.comptecarmesclient}`
-            + `&created_by=${copy.montant}` + `&email=${copy.email}`
-            + `&phone=${copy.telephone}` + `&sexe=${copy.sexe}`
-            + `&typeClientid=${copy.typeClientId}` + `&agence_reference=${copy.agenceReference}`
-            + `&profession_id=${copy.professionId}` + `&birthday=${copy.birthDate}`
-            + `&nomClient=${copy.nomClient}` + `&nationalite_id=${copy.nationalityId}`
-            , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+        .get(this.resourceDepotCaisseUrl
+           , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
         .map((res: Response) => {
             return res.json();
         });
@@ -79,16 +89,18 @@ virementCaisseToCaisse(operationCaisse: OperationCaisse): Observable<any> {
     const copy = this.convert(operationCaisse);
     console.log(copy);
     console.log(operationCaisse);
-    const options = createRequestOption();
+    const options = createRequestOption({
+      comptecarmescaisseenvoi:copy.comptecarmescaisseenvoi,
+            montant:copy.montant, comptecarmescaisserecu:copy.comptecarmescaisserecu,
+            created_by:copy.montant, email:copy.email,
+            phone:copy.telephone, sexe:copy.sexe,
+            typeClientid:copy.typeClientId, agence_reference:copy.agenceReference,
+            profession_id:copy.professionId, birthday:copy.birthDate,
+            nomClient:copy.nomClient, nationalite_id:copy.nationalityId,
+            
+    });
     return this.http
-        .get(this.resourceVirememntCaisseUrl +
-            `comptecarmescaisseenvoi=${copy.comptecarmescaisseenvoi}`
-            + `&montant=${copy.montant}` + `&comptecarmescaisserecu=${copy.comptecarmescaisserecu}`
-            + `&created_by=${copy.montant}` + `&email=${copy.email}`
-            + `&phone=${copy.telephone}` + `&sexe=${copy.sexe}`
-            + `&typeClientid=${copy.typeClientId}` + `&agence_reference=${copy.agenceReference}`
-            + `&profession_id=${copy.professionId}` + `&birthday=${copy.birthDate}`
-            + `&nomClient=${copy.nomClient}` + `&nationalite_id=${copy.nationalityId}`
+        .get(this.resourceVirememntCaisseUrl
             , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
         .map((res: Response) => {
             return res.json();
@@ -102,12 +114,14 @@ retraitCaisse(operationCaisse: OperationCaisse): Observable<any> {
     const copy = this.convert(operationCaisse);
     console.log(copy);
     console.log(operationCaisse);
-    const options = createRequestOption();
+    const options = createRequestOption({
+      comptecarmescaisse:copy.comptecarmescaisse,
+            montant:copy.montant, comptecarmesclient:copy.comptecarmesclient,
+            created_by:UserData.getInstance().userReference,
+            
+    });
     return this.http
-        .get(this.resourceRetraitCaisseUrl +
-            `comptecarmescaisse=${copy.comptecarmescaisse}`
-            + `&montant=${copy.montant}` + `&comptecarmesclient=${copy.comptecarmesclient}`
-            + `&created_by=${UserData.getInstance().userReference}`
+        .get(this.resourceRetraitCaisseUrl
             , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
         .map((res: Response) => {
             return res.json();
@@ -120,12 +134,14 @@ encaissement(operationCaisse: OperationCaisse): Observable<any> {
     const copy = this.convert(operationCaisse);
     console.log(copy);
     console.log(operationCaisse);
-    const options = createRequestOption();
+    const options = createRequestOption({
+      comptecarmescaisse:copy.comptecarmescaisse,
+            montant:copy.montant, motif:copy.motif,
+            created_by:UserData.getInstance().userReference,
+            
+    });
     return this.http
-        .get(this.resourceEncaissementUrl +
-            `comptecarmescaisse=${copy.comptecarmescaisse}`
-            + `&montant=${copy.montant}` + `&motif=${copy.motif}`
-            + `&created_by=${UserData.getInstance().userReference}`
+        .get(this.resourceEncaissementUrl
             , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
         .map((res: Response) => {
             return res.json();
@@ -138,13 +154,15 @@ decaissement(operationCaisse: OperationCaisse): Observable<any> {
     const copy = this.convert(operationCaisse);
     console.log(copy);
     console.log(operationCaisse);
-    const options = createRequestOption();
+    const options = createRequestOption({
+      comptecarmescaisse:copy.comptecarmescaisse,
+            montant:copy.montant, motif:copy.motif,
+            created_by:UserData.getInstance().userReference,
+            
+    });
     return this.http
-        .get(this.resourceDecaissentUrl +
-            `comptecarmescaisse=${copy.comptecarmescaisse}`
-            + `&montant=${copy.montant}` + `&motif=${copy.motif}`
-            + `&created_by=${UserData.getInstance().userReference}`
-            , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+        .get(this.resourceDecaissentUrl
+          , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
         .map((res: Response) => {
             return res.json();
         });

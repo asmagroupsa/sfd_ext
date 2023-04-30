@@ -1,22 +1,13 @@
-import { Injectable } from '@angular/core';
-import { EventBus } from '../../shared/model/functions';
 import {
-  Resolve,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  Routes,
-  CanActivate
-} from '@angular/router';
+  Routes} from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
-import { JhiPaginationUtil } from 'ng-jhipster';
 
 import { OperationCaisseComponent } from './operation-caisse.component';
 import { OperationCaisseDetailComponent } from './operation-caisse-detail.component';
 import { OperationCaissePopupComponent } from './operation-caisse-dialog.component';
 import { OperationCaisseDeletePopupComponent } from './operation-caisse-delete-dialog.component';
 
-import { Principal } from '../../shared';
 
 export const OperationCaisseRoute: Routes = [
   {

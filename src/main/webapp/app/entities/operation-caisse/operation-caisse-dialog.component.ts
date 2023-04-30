@@ -48,6 +48,7 @@ export class OperationCaisseDialogComponent implements OnInit {
     isDepot: boolean = false;
     isRetrait: boolean = false;
     isEpargne: boolean = false;
+    titre:string;
 
 
     constructor(
@@ -67,21 +68,27 @@ export class OperationCaisseDialogComponent implements OnInit {
         activatedRoute.queryParams.subscribe(params => {
             this.params = params;
             if (params['type'] == 'VIREMENT') {
+                this.titre = "Virement de caisse à caisse";
                 this.isVirement = true;
                 this.type = { id: 1, code: 'VIREMENT', name: 'Virement caisse à caisse' };
             } else if (params['type'] == 'DEPOT') {
+                this.titre = "Opération de dépôt à la caisse";
                 this.isDepot = true;
                 this.type = { id: 2, code: 'DEPOT', name: 'Dépôts' };
             } else if (params['type'] == 'RETRAIT') {
+                this.titre = "Opération de retrait à la caisse";
                 this.isRetrait = true;
                 this.type = { id: 3, code: 'RETRAIT', name: 'Retraits' }
             } else if (params['type'] == 'COMPTEEPARGNE') {
+                this.titre = "Ouverture de compte Epargne";
                 this.isEpargne = true;
                 this.type = { id: 4, code: 'COMPTEEPARGNE', name: 'Ouverture compte épargne' };
             } else if (params['type'] == 'ENCAISSEMENT') {
+                this.titre = "Encaissement à la caisse";
                 this.isEncaissement = true;
                 this.type = { id: 5, code: 'ENCAISSEMENT', name: 'Encaissement Divers' };
             } else if (params['type'] == 'DECAISSEMENT') {
+                this.titre = "Décaissement à la caisse";
                 this.isDecaissement = true;
                 this.type = { id: 6, code: 'DECAISSEMENT', name: 'Décaissement Divers' }
             }
@@ -134,7 +141,7 @@ export class OperationCaisseDialogComponent implements OnInit {
             this.operationCaisse.agenceReference = this.agences[0].codeAgence;
         }
 
-        this.caisseNouvelleService.queryTest().subscribe(
+        this.caisseNouvelleService.queryTest('').subscribe(
             (res: ResponseWrapper) => {
                 this.caisseNouvelles = res.json;
                 console.log(res.json);

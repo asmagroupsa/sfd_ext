@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {
     Router,
     ActivatedRoute,
-    NavigationEnd,
     NavigationStart
 } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import { ressource } from '../entities/entity.module';
-import { LOCAL_FLAG } from '.';
 
 @Component({
     selector: 'jhi-breadcrumbs',
@@ -400,33 +397,11 @@ export class BreadcrumbsComponent implements OnInit {
                         // ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
                     },
                     {
-                        label: 'Opération',
+                        label: 'Opérations',
                         url: '/entity/operation-caisse',
                         translate: 'menus.caisses.caisse',
                         // ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
-                    },
-                    /* {
-                        label: 'Caisse principale',
-                        url: '/entity/caisse',
-                        translate: 'menus.caisses.caisse',
-                        ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
-                    }, */
-                    /* {
-                        label: 'Caisse centrale',
-                        url: '/entity/caisse-centrale',
-                        translate: '',
-                        ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
-                    }, */
-                    /* {
-                        label: 'Guichets',
-                        url: '/entity/guichet',
-                        translate: 'menus.caisses.guichet'
-                    },
-                    {
-                        label: 'Gestion des cautions',
-                        url: '/entity/cautions',
-                        translate: 'menus.caisses.caution'
-                    }, */
+                    }
                 );
             } else if (evt && this.searchUrl(this.operationsMenu, evt.url)) {
                 this.breadcrumbs = [];
@@ -717,6 +692,7 @@ export class BreadcrumbsComponent implements OnInit {
         this.addressMenu = ['/entity/address'];
         this.caisseMenu = [
             '/entity/caisse',
+            '/entity/operation-caisse',
             // '/entity/guichet',
             // '/entity/cautions',
     //         '/entity/bank',
@@ -735,17 +711,19 @@ export class BreadcrumbsComponent implements OnInit {
         this.stateMenu = [
             '/stats',
             '/stats/rapatriements',
-            '/stats/etats',
+            '/stats/etats'
         ];
     }
     private searchUrl(urlTabs: string[], url: string): boolean {
         let exist: boolean = false;
         if (!url) return false;
-        urlTabs.forEach(element => {
-            if (url.startsWith(element)) {
+        for (let index = 0, len = urlTabs.length; index < len; index++) {
+            if (url.startsWith(urlTabs[index])) {
                 exist = true;
+                break;
             }
-        });
+            
+        }
         return exist;
     }
 }

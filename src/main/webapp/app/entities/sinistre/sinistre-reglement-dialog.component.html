@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="input-field" *ngIf="!seeOther">
-            <label class="form-control-label active" for="field_home">Compte Carmes ayant droit</label>
+            <label class="form-control-label active" for="field_home">Compte CARMES ayant droit</label>
             <input type="text" class="form-control" name="employ" id="field_home"
                 [(ngModel)]="carmesAyantDroit" required maxlength="100" data-length="100" />
             <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">

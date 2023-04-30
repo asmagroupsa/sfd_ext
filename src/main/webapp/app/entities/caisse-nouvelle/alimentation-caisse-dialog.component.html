@@ -8,7 +8,7 @@
         <jhi-alert-error></jhi-alert-error>
 
         <div class="form-group">
-            <label class="form-control-label active oblige" for="field_comptecarmeagence">Compte Carmes de l'agence</label>
+            <label class="form-control-label active oblige" for="field_comptecarmeagence">Compte CARMES de l'agence {{ nameAgence }}</label>
             <input type="text" class="form-control" name="comptecarmeagence" id="field_comptecarmeagence" [(ngModel)]="alimentationCaisse.comptecarmeagence" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.comptecarmeagence?.dirty && editForm.controls.comptecarmeagence?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.comptecarmeagence?.errors?.required" jhiFnmTranslate="entity.validation.required">
@@ -21,7 +21,7 @@
         </div>
 
         <div class="form-group">
-            <label class="form-control-label active oblige" for="field_comptecarmescaisse">Compte Carmes de la caisse</label>
+            <label class="form-control-label active oblige" for="field_comptecarmescaisse">Compte CARMES de la caisse {{ nameCaisse }}</label>
             <input type="text" class="form-control" name="comptecarmescaisse" id="field_comptecarmescaisse" [(ngModel)]="alimentationCaisse.comptecarmescaisse" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.comptecarmescaisse?.dirty && editForm.controls.compteCarmes?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.comptecarmescaisse?.errors?.required" jhiFnmTranslate="entity.validation.required">
@@ -35,7 +35,7 @@
 
         <div class="form-group">
             <label class="form-control-label active oblige" for="field_montant">Montant</label>
-            <input type="number" min="1" class="form-control" name="montant" id="field_soldetMaxAmount" [(ngModel)]="alimentationCaisse.montant" required maxlength="50" data-length="50" />
+            <input type="number" min="1" class="form-control" name="montant" id="field_soldetMaxAmount" [(ngModel)]="alimentationCaisse.montant" required maxlength="50" data-length="50" (formatNumberMyMiller)="alimentationCaisse.montant = $event"/>
             <div [hidden]="!(editForm.controls.montant?.dirty && editForm.controls.montant?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.montant?.errors?.required" jhiFnmTranslate="entity.validation.required">
                    This field is required.

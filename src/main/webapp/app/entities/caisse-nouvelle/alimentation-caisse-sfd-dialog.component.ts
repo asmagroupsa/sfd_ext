@@ -7,7 +7,7 @@ import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { CaisseNouvelleService } from './caisse-nouvelle.service';
-import { ResponseWrapper, LOCAL_FLAG, UserData } from '../../shared';
+import { UserData } from '../../shared';
 import { LanguesService } from '../../shared/myTranslation/langues';
 import { AlimentationCaisseSfd } from './alimentation-caisse-sfd.model';
 import { AlimentationCaisseSfdPopupService } from './alimentation-caisse-sfd-popup.service';
@@ -27,8 +27,12 @@ export class AlimmentationCaisseSfdDialogComponent implements OnInit {
     private alertService: JhiAlertService,
     private caisseNouvelleService: CaisseNouvelleService,
     private eventManager: JhiEventManager,
-    public langue: LanguesService
-  ) { }
+    public langue: LanguesService,
+    activatedRoute: ActivatedRoute
+  ) {
+    this.alimentationCaisseSfd= new AlimentationCaisseSfd();
+    this.alimentationCaisseSfd.comptecarmeagence = activatedRoute.snapshot.queryParams['agence'];
+   }
   ngAfterViewInit() {
     select_init();
   }
@@ -72,6 +76,7 @@ export class AlimmentationCaisseSfdDialogComponent implements OnInit {
   }
 
   private onSaveSuccess(result: AlimentationCaisseSfd, isCreated: boolean) {
+    
     this.alertService.success(
       isCreated ? 'carmesfnmserviceApp.alimentationCaisse.created' : 'carmesfnmserviceApp.alimentationCaisse.updated',
       { param: result.id },

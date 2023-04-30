@@ -43,6 +43,13 @@ export class UserData {
         }
         return this._instance;
     }
+    getCurrentOrFirstAgence(){
+        if(this.currentAgence != null) return this.currentAgence;
+        if(this.listeAgences.length){
+            return this.listeAgences[0];
+        }
+        return null;
+    }
     initialize() {
         this.ressources = [];
         this.listeRessourcesState.next(null);

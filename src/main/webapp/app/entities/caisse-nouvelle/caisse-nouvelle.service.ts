@@ -15,7 +15,6 @@ import { CaisseNouvelleStatut } from './caisse-nouvelle-statut.model';
 @Injectable()
 export class CaisseNouvelleService {
     private resourceUrl = HOST + '/api/sfd/create-type-retard-credit';
-    private getResourceUrl = HOST + '/api/sfd/type-retard-credit-par-sfd';
     private resourceSearchUrl = HOST + '/api/_search/account-types';
     //private createCaisseUrl = HOST + '/api/user/add-caisse?';
     private createCaisseUrl = HOST_MVN + '/api/user/add-caisse';
@@ -27,42 +26,30 @@ export class CaisseNouvelleService {
     private statutCaisseUrl = HOST + '/api/sfd/update-caisse-etat';
 
 
-    
+    // http://185.98.137.71:8787/api/sfd/info-caisse-agence?agence_reference=0000AG13&codecaisse=000CAIS3
+
     constructor(private http: Http) { }
-
-    //http://185.98.137.71:8989/api/user/add-caisse?name=Caisse2&first_name=Marc&username=AGRAN&tel=965874856&password=admin123&email=jojopo@gmail.com&agence_reference=0000AG43&created_by=121&retraitmax=15000&soldemax=2000&comptecarmes=981421234
-
-    /* create(caisseNouvelle: CaisseNouvelle): Observable<CaisseNouvelle> {
-      const copy = this.convert(caisseNouvelle);
-      console.log(copy);
-      console.log(caisseNouvelle);
-      const options = createRequestOption();
-      return this.http
-        .post(this.createCaisseUrl +
-          `name=${copy.libelle}` + `&first_name=${copy.firstname}`
-          + `&username=${copy.username}` + `&tel=${copy.telephone}`
-          + `&password=${copy.password}` + `&email=${copy.email}`
-          + `&agence_reference=${copy.agenceReference}` + `&created_by=${copy.firstname}`
-          + `&retraitMaxAmount=${copy.libelle}` + `&soldetMaxAmount=${copy.firstname}` + `&comptecarmes=${copy.compteCarmes}`
-        , copy, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
-        .map((res: Response) => {
-          return res.json();
-        });
-    } */
 
     create(caisseNouvelle: CaisseNouvelle): Observable<CaisseNouvelle> {
         const copy = this.convert(caisseNouvelle);
         console.log(copy);
         console.log(caisseNouvelle);
-        const options = createRequestOption();
+        const options = createRequestOption({
+            name:caisseNouvelle.libelle,
+            first_name:caisseNouvelle.firstname,
+            username:caisseNouvelle.username,
+            tel:caisseNouvelle.telephone,
+            password:caisseNouvelle.password,
+            email:caisseNouvelle.email,
+            agence_reference:caisseNouvelle.agenceReference,
+            created_by:UserData.getInstance().userReference,
+            retraitmax:caisseNouvelle.retraitMaxAmount,
+            soldemax:copy.soldetMaxAmount,
+            comptecarmes:copy.compteCarmes
+        });
+        
         return this.http
-            .get(this.createCaisseUrl +
-                `name=${copy.libelle}` + `&first_name=${copy.firstname}`
-                + `&username=${copy.username}` + `&tel=${copy.telephone}`
-                + `&password=${copy.password}` + `&email=${copy.email}`
-                + `&agence_reference=${copy.agenceReference}` + `&created_by=${UserData.getInstance().userReference}`
-                + `&retraitMax=${copy.retraitMaxAmount}` + `&soldeMax=${copy.soldetMaxAmount}` + `&comptecarmes=${copy.compteCarmes}`
-                , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+            .get(this.createCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
                 return res.json();
             });
@@ -87,10 +74,9 @@ export class CaisseNouvelleService {
             });
     }
 
-    queryTest(agence,req?: any): Observable<ResponseWrapper> {
+    queryTest(req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(Object.assign({}, req, {
             NO_QUERY: true,
-            agence_reference: agence,
             'sfdReference.equals': UserData.getInstance().getSFDReference()
         }));
         return this.http
@@ -102,13 +88,12 @@ export class CaisseNouvelleService {
     query(req?: any, agence_reference? : any, codeCaisse?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(Object.assign({}, req, {
             NO_QUERY: true,
+            agence_reference,
+            codecaisse:codeCaisse,
             'sfdReference.equals': UserData.getInstance().getSFDReference()
         }));
         return this.http
-            .get(this.getListeCaisseUrl
-                + `agence_reference=${agence_reference}`
-                + `&codecaisse=${codeCaisse}`
-            , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+            .get(this.getListeCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => this.convertResponse(res));
     }
 
@@ -120,15 +105,14 @@ export class CaisseNouvelleService {
 
     // http://185.98.137.71:8787/api/sfd/alimentation-caisse-agence?comptecarmeagence=789685742&comptecarmescaisse=786685742&montant=500000
     alimenterCaisseAgence(alimentationCaisse: AlimentationCaisse): Observable<any> {
-        const copy = this.convertAlimentationCaisse(alimentationCaisse);
-        console.log(copy);
-        console.log(alimentationCaisse);
-        const options = createRequestOption();
+       
+        const options = createRequestOption({
+            comptecarmeagence: alimentationCaisse.comptecarmeagence,
+            comptecarmescaisse: alimentationCaisse.comptecarmescaisse,
+            montant: alimentationCaisse.montant
+        });
         return this.http
-            .get(this.alimenterCaisseAgenceUrl +
-                `comptecarmeagence=${copy.comptecarmeagence}`
-                + `&comptecarmescaisse=${copy.comptecarmescaisse}` + `&montant=${copy.montant}`
-                , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+            .get(this.alimenterCaisseAgenceUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
                 return res.json();
             });
@@ -136,15 +120,14 @@ export class CaisseNouvelleService {
 
     // http://185.98.137.71:8787/api/sfd/alimentation-agence-sfd?comptecarmeagence=789685742&comptecarmessfd=014674251453653&montant=500000
     alimenterCaisseSfd(alimentationCaisseSfd: AlimentationCaisseSfd): Observable<any> {
-        const copy = this.convertAlimentationCaisseSfd(alimentationCaisseSfd);
-        console.log(copy);
-        console.log(alimentationCaisseSfd);
-        const options = createRequestOption();
+        
+        const options = createRequestOption({
+            comptecarmeagence: alimentationCaisseSfd.comptecarmeagence,
+            comptecarmessfd:alimentationCaisseSfd.comptecarmessfd,
+            montant: alimentationCaisseSfd.montant
+        });
         return this.http
-            .get(this.alimenterCaisseSfdUrl +
-                `comptecarmeagence=${copy.comptecarmeagence}`
-                + `&comptecarmessfd=${copy.comptecarmessfd}` + `&montant=${copy.montant}`
-                , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+            .get(this.alimenterCaisseSfdUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
                 return res.json();
             });
@@ -152,12 +135,12 @@ export class CaisseNouvelleService {
 
     // http://185.98.137.71:8787/api/sfd/affiche-solde-caisse?comptecarmescaisse=014674251453653
     soldeCaisse(compteCarmesCaisse: number): Observable<any> {
-        console.log(compteCarmesCaisse);
-        const options = createRequestOption();
+        
+        const options = createRequestOption({
+            comptecarmescaisse: compteCarmesCaisse
+        });
         return this.http
-            .get(this.soldeCaisseUrl +
-                `comptecarmescaisse=${compteCarmesCaisse}`
-                , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+            .get(this.soldeCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
                 console.log(res);
                 console.log(res.json());
@@ -168,15 +151,13 @@ export class CaisseNouvelleService {
 
     // http://185.98.137.71:8787/api/sfd/update-caisse-etat?id=15&etat=OUVERT
     statutCaisse(caisseNouvelleStatut: CaisseNouvelleStatut): Observable<any> {
-        const copy = this.convertStatutCaisse(caisseNouvelleStatut);
-        console.log(copy);
-        console.log(caisseNouvelleStatut);
-        const options = createRequestOption();
+        
+        const options = createRequestOption({
+            id: caisseNouvelleStatut.id,
+            etat: caisseNouvelleStatut.etat
+        });
         return this.http
-            .get(this.statutCaisseUrl +
-                `id=${copy.id}` +
-                `&etat=${copy.etat}`
-                , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+            .get(this.statutCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
                 console.log(res);
                 console.log(res.json());
@@ -201,20 +182,7 @@ export class CaisseNouvelleService {
         return copy;
     }
 
-    private convertStatutCaisse(caisseNouvelle: CaisseNouvelleStatut): CaisseNouvelleStatut {
-        const copy: CaisseNouvelleStatut = Object.assign({}, caisseNouvelle);
-        return copy;
-    }
 
-    private convertAlimentationCaisse(alimentationCaisse: AlimentationCaisse): AlimentationCaisse {
-        const copy: AlimentationCaisse = Object.assign({}, alimentationCaisse);
-        return copy;
-    }
-
-    private convertAlimentationCaisseSfd(alimentationCaisseSfd: AlimentationCaisseSfd): AlimentationCaisseSfd {
-        const copy: AlimentationCaisseSfd = Object.assign({}, alimentationCaisseSfd);
-        return copy;
-    }
 
 
 }

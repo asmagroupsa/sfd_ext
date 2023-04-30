@@ -20,7 +20,7 @@
             </div>
         </div>-->
         <div class="form-group">
-            <label class="form-control-label active" jhiFnmTranslate="sfdApp.ecriture.libelle" for="field_libelle">Libelle</label>
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.ecriture.libelle" for="field_libelle">Libellé</label>
             <input type="text" class="form-control" name="libelle" id="field_libelle" [(ngModel)]="ecriture.libelle" maxlength="100" data-length="100" />
             <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">

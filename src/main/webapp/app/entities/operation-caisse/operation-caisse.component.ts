@@ -27,7 +27,7 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
     private operationCaisseService: OperationCaisseService,
     private alertService: JhiAlertService,
     private eventManager: JhiEventManager,
-    private activatedRoute: ActivatedRoute,
+    activatedRoute: ActivatedRoute,
     public principal: Principal,
     public langue: LanguesService
   ) {
