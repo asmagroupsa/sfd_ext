@@ -51,7 +51,11 @@ export class CaisseNouvelleService {
         return this.http
             .get(this.createCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
-                return res.json();
+                let data = res.json();
+                if(data['resultat'] != 'OK'){
+                  throw data;
+                }
+                  return data;
             });
     }
 
@@ -61,7 +65,11 @@ export class CaisseNouvelleService {
         return this.http
             .put(this.resourceUrl, copy, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
-                return res.json();
+                let data = res.json();
+          if(data['resultat'] != 'OK'){
+            throw data;
+          }
+            return data;
             });
     }
 

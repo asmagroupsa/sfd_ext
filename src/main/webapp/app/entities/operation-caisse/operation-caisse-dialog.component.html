@@ -11,8 +11,8 @@
             <label for="id" jhiFnmTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id" [(ngModel)]="operationCaisse.id" readonly />
         </div>-->
-        <div *ngIf='caisseName'> Caisse: {{ caisseName }}</div>
-        <br>
+        <div *ngIf='caisseName'> <strong>Caisse:</strong> {{ caisseName }}</div>
+        <br/> <br/>
         <!-- <div class="form-group" *ngIf="agences.length > 1 && (!isDecaissement && !isEncaissement && !isRetrait)">
             <label  for="field_agenceReference" class="oblige">Agence</label>
             <select class="ui fluid search dropdown sfd-dropdown" id="field_agenceReference" name="agenceReference" [(ngModel)]="operationCaisse && operationCaisse.agenceReference" required>
