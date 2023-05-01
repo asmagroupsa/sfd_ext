@@ -159,8 +159,11 @@ export class CaisseNouvelleService {
         return this.http
             .get(this.statutCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
-                console.log(res);
-                console.log(res.json());
+                let data = res.json();
+                console.log(data);
+                if(data['resultat'] == 'NON'){
+                    throw "Une erreur s'est produite";
+                }
                 return res.json();
             });
     }

@@ -10,9 +10,9 @@ import { EventBus } from '../../shared/model/functions';
 
 @Injectable()
 export class OperationCaisseService {
-  private resourceUrl = HOST + '/api/sfd/';
+  private resourceUrl = HOST + '/api/sfd/liste-operation-caisse';
   private resourceSearchUrl = HOST + '/api/_search/account-types';
-  private resourceEpargneUrl = HOST + '/apisfd/ouverture-compte-epargne';
+  private resourceEpargneUrl = HOST + '/api/sfd/ouverture-compte-epargne';
   private resourceDepotCaisseUrl = HOST + '/api/sfd/depot-caisse';
   private resourceRetraitCaisseUrl = HOST + '/api/sfd/retrait-caisse';
   private resourceVirememntCaisseUrl = HOST + '/api/sfd/virement-caisse-a-caisse';
@@ -50,7 +50,11 @@ export class OperationCaisseService {
         .get(this.resourceEpargneUrl
             , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
         .map((res: Response) => {
-            return res.json();
+          let data = res.json();
+          if(data['resultat'] != 'OK'){
+            throw data;
+          }
+            return data;
         });
 }
 
@@ -59,24 +63,24 @@ export class OperationCaisseService {
 //&birthday=2023-04-10&nomClient=luc&nationalite_id=1
 
 depotCaisse(operationCaisse: OperationCaisse): Observable<any> {
-    const copy = this.convert(operationCaisse);
-    console.log(copy);
-    console.log(operationCaisse);
+  
     const options = createRequestOption({
-      comptecarmescaisse:copy.comptecarmescaisse,
-      montant:copy.montant, comptecarmesclient:copy.comptecarmesclient,
-      created_by:copy.montant, email:copy.email,
-      phone:copy.telephone, sexe:copy.sexe,
-      typeClientid:copy.typeClientId, agence_reference:copy.agenceReference,
-      profession_id:copy.professionId, birthday:copy.birthDate,
-      nomClient:copy.nomClient, nationalite_id:copy.nationalityId,
+      comptecarmescaisse:operationCaisse.comptecarmescaisse,
+      montant:operationCaisse.montant,
+       comptecarmesclient:operationCaisse.comptecarmesclient,
+      created_by:UserData.getInstance().userReference,
+        agence_reference:operationCaisse.agenceReference
       
     });
     return this.http
         .get(this.resourceDepotCaisseUrl
            , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
         .map((res: Response) => {
-            return res.json();
+          let data = res.json();
+          if(data['resultat'] != 'OK'){
+            throw data;
+          }
+            return data;
         });
 }
 
@@ -86,24 +90,24 @@ depotCaisse(operationCaisse: OperationCaisse): Observable<any> {
 // &agence_reference=0000AG13&profession_id=1&birthday=2023-04-10&nomClient=luc&nationalite_id=1
 
 virementCaisseToCaisse(operationCaisse: OperationCaisse): Observable<any> {
-    const copy = this.convert(operationCaisse);
-    console.log(copy);
-    console.log(operationCaisse);
+    
     const options = createRequestOption({
-      comptecarmescaisseenvoi:copy.comptecarmescaisseenvoi,
-            montant:copy.montant, comptecarmescaisserecu:copy.comptecarmescaisserecu,
-            created_by:copy.montant, email:copy.email,
-            phone:copy.telephone, sexe:copy.sexe,
-            typeClientid:copy.typeClientId, agence_reference:copy.agenceReference,
-            profession_id:copy.professionId, birthday:copy.birthDate,
-            nomClient:copy.nomClient, nationalite_id:copy.nationalityId,
+      comptecarmescaisseenvoi:operationCaisse.comptecarmescaisseenvoi,
+            montant:operationCaisse.montant, 
+            comptecarmescaisserecu:operationCaisse.comptecarmescaisserecu,
+            created_by:UserData.getInstance().userReference,
+            agence_reference:operationCaisse.agenceReference
             
     });
     return this.http
         .get(this.resourceVirememntCaisseUrl
             , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
         .map((res: Response) => {
-            return res.json();
+          let data = res.json();
+          if(data['resultat'] != 'OK'){
+            throw data;
+          }
+            return data;
         });
 }
 
@@ -111,32 +115,34 @@ virementCaisseToCaisse(operationCaisse: OperationCaisse): Observable<any> {
 
 
 retraitCaisse(operationCaisse: OperationCaisse): Observable<any> {
-    const copy = this.convert(operationCaisse);
-    console.log(copy);
-    console.log(operationCaisse);
+   
     const options = createRequestOption({
-      comptecarmescaisse:copy.comptecarmescaisse,
-            montant:copy.montant, comptecarmesclient:copy.comptecarmesclient,
-            created_by:UserData.getInstance().userReference,
+      comptecarmescaisse:operationCaisse.comptecarmescaisse,
+      montant:operationCaisse.montant,
+       comptecarmesclient:operationCaisse.comptecarmesclient,
+      created_by:UserData.getInstance().userReference,
+        agence_reference:operationCaisse.agenceReference
             
     });
     return this.http
         .get(this.resourceRetraitCaisseUrl
             , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
         .map((res: Response) => {
-            return res.json();
+          let data = res.json();
+          if(data['resultat'] != 'OK'){
+            throw data;
+          }
+            return data;
         });
 }
 
 // http://185.98.137.71:8787/api/sfd/encaissement-divers?comptecarmescaisse=96587481&montant=10000&motif=Rien&created_by=1
 
 encaissement(operationCaisse: OperationCaisse): Observable<any> {
-    const copy = this.convert(operationCaisse);
-    console.log(copy);
-    console.log(operationCaisse);
+    
     const options = createRequestOption({
-      comptecarmescaisse:copy.comptecarmescaisse,
-            montant:copy.montant, motif:copy.motif,
+      comptecarmescaisse:operationCaisse.comptecarmescaisse,
+            montant:operationCaisse.montant, motif:operationCaisse.motif,
             created_by:UserData.getInstance().userReference,
             
     });
@@ -144,19 +150,21 @@ encaissement(operationCaisse: OperationCaisse): Observable<any> {
         .get(this.resourceEncaissementUrl
             , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
         .map((res: Response) => {
-            return res.json();
+          let data = res.json();
+          if(data['resultat'] != 'OK'){
+            throw data;
+          }
+            return data;
         });
 }
 
 
 // http://185.98.137.71:8787/api/sfd/decaissement-divers?comptecarmescaisse=96587481&montant=10000&motif=Rien&created_by=1
 decaissement(operationCaisse: OperationCaisse): Observable<any> {
-    const copy = this.convert(operationCaisse);
-    console.log(copy);
-    console.log(operationCaisse);
+    
     const options = createRequestOption({
-      comptecarmescaisse:copy.comptecarmescaisse,
-            montant:copy.montant, motif:copy.motif,
+      comptecarmescaisse:operationCaisse.comptecarmescaisse,
+            montant:operationCaisse.montant, motif:operationCaisse.motif,
             created_by:UserData.getInstance().userReference,
             
     });
@@ -164,7 +172,11 @@ decaissement(operationCaisse: OperationCaisse): Observable<any> {
         .get(this.resourceDecaissentUrl
           , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
         .map((res: Response) => {
-            return res.json();
+          let data = res.json();
+          if(data['resultat'] != 'OK'){
+            throw data;
+          }
+            return data;
         });
 }
 
@@ -174,7 +186,11 @@ decaissement(operationCaisse: OperationCaisse): Observable<any> {
     return this.http
       .post(this.resourceUrl, copy, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
       .map((res: Response) => {
-        return res.json();
+        let data = res.json();
+        if(data['resultat'] != 'OK'){
+          throw data;
+        }
+          return data;
       });
   }
 
@@ -184,7 +200,11 @@ decaissement(operationCaisse: OperationCaisse): Observable<any> {
     return this.http
       .put(this.resourceUrl, copy, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
       .map((res: Response) => {
-        return res.json();
+        let data = res.json();
+        if(data['resultat'] != 'OK'){
+          throw data;
+        }
+          return data;
       });
   }
 
@@ -193,7 +213,11 @@ decaissement(operationCaisse: OperationCaisse): Observable<any> {
     return this.http
       .get(`${this.resourceUrl}/${id}`, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
       .map((res: Response) => {
-        return res.json();
+        let data = res.json();
+        if(data['resultat'] != 'OK'){
+          throw data;
+        }
+          return data;
       });
   }
 

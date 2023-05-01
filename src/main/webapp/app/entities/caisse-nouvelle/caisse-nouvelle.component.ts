@@ -146,9 +146,7 @@ let ag = this.getAgenceObj();
     this.registerChangeInCaisseNouvelles();
     this.agences = UserData.getInstance().listeAgences;
 
-        if (this.agences.length == 1) {
-            this.agenceReference = this.agences[0].codeAgence;
-        }else if (this.agences.length > 1){
+        if (this.agences.length) {
             this.agenceReference = this.agences[0].codeAgence;
         }
   }
@@ -177,6 +175,6 @@ let ag = this.getAgenceObj();
   }
 
   onSolde(caisse:any){
-    alert(`Le solde de la caisse ${caisse.libelle} (Référence: ${caisse.reference}) est de ${caisse.solde || 0} FCFA `);
+    this.alertService.info(`Le solde de la caisse ${caisse.libelle} (Référence: ${caisse.reference}) est de ${caisse.solde || 0} FCFA`);
   }
 }

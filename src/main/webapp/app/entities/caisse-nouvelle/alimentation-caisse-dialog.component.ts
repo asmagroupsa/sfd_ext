@@ -95,6 +95,7 @@ export class AlimmentationCaisseDialogComponent implements OnInit {
           msg = "Le solde est insuffisant";
           break;
       }
+      this.isSaving = false;
       this.alertService.error(msg, null, null);
     return ;
     }

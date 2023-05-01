@@ -63,6 +63,7 @@ export class BreadcrumbsComponent implements OnInit {
     produitsMenu: Array<string> = [];
     addressMenu: Array<string> = [];
     caisseMenu: Array<string> = [];
+    caisseSFDMenu: Array<string> = [];
     sousTraitantMenu: Array<string> = [];
     stateMenu: Array<string> = [];
     constructor(private router: Router, private route: ActivatedRoute) {
@@ -403,6 +404,28 @@ export class BreadcrumbsComponent implements OnInit {
                         // ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
                     }
                 );
+            } else if (evt && this.searchUrl(this.caisseSFDMenu, evt.url)) {
+                this.breadcrumbs = [];
+                this.breadcrumbs.push(
+                    {
+                        label: 'Compte Comptable',
+                        url: '/entity/compte-comptable',
+                        //translate: 'menus.caisses.caisse',
+                        // ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
+                    },
+                    {
+                        label: 'Caisse Centrale',
+                        url: '/entity/caisse-centrale',
+                        //translate: 'menus.caisses.caisse',
+                        // ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
+                    },
+                    {
+                        label: 'Guichets',
+                        url: '/entity/guichet',
+                        //translate: 'menus.caisses.caisse',
+                        // ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
+                    }
+                );
             } else if (evt && this.searchUrl(this.operationsMenu, evt.url)) {
                 this.breadcrumbs = [];
                 this.breadcrumbs.push(
@@ -692,17 +715,20 @@ export class BreadcrumbsComponent implements OnInit {
         this.addressMenu = ['/entity/address'];
         this.caisseMenu = [
             '/entity/caisse',
-            '/entity/operation-caisse',
-            // '/entity/guichet',
+            '/entity/operation-caisse'
+        ];
+
+        this.caisseSFDMenu = [
+            '/entity/guichet',
             // '/entity/cautions',
     //         '/entity/bank',
     //   '/entity/bank-account',
             // '/entity/brouillard-comptable',
-            // '/entity/caisse-centrale',
+             '/entity/caisse-centrale',
             '/entity/compte-comptable',
     //   '/entity/journal',
             // '/entity/operation-comptable'
-            /* '/entity/type-caisse' */
+            '/entity/type-caisse'
         ];
 
         /*[queryParams]="{link: 'credits-accordes-beneficiaires', title: 'Etat de crédit accordés par bénéficiaire'}">Crédit accordés par bénéficiaire</a>

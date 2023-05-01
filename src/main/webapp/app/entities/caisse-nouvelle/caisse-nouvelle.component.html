@@ -32,8 +32,9 @@
             {{principal.loading}}
         </div>
     </ng-template>
-
-    <div class="table-responsive" *ngIf="caisseNouvelles;else elseBlock">
+    
+    <div class="table-responsive">
+       
         <div class="row">
             <div class="form-group col-6" *ngIf="agences.length > 1">
                 <label class="form-control-label active" for="field_agence">Choisissez une agence</label>
@@ -42,14 +43,13 @@
                     <option [ngValue]="agence.codeAgence" *ngFor="let agence of agences">{{agence.name}}</option>
                 </select>
             </div>
-            <div class="form-group codeCaisse" [ngClass]="{'col-12':agences.length == 1,'col-6':agences.length > 1}">
+            <!-- <div class="form-group codeCaisse" [ngClass]="{'col-12':agences.length == 1,'col-6':agences.length > 1}">
                 <button class="btn waves-effect waves-light" (click)="navigateToAlimenterSfd()">
                     <span class="fa fa-save"></span>&nbsp;<span>Alimenter la caisse du SFD</span>
                 </button>
-            </div> 
+            </div>  -->
         </div>
-        
-        <table class="bordered striped highlight">
+        <table class="bordered striped highlight" *ngIf="caisseNouvelles;else elseBlock">
             <thead>
                 <tr>
                     <!-- <th><span jhiFnmTranslate="global.field.id">ID</span></th> -->
