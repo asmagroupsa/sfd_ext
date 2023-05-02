@@ -95,7 +95,7 @@
             <input type="checkbox" class="form-control" name="compenser" id="field_compenser" [(ngModel)]="commission.compenser" />
         </div>
         <div class="form-group">
-            <label class="form-control-label active" jhiFnmTranslate="sfdApp.commission.carmesAccount" for="field_carmesAccount">Carmes Account</label>
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.commission.carmesAccount" for="field_carmesAccount">CARMES Account</label>
             <input type="text" class="form-control" name="carmesAccount" id="field_carmesAccount" [(ngModel)]="commission.carmesAccount" required />
             <div [hidden]="!(editForm.controls.carmesAccount?.dirty && editForm.controls.carmesAccount?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.carmesAccount?.errors?.required" jhiFnmTranslate="entity.validation.required">

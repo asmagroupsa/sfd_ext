@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.carmesAccount" for="field_carmesAccount">Carmes Account</label>
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.budget.carmesAccount" for="field_carmesAccount">CARMES Account</label>
             <input type="text" class="form-control" name="carmesAccount" id="field_carmesAccount" [(ngModel)]="budget.carmesAccount" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.carmesAccount?.dirty && editForm.controls.carmesAccount?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.carmesAccount?.errors?.required" jhiFnmTranslate="entity.validation.required">

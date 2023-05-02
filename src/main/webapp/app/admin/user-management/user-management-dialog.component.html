@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="input-field" *ngIf="!user.id && localFlag && numericFlag">
-            <label class="form-control-label active oblige">Le compte Carmes</label>
+            <label class="form-control-label active oblige">Le compte CARMES</label>
             <input type="text" class="form-control" name="cpteCarmes" #cpteCarmesInput="ngModel" [(ngModel)]="model.cpteCarmes" required minlength="1" maxlength="50">
 
             <div *ngIf="cpteCarmesInput.dirty && cpteCarmesInput.invalid">

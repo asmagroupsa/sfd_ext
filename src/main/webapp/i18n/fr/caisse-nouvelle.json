@@ -6,16 +6,17 @@
                 "createLabel": "Créer une nouvelle caisse",
                 "createOrEditLabel": "Editer une caisse",
                 "search": "Rechercher une caisse",
-                "alimenterCaisse": "Alimentation de la caisse",
-                "etatCaisse": "Ouverture ou fermerture de la caisse"
+                "alimenterCaisse": "Alimentation de la caisse de l'Agence",
+                "alimenterCaisseSfd":"Alimentation de la caisse du SFD",
+                "etatCaisse": "Changement d'état de la caisse"
             },
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer la caisse{{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer la caisse {{ id }} ?"
             },
             "detail": {
                 "title": "Caisse"
             },
-            "compteCarmes": "Compte Carmes",
+            "compteCarmes": "Compte CARMES",
             "libelle": "Nom de la caisse",
             "agenceReference": "Code Agence",
             "firstname": "Prenoms du caissier",
@@ -25,19 +26,19 @@
             "password": "Mot de passe",
             "etatCaisse": "Etat caisse",
             "dateOuverture": "Date d'ouverture",
-            "retraitMaxAmount": "Montant  maximum de retrait",
+            "retraitMaxAmount": "Montant maximum de retrait",
             "soldetMaxAmount": "Montant maximum du solde",
             "comptecarmeagence": "Compte Carmes de l'agence",
             "comptecarmescaisse": "Compte Carmes de la caisse",
             "comptecarmessfd": "Compte Carmes du SFD",
-            "montant": "Montant",
+            "montant": "Montant à transférer",
             "etat": "Etat Fermé ou Ouvert de la caisse"
         }
     },
     "carmesfnmserviceApp": {
         "caisseNouvelle" : {
-            "created": "Un nouvelle caisse a été créé ",
-            "updated": "Mis à jour d'une caisse",
+            "created": "Un nouvelle caisse a été créé",
+            "updated": "Mise à jour d'une caisse",
             "deleted": "Suppression d'une caisse "
         },
         "alimentationCaisse" : {
@@ -45,8 +46,8 @@
             "updated": "Caisse alimentée avec succès"
         },
         "etatCaisse" : {
-            "close": "Caisse fermé avec succès",
-            "open": "Caisse ouvert avec succès"
+            "close": "Caisse fermée avec succès",
+            "open": "Caisse ouverte avec succès"
         }
     }
 }

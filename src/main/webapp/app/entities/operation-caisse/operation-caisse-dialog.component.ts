@@ -9,7 +9,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { OperationCaisse } from './operation-caisse.model';
 import { OperationCaissePopupService } from './operation-caisse-popup.service';
 import { OperationCaisseService } from './operation-caisse.service';
-import { ResponseWrapper, LOCAL_FLAG, UserData, getNewItems } from '../../shared';
+import { ResponseWrapper, UserData, getNewItems } from '../../shared';
 import { LanguesService } from '../../shared/myTranslation/langues';
 import { Profession, ProfessionService } from '../profession';
 import { Nationality, NationalityService } from '../nationality';
@@ -22,7 +22,7 @@ declare let select_init: any;
     templateUrl: './operation-caisse-dialog.component.html'
 })
 export class OperationCaisseDialogComponent implements OnInit {
-    operationCaisse: OperationCaisse;
+    operationCaisse: OperationCaisse= new OperationCaisse();
     authorities: any[];
     isSaving: boolean;
     professions: Profession[];
@@ -48,6 +48,8 @@ export class OperationCaisseDialogComponent implements OnInit {
     isDepot: boolean = false;
     isRetrait: boolean = false;
     isEpargne: boolean = false;
+    titre:string;
+    caisseName:string;
 
 
     constructor(
@@ -66,22 +68,33 @@ export class OperationCaisseDialogComponent implements OnInit {
 
         activatedRoute.queryParams.subscribe(params => {
             this.params = params;
+            this.operationCaisse.agenceReference = this.params.agence;
+            this.caisseName = this.params.caisseName;
+            this.operationCaisse.comptecarmescaisseenvoi = this.params.caisse;
+            this.operationCaisse.comptecarmescaisse = this.params.caisse;
+            
             if (params['type'] == 'VIREMENT') {
+                this.titre = "Virement de caisse à caisse";
                 this.isVirement = true;
                 this.type = { id: 1, code: 'VIREMENT', name: 'Virement caisse à caisse' };
             } else if (params['type'] == 'DEPOT') {
+                this.titre = "Opération de dépôt à la caisse";
                 this.isDepot = true;
                 this.type = { id: 2, code: 'DEPOT', name: 'Dépôts' };
             } else if (params['type'] == 'RETRAIT') {
+                this.titre = "Opération de retrait à la caisse";
                 this.isRetrait = true;
                 this.type = { id: 3, code: 'RETRAIT', name: 'Retraits' }
             } else if (params['type'] == 'COMPTEEPARGNE') {
+                this.titre = "Ouverture de compte Epargne";
                 this.isEpargne = true;
                 this.type = { id: 4, code: 'COMPTEEPARGNE', name: 'Ouverture compte épargne' };
             } else if (params['type'] == 'ENCAISSEMENT') {
+                this.titre = "Encaissement à la caisse";
                 this.isEncaissement = true;
                 this.type = { id: 5, code: 'ENCAISSEMENT', name: 'Encaissement Divers' };
             } else if (params['type'] == 'DECAISSEMENT') {
+                this.titre = "Décaissement à la caisse";
                 this.isDecaissement = true;
                 this.type = { id: 6, code: 'DECAISSEMENT', name: 'Décaissement Divers' }
             }
@@ -127,17 +140,17 @@ export class OperationCaisseDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.agences = UserData.getInstance().listeAgences;
-        console.log(this.agences);
+        
 
 
         if (this.agences.length == 1) {
             this.operationCaisse.agenceReference = this.agences[0].codeAgence;
         }
 
-        this.caisseNouvelleService.queryTest().subscribe(
+        this.caisseNouvelleService.queryTest('').subscribe(
             (res: ResponseWrapper) => {
                 this.caisseNouvelles = res.json;
-                console.log(res.json);
+               
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
@@ -154,7 +167,6 @@ export class OperationCaisseDialogComponent implements OnInit {
         this.nationalityService.query().subscribe(
             (res: ResponseWrapper) => {
                 this.nationalities = res.json;
-                console.log(res.json);
 
                 this.loadingArray.nationality = false;
             },
@@ -164,9 +176,6 @@ export class OperationCaisseDialogComponent implements OnInit {
         this.loadingArray.produit = true;
         this.produitService.getGroupProduits().subscribe((produits) => {
             this.produits = produits;
-            console.log(produits);
-            console.log('produits');
-            console.log(this.produits);
 
             this.loadingArray.produit = false;
         });
@@ -175,7 +184,6 @@ export class OperationCaisseDialogComponent implements OnInit {
         this.produitService.getGroupProduits().subscribe(
             (res: ResponseWrapper) => {
                 this.produits = res.json;
-                console.log( res.json);
 
                 this.loadingArray.produit = false;
             },
@@ -186,7 +194,6 @@ export class OperationCaisseDialogComponent implements OnInit {
         this.typeClientService.query({ size: 1000 }).subscribe(
             (res: ResponseWrapper) => {
                 this.typeclients = res.json;
-                console.log(res.json);
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
@@ -197,19 +204,6 @@ export class OperationCaisseDialogComponent implements OnInit {
     }
 
     save() {
-        /* this.isSaving = true;
-        if (this.operationCaisse.id !== undefined) {
-            this.subscribeToSaveResponse(
-                this.operationCaisseService.update(this.operationCaisse),
-                false
-            );
-        } else {
-            this.operationCaisse.agenceReference = 'xxx';
-            this.subscribeToSaveResponse(
-                this.operationCaisseService.create(this.operationCaisse),
-                true
-            );
-        } */
         if (this.type.code == 'VIREMENT') {
             // this.operationCaisse.agenceReference = 'xxx';
             this.subscribeToSaveResponse(
@@ -278,7 +272,32 @@ export class OperationCaisseDialogComponent implements OnInit {
         try {
             error.json();
         } catch (exception) {
-            error.message = error.text();
+            let msg:string;
+            switch(error.resultat){
+                case 'COMPTE_CAISSE_ERRONEE':
+                    msg = "Le compte caisse fourni est erroné";
+                    break;
+                case 'COMPTE_CAISSE_ENVOI_ERRONEE':
+                    msg = "Le compte caisse d'envoi fourni est erroné";
+                    break;
+                case 'COMPTE_CAISSE_RECU_ERRONEE':
+                    msg = "Le compte caisse de réception fourni est erroné";
+                    break;
+                case 'SOLDE_CAISSE_INSUFFISANT':
+                    msg = "Le solde de la caisse est inférieur au montant du retrait";
+                    break;
+                case 'SOLDE_CAISSE_ENVOI_INSUFFISANT':
+                    msg = "Le solde de la caisse d'envoi est inférieur au montant de l'envoi.";
+                    break;
+                case 'SOLDE_CLIENT_INSUFFISANT':
+                    msg = "Le solde du client est inférieur au montant du retrait";
+                    break;
+                case 'MONTANT_INSUFFISANT':
+                    msg = "Le montant fourni est inférieur au montant minimum requis.";
+                    break;
+                    
+            } 
+            error.message = msg || "Une erreur s'est produite";//error.text();
         }
         this.isSaving = false;
         this.onError(error);
@@ -346,7 +365,6 @@ export class OperationCaissePopupComponent implements OnInit, OnDestroy {
                         params['id']
                     );
                 } else {
-                    console.log('I am here');
 
                     this.modalRef = this.operationCaissePopupService.open(
                         OperationCaisseDialogComponent as Component

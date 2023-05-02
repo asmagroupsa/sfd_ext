@@ -26,12 +26,15 @@
         </div>
     </div>
     <br/>
+
     <ng-template #elseBlock>
         <div class="ui active centered inline loader">
             {{principal.loading}}
         </div>
     </ng-template>
-    <div class="table-responsive" *ngIf="caisseNouvelles;else elseBlock">
+    
+    <div class="table-responsive">
+       
         <div class="row">
             <div class="form-group col-6" *ngIf="agences.length > 1">
                 <label class="form-control-label active" for="field_agence">Choisissez une agence</label>
@@ -40,19 +43,20 @@
                     <option [ngValue]="agence.codeAgence" *ngFor="let agence of agences">{{agence.name}}</option>
                 </select>
             </div>
-            <div class="form-group codeCaisse" [ngClass]="{'col-12':agences.length == 1,'col-6':agences.length > 1}">
-                <label class="form-control-label active" for="field_codeCaisse">Code de la caisse</label>
-
-            </div>
+            <!-- <div class="form-group codeCaisse" [ngClass]="{'col-12':agences.length == 1,'col-6':agences.length > 1}">
+                <button class="btn waves-effect waves-light" (click)="navigateToAlimenterSfd()">
+                    <span class="fa fa-save"></span>&nbsp;<span>Alimenter la caisse du SFD</span>
+                </button>
+            </div>  -->
         </div>
-        <table class="bordered striped highlight">
+        <table class="bordered striped highlight" *ngIf="caisseNouvelles;else elseBlock">
             <thead>
                 <tr>
                     <!-- <th><span jhiFnmTranslate="global.field.id">ID</span></th> -->
                     <th class="numerotab">N°</th>
-                    <th><span>Compte Carmes</span></th>
-                    <th><span>Reference</span></th>
-                    <th><span>Libelle</span></th>
+                    <th><span>Compte CARMES</span></th>
+                    <th><span>Réference</span></th>
+                    <th><span>Libellé</span></th>
                     <th><span>Etat Caisse</span></th>
                     <th><span>Date Ouverture</span></th>
                     <th><span>Retrait Montant Maximun</span></th>
@@ -62,19 +66,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let caisseNouvelle of caisseNouvelles  | recherche:currentSearch ;let index=index;trackBy: trackId">
+                <tr *ngFor="let caisseNouvelle of caisseNouvelles | recherche:currentSearch ;let index=index;trackBy: trackId">
                     <!-- <td><a [routerLink]="['/entity','caisse-nouvelle', caisseNouvelle.id ]">{{caisseNouvelle.id}}</a></td> -->
                     <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
                     <td>{{caisseNouvelle.compteCarmes}}</td>
                     <td>{{caisseNouvelle.reference}}</td>
                     <td>{{caisseNouvelle.libelle}}</td>
-                    <td>{{caisseNouvelle.etatCaisse}}</td>
+                    <td>{{caisseNouvelle.etatCaisse == 'FERMER' ? 'Fermée':'Ouverte'}}</td>
                     <td>{{caisseNouvelle.dateOuverture}}</td>
-                    <td>{{caisseNouvelle.retraitMaxAmount}}</td>
-                    <td>{{caisseNouvelle.soldetMaxAmount}}</td>
+                    <td>{{caisseNouvelle.retraitMaxAmount | currency:'XAF':true:'2.0' }}</td>
+                    <td>{{caisseNouvelle.soldetMaxAmount | currency:'XAF':true:'2.0' }}</td>
                     <!-- <td>{{caisseNouvelle.code}}</td> -->
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
+                            
                             <!-- <button type="submit" [routerLink]="['/entity','caisse-nouvelle', caisseNouvelle.id ]" class="btn btn-info btn-sm" *jhiHasAnyRessources="'carmesfnmservice/api/caisse-nouvelles/getCaisseNouvelle'">
                                 <span class="fa fa-eye"></span>
                             </button> -->
@@ -86,13 +91,15 @@
                                 <!-- <button type="submit" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: 'caisse-nouvelle/'+ caisseNouvelle.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm" >
                                 <span class="fa fa-remove"></span>
                             </button> -->
+
                             <div class="ui dropdown">
                                 <div class="text" style="display:none"></div>
                                 <i class="ellipsis vertical icon"></i>
                                 <div class="left menu">
-                                    <div class="item" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: ['alimentation-caisse-agence'] } }]" [queryParams]="{caisse:caisseNouvelle.id, typeCaisse:'caisseAgence'}" *jhiHasAnyRessources="['carmesfnmservice/api/taux-epargnes/createTauxEpargne']">Alimentez la caisse de l'agence</div>
-                                    <div class="item" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: ['alimentation-caisse-sfd'] } }]" [queryParams]="{caisse:caisseNouvelle.id, typeCaisse:'caisseSFD'}" *jhiHasAnyRessources="['carmesfnmservice/api/taux-epargnes/createTauxEpargne']">Alimentez la caisse du SFD</div>
-                                    <div class="item" [routerLink]="['/entity','caisse-nouvelle', 'solde', caisseNouvelle.compteCarmes ]"  *jhiHasAnyRessources="['carmesfnmservice/api/taux-epargnes/createTauxEpargne']">Solde de la caisse</div>
+                                    <div class="item" (click)="navigateToAlimenterAgence(caisseNouvelle)" *jhiHasAnyRessources="['carmesfnmservice/api/taux-epargnes/createTauxEpargne']">Alimentez la caisse de l'agence</div>
+<!--                                     <div class="item" (click)="navigateToAlimenterSfd(caisseNouvelle)" *jhiHasAnyRessources="['carmesfnmservice/api/taux-epargnes/createTauxEpargne']">Alimentez la caisse du SFD</div>
+ -->                                   <!--  [routerLink]="['/entity','caisse-nouvelle', 'solde', caisseNouvelle.compteCarmes ]" -->
+                                    <div  class="item" *jhiHasAnyRessources="['carmesfnmservice/api/taux-epargnes/createTauxEpargne']" (click)="onSolde(caisseNouvelle)">Solde de la caisse</div>
                                     <div class="item" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: 'caisse-nouvelle/'+ caisseNouvelle.id + '/etat'} }]">Ouvrir ou fermer la caisse</div>
                                 </div>
                             </div>

@@ -76,8 +76,6 @@ import { RouterModule } from '@angular/router';
 import { SfdCreditMenuModule } from './credits-menu/credit-menu.module';
 import { SfdOperationsModule } from './operations/operation.module';
 import { SfdComityMenuModule } from './comity-menu/comity-menu.module';
-import { CreditMenu } from './credits-menu/credit-menu.model';
-import { SfdAccountModule } from '../account/account.module';
 import { SfdDisponibiliteModule } from './disponibilite/disponibilite.module';
 import { SfdValidationModule } from './validation/validation.module';
 import { SfdDossierModule } from './dossier/dossier.module';
@@ -114,8 +112,8 @@ import { SfdRequestPatnerModule } from './request-patner/request-patner.module';
 import { SfdAssuranceModule } from './assurances/assurance.module';
 import { SfdPhaseModule } from './phase/phase.module';
 import { SfdTypeCreditRetardModule } from './type-credit-retard/type-credit-retard.module';
-import { SfdCaisseNouvelleModule } from './caisse-nouvelle/caisse-nouvelle.module';
 import { SfdOperationCaisseModule } from './operation-caisse/operation-caisse.module';
+import { SfdCaisseNouvelleModule } from './caisse-nouvelle/caisse-nouvelle.module';
 
 
 export function authorityRessource() {
@@ -441,6 +439,7 @@ export function operationCaisse() {
 export function caisseNouvelle() {
     return SfdCaisseNouvelleModule;
 }
+
 export function caisse() {
     return SfdCaisseModule;
 }
@@ -500,6 +499,7 @@ export function compteComptable() {
                 path: 'caisse-nouvelle',
                 loadChildren: caisseNouvelle
             },
+            
             {
                 path: 'caisse',
                 loadChildren: caisse

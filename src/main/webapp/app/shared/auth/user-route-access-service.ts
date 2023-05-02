@@ -10,18 +10,17 @@ import {enableResourcesControl} from '../model/request-util';
 export class UserRouteAccessService implements CanActivate {
     constructor(
         private router: Router,
-        private loginModalService: LoginModalService,
         private principal: Principal,
         private stateStorageService: StateStorageService
     ) { }
 
-    canActivate(
+    canActivate( 
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): boolean | Promise<boolean> {
-
-        if (!window.sessionStorage.getItem('jhi-authenticationtoken')){
-
+        let authToken:string|undefined = window.sessionStorage.getItem('jhi-authenticationtoken') || window.localStorage.getItem('jhi-authenticationtoken');
+        if (!authToken){
+console.log("no jhi-authenticationtoken in sessionStorage");
             this.router.navigate(['/']).then(() => {
             }); 
         }

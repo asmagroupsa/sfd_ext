@@ -150,6 +150,64 @@
             </ng-template>
             <nav class="sidebar-nav" *ngIf="principal.authenticated;else elseBlock">
                 <ul class="nav">
+
+                    <!-- Bailleurs -->
+                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="clientsRessources">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-user"></i>
+                            <span>Partenaires</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a [routerLink]="['/entity','request-partner']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/clients/getAllClients'">
+                                <span>Demande de parteneriat</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Banques -->
+                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="partnersRessources">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-list"></i>
+                            <span jhiFnmTranslate='sideMenus.partners'>Banques</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a [routerLink]="['/entity','partner']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/partners/getAllPartners'">
+                                <span jhiFnmTranslate='menus.partners.partner'> Les Banques</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <div *ngIf="!localFlag">
+                                <a [routerLink]="['/entity','ligne-request']"
+                                    *jhiHasAnyRessources="'carmesfnmservice/api/ligne-requests/getAllLigneRequests'">Demande
+                                    de ligne de crédit
+                                    <span class="sub-alert-badge"></span>
+                                </a>
+                            </div>
+                            <a [routerLink]="['/entity','ligne-credit']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/ligne-credits/getAllLigneCredits'">
+                                <span jhiFnmTranslate='menus.partners.ligne'> Ligne de crédit</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','ligne-credit','complements']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/ligne-credits/getAllLigneCredits'">
+                                <span> Les compléments de ligne</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','ligne-credit', { outlets: { popup: ['complement-new'] } }]"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/ligne-credits/getAllLigneCredits'">
+                                <span> Ajout de complément à une ligne</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <!-- <a [routerLink]="['/entity','remboursement-sfd']" jhiFnmTranslate='menus.partners.remboursements' *jhiHasAnyRessources="'carmesfnmservice/api/getAllRemboursementSFDS'">Remboursements</a> -->
+                            <!-- <a [routerLink]="['/entity','rembt-penal-sfd']" jhiFnmTranslate='menus.partners.penalite' *jhiHasAnyRessources="'carmesfnmservice/api/rembt-penal-sfds/getAllRembtPenalSFDS'">Pénalités</a> -->
+                        </div>
+                    </li>
+
+                    <!-- Produit -->
                     <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="produitsRessources">
                         <a class="nav-link dropbtn">
                             <i class="fa fa-user"></i>
@@ -159,7 +217,7 @@
                         <div class="drop-content">
                             <a [routerLink]="['/entity','produit']"
                                 *jhiHasAnyRessources="'carmesfnmservice/api/produits/getAllProduits'">La liste des
-                                Produit
+                                Produits
                                 <span class="sub-alert-badge"></span>
                             </a>
                             <a [routerLink]="['/entity','type-garantie']"
@@ -193,7 +251,7 @@
                                 <span class="sub-alert-badge"></span>
                             </a>
                             <a [routerLink]="['/entity','penality']"
-                                *jhiHasAnyRessources="'carmesfnmservice/api/tranche-penals/getAllTranchePenals'">Penalites
+                                *jhiHasAnyRessources="'carmesfnmservice/api/tranche-penals/getAllTranchePenals'">Pénalités
                                 <span class="sub-alert-badge"></span>
                             </a>
                             <a [routerLink]="['/entity','produit-type-garantie']"
@@ -203,44 +261,55 @@
                             </a>
                         </div>
                     </li>
-                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="partnersRessources">
+
+                    <!-- Dossiers -->
+                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="dossiersRessources">
                         <a class="nav-link dropbtn">
-                            <i class="fa fa-list"></i>
-                            <span jhiFnmTranslate='sideMenus.partners'>Banques</span>
+                            <i class="fa fa-book"></i>
+                            <span jhiFnmTranslate='sideMenus.dossiers'>Dossiers</span>
                             <em class="alert-badge">New</em>
                         </a>
                         <div class="drop-content">
-                            <a [routerLink]="['/entity','partner']"
-                                *jhiHasAnyRessources="'carmesfnmservice/api/partners/getAllPartners'">
-                                <span jhiFnmTranslate='menus.partners.partner'> Banques</span>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/credit-requests/getAllCreditRequests'"
+                                [routerLink]="['/entity','credit-request']">
+                                <span jhiFnmTranslate='menus.dossiers.request'>Demandes & Etudes</span>
                                 <span class="sub-alert-badge"></span>
                             </a>
-                            <div *ngIf="!localFlag">
-                                <a [routerLink]="['/entity','ligne-request']"
-                                    *jhiHasAnyRessources="'carmesfnmservice/api/ligne-requests/getAllLigneRequests'">Demande
-                                    de ligne de credit
-                                    <span class="sub-alert-badge"></span>
-                                </a>
-                            </div>
-                            <a [routerLink]="['/entity','ligne-credit']"
-                                *jhiHasAnyRessources="'carmesfnmservice/api/ligne-credits/getAllLigneCredits'">
-                                <span jhiFnmTranslate='menus.partners.ligne'> Ligne de crédit</span>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/etudes/getAllEtudes'"
+                                [routerLink]="['/entity','etude']">
+                                <span jhiFnmTranslate='menus.dossiers.etude'>Liste des dossiers</span>
                                 <span class="sub-alert-badge"></span>
                             </a>
-                            <a [routerLink]="['/entity','ligne-credit','complements']"
-                                *jhiHasAnyRessources="'carmesfnmservice/api/ligne-credits/getAllLigneCredits'">
-                                <span> Les compléments de ligne</span>
-                                <span class="sub-alert-badge"></span>
-                            </a>
-                            <a [routerLink]="['/entity','ligne-credit', { outlets: { popup: ['complement-new'] } }]"
-                                *jhiHasAnyRessources="'carmesfnmservice/api/ligne-credits/getAllLigneCredits'">
-                                <span> Ajout de complément à une ligne</span>
-                                <span class="sub-alert-badge"></span>
-                            </a>
-                            <!-- <a [routerLink]="['/entity','remboursement-sfd']" jhiFnmTranslate='menus.partners.remboursements' *jhiHasAnyRessources="'carmesfnmservice/api/getAllRemboursementSFDS'">Remboursements</a> -->
-                            <!-- <a [routerLink]="['/entity','rembt-penal-sfd']" jhiFnmTranslate='menus.partners.penalite' *jhiHasAnyRessources="'carmesfnmservice/api/rembt-penal-sfds/getAllRembtPenalSFDS'">Pénalités</a> -->
                         </div>
                     </li>
+
+                    <!-- Affectations -->
+                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="affectationsRessources">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-book"></i>
+                            <span jhiFnmTranslate='sideMenus.affectation'>Affectations</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a [routerLink]="['/entity','affectation']" [queryParams]="{type:'agent'}"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/sfd/listeMarchandPourAffectation'">
+                                <span jhiFnmTranslate='menus.affectation.agent'>Affectation d' agents</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','affectation']" [queryParams]="{type:'client'}"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/client/listeClientTransfererParUser'">
+                                <span jhiFnmTranslate='menus.affectation.clients'>Affectation de clients</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','affectation']" [queryParams]="{type:'dossier'}"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/client/listeDossierTransfererParUser'">
+                                <span jhiFnmTranslate='menus.affectation.dossier'>Affectation de dossiers</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Clients -->
                     <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="clientsRessources">
                         <a class="nav-link dropbtn">
                             <i class="fa fa-user"></i>
@@ -280,92 +349,8 @@
                             </a>
                         </div>
                     </li>
-                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="clientsRessources">
-                        <a class="nav-link dropbtn">
-                            <i class="fa fa-user"></i>
-                            <span>Partenaires</span>
-                            <em class="alert-badge">New</em>
-                        </a>
-                        <div class="drop-content">
-                            <a [routerLink]="['/entity','request-partner']"
-                                *jhiHasAnyRessources="'carmesfnmservice/api/clients/getAllClients'">
-                                <span>Demande de parteneriat</span>
-                                <span class="sub-alert-badge"></span>
-                            </a>
-                        </div>
-                    </li>
-                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="dossiersRessources">
-                        <a class="nav-link dropbtn">
-                            <i class="fa fa-book"></i>
-                            <span jhiFnmTranslate='sideMenus.dossiers'>Dossiers</span>
-                            <em class="alert-badge">New</em>
-                        </a>
-                        <div class="drop-content">
-                            <a *jhiHasAnyRessources="'carmesfnmservice/api/credit-requests/getAllCreditRequests'"
-                                [routerLink]="['/entity','credit-request']">
-                                <span jhiFnmTranslate='menus.dossiers.request'>Demandes & Etudes</span>
-                                <span class="sub-alert-badge"></span>
-                            </a>
-                            <a *jhiHasAnyRessources="'carmesfnmservice/api/etudes/getAllEtudes'"
-                                [routerLink]="['/entity','etude']">
-                                <em jhiFnmTranslate='menus.dossiers.etude'>Liste des dossiers</em>
-                                <span class="sub-alert-badge"></span>
-                            </a>
-                        </div>
-                    </li>
-                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="affectationsRessources">
-                        <a class="nav-link dropbtn">
-                            <i class="fa fa-book"></i>
-                            <span jhiFnmTranslate='sideMenus.affectation'>Affectations</span>
-                            <em class="alert-badge">New</em>
-                        </a>
-                        <div class="drop-content">
-                            <a [routerLink]="['/entity','affectation']" [queryParams]="{type:'agent'}"
-                                *jhiHasAnyRessources="'carmesfnmservice/api/sfd/listeMarchandPourAffectation'">
-                                <span jhiFnmTranslate='menus.affectation.agent'>Affectation d' agents</span>
-                                <span class="sub-alert-badge"></span>
-                            </a>
-                            <a [routerLink]="['/entity','affectation']" [queryParams]="{type:'client'}"
-                                *jhiHasAnyRessources="'carmesfnmservice/api/client/listeClientTransfererParUser'">
-                                <span jhiFnmTranslate='menus.affectation.clients'>Affectation de clients</span>
-                                <span class="sub-alert-badge"></span>
-                            </a>
-                            <a [routerLink]="['/entity','affectation']" [queryParams]="{type:'dossier'}"
-                                *jhiHasAnyRessources="'carmesfnmservice/api/client/listeDossierTransfererParUser'">
-                                <span jhiFnmTranslate='menus.affectation.dossier'>Affectation de dossiers</span>
-                                <span class="sub-alert-badge"></span>
-                            </a>
-                        </div>
-                    </li>
-                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="comitiesRessources">
-                        <a class="nav-link dropbtn">
-                            <i class="fa fa-group"></i>
-                            <span jhiFnmTranslate='sideMenus.comities'>Comités</span>
-                            <em class="alert-badge">New</em>
-                        </a>
-                        <div class="drop-content">
-                            <a *jhiHasAnyRessources="'carmesfnmservice/api/credit-comities/getAllCreditComities'"
-                                [routerLink]="['/entity','credit-comity']">
-                                <span jhiFnmTranslate='menus.comities.comity'>Réunion du comité</span>
-                                <span class="sub-alert-badge"></span>
-                            </a>
-                            <a *jhiHasAnyRessources="'carmesfnmservice/api/disponibilites/getAllDisponibilites'"
-                                [routerLink]="['/entity','disponibilite']">
-                                <span jhiFnmTranslate='menus.comities.disponibilite'>Disponibilités</span>
-                                <span class="sub-alert-badge"></span>
-                            </a>
-                            <a *jhiHasAnyRessources="'carmesfnmservice/api/validations/getAllValidations'"
-                                [routerLink]="['/entity','validation']">
-                                <span jhiFnmTranslate='menus.comities.validation'>Validations</span>
-                                <span class="sub-alert-badge"></span>
-                            </a>
-                            <a *jhiHasAnyRessources="'carmesfnmservice/api/notification-clients/getAllNotificationClients'"
-                                [routerLink]="['/entity','notification-client']">
-                                <span jhiFnmTranslate='menus.comities.notification'>Notifications</span>
-                                <span class="sub-alert-badge">1</span>
-                            </a>
-                        </div>
-                    </li>
+
+                    <!-- Credits -->
                     <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="creditsRessources">
                         <a class="nav-link dropbtn">
                             <i class="fa fa-bank"></i>
@@ -416,6 +401,39 @@
                             <a [routerLink]="['/entity','credit','liste-credits-impayes']">Crédits impayés</a>
                         </div>
                     </li>
+
+                    <!-- Comites -->
+                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="comitiesRessources">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-group"></i>
+                            <span jhiFnmTranslate='sideMenus.comities'>Comités</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/credit-comities/getAllCreditComities'"
+                                [routerLink]="['/entity','credit-comity']">
+                                <span jhiFnmTranslate='menus.comities.comity'>Réunion du comité</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/disponibilites/getAllDisponibilites'"
+                                [routerLink]="['/entity','disponibilite']">
+                                <span jhiFnmTranslate='menus.comities.disponibilite'>Disponibilités</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/validations/getAllValidations'"
+                                [routerLink]="['/entity','validation']">
+                                <span jhiFnmTranslate='menus.comities.validation'>Validations</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/notification-clients/getAllNotificationClients'"
+                                [routerLink]="['/entity','notification-client']">
+                                <span jhiFnmTranslate='menus.comities.notification'>Notifications</span>
+                                <span class="sub-alert-badge">1</span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Caisses -->
                     <li class="nav-item drop" routerLinkActive="active"
                         *jhiHasAnyRessources="['carmesfnmservice/api/caisses/getAllCaisses']">
                         <a class="nav-link dropbtn">
@@ -433,11 +451,13 @@
                             </a>
                         </div>
                     </li>
-                    <!-- <li class="nav-item drop" routerLinkActive="active"
+
+                    <!-- Caisses 2 -->
+                    <li class="nav-item drop" routerLinkActive="active"
                         *jhiHasAnyRessources="['carmesfnmservice/api/caisses/getAllCaisses']">
                         <a class="nav-link dropbtn">
                             <i class="fa fa-credit-card"></i>
-                            <span jhiFnmTranslate='sideMenus.caisse'>Caisses</span>
+                            <span>Caisse SFD</span>
                         </a>
                         <div class="drop-content">
                             <a class="item" [routerLink]="['/entity','compte-comptable']" routerLinkActive="active">Compte
@@ -459,7 +479,8 @@
                                 *jhiHasAnyRessources="'carmesfnmservice/api/operation-comptables/getAllOperationComptables'">Opération
                                 comptable</a>
                         </div>
-                    </li> -->
+                    </li>
+
                     <!-- <li class="nav-item drop" routerLinkActive="active">
                         <a class="nav-link dropbtn">
                             <i class="fa fa-bar-chart"></i>
@@ -474,6 +495,8 @@
                                 [routerLink]="['/entity', 'guichetier','commissions']">Commissions</a>
                         </div>
                     </li> -->
+
+                    <!-- Operations -->
                     <li class="nav-item drop" routerLinkActive="active"
                         *jhiHasAnyRessources="['carmesfnmservice/api/commissions/getAllCommissions', 'carmesfnmservice/api/compensations/getAllCompensations', 'carmesfnmservice/api/operation/retraitTpe', 'carmesfnmservice/api/operations/getAllOperations', 'carmesfnmservice/api/operation/depot-local/depotLocal', 'carmesfnmservice/api/operation/retrait-local/retraitLocal', 'carmesfnmservice/api/operation/alimentationGuichetSfd']">
                         <a class="nav-link dropbtn">
@@ -523,6 +546,8 @@
                                 jhiFnmTranslate='menus.operations.virement'>Virements</a>
                         </div>
                     </li>
+
+                    <!-- Guichetiers -->
                     <li class="nav-item drop" routerLinkActive="active"
                         *ngIf="localFlag && jhiHasAnyRessources(['carmesfnmservice/api/user/listeUtilisateurParProfil'])">
                         <a class="nav-link dropbtn">
@@ -535,6 +560,7 @@
                                 [routerLink]="['/admin', 'guichetiers']">Guichetiers</a>
                         </div>
                     </li>
+
                     <!-- <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="['liste_sous_traitant', 'liste_demande_compensation_sous_traitant']">
                         <a class="nav-link dropbtn">
                             <i class="fa fa-bar-chart"></i>
@@ -546,7 +572,9 @@
                             <a [routerLink]="['/entity', 'sous-traitant', 'compensation-request']" jhiFnmTranslate='menus.sousTraitants.compensationRequest' *jhiHasAnyRessources="'liste_demande_compensation_sous_traitant'">Demande de compensation</a>
                         </div>
                     </li> -->
+
                     <li class="nav-title">Audits & Statistiques</li>
+
                     <li class="nav-item" routerLinkActive="active" *ngIf="!isSousTraitant()">
                         <a class="nav-link" [routerLink]="['/audits']">
                             <i class="fa fa-pie-chart"></i>Audits</a>
@@ -555,6 +583,7 @@
                       <a class="nav-link" [routerLink]="['/bilan-global']">
                         <i class="fa fa-area-chart"></i>Bilan global</a>
                    </li> -->
+
                     <li class="nav-item drop" routerLinkActive="active" *ngIf="!isSousTraitant()">
                         <a class="nav-link dropbtn">
                             <i class="fa fa-bar-chart"></i>
@@ -593,6 +622,7 @@
                             <a [routerLink]="['/stats/rapatriements']">Rapatriements sur crédit</a>
                         </div>
                     </li>
+
                     <!-- <li class="nav-item" routerLinkActive="active" *ngIf="!isSousTraitant()">
                         <a class="nav-link" [routerLink]="['/stats']">
                             <i class="fa fa-area-chart"></i>Statistiques</a>

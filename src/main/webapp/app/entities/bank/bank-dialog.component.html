@@ -7,7 +7,7 @@
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group">
-            <label class="form-control-label oblige" jhiFnmTranslate="sfdApp.bank.libelle" for="field_libelle">Libelle</label>
+            <label class="form-control-label oblige" jhiFnmTranslate="sfdApp.bank.libelle" for="field_libelle">Libellé</label>
             <input type="text" class="form-control" name="libelle" id="field_libelle" [(ngModel)]="bank.libelle" required maxlength="100"
             />
             <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">

@@ -34,9 +34,9 @@ declare let select_init: any;
 })
 export class JhiLoginModalComponent {
     authenticationError: boolean;
-    password: string;
+    password: string|undefined;
     rememberMe = false;
-    username: string;
+    username: string | undefined;
     credentials: any;
     isSaving: boolean = false;
     isTentativeExpired: number = 0;
@@ -84,6 +84,10 @@ export class JhiLoginModalComponent {
         if (this.password && this.username && ev.keyCode == 13) this.login();
     }
     login() {
+        if(!this.username || !this.password){
+            alert("Veuillez renseigner les identifiants de connexion");
+             return;
+        }
         this.isSaving = true;
         let storage = this.getLastTentative();
         let value: string = btoa(JSON.stringify({

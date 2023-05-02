@@ -16,7 +16,6 @@ export class ActivateComponent implements OnInit {
 
   constructor(
     private activateService: ActivateService,
-    private loginModalService: LoginModalService,
     private route: ActivatedRoute,
     private router: Router
   ) {}

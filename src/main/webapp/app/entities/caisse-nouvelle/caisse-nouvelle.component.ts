@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { Subscription } from 'rxjs';
 
@@ -22,6 +22,7 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
   agences = [];
   agenceReference : any;
   codeCaisse : any = '';
+  agence:string;
 
   constructor(
     private caisseNouvelleService: CaisseNouvelleService,
@@ -29,6 +30,7 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
     private eventManager: JhiEventManager,
     private cdr: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     public principal: Principal,
     public langue: LanguesService
   ) {
@@ -42,10 +44,66 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
       select_init();
     }, 1200);
   }
+
+  navigateToAlimenterSfd(){
+    //[queryParams]="{agence:getAgence(), caisse:caisseNouvelle.compteCarmes, typeCaisse:'caisseAgence'}" 
+  let ag = this.getAgenceObj();
+    console.log(ag);
+    this.router.navigate(['/entity','caisse-nouvelle', { outlets: { popup: ['alimentation-caisse-sfd'] } }],{
+      queryParams: {
+        'agence': ag.comptecarmes,
+        //'nameCaisse': caisse.libelle,
+        'nameAgence':ag.name,
+        //'caisse': caisse.compteCarmes
+      }
+    })
+   }
+
+  navigateToAlimenterAgence(caisse:any){
+  //[queryParams]="{agence:getAgence(), caisse:caisseNouvelle.compteCarmes, typeCaisse:'caisseAgence'}" 
+let ag = this.getAgenceObj();
+  console.log(ag);
+  this.router.navigate(['/entity','caisse-nouvelle', { outlets: { popup: ['alimentation-caisse-agence'] } }],{
+    queryParams: {
+      'agence': ag.comptecarmes,
+      'nameCaisse': caisse.libelle,
+      'nameAgence':ag.name,
+      'caisse': caisse.compteCarmes
+    }
+  })
+ }
+ 
+  getAgenceObj(){
+    if(!this.agence){
+      return UserData.getInstance().getCurrentOrFirstAgence();
+      }else {
+        for(let agence of UserData.getInstance().listeAgences){
+          if(agence.codeAgence == this.agence){
+            return agence;
+          }
+        }
+      }
+      return null;
+  }
+
+  getAgence(){
+  let ag;
+  if(!this.agence){
+    ag = UserData.getInstance().getCurrentOrFirstAgence();
+    if(ag) ag = ag.codeAgence;
+    }else {
+      ag = this.agence;
+    }
+    return ag;
+  }
+
   loadAll() {
+    let ag = this.getAgence();
+    
     if (this.currentSearch) {
       this.caisseNouvelleService
         .search({
+          agence_reference: ag,
           query: this.currentSearch
         })
         .subscribe(
@@ -57,20 +115,15 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
         );
       return;
     }
-    this.caisseNouvelleService.queryTest().subscribe(
+    this.caisseNouvelleService.queryTest({
+      agence_reference: ag
+    }).subscribe(
       (res: ResponseWrapper) => {
         this.caisseNouvelles = res.json;
         this.currentSearch = '';
       },
       (res: ResponseWrapper) => this.onError(res.json)
     );
-    /* this.caisseNouvelleService.query(this.agenceReference, this.codeCaisse).subscribe(
-        (res: ResponseWrapper) => {
-          this.caisseNouvelles = res.json;
-          this.currentSearch = '';
-        },
-        (res: ResponseWrapper) => this.onError(res.json)
-      ); */
   }
 
   search(query) {
@@ -93,9 +146,7 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
     this.registerChangeInCaisseNouvelles();
     this.agences = UserData.getInstance().listeAgences;
 
-        if (this.agences.length == 1) {
-            this.agenceReference = this.agences[0].codeAgence;
-        }else if (this.agences.length > 1){
+        if (this.agences.length) {
             this.agenceReference = this.agences[0].codeAgence;
         }
   }
@@ -121,5 +172,9 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
 
   private onError(error) {
     this.alertService.error(error.message, null, null);
+  }
+
+  onSolde(caisse:any){
+    this.alertService.info(`Le solde de la caisse ${caisse.libelle} (Référence: ${caisse.reference}) est de ${caisse.solde || 0} FCFA`);
   }
 }

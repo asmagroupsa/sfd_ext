@@ -316,7 +316,7 @@ margin:[0,20,0,2]
                     table: {
                         widths: ['auto', 'auto','*','*','*','*','*'],
                         body: [
-                            ['N°','Photo','N° Carmes','Nom&prénoms','Affecté à',"Date d'affect.",'Téléphone'],
+                            ['N°','Photo','N° CARMES','Nom&prénoms','Affecté à',"Date d'affect.",'Téléphone'],
                             ...bd
                         ]
                     },

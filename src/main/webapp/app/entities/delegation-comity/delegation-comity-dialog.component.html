@@ -25,7 +25,7 @@
             </div>
         </div> -->
         <div class="form-group">
-            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.delegationComity.libelle" for="field_libelle">Libelle</label>
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.delegationComity.libelle" for="field_libelle">Libellé</label>
             <input type="text" class="form-control" name="libelle" id="field_libelle" [(ngModel)]="delegationComity.libelle" maxlength="50" required />
             <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">

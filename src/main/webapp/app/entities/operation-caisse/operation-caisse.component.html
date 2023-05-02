@@ -1,28 +1,45 @@
 <div>
+    <div class="row">
+        <div class="form-group col-6" *ngIf="agences.length > 1">
+            <label class="form-control-label active" for="field_agence">Choisissez une agence</label>
+            <select class="ui fluid search dropdown" name="agence" [(ngModel)]="agence" id="field_agence" (change)="onAgenceChange()">
+             <option [ngValue]="null">Veuillez choisir une agence</option>
+                <option [ngValue]="agence.codeAgence" *ngFor="let agence of agences">{{agence.name}}</option>
+            </select>
+        </div>
+        <div class="form-group col-6" *ngIf="caisses.length > 0">
+            <label class="form-control-label active" for="field_caisse">Choisissez une caisse</label>
+            <select class="ui fluid search dropdown" name="caisse" [(ngModel)]="selectedCaisse" id="field_caisse" (change)="onCaisseChange()">
+             <option [ngValue]="null">Veuillez choisir une caisse</option>
+             <option [ngValue]="caisse" *ngFor="let caisse of caisses">{{caisse.libelle}} ({{ caisse.reference }})</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-6" *ngIf="premiereCategories && premiereCategories.length">
+            <div class="ui three item menu">
+                <a *ngFor="let categorie of premiereCategories" class="item" [ngClass]="{active:category?.id==categorie?.id}"
+                (click)="changeCategorie(categorie)">{{ categorie.name }}</a>
+            </div>
+        </div>
+        <!-- <div class="offset-md-1 offset-lg-1"></div> -->
+        <div class="col-md-12 col-sm-12 col-lg-6" *ngIf="deuxiemeCategories && deuxiemeCategories.length">
+            <div class="ui three item menu">
+                <a *ngFor="let categorie of deuxiemeCategories" class="item" [ngClass]="{active:category?.id==categorie?.id}"
+                (click)="changeCategorie(categorie)">
+                {{categorie.name}}
+            </a>
+            </div>
+        </div>
+    </div>
+
     <h2 class="liste-header">
         <span>Caisses</span>
-        <button class="btn btn-primary float-right jh-create-entity
-            create-caisse"
-            [routerLink]="['/entity','operation-caisse', { outlets: { popup:
-            ['operation-caisse-new'] } }]"
-            [queryParams]="{type:category?.code}">
-            <span class="fa fa-plus"></span>
-            <span class="hidden-sm-down"
-                jhiFnmTranslate="sfdApp.operationCaisse.home.createLabel">
-                Create new Caisse
-            </span>
-        </button>
+       
     </h2>
-    <!-- <h2 class="liste-header">
-        <span jhiFnmTranslate="sfdApp.caisseNouvelle.home.title">Fund</span>
-        <button class="btn btn-primary float-right create-caisse-nouvelle" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: ['caisse-nouvelle-new'] } }]" >
-            <span class="fa fa-plus"></span>
-            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.caisseNouvelle.home.createLabel">
-                Create a new fund
-            </span>
-        </button>
-    </h2> -->
     <jhi-alert></jhi-alert>
+
     <div class="row">
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
@@ -43,21 +60,30 @@
         </div>
     </div>
 
-    <div class="ui five item menu" *ngIf="premiereCategories &&
-        premiereCategories.length">
-        <a *ngFor="let categorie of premiereCategories" class="item"
-            [ngClass]="{active:category?.id==categorie?.id}"
-            (click)="changeCategorie(categorie)">
-            {{categorie.name}}
-        </a>
-    </div>
-    <div class="ui five item menu" *ngIf="deuxiemeCategories &&
-        deuxiemeCategories.length">
-        <a *ngFor="let categorie of deuxiemeCategories" class="item"
-            [ngClass]="{active:category?.id==categorie?.id}"
-            (click)="changeCategorie(categorie)">
-            {{categorie.name}}
-        </a>
-    </div>
-    <br/>
+    <table class="bordered striped highlight">
+        <thead>
+            <tr>
+                <th class="numerotab">N°</th>
+                <th><span>Réference</span></th>
+                <th><span>Numéro de Compte</span></th>
+                <th><span>Date</span></th>
+                <th><span>Débit</span></th>
+                <th><span>Crédit</span></th>
+                <th><span>Solde</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let operation of operationCaisses | recherche:currentSearch ;let index=index;trackBy: trackId">
+                <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                <td>{{operation.reference}}</td>
+                <td>{{operation.account}}</td>
+                <td>{{operation.date}}</td>
+                <td>{{operation.debit | currency:'XAF':true:'2.0'}}</td>
+                <td>{{caisseNouvelle.credit | currency:'XAF':true:'2.0' }}</td>
+                <td>{{caisseNouvelle.solde | currency:'XAF':true:'2.0' }}</td>
+                
+            </tr>
+        </tbody>
+    </table>
+
     </div>

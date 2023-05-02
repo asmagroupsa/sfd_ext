@@ -33,9 +33,9 @@ export class TypeGarantieDeleteDialogComponent {
         content: 'Deleted an typeGarantie'
       });
       this.activeModal.dismiss(true);
-      this.alertService.success('sfdApp.carmesfnmserviceApp.typeGarantie.deleted', { param: id }, null);
+      this.alertService.success('sfdApp.typeGarantie.deleted', { param: id }, null);
     }, (e) => {
-      this.alertService.error('sfdApp.carmesfnmserviceApp.typeGarantie.deleted', { param: id }, null);
+      this.alertService.error('sfdApp.typeGarantie.deleted', { param: id }, null);
     });
   }
 }

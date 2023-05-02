@@ -11,7 +11,7 @@
             <input type="text" class="form-control" id="id" name="id" [(ngModel)]="echeancesSFD.id" readonly />
         </div>-->
         <div class="form-group">
-            <label class="form-control-label active" jhiFnmTranslate="sfdApp.echeancesSFD.libelle" for="field_libelle">Libelle</label>
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.echeancesSFD.libelle" for="field_libelle">Libellé</label>
             <input type="text" class="form-control" name="libelle" id="field_libelle" [(ngModel)]="echeancesSFD.libelle" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.required" jhiFnmTranslate="entity.validation.required">

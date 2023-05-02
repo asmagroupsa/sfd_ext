@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { Subscription } from 'rxjs';
 
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
+import { ITEMS_PER_PAGE, Principal, ResponseWrapper, UserData } from '../../shared';
 import { LanguesService } from '../../shared/myTranslation/langues';
 import { OperationCaisse } from './operation-caisse.model';
 import { OperationCaisseService } from './operation-caisse.service';
+import { CaisseNouvelleService } from '../caisse-nouvelle';
 
 declare let select_init: any;
 @Component({
@@ -18,16 +19,22 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
   premiereCategories: { id: number; code; name: string }[] = [];
   deuxiemeCategories: { id: number; code; name: string }[] = [];
   operationCaisses: OperationCaisse[];
+  selectedCaisse:any;
   currentAccount: any;
   eventSubscriber: Subscription;
   currentSearch: string;
   itemsPerPage: number;
+  agences = [];
+  caisses = [];
+  agence:string;
 
   constructor(
+    private caisseNouvelleService: CaisseNouvelleService,
     private operationCaisseService: OperationCaisseService,
     private alertService: JhiAlertService,
     private eventManager: JhiEventManager,
-    private activatedRoute: ActivatedRoute,
+    activatedRoute: ActivatedRoute,
+    private router: Router,
     public principal: Principal,
     public langue: LanguesService
   ) {
@@ -41,10 +48,49 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
       select_init();
     }, 1200);
   }
+
+  loadCaisses() {
+    
+    if (this.currentSearch) {
+      this.caisseNouvelleService
+        .search({
+          agence_reference: this.agence,
+          query: this.currentSearch
+        })
+        .subscribe(
+          (res: ResponseWrapper) => {
+            console.log(res),
+            this.caisses = res.json;
+            if(this.caisses.length) {
+              this.selectedCaisse = this.caisses[0];
+              this.loadAll();
+            
+            }
+          },
+          (res: ResponseWrapper) => this.onError(res.json)
+        );
+      return;
+    }
+    this.caisseNouvelleService.queryTest({
+      agence_reference: this.agence
+    }).subscribe(
+      (res: ResponseWrapper) => {
+        this.caisses = res.json;
+        if(this.caisses.length){
+           this.selectedCaisse = this.caisses[0];
+           this.loadAll();
+          }
+        this.currentSearch = '';
+      },
+      (res: ResponseWrapper) => this.onError(res.json)
+    );
+  }
+
   loadAll() {
     if (this.currentSearch) {
       this.operationCaisseService
         .search({
+          comptecarmescaisse: this.selectedCaisse.compteCarmes,
           query: this.currentSearch
         })
         .subscribe(
@@ -53,7 +99,9 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
         );
       return;
     }
-    this.operationCaisseService.query().subscribe(
+    this.operationCaisseService.query({
+      comptecarmescaisse: this.selectedCaisse.compteCarmes
+    }).subscribe(
       (res: ResponseWrapper) => {
         this.operationCaisses = res.json;
         this.currentSearch = '';
@@ -74,6 +122,7 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
     this.currentSearch = '';
     this.loadAll();
   }
+
   ngOnInit() {
     this.premiereCategories = [
         { id: 1, code: 'VIREMENT', name: 'Virement caisse à caisse' },
@@ -85,13 +134,32 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
         { id: 5, code: 'ENCAISSEMENT', name: 'Encaissement Divers' },
         { id: 6, code: 'DECAISSEMENT', name: 'Décaissement Divers' },
       ];
-      this.category = this.premiereCategories[0];
-    this.loadAll();
+      // this.category = this.premiereCategories[0];
+  
     this.principal.identity().then(account => {
       this.currentAccount = account;
     });
+    
     this.registerChangeInOperationCaisses();
+    this.agences = UserData.getInstance().listeAgences;
+
+        if (this.agences.length) {
+            this.agence = this.agences[0].codeAgence;
+            this.loadCaisses();
+        }
   }
+
+  onAgenceChange(){
+    this.caisses = [];
+    this.operationCaisses = [];
+    this.loadCaisses();
+  }
+
+  onCaisseChange(){
+    this.operationCaisses = [];
+    this.loadAll();
+  }
+
 
   ngOnDestroy() {
     if (this.eventSubscriber) this.eventManager.destroy(this.eventSubscriber);
@@ -110,10 +178,24 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
   private onError(error) {
     this.alertService.error(error.message, null, null);
   }
+
   changeCategorie(categorie: any) {
     this.category = categorie;
-    console.log(this.category);
-
     select_init();
+    if(!this.selectedCaisse){
+      alert('Veuillez selectionner la caisse');
+return ;
+    }
+    this.router.navigate(['/entity','operation-caisse', { outlets: { popup:
+      ['operation-caisse-new'] } }],{
+        queryParams:{
+          type: categorie.code,
+          agence: this.agence,
+          caisseName: this.selectedCaisse.libelle,
+          caisse: this.selectedCaisse.compteCarmes
+        },
+        
+
+      });
   }
 }

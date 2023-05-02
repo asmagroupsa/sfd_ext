@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import { EventBus } from '../../shared/model/functions';
 import {
   Resolve,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  Routes,
-  CanActivate
-} from '@angular/router';
+  Routes} from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
 import { JhiPaginationUtil } from 'ng-jhipster';
@@ -16,7 +13,6 @@ import { ProduitDetailComponent } from './produit-detail.component';
 import { ProduitPopupComponent } from './produit-dialog.component';
 import { ProduitDeletePopupComponent } from './produit-delete-dialog.component';
 import {ProductRequestSheetComponent } from './product-request-sheet';
-import { Principal } from '../../shared';
 import {ProduitTauxCommissionComponent} from './produit-taux-commission.component';
 
 @Injectable()

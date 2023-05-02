@@ -7,7 +7,7 @@ import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { CaisseNouvelleService } from './caisse-nouvelle.service';
-import { ResponseWrapper, LOCAL_FLAG, UserData } from '../../shared';
+import { UserData } from '../../shared';
 import { LanguesService } from '../../shared/myTranslation/langues';
 import { AlimentationCaisse } from './alimentation-caisse.model';
 import { AlimentationCaissePopupService } from './alimentation-caisse-popup.service';
@@ -21,14 +21,24 @@ export class AlimmentationCaisseDialogComponent implements OnInit {
   authorities: any[];
   isSaving: boolean;
   agences = [];
+  nameCaisse:string;
+  nameAgence:string;
 
   constructor(
     public activeModal: NgbActiveModal,
     private alertService: JhiAlertService,
     private caisseNouvelleService: CaisseNouvelleService,
     private eventManager: JhiEventManager,
-    public langue: LanguesService
-  ) { }
+    public langue: LanguesService,
+    activatedRoute: ActivatedRoute
+  ) {
+    this.alimentationCaisse= new AlimentationCaisse();
+    this.alimentationCaisse.comptecarmeagence = activatedRoute.snapshot.queryParams['agence'];
+    this.alimentationCaisse.comptecarmescaisse = activatedRoute.snapshot.queryParams['caisse'];
+    this.nameCaisse = activatedRoute.snapshot.queryParams['nameCaisse'];
+    this.nameAgence = activatedRoute.snapshot.queryParams['nameAgence'];
+    //console.log(this.activatedRoute.snapshot.queryParams);
+   }
   ngAfterViewInit() {
     select_init();
   }
@@ -62,22 +72,38 @@ export class AlimmentationCaisseDialogComponent implements OnInit {
   }
 
   private subscribeToSaveResponse(
-    result: Observable<AlimentationCaisse>,
+    result: Observable<any>,
     isCreated: boolean
   ) {
     result.subscribe(
-      (res: AlimentationCaisse) => this.onSaveSuccess(res, isCreated),
+      (res: any) => this.onSaveSuccess(res, isCreated),
       (res: Response) => this.onSaveError(res)
     );
   }
 
-  private onSaveSuccess(result: AlimentationCaisse, isCreated: boolean) {
+  private onSaveSuccess(result: any, isCreated: boolean) {
+    if(result.resultat != 'OK'){
+      let msg:string = "Une erreur s'est produite";
+      switch(result.resultat){
+        case 'COMPTE_CAISSE_ERRONEE':
+          msg = "Le compte Carmes de la caisse est erronné";
+          break;
+        case 'COMPTE_AGENCE_ERRONEE':
+          msg = "Le compte Carmes de l'agence est erronné";
+          break;
+        case 'SOLDE INSUFFISANT':
+          msg = "Le solde est insuffisant";
+          break;
+      }
+      this.isSaving = false;
+      this.alertService.error(msg, null, null);
+    return ;
+    }
     this.alertService.success(
       isCreated ? 'carmesfnmserviceApp.alimentationCaisse.created' : 'carmesfnmserviceApp.alimentationCaisse.updated',
       { param: result.id },
       null
     );
-
     this.eventManager.broadcast({
       name: 'alimentationCaisseListModification',
       content: 'OK'

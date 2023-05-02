@@ -7,7 +7,7 @@
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group">
-            <label jhiFnmTranslate="sfdApp.formation.libelle" for="field_libelle" class="oblige">Libelle</label>
+            <label jhiFnmTranslate="sfdApp.formation.libelle" for="field_libelle" class="oblige">Libellé</label>
             <input type="text" class="form-control" name="libelle" id="field_libelle" [(ngModel)]="formation.libelle" required/>
             <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.required" jhiFnmTranslate="entity.validation.required">This field is required.</small>

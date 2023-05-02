@@ -11,7 +11,7 @@ import { Principal } from './principal.service';
  *
  *     <some-element *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">...</some-element>
  * ```
- */
+ */ 
 @Directive({
     selector: '[jhiHasAnyAuthority]'
 })

@@ -1,7 +1,6 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { CaisseNouvelle } from './caisse-nouvelle.model';
 import { CaisseNouvelleService } from './caisse-nouvelle.service';
 import { AlimentationCaisseSfd } from './alimentation-caisse-sfd.model';
 

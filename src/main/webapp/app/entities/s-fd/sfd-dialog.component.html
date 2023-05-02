@@ -151,7 +151,7 @@
             </div>
         </div>-->
         <div class="form-group">
-            <label class="form-control-label active" jhiFnmTranslate="sfdApp.sFD.compteCarmes" for="field_compteCarmes">Compte Carmes</label>
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.sFD.compteCarmes" for="field_compteCarmes">Compte CARMES</label>
             <input type="text" class="form-control" name="compteCarmes" id="field_compteCarmes" [(ngModel)]="sFD.compteCarmes" required maxlength="20" data-length="20" />
             <div [hidden]="!(editForm.controls.compteCarmes?.dirty && editForm.controls.compteCarmes?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.compteCarmes?.errors?.required" jhiFnmTranslate="entity.validation.required">

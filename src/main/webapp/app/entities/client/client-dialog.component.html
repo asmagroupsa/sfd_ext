@@ -189,7 +189,7 @@
 
         <!-- <div class="row" *ngIf="!client.id && isNotGroup()">
             <div class="input-field col s6">
-                <label class="form-control-label active" [ngClass]="{oblige:isIndividual || isLead}" jhiFnmTranslate="sfdApp.client.cpteCarmes" for="field_cpteCarmes">Compte Carmes</label>
+                <label class="form-control-label active" [ngClass]="{oblige:isIndividual || isLead}" jhiFnmTranslate="sfdApp.client.cpteCarmes" for="field_cpteCarmes">Compte CARMES</label>
                 <input type="number" min="1" class="form-control" name="cpteCarmes" id="field_cpteCarmes" [(ngModel)]="client.cpteCarmes" maxlength="9" data-length="9" pattern="^[0-9]{1,9}$" [required]="isIndividual || isLead" (blur)="onCompteCarmesBlur()" />
                 <div [hidden]="!(editForm.controls.cpteCarmes?.dirty && editForm.controls.cpteCarmes?.invalid)">
                     <small class="form-text text-danger" [hidden]="!editForm.controls.cpteCarmes?.errors?.pattern">
@@ -217,7 +217,7 @@
         </div> -->
 
         <!-- <div class="input-field" *ngIf="!client.id && isNotGroup()">
-            <label class="form-control-label active" [ngClass]="{oblige:isIndividual || isLead}" jhiFnmTranslate="sfdApp.client.cpteCarmes" for="field_cpteCarmes">Compte Carmes</label>
+            <label class="form-control-label active" [ngClass]="{oblige:isIndividual || isLead}" jhiFnmTranslate="sfdApp.client.cpteCarmes" for="field_cpteCarmes">Compte CARMES</label>
             <input type="number" min="1" class="form-control" name="cpteCarmes" id="field_cpteCarmes" [(ngModel)]="client.cpteCarmes" maxlength="9" data-length="9" pattern="^[0-9]{1,9}$" [required]="isIndividual || isLead" (blur)="onCompteCarmesBlur()" />
             <div [hidden]="!(editForm.controls.cpteCarmes?.dirty && editForm.controls.cpteCarmes?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.cpteCarmes?.errors?.pattern">
