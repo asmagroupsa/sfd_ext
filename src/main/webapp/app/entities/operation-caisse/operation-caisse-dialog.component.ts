@@ -22,7 +22,7 @@ declare let select_init: any;
     templateUrl: './operation-caisse-dialog.component.html'
 })
 export class OperationCaisseDialogComponent implements OnInit {
-    operationCaisse: OperationCaisse= new OperationCaisse();
+    operationCaisse: OperationCaisse = new OperationCaisse();
     authorities: any[];
     isSaving: boolean;
     professions: Profession[];
@@ -42,14 +42,18 @@ export class OperationCaisseDialogComponent implements OnInit {
         country: false,
         produit: false,
     };
+
+    maxDate = { year: new Date().getFullYear() - 18, month: 12, day: 31 };
+    minDate = { year: this.maxDate.year - 82, month: 1, day: 1 };
+
     isDecaissement: boolean = false;
     isEncaissement: boolean = false;
     isVirement: boolean = false;
     isDepot: boolean = false;
     isRetrait: boolean = false;
     isEpargne: boolean = false;
-    titre:string;
-    caisseName:string;
+    titre: string;
+    caisseName: string;
 
 
     constructor(
@@ -72,7 +76,7 @@ export class OperationCaisseDialogComponent implements OnInit {
             this.caisseName = this.params.caisseName;
             this.operationCaisse.comptecarmescaisseenvoi = this.params.caisse;
             this.operationCaisse.comptecarmescaisse = this.params.caisse;
-            
+
             if (params['type'] == 'VIREMENT') {
                 this.titre = "Virement de caisse à caisse";
                 this.isVirement = true;
@@ -140,7 +144,7 @@ export class OperationCaisseDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.agences = UserData.getInstance().listeAgences;
-        
+
 
 
         if (this.agences.length == 1) {
@@ -150,7 +154,7 @@ export class OperationCaisseDialogComponent implements OnInit {
         this.caisseNouvelleService.queryTest('').subscribe(
             (res: ResponseWrapper) => {
                 this.caisseNouvelles = res.json;
-               
+
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
@@ -175,7 +179,29 @@ export class OperationCaisseDialogComponent implements OnInit {
 
         this.loadingArray.produit = true;
         this.produitService.getGroupProduits().subscribe((produits) => {
-            this.produits = produits;
+            //this.produits = produits;
+
+            let prodArray = [];
+
+            console.log(this.produits);
+            produits.forEach(element => {
+                console.log(element.libelle);
+                let prod = {
+                    id: element.id,
+                    libelle: element.libelle
+                }
+                prodArray.push(prod);
+
+            });
+            console.log(prodArray);
+
+
+            this.produits = prodArray.filter(function (element) {
+                console.log(element);
+                return element !== undefined;
+            });
+            console.log(this.produits);
+
 
             this.loadingArray.produit = false;
         });
@@ -199,6 +225,35 @@ export class OperationCaisseDialogComponent implements OnInit {
         );
     }
 
+
+    virementValide() {
+        if (
+            this.operationCaisse.comptecarmescaisseenvoi
+            && this.operationCaisse.montant && this.operationCaisse.comptecarmescaisserecu
+            && this.operationCaisse.produitId && this.operationCaisse.email
+            && this.operationCaisse.telephone && this.operationCaisse.sexe
+            && this.operationCaisse.typeClientId && this.operationCaisse.agenceReference
+            && this.operationCaisse.professionId && this.operationCaisse.birthDate
+            && this.operationCaisse.nomClient && this.operationCaisse.nationalityId) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    compteEpagneValid() {
+        if (this.operationCaisse.montant && this.operationCaisse.comptecarmesclient
+            && this.operationCaisse.produitId && this.operationCaisse.email
+            && this.operationCaisse.telephone && this.operationCaisse.sexe
+            && this.operationCaisse.typeClientId && this.operationCaisse.agenceReference
+            && this.operationCaisse.professionId && this.operationCaisse.birthDate
+            && this.operationCaisse.nomClient && this.operationCaisse.nationalityId) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -207,6 +262,7 @@ export class OperationCaisseDialogComponent implements OnInit {
         if (this.type.code == 'VIREMENT') {
             // this.operationCaisse.agenceReference = 'xxx';
             this.subscribeToSaveResponse(
+
                 this.operationCaisseService.virementCaisseToCaisse(this.operationCaisse),
                 true
             );
@@ -272,8 +328,8 @@ export class OperationCaisseDialogComponent implements OnInit {
         try {
             error.json();
         } catch (exception) {
-            let msg:string;
-            switch(error.resultat){
+            let msg: string;
+            switch (error.resultat) {
                 case 'COMPTE_CAISSE_ERRONEE':
                     msg = "Le compte caisse fourni est erroné";
                     break;
@@ -295,8 +351,8 @@ export class OperationCaisseDialogComponent implements OnInit {
                 case 'MONTANT_INSUFFISANT':
                     msg = "Le montant fourni est inférieur au montant minimum requis.";
                     break;
-                    
-            } 
+
+            }
             error.message = msg || "Une erreur s'est produite";//error.text();
         }
         this.isSaving = false;

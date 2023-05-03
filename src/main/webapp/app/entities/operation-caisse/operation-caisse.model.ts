@@ -6,7 +6,7 @@ export class OperationCaisse {
     public comptecarmescaisseenvoi?: string,
     public comptecarmescaisserecu?: string,
     public nomClient?: string,
-    public birthDate?: string,
+    public birthDate?: any,
     public telephone?: string,
     public email?: string,
     public montant?: string,
