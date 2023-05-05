@@ -1,9 +1,8 @@
 
-import { EventBus } from '../model/functions';
-import { Http, Response, Headers, URLSearchParams, BaseRequestOptions } from '@angular/http';
+import { Http, BaseRequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService, SessionStorageService } from 'ng2-webstorage';
-import { createRequestOption, HOST_MVN } from '..';
+import { HOST_MVN } from '..';
 import { Injectable } from '@angular/core';
 @Injectable()
 export class AuthServerProvider {

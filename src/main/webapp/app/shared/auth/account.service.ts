@@ -1,4 +1,3 @@
-import { accountType } from '../../entities/entity.module';
 
 import { EventBus } from '../model/functions';
 import { Http, Response } from '@angular/http';

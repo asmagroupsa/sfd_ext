@@ -60,6 +60,20 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-lg-6">
+             
+        </div>
+                <div class="field col-lg-3">
+                <label for="date1" class="form-control-label">Du</label>
+                <ngbd-datepicker-i18n name="date1" [(ngModel)]="date1" (ngModelChange)="onPeriodChange()"></ngbd-datepicker-i18n>
+            </div>
+            <div class="field col-lg-3">
+                <label for="date2" class="form-control-label">Au</label>
+                <ngbd-datepicker-i18n name="date2" [(ngModel)]="date2" (ngModelChange)="onPeriodChange()"></ngbd-datepicker-i18n>
+            </div>
+    </div>
+
     <table class="bordered striped highlight">
         <thead>
             <tr>

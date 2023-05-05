@@ -99,6 +99,12 @@ let ag = this.getAgenceObj();
 
   loadAll() {
     let ag = this.getAgence();
+    console.log(ag);
+    console.log({
+      agence:UserData.getInstance().agence,
+      agencesReference:UserData.getInstance().agencesReference,
+      listeAgences:UserData.getInstance().listeAgences
+    });
     
     if (this.currentSearch) {
       this.caisseNouvelleService
@@ -175,6 +181,6 @@ let ag = this.getAgenceObj();
   }
 
   onSolde(caisse:any){
-    this.alertService.info(`Le solde de la caisse ${caisse.libelle} (Référence: ${caisse.reference}) est de ${caisse.solde || 0} FCFA`);
+    this.alertService.success(`Le solde de la caisse ${caisse.libelle} (Référence: ${caisse.reference}) est de ${caisse.solde || 0} FCFA`);
   }
 }

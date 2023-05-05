@@ -8,6 +8,7 @@ import { LanguesService } from '../../shared/myTranslation/langues';
 import { OperationCaisse } from './operation-caisse.model';
 import { OperationCaisseService } from './operation-caisse.service';
 import { CaisseNouvelleService } from '../caisse-nouvelle';
+import { DatePipe } from '@angular/common';
 
 declare let select_init: any;
 @Component({
@@ -27,6 +28,8 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
   agences = [];
   caisses = [];
   agence:string;
+  date1: any;
+    date2: any;
 
   constructor(
     private caisseNouvelleService: CaisseNouvelleService,
@@ -36,21 +39,31 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
     activatedRoute: ActivatedRoute,
     private router: Router,
     public principal: Principal,
-    public langue: LanguesService
+    public langue: LanguesService,
+    private _datePipe: DatePipe
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.currentSearch = activatedRoute.snapshot.params['search']
       ? activatedRoute.snapshot.params['search']
       : '';
+      let now = new Date();
+      this.date2 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDay()};
+      now.setMonth(now.getMonth() - 1);
+      this.date1 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDay()};
+      
   }
   ngAfterViewInit() {
     setTimeout(() => {
       select_init();
     }, 1200);
   }
+  
+  onPeriodChange(){
+    console.log(this.date1,this.date2);
+    this.loadAll();
+  }
 
   loadCaisses() {
-    
     if (this.currentSearch) {
       this.caisseNouvelleService
         .search({
@@ -87,9 +100,15 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
+    const formatDate = (date)=>{
+      if(!date) return null;
+      return this._datePipe.transform(new Date(`${date.year}-${date.month}-${date.day}`), 'y-MM-dd');
+  }
     if (this.currentSearch) {
       this.operationCaisseService
         .search({
+          date1:formatDate(this.date1),
+      date2:formatDate(this.date2),
           comptecarmescaisse: this.selectedCaisse.compteCarmes,
           query: this.currentSearch
         })
@@ -100,6 +119,8 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
       return;
     }
     this.operationCaisseService.query({
+      date1:formatDate(this.date1),
+      date2:formatDate(this.date2),
       comptecarmescaisse: this.selectedCaisse.compteCarmes
     }).subscribe(
       (res: ResponseWrapper) => {
@@ -145,6 +166,9 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
 
         if (this.agences.length) {
             this.agence = this.agences[0].codeAgence;
+            this.loadCaisses();
+        } else if(UserData.getInstance().agence){
+          this.agence = UserData.getInstance().agence;
             this.loadCaisses();
         }
   }

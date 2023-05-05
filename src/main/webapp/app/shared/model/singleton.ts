@@ -44,12 +44,19 @@ export class UserData {
         return this._instance;
     }
     getCurrentOrFirstAgence(){
+        //console.log(this.listeAgences);
         if(this.currentAgence != null) return this.currentAgence;
         if(this.listeAgences.length){
             return this.listeAgences[0];
         }
+        if(UserData.getInstance().listeAgences.length){
+            return UserData.getInstance().listeAgences[0];
+        }else if(UserData.getInstance().agence){
+           return  {'codeAgence':UserData.getInstance().agence}; 
+        }
         return null;
     }
+
     initialize() {
         this.ressources = [];
         this.listeRessourcesState.next(null);
