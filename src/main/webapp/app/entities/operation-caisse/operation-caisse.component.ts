@@ -50,14 +50,14 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
       this.date2 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDay()};
       now.setMonth(now.getMonth() - 1);
       this.date1 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDay()};
-      
+
   }
   ngAfterViewInit() {
     setTimeout(() => {
       select_init();
     }, 1200);
   }
-  
+
   onPeriodChange(){
     console.log(this.date1,this.date2);
     this.loadAll();
@@ -77,7 +77,7 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
             if(this.caisses.length) {
               this.selectedCaisse = this.caisses[0];
               this.loadAll();
-            
+
             }
           },
           (res: ResponseWrapper) => this.onError(res.json)
@@ -125,6 +125,8 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
     }).subscribe(
       (res: ResponseWrapper) => {
         this.operationCaisses = res.json;
+        console.log(res.json);
+
         this.currentSearch = '';
       },
       (res: ResponseWrapper) => this.onError(res.json)
@@ -156,11 +158,11 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
         { id: 6, code: 'DECAISSEMENT', name: 'Décaissement Divers' },
       ];
       // this.category = this.premiereCategories[0];
-  
+
     this.principal.identity().then(account => {
       this.currentAccount = account;
     });
-    
+
     this.registerChangeInOperationCaisses();
     this.agences = UserData.getInstance().listeAgences;
 
@@ -218,7 +220,7 @@ return ;
           caisseName: this.selectedCaisse.libelle,
           caisse: this.selectedCaisse.compteCarmes
         },
-        
+
 
       });
   }

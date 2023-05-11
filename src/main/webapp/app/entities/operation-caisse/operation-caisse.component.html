@@ -36,7 +36,7 @@
 
     <h2 class="liste-header">
         <span>Caisses</span>
-       
+
     </h2>
     <jhi-alert></jhi-alert>
 
@@ -62,7 +62,7 @@
 
     <div class="row">
         <div class="col-lg-6">
-             
+
         </div>
                 <div class="field col-lg-3">
                 <label for="date1" class="form-control-label">Du</label>
@@ -92,10 +92,10 @@
                 <td>{{operation.reference}}</td>
                 <td>{{operation.account}}</td>
                 <td>{{operation.date}}</td>
-                <td>{{operation.debit | currency:'XAF':true:'2.0'}}</td>
-                <td>{{caisseNouvelle.credit | currency:'XAF':true:'2.0' }}</td>
-                <td>{{caisseNouvelle.solde | currency:'XAF':true:'2.0' }}</td>
-                
+                <td>{{operation && operation.debit | currency:'XAF':true:'2.0'}}</td>
+                <td>{{ caisseNouvelle && caisseNouvelle.credit | currency:'XAF':true:'2.0' }}</td>
+                <td>{{ caisseNouvelle && caisseNouvelle.solde | currency:'XAF':true:'2.0' }}</td>
+
             </tr>
         </tbody>
     </table>
