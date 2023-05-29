@@ -82,7 +82,8 @@ let ag = this.getAgenceObj();
         'agence': ag.comptecarmes,
         'nameCaisse': caisse.libelle,
         'nameAgence':ag.name,
-        'caisse': caisse.compteCarmes
+        'caisse': caisse.compteCarmes,
+        'codeCaisse': caisse.reference
       }
     })
    }

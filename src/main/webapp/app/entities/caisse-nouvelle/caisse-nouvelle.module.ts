@@ -24,6 +24,7 @@ import { CaisseNouvelleStatutDialogComponent, CaisseNouvelleStatutPopupComponent
 import { CaisseNouvelleStatutPopupService } from './caisse-nouvelle-statut-popup.service';
 import { UtilisateurCaisseDialogComponent, UtilisateurCaissePopupComponent } from './utilisateur-caisse/utilisateur-caisse-dialog.component';
 import { UtilisateurCaissePopupService } from './utilisateur-caisse/utilisateur-caisse-popup.service';
+import { HistoriqueAffectationComponent } from './historique-affectation/historique-affectation.component';
 const ENTITY_STATES = [...caisseNouvelleRoute, ...caisseNouvellePopupRoute];
 
 @NgModule({
@@ -45,6 +46,7 @@ const ENTITY_STATES = [...caisseNouvelleRoute, ...caisseNouvellePopupRoute];
     CaisseOperationComponent,
     UtilisateurCaissePopupComponent,
     UtilisateurCaisseDialogComponent,
+    HistoriqueAffectationComponent
   ],
   entryComponents: [
     CaisseNouvelleComponent,
@@ -60,6 +62,7 @@ const ENTITY_STATES = [...caisseNouvelleRoute, ...caisseNouvellePopupRoute];
     CaisseNouvelleStatutPopupComponent,
     UtilisateurCaissePopupComponent,
     UtilisateurCaisseDialogComponent,
+    HistoriqueAffectationComponent
 
   ],
   providers: [

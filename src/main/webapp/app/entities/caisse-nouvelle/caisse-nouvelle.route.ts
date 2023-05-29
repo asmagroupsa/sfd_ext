@@ -23,6 +23,7 @@ import { CaisseNouvelleDetailSoldeComponent } from './caisse-nouvelle-detail-sol
 import { CaisseNouvelleStatutPopupComponent } from './caisse-nouvelle-statut-dialog.component';
 import { CaisseOperationComponent } from './caisse-operation.component';
 import { UtilisateurCaissePopupComponent } from './utilisateur-caisse/utilisateur-caisse-dialog.component';
+import { HistoriqueAffectationComponent } from './historique-affectation/historique-affectation.component';
 
 export const caisseNouvelleRoute: Routes = [
     {
@@ -55,6 +56,15 @@ export const caisseNouvelleRoute: Routes = [
     {
         path: 'operation-caisse',
         component: CaisseOperationComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'sfdApp.caisseNouvelle.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'historique-affectation-caisse',
+        component: HistoriqueAffectationComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'sfdApp.caisseNouvelle.home.title'

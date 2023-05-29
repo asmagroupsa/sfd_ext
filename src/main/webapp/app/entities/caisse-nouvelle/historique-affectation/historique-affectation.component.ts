@@ -3,22 +3,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { Subscription } from 'rxjs';
 
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper, UserData } from '../../shared';
-import { LanguesService } from '../../shared/myTranslation/langues';
-import { OperationCaisse } from './operation-caisse.model';
-import { OperationCaisseService } from './operation-caisse.service';
-import { CaisseNouvelleService } from '../caisse-nouvelle';
 import { DatePipe } from '@angular/common';
+import { OperationCaisse, OperationCaisseService } from '../../operation-caisse';
+import { CaisseNouvelleService } from '../caisse-nouvelle.service';
+import { ITEMS_PER_PAGE, Principal, ResponseWrapper, UserData } from '../../../shared';
+import { LanguesService } from '../../../shared/myTranslation/langues';
 
 declare let select_init: any;
 @Component({
-  selector: 'jhi-operation-caisse-type',
-  templateUrl: './operation-caisse.component.html'
+  selector: 'jhi-historique-affectation',
+  templateUrl: './historique-affectation.component.html'
 })
-export class OperationCaisseComponent implements OnInit, OnDestroy {
-  category: { id: number; code: string; name: string };
-  premiereCategories: { id: number; code; name: string }[] = [];
-  deuxiemeCategories: { id: number; code; name: string }[] = [];
+export class HistoriqueAffectationComponent implements OnInit, OnDestroy {
   operationCaisses: OperationCaisse[];
   selectedCaisse:any;
   currentAccount: any;
@@ -147,17 +143,6 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.premiereCategories = [
-        { id: 1, code: 'VIREMENT', name: 'Virement caisse à caisse' },
-        { id: 2, code: 'DEPOT', name: 'Dépôts' },
-        { id: 3, code: 'RETRAIT', name: 'Retraits' }
-      ];
-      this.deuxiemeCategories = [
-        { id: 4, code: 'COMPTEEPARGNE', name: 'Ouverture compte épargne' },
-        { id: 5, code: 'ENCAISSEMENT', name: 'Encaissement Divers' },
-        { id: 6, code: 'DECAISSEMENT', name: 'Décaissement Divers' },
-      ];
-      // this.category = this.premiereCategories[0];
 
     this.principal.identity().then(account => {
       this.currentAccount = account;
@@ -165,6 +150,8 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
 
     this.registerChangeInOperationCaisses();
     this.agences = UserData.getInstance().listeAgences;
+    console.log(this.agences);
+
 
         if (this.agences.length) {
             this.agence = this.agences[0].codeAgence;
@@ -205,23 +192,4 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
     this.alertService.error(error.message, null, null);
   }
 
-  changeCategorie(categorie: any) {
-    this.category = categorie;
-    select_init();
-    if(!this.selectedCaisse){
-      alert('Veuillez selectionner la caisse');
-return ;
-    }
-    this.router.navigate(['/entity','operation-caisse', { outlets: { popup:
-      ['operation-caisse-new'] } }],{
-        queryParams:{
-          type: categorie.code,
-          agence: this.agence,
-          caisseName: this.selectedCaisse.libelle,
-          caisse: this.selectedCaisse.compteCarmes
-        },
-
-
-      });
-  }
 }
