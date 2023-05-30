@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { ITEMS_PER_PAGE, Principal, ResponseWrapper, UserData } from '../../shar
 import { LanguesService } from '../../shared/myTranslation/langues';
 import { CaisseNouvelle } from './caisse-nouvelle.model';
 import { CaisseNouvelleService } from './caisse-nouvelle.service';
+import { CurrencyPipe } from '@angular/common';
 
 declare let select_init: any;
 @Component({
@@ -23,21 +24,23 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
   agenceReference : any;
   codeCaisse : any = '';
   agence:string;
+  categories: { id: number; code; name: string }[] = [];
 
   constructor(
     private caisseNouvelleService: CaisseNouvelleService,
     private alertService: JhiAlertService,
     private eventManager: JhiEventManager,
-    private cdr: ChangeDetectorRef,
-    private activatedRoute: ActivatedRoute,
+    activatedRoute: ActivatedRoute,
     private router: Router,
     public principal: Principal,
-    public langue: LanguesService
+    public langue: LanguesService,
+    //private currencyPipe:CurrencyPipe
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.currentSearch = activatedRoute.snapshot.params['search']
       ? activatedRoute.snapshot.params['search']
       : '';
+      console.log(UserData.getInstance());
   }
   ngAfterViewInit() {
     setTimeout(() => {
@@ -73,6 +76,18 @@ let ag = this.getAgenceObj();
   })
  }
  
+ changeCategorie(categorie: any) {
+  this.router.navigate(['/entity','caisse-nouvelle', { outlets: { popup:
+    ['operation-caisse-new'] } }], {
+      queryParams:{
+        type: categorie.code,
+        agence: this.agence
+      },
+
+
+    });
+}
+
   getAgenceObj(){
     if(!this.agence){
       return UserData.getInstance().getCurrentOrFirstAgence();
@@ -99,7 +114,6 @@ let ag = this.getAgenceObj();
 
   loadAll() {
     let ag = this.getAgence();
-    console.log(ag);
     console.log({
       agence:UserData.getInstance().agence,
       agencesReference:UserData.getInstance().agencesReference,
@@ -145,6 +159,9 @@ let ag = this.getAgenceObj();
     this.loadAll();
   }
   ngOnInit() {
+    this.categories = [
+      { id: 1, code: 'VIREMENT', name: 'Virement caisse à caisse' },
+      ];
     this.loadAll();
     this.principal.identity().then(account => {
       this.currentAccount = account;
@@ -166,13 +183,13 @@ let ag = this.getAgenceObj();
     if (this.eventSubscriber) this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: CaisseNouvelle) {
+  trackId(item: CaisseNouvelle) {
     return item.id;
   }
   registerChangeInCaisseNouvelles() {
     this.eventSubscriber = this.eventManager.subscribe(
       'caisseNouvelleListModification',
-      response => this.loadAll()
+      () => this.loadAll()
     );
   }
 
@@ -180,7 +197,8 @@ let ag = this.getAgenceObj();
     this.alertService.error(error.message, null, null);
   }
 
-  onSolde(caisse:any){
+  onSolde(caisse:any) {
     this.alertService.success(`Le solde de la caisse ${caisse.libelle} (Référence: ${caisse.reference}) est de ${caisse.solde || 0} FCFA`);
   }
+
 }

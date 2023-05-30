@@ -26,7 +26,7 @@ import { SIDEBAR_TOGGLE_DIRECTIVES } from './sidebar.directive';
 import { AsideToggleDirective } from './aside.directive';
 import { RecherchePipe } from './pipes/recherche';
 import { AccepterPipe } from './pipes/accepter';
-import { SortedPipe, CiblePipe } from './pipes/sorted';
+import { SortedPipe, CiblePipe, NonNullablePipe } from './pipes/sorted';
 import { LanguesService } from './myTranslation/langues';
 import { FnmTranslatePipe } from './myTranslation/fnm-translate.pipe';
 import { ThemePalette } from './constants/theme';
@@ -59,6 +59,7 @@ import { CryptoCookies } from './auth/crypt-cookies.service';
         FnmTranslatePipe,
         RecherchePipe,
         SortedPipe,
+        NonNullablePipe,
         AccepterPipe,
         CiblePipe,
         EcheancesPipe,
@@ -80,6 +81,7 @@ import { CryptoCookies } from './auth/crypt-cookies.service';
         FnmTranslatePipe,
         RecherchePipe,
         SortedPipe,
+        NonNullablePipe,
         AccepterPipe,
         CiblePipe,
         EcheancesPipe,

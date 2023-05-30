@@ -17,6 +17,7 @@ declare let select_init: any;
 })
 export class OperationCaisseComponent implements OnInit, OnDestroy {
   category: { id: number; code; name: string };
+  troisiemeCategories: { id: number; code; name: string }[] = [];
   premiereCategories: { id: number; code; name: string }[] = [];
   deuxiemeCategories: { id: number; code; name: string }[] = [];
   operationCaisses: OperationCaisse[];
@@ -47,10 +48,9 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
       ? activatedRoute.snapshot.params['search']
       : '';
       let now = new Date();
-      this.date2 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDay()};
+      this.date2 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDate()};
       now.setMonth(now.getMonth() - 1);
-      this.date1 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDay()};
-
+      this.date1 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDate()};
   }
   ngAfterViewInit() {
     setTimeout(() => {
@@ -147,13 +147,20 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.troisiemeCategories = [
+      //{ id: 1, code: 'VIREMENT', name: 'Virement caisse à caisse' },
+      { id: 11, code: 'SOLDE', name: 'Voir le solde de la caisse' },
+      { id: 11, code: 'ARRETE_CAISSE', name: 'Arreté de caisse' }
+    ];
+
     this.premiereCategories = [
-        { id: 1, code: 'VIREMENT', name: 'Virement caisse à caisse' },
-        { id: 2, code: 'DEPOT', name: 'Dépôts' },
-        { id: 3, code: 'RETRAIT', name: 'Retraits' }
+        { id: 4, code: 'COMPTEEPARGNE', name: 'Ouverture Compte Epargne' },
+        { id: 44, code: 'COMPTEDAT', name: 'Ouverture Compte DAT' },
       ];
+
       this.deuxiemeCategories = [
-        { id: 4, code: 'COMPTEEPARGNE', name: 'Ouverture compte épargne' },
+        { id: 2, code: 'DEPOT', name: 'Dépôts'},
+        { id: 3, code: 'RETRAIT', name: 'Retraits'},
         { id: 5, code: 'ENCAISSEMENT', name: 'Encaissement Divers' },
         { id: 6, code: 'DECAISSEMENT', name: 'Décaissement Divers' },
       ];
@@ -210,10 +217,24 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
     select_init();
     if(!this.selectedCaisse){
       alert('Veuillez selectionner la caisse');
-return ;
+      return ;
     }
+    
+    if(this.category.code == 'SOLDE'){
+      this.alertService.success(`Le solde de la caisse ${this.selectedCaisse.libelle} (Référence: ${this.selectedCaisse.reference}) est de ${this.selectedCaisse.solde || 0} FCFA`);
+      return ;
+    } else if(this.category.code == 'ARRETE_CAISSE'){
+      let now = new Date();
+      now.setDate(now.getDate() + 1);
+      this.date2 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDate()};
+      now = new Date();
+      this.date1 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDate()};
+      this.loadAll();
+      return;
+    }
+
     this.router.navigate(['/entity','operation-caisse', { outlets: { popup:
-      ['operation-caisse-new'] } }],{
+      ['operation-caisse-new'] } }], {
         queryParams:{
           type: categorie.code,
           agence: this.agence,

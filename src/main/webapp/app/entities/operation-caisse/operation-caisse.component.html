@@ -15,17 +15,25 @@
             </select>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-offset-lg-6 col-lg-6" *ngIf="troisiemeCategories && troisiemeCategories.length">
+            <div class="ui two item menu">
+                <a *ngFor="let categorie of troisiemeCategories" class="item" [ngClass]="{active:category?.id==categorie?.id}"
+                (click)="changeCategorie(categorie)">{{ categorie.name }}</a>
+            </div>
+        </div>
+    </div> 
 
     <div class="row">
-        <div class="col-md-12 col-sm-12 col-lg-6" *ngIf="premiereCategories && premiereCategories.length">
-            <div class="ui three item menu">
+        <div class="col-md-12 col-sm-12 col-lg-5" *ngIf="premiereCategories && premiereCategories.length">
+            <div class="ui two item menu">
                 <a *ngFor="let categorie of premiereCategories" class="item" [ngClass]="{active:category?.id==categorie?.id}"
                 (click)="changeCategorie(categorie)">{{ categorie.name }}</a>
             </div>
         </div>
         <!-- <div class="offset-md-1 offset-lg-1"></div> -->
-        <div class="col-md-12 col-sm-12 col-lg-6" *ngIf="deuxiemeCategories && deuxiemeCategories.length">
-            <div class="ui three item menu">
+        <div class="col-md-12 col-sm-12 col-lg-7" *ngIf="deuxiemeCategories && deuxiemeCategories.length">
+            <div class="ui four item menu">
                 <a *ngFor="let categorie of deuxiemeCategories" class="item" [ngClass]="{active:category?.id==categorie?.id}"
                 (click)="changeCategorie(categorie)">
                 {{categorie.name}}
@@ -61,15 +69,13 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-6">
-
-        </div>
-                <div class="field col-lg-3">
-                <label for="date1" class="form-control-label">Du</label>
+        <div class="col-lg-6"></div>
+            <div class="field col-lg-3">
+                <!-- <label for="date1" class="form-control-label">Du</label> -->
                 <ngbd-datepicker-i18n name="date1" [(ngModel)]="date1" (ngModelChange)="onPeriodChange()"></ngbd-datepicker-i18n>
             </div>
             <div class="field col-lg-3">
-                <label for="date2" class="form-control-label">Au</label>
+                <!-- <label for="date2" class="form-control-label">Au</label> -->
                 <ngbd-datepicker-i18n name="date2" [(ngModel)]="date2" (ngModelChange)="onPeriodChange()"></ngbd-datepicker-i18n>
             </div>
     </div>
@@ -78,9 +84,10 @@
         <thead>
             <tr>
                 <th class="numerotab">N°</th>
-                <th><span>Réference</span></th>
+                <!-- <th><span>Réference</span></th> -->
                 <th><span>Numéro de Compte</span></th>
                 <th><span>Date</span></th>
+                <th><span>Observation</span></th>
                 <th><span>Débit</span></th>
                 <th><span>Crédit</span></th>
                 <th><span>Solde</span></th>
@@ -89,13 +96,13 @@
         <tbody>
             <tr *ngFor="let operation of operationCaisses | recherche:currentSearch ;let index=index;trackBy: trackId">
                 <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
-                <td>{{operation.reference}}</td>
-                <td>{{operation.account}}</td>
-                <td>{{operation.date}}</td>
+                <!-- <td>{{operation.reference}}</td> -->
+                <td>{{operation.num_account}}</td>
+                <td>{{operation.created_date | date:'medium'}}</td>
+                <td>{{operation.observation}}</td>
                 <td>{{operation && operation.debit | currency:'XAF':true:'2.0'}}</td>
-                <td>{{ caisseNouvelle && caisseNouvelle.credit | currency:'XAF':true:'2.0' }}</td>
-                <td>{{ caisseNouvelle && caisseNouvelle.solde | currency:'XAF':true:'2.0' }}</td>
-
+                <td>{{ operation && operation.credit | currency:'XAF':true:'2.0' }}</td>
+                <td>{{ operation && operation.solde | currency:'XAF':true:'2.0' }}</td>
             </tr>
         </tbody>
     </table>

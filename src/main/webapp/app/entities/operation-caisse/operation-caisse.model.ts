@@ -17,5 +17,6 @@ export class OperationCaisse {
     public typeClientId?: string,
     public nationalityId?: string,
     public motif?: string,
+    public dateechu?:string
   ) {}
 }

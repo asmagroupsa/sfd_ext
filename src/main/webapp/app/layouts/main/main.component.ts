@@ -32,7 +32,6 @@ import { ImageService } from '../../shared/image.service';
 import { FirstConnectionModalService } from '../../shared/first-connection/modal-service';
 
 declare let jQuery: any;
-declare const modal: any;
 declare let select_init: any;
 declare const modalHide: any;
 @Component({
@@ -127,11 +126,6 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         window.onscroll = resetTimer; // catches scrolling
         window.onkeypress = resetTimer; //catches keyboard actions
 
-        let logout = () => {
-            if (this.router.url.indexOf('/login') != -1) return;
-            if (!navigator.onLine) return;
-            // this.logout(); //Adapt to actual logout script
-        };
 
         function resetTimer() {
             clearTimeout(t);
@@ -145,15 +139,13 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         else
             UserData.getInstance().currentAgence = ev;
         const url: string = this.router.url;
-        this.router.navigate(['/']).then((res) => {
+        this.router.navigate(['/']).then(() => {
             this.router.navigateByUrl(url);
         });
     }
 
     constructor(
-        private _router: Router,
         private router: Router,
-        private route: ActivatedRoute,
         public activeModal: NgbActiveModal,
         private loginService: LoginService,
         private languageService: JhiLanguageService,
@@ -169,10 +161,9 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         private cookieService: CookieService,
         private mainService: MainService,
         private _alertService: JhiAlertService,
-        private _imageService: ImageService,
         private firstPopupService: FirstConnectionModalService
     ) {
-
+  
         this.localFlag = LOCAL_FLAG;
         //this.appOpened = this.cookieService.get('tab');
         this.activeModal.dismiss({});
@@ -201,7 +192,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         this.height = window.innerHeight - 55 + 'px';
         this.loadRessources();
         if (!this.appOpened) {
-            principal.identity().then(account => { }).catch(err => { });
+            principal.identity().then(() => { }).catch(() => { });
         }
     }
 
@@ -342,7 +333,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
                     .removeClass('hide');
             });
         });
-        this.homeService.getLocation().then((data) => {
+        this.homeService.getLocation().then(() => {
 
         });
     }
@@ -351,7 +342,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         this.themePalette.changeTheme(theme);
     }
 
-    public toggled(open: boolean): void {
+    public toggled(): void {
     }
 
     public toggleDropdown($event: MouseEvent): void {
@@ -409,7 +400,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
                 this.initialize();
                 this.router.navigate(['/login']);
             })
-            .catch(e => {
+            .catch(() => {
                 //this.router.navigate(['/login']);
             });
     }
@@ -450,7 +441,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
                         this.errorSession = true;
                     }
                 })
-                .catch(error => {
+                .catch(() => {
                     this.errorSession = true;
                 });
         } else {
@@ -535,10 +526,10 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
                 this.inactivityHandler();
                 this.onLoaded();
                 this.langues.getEnglish().subscribe(
-                    res => {
+                    () => {
                         //
                     },
-                    err => {
+                    () => {
                         //
                     }
                 );
@@ -657,7 +648,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
     @HostListener('document:wheel', ['$event'])
     @HostListener('document:keyup', ['$event'])
 
-    inactive(e) {
+    inactive() {
         clearTimeout(this.t);
 
         if (!this.principal.isAuthenticated() && !this.account) {
