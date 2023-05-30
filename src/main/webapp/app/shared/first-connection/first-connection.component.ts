@@ -52,8 +52,8 @@ export class FisrtConnectionComponent {
             this.alertService.warning("Entrez au minimum six (06) caractères")
             return;
         }
-        this.isSaving = true;
         if (!this.pass || !this.principal.userIdentity) return;
+        this.isSaving = true;
         this.userService.changePassword(this.principal.userIdentity.login, this.pass).subscribe((resp) => {
             this.firstConnectionService.firstConnectionUpdate().subscribe((res: ResponseWrapper) => {
                 this.principal.userIdentity.firstConnection == false;
@@ -61,6 +61,9 @@ export class FisrtConnectionComponent {
                 this.alertService.success("Mot de passe changé");
                 this.isSaving = true;
                 this.activeModal.dismiss();
+            },(err)=>{
+                this.isSaving = false;
+                this.alertService.error("Une erreur s'est produite lors du changement du mot de passe");
             });
         }, (err) => {
             this.alertService.error("Une erreur s'est produite lors du changement du mot de passe");

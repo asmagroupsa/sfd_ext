@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Produit } from '../../entities/produit/produit.model';
 import { Client } from '../../entities/client/client.model';
 import { TypeClient } from '../../entities/type-client/type-client.model';
 
@@ -10,6 +9,16 @@ export class SortedPipe implements PipeTransform {
       if (a[field] > b[field]) return desc ? -1 : 1;
       else if (a[field] < b[field]) return desc ? 1 : -1;
       else return 0;
+    });
+  }
+}
+
+@Pipe({ name: 'nonNullable' })
+export class NonNullablePipe implements PipeTransform {
+  transform(tabs: any[], field: string = 'reference') {
+    if (!Array.isArray(tabs) || !tabs || !tabs.length) return [];
+    return (tabs || []).filter((a) => {
+      return a[field] && a[field].trim().length;
     });
   }
 }

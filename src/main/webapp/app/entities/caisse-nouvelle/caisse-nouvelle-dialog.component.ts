@@ -9,7 +9,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { CaisseNouvelle } from './caisse-nouvelle.model';
 import { CaisseNouvellePopupService } from './caisse-nouvelle-popup.service';
 import { CaisseNouvelleService } from './caisse-nouvelle.service';
-import { ResponseWrapper, LOCAL_FLAG, UserData } from '../../shared';
+import { UserData } from '../../shared';
 import { LanguesService } from '../../shared/myTranslation/langues';
 declare let select_init: any;
 @Component({

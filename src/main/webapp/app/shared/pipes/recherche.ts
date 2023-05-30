@@ -8,6 +8,13 @@ export class RecherchePipe implements PipeTransform {
     return value.filter((current, i) => {
       check = false;
       for (var key in current) {
+        if(typeof current[key] == 'object' && key == 'client'){
+          let courant = current[key]['name'];
+          if (courant.toLowerCase().indexOf(search.toLowerCase()) != -1) {
+            check = true;
+            break;
+          }
+        }
         if (
           typeof current[key] == "string" ||
           typeof current[key] == "number" ||

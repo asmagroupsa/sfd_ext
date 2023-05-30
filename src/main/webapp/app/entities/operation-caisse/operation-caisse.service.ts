@@ -13,6 +13,7 @@ export class OperationCaisseService {
     private resourceUrl = HOST + '/api/sfd/liste-operation-caisse';
     private resourceSearchUrl = HOST + '/api/_search/account-types';
     private resourceEpargneUrl = HOST + '/api/sfd/ouverture-compte-epargne';
+    private resourceDatUrl = HOST + '/api/sfd/ouverture-compte-dat';
     private resourceDepotCaisseUrl = HOST + '/api/sfd/depot-caisse';
     private resourceRetraitCaisseUrl = HOST + '/api/sfd/retrait-caisse';
     private resourceVirememntCaisseUrl = HOST + '/api/sfd/virement-caisse-a-caisse';
@@ -25,6 +26,36 @@ export class OperationCaisseService {
     //&produitid=1&email=jojopo1@gmail.com&phone=96574785&sexe=M&typeClientid=11&agence_reference=0000AG13&profession_id=1
     //&birthday=2023-04-10&nomClient=luc&nationalite_id=1
 
+    ouvertureCompteDat(operationCaisse: OperationCaisse): Observable<any> {
+       
+        const options = createRequestOption({
+            dateechu: this.formatDate(operationCaisse.dateechu),
+            comptecarmescaisse: operationCaisse.comptecarmescaisse,
+            montant: operationCaisse.montant,
+            comptecarmesclient: operationCaisse.comptecarmesclient,
+            produitid: operationCaisse.produitId,
+            email: operationCaisse.email,
+            phone: operationCaisse.telephone,
+            sexe: operationCaisse.sexe,
+            typeClientid: operationCaisse.typeClientId,
+            agence_reference: operationCaisse.agenceReference,
+            profession_id: operationCaisse.professionId,
+            birthday: this.formatDate(operationCaisse.birthDate),
+            nomClient: operationCaisse.nomClient,
+            nationalite_id: operationCaisse.nationalityId
+
+        });
+        return this.http
+            .get(this.resourceDatUrl
+                , options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+            .map((res: Response) => {
+                let data = res.json();
+                if (data['resultat'] != 'OK') {
+                    throw data;
+                }
+                return data;
+            });
+    }
 
     ouvertureCompteEpargne(operationCaisse: OperationCaisse): Observable<any> {
         const copy = this.convert(operationCaisse);

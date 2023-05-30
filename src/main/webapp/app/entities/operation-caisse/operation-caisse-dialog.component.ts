@@ -52,6 +52,7 @@ export class OperationCaisseDialogComponent implements OnInit {
     isDepot: boolean = false;
     isRetrait: boolean = false;
     isEpargne: boolean = false;
+    isDat: boolean = false;
     titre: string;
     caisseName: string;
 
@@ -93,6 +94,10 @@ export class OperationCaisseDialogComponent implements OnInit {
                 this.titre = "Ouverture de compte Epargne";
                 this.isEpargne = true;
                 this.type = { id: 4, code: 'COMPTEEPARGNE', name: 'Ouverture compte épargne' };
+            } else if (params['type'] == 'COMPTEDAT') {
+                this.titre = "Ouverture de compte DAT";
+                this.isDat = true;
+                this.type = { id: 44, code: 'COMPTEDAT', name: 'Ouverture compte DAT' };
             } else if (params['type'] == 'ENCAISSEMENT') {
                 this.titre = "Encaissement à la caisse";
                 this.isEncaissement = true;
@@ -185,7 +190,14 @@ export class OperationCaisseDialogComponent implements OnInit {
 
             console.log(this.produits);
             produits.forEach(element => {
-                console.log(element.libelle);
+                if(this.isEpargne){
+                    if(!(/Epargne/i.test(element.libelle)))
+                    return ;
+                } else if(this.isDat){
+                    if(!(/Dat/i.test(element.libelle)))
+                    return ;
+                }
+                //console.log(element.libelle);
                 let prod = {
                     id: element.id,
                     libelle: element.libelle
@@ -197,10 +209,10 @@ export class OperationCaisseDialogComponent implements OnInit {
 
 
             this.produits = prodArray.filter(function (element) {
-                console.log(element);
+               // console.log(element);
                 return element !== undefined;
             });
-            console.log(this.produits);
+            //console.log(this.produits);
 
 
             this.loadingArray.produit = false;
@@ -282,6 +294,11 @@ export class OperationCaisseDialogComponent implements OnInit {
             // this.operationCaisse.agenceReference = 'xxx';
             this.subscribeToSaveResponse(
                 this.operationCaisseService.ouvertureCompteEpargne(this.operationCaisse),
+                true
+            );
+        } else if (this.type.code == 'COMPTEDAT') {
+            this.subscribeToSaveResponse(
+                this.operationCaisseService.ouvertureCompteDat(this.operationCaisse),
                 true
             );
         } else if (this.type.code == 'ENCAISSEMENT') {
