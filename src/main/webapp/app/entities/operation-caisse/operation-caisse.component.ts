@@ -100,15 +100,15 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
-    const formatDate = (date)=>{
+    const formatDate = (date) => {
       if(!date) return null;
       return this._datePipe.transform(new Date(`${date.year}-${date.month}-${date.day}`), 'y-MM-dd');
-  }
+    }
     if (this.currentSearch) {
       this.operationCaisseService
         .search({
           date1:formatDate(this.date1),
-      date2:formatDate(this.date2),
+          date2:formatDate(this.date2),
           comptecarmescaisse: this.selectedCaisse.compteCarmes,
           query: this.currentSearch
         })
@@ -155,7 +155,7 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
 
     this.premiereCategories = [
         { id: 4, code: 'COMPTEEPARGNE', name: 'Ouverture Compte Epargne' },
-        { id: 44, code: 'COMPTEDAT', name: 'Ouverture Compte DAT' },
+        { id: 44, code: 'COMPTEDAT', name: 'Ouverture Compte DAT' }
       ];
 
       this.deuxiemeCategories = [
@@ -232,7 +232,7 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
       this.loadAll();
       return;
     }
-
+console.log(this.category);
     this.router.navigate(['/entity','operation-caisse', { outlets: { popup:
       ['operation-caisse-new'] } }], {
         queryParams:{
@@ -241,6 +241,8 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
           caisseName: this.selectedCaisse.libelle,
           caisse: this.selectedCaisse.compteCarmes
         }
+      }).catch((e) => {
+        console.log(e);
       });
   }
 }

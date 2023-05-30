@@ -395,20 +395,20 @@ export class BreadcrumbsComponent implements OnInit {
                         label: 'Caisse',
                         url: '/entity/caisse-nouvelle',
                         translate: 'menus.caisses.caisse',
-                        // ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
+                        ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
                     },
                     {
                         label: 'Opérations',
                         url: '/entity/operation-caisse',
                         translate: 'menus.caisses.caisse',
-                        // ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
+                        ressource: 'carmesfnmservice/api/caisses/caissier_operation'
                     },
-                    {
+                    /* {
                         label: 'Historiques Affectation',
                         url: '/entity/caisse-nouvelle/historique-affectation-caisse',
                         translate: 'menus.caisses.caisse',
-                        // ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
-                    },
+                        ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
+                    }, */
                 );
             } else if (evt && this.searchUrl(this.caisseSFDMenu, evt.url)) {
                 this.breadcrumbs = [];

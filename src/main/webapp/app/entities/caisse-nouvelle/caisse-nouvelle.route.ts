@@ -24,6 +24,8 @@ import { UtilisateurCaissePopupComponent } from './utilisateur-caisse/utilisateu
 import { HistoriqueAffectationComponent } from './historique-affectation/historique-affectation.component';
 import { HistoriqueUtilisateurCaissePopupService } from './historique-caisse/historique-caisse-popup.service';
 import { HistoriqueUtilisateurCaissePopupComponent } from './historique-caisse/historique-caisse-dialog.component';
+import { ListeCaissierPopupComponent } from './liste_caissiers/liste-caissier-dialog.component';
+import { OperationCaissePopupComponent } from '../operation-caisse/operation-caisse-dialog.component';
 
 export const caisseNouvelleRoute: Routes = [
     {
@@ -75,6 +77,16 @@ export const caisseNouvelleRoute: Routes = [
 
 export const caisseNouvellePopupRoute: Routes = [
     {
+        path: 'operation-caisse-new',
+        component: OperationCaissePopupComponent,
+        data: {
+          authorities: ['ROLE_USER'],
+          pageTitle: 'sfdApp.operationCaisse.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+      },
+    {
         path: 'alimentation-caisse-agence',
         component: AlimentationCaissePopupComponent,
         data: {
@@ -98,6 +110,16 @@ export const caisseNouvellePopupRoute: Routes = [
     {
         path: 'historique-utilisateur-caisse',
         component: HistoriqueUtilisateurCaissePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'sfdApp.caisseNouvelle.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    },
+    {
+        path: 'liste-caissier',
+        component: ListeCaissierPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'sfdApp.caisseNouvelle.home.title'

@@ -2,18 +2,18 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-import { HistoriqueUtilisateurCaissePopupService } from './historique-caisse-popup.service';
+import { JhiAlertService } from 'ng-jhipster';
+import { ListeCaissierPopupService } from './liste-caissier-popup.service';
 import { CaisseNouvelleService } from '../caisse-nouvelle.service';
 import { LanguesService } from '../../../shared/myTranslation/langues';
 import { ResponseWrapper } from '../../../shared';
 import { DatePipe } from '@angular/common';
 declare let select_init: any;
 @Component({
-  selector: 'jhi-historique-caisse-dialog',
-  templateUrl: './historique-caisse-dialog.component.html'
+  selector: 'jhi-liste-caissier-dialog',
+  templateUrl: './liste-caissier-dialog.component.html'
 })
-export class HistoriqueUtilisateurCaisseDialogComponent implements OnInit {
+export class ListeCaissierDialogComponent implements OnInit {
   historiques:any[]= [];
   authorities: any[];
   isSaving: boolean;
@@ -54,12 +54,7 @@ export class HistoriqueUtilisateurCaisseDialogComponent implements OnInit {
       if(!date) return null;
       return this._datePipe.transform(new Date(`${date.year}-${date.month}-${date.day}`), 'y-MM-dd');
   }
-    this.caisseNouvelleService.getHistorique({
-      'caisse':this.caisse,
-      agence_reference: this.agence,
-date1:formatDate(this.date1),
-date2: formatDate(this.date2)
-    }).subscribe(
+    this.caisseNouvelleService.queryListeCaissierAgence({},this.agence).subscribe(
       (res: ResponseWrapper) => {
         console.log(res),
         this.historiques = res.json
@@ -96,29 +91,29 @@ date2: formatDate(this.date2)
 }
 
 @Component({
-  selector: 'jhi-history-utilisateur-caisse-popup',
+  selector: 'jhi-liste-caissier-popup',
   template: ''
 })
-export class HistoriqueUtilisateurCaissePopupComponent implements OnInit, OnDestroy {
+export class ListeCaissierPopupComponent implements OnInit, OnDestroy {
   modalRef: NgbModalRef;
   routeSub: any;
 
   constructor(
     private route: ActivatedRoute,
-    private utilisateurCaissePopupService: HistoriqueUtilisateurCaissePopupService
+    private listeCaissierPopupService: ListeCaissierPopupService
   ) { }
 
   ngOnInit() {
     // if (LOCAL_FLAG) {
       this.routeSub = this.route.params.subscribe(params => {
         if (params['id']) {
-          this.modalRef = this.utilisateurCaissePopupService.open(
-            HistoriqueUtilisateurCaisseDialogComponent as Component,
+          this.modalRef = this.listeCaissierPopupService.open(
+            ListeCaissierDialogComponent as Component,
             params['id']
           );
         } else {
-          this.modalRef = this.utilisateurCaissePopupService.open(
-            HistoriqueUtilisateurCaisseDialogComponent as Component
+          this.modalRef = this.listeCaissierPopupService.open(
+            ListeCaissierDialogComponent as Component
           );
         }
       });

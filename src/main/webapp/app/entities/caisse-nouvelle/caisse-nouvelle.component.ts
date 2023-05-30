@@ -76,20 +76,25 @@ let ag = this.getAgenceObj();
  }
  
  changeCategorie(categorie: any) {
-  if(categorie.code == 'VIREMENT'){
+  let ag = this.getAgenceObj();
+  if(categorie.code == 'VIREMENT'){ //''
   this.router.navigate(['/entity','operation-caisse', { outlets: { popup:
     ['operation-caisse-new'] } }], {
       queryParams:{
         type: categorie.code,
-        agence: this.agence
+        //agence: this.agence
+        'agence':ag.codeAgence || this.agence,
       }
+    }).then((result)=>{
+      console.log(result);
     });
   } else if(categorie.code == 'CAISSIERS'){
+    
     this.router.navigate(['/entity','caisse-nouvelle', { outlets: { popup:
       ['liste-caissier'] } }], {
         queryParams:{
           type: categorie.code,
-          agence: this.agence
+          'agence':ag.codeAgence || this.agence
         }
       });
   }
@@ -99,7 +104,7 @@ let ag = this.getAgenceObj();
   this.router.navigate(['/entity','caisse-nouvelle', { outlets: { popup: ['historique-utilisateur-caisse'] } }],{
     queryParams: {
       'nameCaisse': caisse.libelle,
-      'nameAgence':ag.name,
+      'agence':ag.codeAgence,
       'caisse': caisse.reference
     }
   })
@@ -111,7 +116,7 @@ let ag = this.getAgenceObj();
     console.log(ag);
     this.router.navigate(['/entity','caisse-nouvelle', { outlets: { popup: ['utilisateur-caisse'] } }],{
       queryParams: {
-        'agence': ag.comptecarmes,
+        'agence': ag.codeAgence,
         'nameCaisse': caisse.libelle,
         'nameAgence':ag.name,
         'caisse': caisse.compteCarmes,

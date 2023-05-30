@@ -9,7 +9,7 @@ import { UtilisateurCaisse } from './utilisateur-caisse.model';
 import { UtilisateurCaissePopupService } from './utilisateur-caisse-popup.service';
 import { CaisseNouvelleService } from '../caisse-nouvelle.service';
 import { LanguesService } from '../../../shared/myTranslation/langues';
-import { ResponseWrapper, UserData } from '../../../shared';
+import { ResponseWrapper, UserData, UserService } from '../../../shared';
 declare let select_init: any;
 @Component({
     selector: 'jhi-utilisateur-caisse-dialog',
@@ -23,6 +23,7 @@ export class UtilisateurCaisseDialogComponent implements OnInit {
     caissiers: any[] = [];;
     nameCaisse: string;
     nameAgence: string;
+    agence:string;
     codeCaisse: string;
     params: any;
 
@@ -32,7 +33,8 @@ export class UtilisateurCaisseDialogComponent implements OnInit {
         private caisseNouvelleService: CaisseNouvelleService,
         private eventManager: JhiEventManager,
         public langue: LanguesService,
-        activatedRoute: ActivatedRoute
+        activatedRoute: ActivatedRoute,
+        private _userService:UserService
     ) {
         this.utilisateurCaisse = new UtilisateurCaisse();
         activatedRoute.queryParams.subscribe(params => {
@@ -42,6 +44,7 @@ export class UtilisateurCaisseDialogComponent implements OnInit {
             this.utilisateurCaisse.reference = this.params.codeCaisse;
             this.nameCaisse = this.params.nameCaisse;
             this.nameAgence = this.params.nameAgence;
+            this.agence = this.params.agence;
             this.codeCaisse = this.params.codeCaisse;
         });
         /* this.utilisateurCaisse.comptecarmeagence = activatedRoute.snapshot.queryParams['agence'];
@@ -50,8 +53,7 @@ export class UtilisateurCaisseDialogComponent implements OnInit {
         this.nameCaisse = activatedRoute.snapshot.queryParams['nameCaisse'];
         this.nameAgence = activatedRoute.snapshot.queryParams['nameAgence'];
         this.codeCaisse = activatedRoute.snapshot.queryParams['codeCaisse']; */
-        console.log(activatedRoute.snapshot.queryParams);
-        console.log(this.utilisateurCaisse);
+        
     }
     ngAfterViewInit() {
         select_init();
@@ -65,8 +67,12 @@ export class UtilisateurCaisseDialogComponent implements OnInit {
             //this.utilisateurCaisse.agenceReference = this.agences[0].codeAgence;
         }
 
+        //this._userService.listeUtilisateursProfil('GUICHETIER_SFD')
 
-        this.caisseNouvelleService.queryListeCaissierAgence('').subscribe(
+        //this.caisseNouvelleService.queryListeCaissierAgence({},this.agence)
+        this.caisseNouvelleService.queryListeUsersAgence({},this.agence)
+        
+        .subscribe(
             (res: ResponseWrapper) => {
                 this.caissiers = res.json;
 
@@ -109,6 +115,12 @@ export class UtilisateurCaisseDialogComponent implements OnInit {
                     break;
                 case 'SOLDE INSUFFISANT':
                     msg = "Le solde est insuffisant";
+                    break;
+                    case 'CAISSE_INEXISTANT':
+                    msg = "La caisse n'existe pas";
+                    break;
+                    case 'USER_INEXISTANT':
+                    msg = "L'utilisateur n'existe pas.";
                     break;
             }
             this.isSaving = false;

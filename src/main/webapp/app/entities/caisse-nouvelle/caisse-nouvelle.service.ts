@@ -27,6 +27,7 @@ export class CaisseNouvelleService {
     private statutCaisseUrl = HOST + '/api/sfd/update-caisse-etat';
     private affectationCaisseUrl = HOST + '/api/sfd/affectation-caisse';
     private getListeCaissierAgenceUrl = HOST + '/api/sfd/liste-utilisateur-caisse';
+    private getListeUsersAgenceUrl = HOST + '/api/sfd/liste-utilisateur-agence';
     private historiqueCaisseUrl = HOST + '/api/sfd/historique-affectation-caisse';
     private affecterCaisseUrl = HOST + 'api/sfd/affectation-caisse';
 
@@ -241,6 +242,16 @@ export class CaisseNouvelleService {
         }));
         return this.http
             .get(this.getListeCaissierAgenceUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+            .map((res: Response) => this.convertResponse(res));
+    }
+
+    queryListeUsersAgence(req?: any, agence_reference? : any): Observable<ResponseWrapper> {
+        const options = createRequestOption(Object.assign({}, req, {
+            NO_QUERY: true,
+            agence_reference
+        }));
+        return this.http
+            .get(this.getListeUsersAgenceUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => this.convertResponse(res));
     }
 
