@@ -34,7 +34,7 @@
             <label  for="field_agenceReference" class="oblige">Caissier/caissière</label>
             <select class="ui fluid search dropdown sfd-dropdown" id="field_caissier" name="caissier" [(ngModel)]="utilisateurCaisse && utilisateurCaisse.caissier" required>
                 <option [ngValue]="null" disabled>Choisissez un utillisateur de caisse</option>
-                <option [ngValue]="c.id" *ngFor="let c of caissiers">{{c.name}}</option>
+                <option [ngValue]="c.id_user" *ngFor="let c of caissiers">{{c.nom}}</option>
             </select>
         </div>
 
