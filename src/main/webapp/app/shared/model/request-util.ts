@@ -6,7 +6,7 @@ import { createQueries, EventBus, parseJwt } from './functions';
 declare let window: any;
 declare let navigator: any;
 
-let SERVER = "";
+let SERVER = "DEV";
 let BASE_URL;
 let CARMES_HOST_URL = '';
 let BASE_URL_MVN;
