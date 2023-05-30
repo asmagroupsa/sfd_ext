@@ -62,13 +62,14 @@ export class UtilisateurCaisseDialogComponent implements OnInit {
         this.agences = UserData.getInstance().listeAgences;
 
         if (this.agences.length == 1) {
-            //this.utilisateurCaisse.agenceReference = this.agences[0].codeAgence;
+            this.utilisateurCaisse.reference = this.agences[0].codeAgence;
         }
 
 
-        this.caisseNouvelleService.queryListeCaissierAgence('').subscribe(
+        this.caisseNouvelleService.queryListeCaissierAgence('', this.agences[0].codeAgence).subscribe(
             (res: ResponseWrapper) => {
                 this.caissiers = res.json;
+                console.log(res.json);
 
             },
             (res: ResponseWrapper) => this.onError(res.json)
