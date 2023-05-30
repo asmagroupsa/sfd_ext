@@ -3,23 +3,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { Subscription } from 'rxjs';
 
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper, UserData } from '../../shared';
-import { LanguesService } from '../../shared/myTranslation/langues';
-import { OperationCaisse } from './operation-caisse.model';
-import { OperationCaisseService } from './operation-caisse.service';
-import { CaisseNouvelleService } from '../caisse-nouvelle';
 import { DatePipe } from '@angular/common';
+import { OperationCaisse, OperationCaisseService } from '../../operation-caisse';
+import { CaisseNouvelleService } from '../caisse-nouvelle.service';
+import { ITEMS_PER_PAGE, Principal, ResponseWrapper, UserData } from '../../../shared';
+import { LanguesService } from '../../../shared/myTranslation/langues';
 
 declare let select_init: any;
 @Component({
-  selector: 'jhi-operation-caisse-type',
-  templateUrl: './operation-caisse.component.html'
+  selector: 'jhi-historique-affectation',
+  templateUrl: './historique-affectation.component.html'
 })
-export class OperationCaisseComponent implements OnInit, OnDestroy {
-  category: { id: number; code; name: string };
-  troisiemeCategories: { id: number; code; name: string }[] = [];
-  premiereCategories: { id: number; code; name: string }[] = [];
-  deuxiemeCategories: { id: number; code; name: string }[] = [];
+export class HistoriqueAffectationComponent implements OnInit, OnDestroy {
   operationCaisses: OperationCaisse[];
   selectedCaisse:any;
   currentAccount: any;
@@ -48,9 +43,10 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
       ? activatedRoute.snapshot.params['search']
       : '';
       let now = new Date();
-      this.date2 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDate()};
+      this.date2 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDay()};
       now.setMonth(now.getMonth() - 1);
-      this.date1 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDate()};
+      this.date1 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDay()};
+
   }
   ngAfterViewInit() {
     setTimeout(() => {
@@ -147,24 +143,6 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.troisiemeCategories = [
-      //{ id: 1, code: 'VIREMENT', name: 'Virement caisse à caisse' },
-      { id: 11, code: 'SOLDE', name: 'Voir le solde de la caisse' },
-      { id: 11, code: 'ARRETE_CAISSE', name: 'Arreté de caisse' }
-    ];
-
-    this.premiereCategories = [
-        { id: 4, code: 'COMPTEEPARGNE', name: 'Ouverture Compte Epargne' },
-        { id: 44, code: 'COMPTEDAT', name: 'Ouverture Compte DAT' },
-      ];
-
-      this.deuxiemeCategories = [
-        { id: 2, code: 'DEPOT', name: 'Dépôts'},
-        { id: 3, code: 'RETRAIT', name: 'Retraits'},
-        { id: 5, code: 'ENCAISSEMENT', name: 'Encaissement Divers' },
-        { id: 6, code: 'DECAISSEMENT', name: 'Décaissement Divers' },
-      ];
-      // this.category = this.premiereCategories[0];
 
     this.principal.identity().then(account => {
       this.currentAccount = account;
@@ -172,6 +150,8 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
 
     this.registerChangeInOperationCaisses();
     this.agences = UserData.getInstance().listeAgences;
+    console.log(this.agences);
+
 
         if (this.agences.length) {
             this.agence = this.agences[0].codeAgence;
@@ -212,35 +192,4 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
     this.alertService.error(error.message, null, null);
   }
 
-  changeCategorie(categorie: any) {
-    this.category = categorie;
-    select_init();
-    if(!this.selectedCaisse){
-      alert('Veuillez selectionner la caisse');
-      return ;
-    }
-
-    if(this.category.code == 'SOLDE'){
-      this.alertService.success(`Le solde de la caisse ${this.selectedCaisse.libelle} (Référence: ${this.selectedCaisse.reference}) est de ${this.selectedCaisse.solde || 0} FCFA`);
-      return ;
-    } else if(this.category.code == 'ARRETE_CAISSE'){
-      let now = new Date();
-      now.setDate(now.getDate() + 1);
-      this.date2 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDate()};
-      now = new Date();
-      this.date1 = {year:now.getFullYear(),month:now.getMonth() +1, day:now.getDate()};
-      this.loadAll();
-      return;
-    }
-
-    this.router.navigate(['/entity','operation-caisse', { outlets: { popup:
-      ['operation-caisse-new'] } }], {
-        queryParams:{
-          type: categorie.code,
-          agence: this.agence,
-          caisseName: this.selectedCaisse.libelle,
-          caisse: this.selectedCaisse.compteCarmes
-        }
-      });
-  }
 }

@@ -402,7 +402,13 @@ export class BreadcrumbsComponent implements OnInit {
                         url: '/entity/operation-caisse',
                         translate: 'menus.caisses.caisse',
                         // ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
-                    }
+                    },
+                    {
+                        label: 'Historiques Affectation',
+                        url: '/entity/caisse-nouvelle/historique-affectation-caisse',
+                        translate: 'menus.caisses.caisse',
+                        // ressource: 'carmesfnmservice/api/caisses/getAllCaisses'
+                    },
                 );
             } else if (evt && this.searchUrl(this.caisseSFDMenu, evt.url)) {
                 this.breadcrumbs = [];
@@ -715,7 +721,8 @@ export class BreadcrumbsComponent implements OnInit {
         this.addressMenu = ['/entity/address'];
         this.caisseMenu = [
             '/entity/caisse',
-            '/entity/operation-caisse'
+            '/entity/operation-caisse',
+            '/entity/historique-affectation',
         ];
 
         this.caisseSFDMenu = [
@@ -748,7 +755,7 @@ export class BreadcrumbsComponent implements OnInit {
                 exist = true;
                 break;
             }
-            
+
         }
         return exist;
     }

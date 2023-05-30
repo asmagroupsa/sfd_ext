@@ -10,6 +10,7 @@ import { CaisseNouvelle } from './caisse-nouvelle.model';
 import { AlimentationCaisse } from './alimentation-caisse.model';
 import { AlimentationCaisseSfd } from './alimentation-caisse-sfd.model';
 import { CaisseNouvelleStatut } from './caisse-nouvelle-statut.model';
+import { UtilisateurCaisse } from './utilisateur-caisse/utilisateur-caisse.model';
 
 
 @Injectable()
@@ -24,6 +25,8 @@ export class CaisseNouvelleService {
     private alimenterCaisseSfdUrl = HOST + '/api/sfd/alimentation-caisse-agence';
     private soldeCaisseUrl = HOST + '/api/sfd/affiche-solde-caisse';
     private statutCaisseUrl = HOST + '/api/sfd/update-caisse-etat';
+    private affectationCaisseUrl = HOST + '/api/sfd/affectation-caisse';
+    private getListeCaissierAgenceUrl = HOST + '/api/sfd/liste-utilisateur-caisse';
     private historiqueCaisseUrl = HOST + '/api/sfd/historique-affectation-caisse';
     private affecterCaisseUrl = HOST + 'api/sfd/affectation-caisse';
 
@@ -39,7 +42,7 @@ export class CaisseNouvelleService {
             date1:model.date1,
             date2:model.date2
         });
-        
+
         return this.http
             .get(this.historiqueCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
@@ -57,7 +60,7 @@ export class CaisseNouvelleService {
             user_id: model.user,
             created_by: UserData.getInstance().userReference
         });
-        
+
         return this.http
             .get(this.affecterCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
@@ -86,7 +89,7 @@ export class CaisseNouvelleService {
             soldemax:copy.soldetMaxAmount,
             comptecarmes:copy.compteCarmes
         });
-        
+
         return this.http
             .get(this.createCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
@@ -152,7 +155,7 @@ export class CaisseNouvelleService {
 
     // http://185.98.137.71:8787/api/sfd/alimentation-caisse-agence?comptecarmeagence=789685742&comptecarmescaisse=786685742&montant=500000
     alimenterCaisseAgence(alimentationCaisse: AlimentationCaisse): Observable<any> {
-       
+
         const options = createRequestOption({
             comptecarmeagence: alimentationCaisse.comptecarmeagence,
             comptecarmescaisse: alimentationCaisse.comptecarmescaisse,
@@ -167,7 +170,7 @@ export class CaisseNouvelleService {
 
     // http://185.98.137.71:8787/api/sfd/alimentation-agence-sfd?comptecarmeagence=789685742&comptecarmessfd=014674251453653&montant=500000
     alimenterCaisseSfd(alimentationCaisseSfd: AlimentationCaisseSfd): Observable<any> {
-        
+
         const options = createRequestOption({
             comptecarmeagence: alimentationCaisseSfd.comptecarmeagence,
             comptecarmessfd:alimentationCaisseSfd.comptecarmessfd,
@@ -182,7 +185,7 @@ export class CaisseNouvelleService {
 
     // http://185.98.137.71:8787/api/sfd/affiche-solde-caisse?comptecarmescaisse=014674251453653
     soldeCaisse(compteCarmesCaisse: number): Observable<any> {
-        
+
         const options = createRequestOption({
             comptecarmescaisse: compteCarmesCaisse
         });
@@ -198,7 +201,7 @@ export class CaisseNouvelleService {
 
     // http://185.98.137.71:8787/api/sfd/update-caisse-etat?id=15&etat=OUVERT
     statutCaisse(caisseNouvelleStatut: CaisseNouvelleStatut): Observable<any> {
-        
+
         const options = createRequestOption({
             id: caisseNouvelleStatut.id,
             etat: caisseNouvelleStatut.etat
@@ -214,6 +217,33 @@ export class CaisseNouvelleService {
                 return res.json();
             });
     }
+
+    // http://185.98.137.71:8787/api/sfd/affectation-caisse?code_caisse=05852&user_id=10225&created_by=1
+    affecterCaisseToUser(utilisateurCaisse: UtilisateurCaisse): Observable<any> {
+
+        const options = createRequestOption({
+            code_caisse: utilisateurCaisse.reference,
+            user_id: utilisateurCaisse.caissier,
+            created_by: UserData.getInstance().userReference
+        });
+        return this.http
+            .get(this.affectationCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+            .map((res: Response) => {
+                return res.json();
+            });
+    }
+
+    //http://185.98.137.71:8787/api/sfd/liste-utilisateur-caisse?agence_reference=AG008547
+    queryListeCaissierAgence(req?: any, agence_reference? : any): Observable<ResponseWrapper> {
+        const options = createRequestOption(Object.assign({}, req, {
+            NO_QUERY: true,
+            agence_reference
+        }));
+        return this.http
+            .get(this.getListeCaissierAgenceUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+            .map((res: Response) => this.convertResponse(res));
+    }
+
 
     search(req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(req);

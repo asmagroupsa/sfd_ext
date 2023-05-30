@@ -22,10 +22,13 @@ import { AlimentationCaisseSfdPopupService } from './alimentation-caisse-sfd-pop
 import { CaisseNouvelleDetailSoldeComponent } from './caisse-nouvelle-detail-solde.component';
 import { CaisseNouvelleStatutDialogComponent, CaisseNouvelleStatutPopupComponent } from './caisse-nouvelle-statut-dialog.component';
 import { CaisseNouvelleStatutPopupService } from './caisse-nouvelle-statut-popup.service';
-import { UtilisateurCaisseDialogComponent, UtilisateurCaissePopupComponent } from './utilisateur-caisse/utilisateur-caisse-dialog.component';
-import { UtilisateurCaissePopupService } from './utilisateur-caisse/utilisateur-caisse-popup.service';
+import { HistoriqueAffectationComponent } from './historique-affectation/historique-affectation.component';
 import { HistoriqueUtilisateurCaissePopupService } from './historique-caisse/historique-caisse-popup.service';
 import { HistoriqueUtilisateurCaisseDialogComponent, HistoriqueUtilisateurCaissePopupComponent } from './historique-caisse/historique-caisse-dialog.component';
+import { UtilisateurCaisseDialogComponent, UtilisateurCaissePopupComponent } from './utilisateur-caisse/utilisateur-caisse-dialog.component';
+import { UtilisateurCaissePopupService } from './utilisateur-caisse/utilisateur-caisse-popup.service';
+import { ListeCaissierPopupService } from './liste_caissiers/liste-caissier-popup.service';
+import { ListeCaissierDialogComponent, ListeCaissierPopupComponent } from './liste_caissiers/liste-caissier-dialog.component';
 const ENTITY_STATES = [...caisseNouvelleRoute, ...caisseNouvellePopupRoute];
 
 @NgModule({
@@ -47,8 +50,11 @@ const ENTITY_STATES = [...caisseNouvelleRoute, ...caisseNouvellePopupRoute];
     CaisseOperationComponent,
     UtilisateurCaissePopupComponent,
     UtilisateurCaisseDialogComponent,
+    HistoriqueAffectationComponent,
     HistoriqueUtilisateurCaisseDialogComponent,
-    HistoriqueUtilisateurCaissePopupComponent
+    HistoriqueUtilisateurCaissePopupComponent,
+    ListeCaissierDialogComponent,
+    ListeCaissierPopupComponent
   ],
   entryComponents: [
     CaisseNouvelleComponent,
@@ -64,8 +70,13 @@ const ENTITY_STATES = [...caisseNouvelleRoute, ...caisseNouvellePopupRoute];
     CaisseNouvelleStatutPopupComponent,
     UtilisateurCaissePopupComponent,
     UtilisateurCaisseDialogComponent,
+    HistoriqueAffectationComponent,
+
     HistoriqueUtilisateurCaisseDialogComponent,
-    HistoriqueUtilisateurCaissePopupComponent
+    HistoriqueUtilisateurCaissePopupComponent,
+
+    ListeCaissierDialogComponent,
+    ListeCaissierPopupComponent
   ],
   providers: [
     CaisseNouvelleService,
@@ -75,7 +86,8 @@ const ENTITY_STATES = [...caisseNouvelleRoute, ...caisseNouvellePopupRoute];
     CaisseNouvelleStatutPopupService,
     //CurrencyPipe
     UtilisateurCaissePopupService,
-    HistoriqueUtilisateurCaissePopupService
+    HistoriqueUtilisateurCaissePopupService,
+    ListeCaissierPopupService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

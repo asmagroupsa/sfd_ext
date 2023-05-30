@@ -3,6 +3,7 @@ export class UtilisateurCaisse {
     public id?: number,
     public comptecarmeagence?: string,
     public comptecarmescaisse?: string,
-    public montant?: string
+    public reference?: string,
+    public caissier?: string,
   ) {}
 }
