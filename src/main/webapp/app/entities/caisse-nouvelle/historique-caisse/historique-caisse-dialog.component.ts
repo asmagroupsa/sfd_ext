@@ -11,8 +11,8 @@ import { LanguesService } from '../../../shared/myTranslation/langues';
 import { ResponseWrapper, UserData } from '../../../shared';
 declare let select_init: any;
 @Component({
-  selector: 'jhi-utilisateur-caisse-dialog',
-  templateUrl: './utilisateur-caisse-dialog.component.html'
+  selector: 'jhi-historique-caisse-dialog',
+  templateUrl: './historique-caisse-dialog.component.html'
 })
 export class HistoriqueUtilisateurCaisseDialogComponent implements OnInit {
   historiques:any[]= [];
