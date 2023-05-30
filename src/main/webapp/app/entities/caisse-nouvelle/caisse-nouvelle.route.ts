@@ -22,6 +22,7 @@ import { CaisseNouvelleStatutPopupComponent } from './caisse-nouvelle-statut-dia
 import { CaisseOperationComponent } from './caisse-operation.component';
 import { UtilisateurCaissePopupComponent } from './utilisateur-caisse/utilisateur-caisse-dialog.component';
 import { HistoriqueUtilisateurCaissePopupService } from './historique-caisse/historique-caisse-popup.service';
+import { HistoriqueUtilisateurCaissePopupComponent } from './historique-caisse/historique-caisse-dialog.component';
 
 export const caisseNouvelleRoute: Routes = [
     {
@@ -86,7 +87,7 @@ export const caisseNouvellePopupRoute: Routes = [
     
     {
         path: 'historique-utilisateur-caisse',
-        component: HistoriqueUtilisateurCaissePopupService,
+        component: HistoriqueUtilisateurCaissePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'sfdApp.caisseNouvelle.home.title'

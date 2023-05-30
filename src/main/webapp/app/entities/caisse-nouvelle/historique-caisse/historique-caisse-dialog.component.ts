@@ -8,11 +8,11 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { HistoriqueUtilisateurCaissePopupService } from './historique-caisse-popup.service';
 import { CaisseNouvelleService } from '../caisse-nouvelle.service';
 import { LanguesService } from '../../../shared/myTranslation/langues';
-import { ResponseWrapper, UserData } from '../../../shared';
+import { ResponseWrapper } from '../../../shared';
 declare let select_init: any;
 @Component({
-  selector: 'jhi-utilisateur-caisse-dialog',
-  templateUrl: './utilisateur-caisse-dialog.component.html'
+  selector: 'jhi-historique-caisse-dialog',
+  templateUrl: './historique-caisse-dialog.component.html'
 })
 export class HistoriqueUtilisateurCaisseDialogComponent implements OnInit {
   historiques:any[]= [];
