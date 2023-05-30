@@ -49,7 +49,7 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
   }
 
   navigateToAlimenterSfd(){
-    //[queryParams]="{agence:getAgence(), caisse:caisseNouvelle.compteCarmes, typeCaisse:'caisseAgence'}" 
+    //[queryParams]="{agence:getAgence(), caisse:caisseNouvelle.compteCarmes, typeCaisse:'caisseAgence'}"
   let ag = this.getAgenceObj();
     console.log(ag);
     this.router.navigate(['/entity','caisse-nouvelle', { outlets: { popup: ['alimentation-caisse-sfd'] } }],{
@@ -63,7 +63,7 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
    }
 
   navigateToAlimenterAgence(caisse:any){
-  //[queryParams]="{agence:getAgence(), caisse:caisseNouvelle.compteCarmes, typeCaisse:'caisseAgence'}" 
+  //[queryParams]="{agence:getAgence(), caisse:caisseNouvelle.compteCarmes, typeCaisse:'caisseAgence'}"
 let ag = this.getAgenceObj();
   console.log(ag);
   this.router.navigate(['/entity','caisse-nouvelle', { outlets: { popup: ['alimentation-caisse-agence'] } }],{
@@ -87,6 +87,20 @@ let ag = this.getAgenceObj();
 
     });
 }
+
+ navigateToAffecterUtilisateurCaisse(caisse:any){
+    //[queryParams]="{agence:getAgence(), caisse:caisseNouvelle.compteCarmes, typeCaisse:'caisseAgence'}"
+  let ag = this.getAgenceObj();
+    console.log(ag);
+    this.router.navigate(['/entity','caisse-nouvelle', { outlets: { popup: ['utilisateur-caisse'] } }],{
+      queryParams: {
+        'agence': ag.comptecarmes,
+        'nameCaisse': caisse.libelle,
+        'nameAgence':ag.name,
+        'caisse': caisse.compteCarmes
+      }
+    })
+   }
 
   getAgenceObj(){
     if(!this.agence){
@@ -119,7 +133,7 @@ let ag = this.getAgenceObj();
       agencesReference:UserData.getInstance().agencesReference,
       listeAgences:UserData.getInstance().listeAgences
     });
-    
+
     if (this.currentSearch) {
       this.caisseNouvelleService
         .search({

@@ -8,7 +8,8 @@
                 "search": "Rechercher une caisse",
                 "alimenterCaisse": "Alimentation de la caisse de l'Agence",
                 "alimenterCaisseSfd":"Alimentation de la caisse du SFD",
-                "etatCaisse": "Changement d'état de la caisse"
+                "etatCaisse": "Changement d'état de la caisse",
+                "affecterUtilisateurCaissier": "Affectectation de la caisse à un(e) caissier/caissière"
             },
             "delete": {
                 "question": "Etes-vous certain de vouloir supprimer la caisse {{ id }} ?"
@@ -48,6 +49,9 @@
         "etatCaisse" : {
             "close": "Caisse fermée avec succès",
             "open": "Caisse ouverte avec succès"
+        },
+        "affecterUtilisateurCaissier" : {
+            "created": "Caisse affectée avec succès "
         }
     }
 }
