@@ -25,6 +25,9 @@ import { CaisseNouvelleStatutPopupService } from './caisse-nouvelle-statut-popup
 import { CurrencyPipe } from '@angular/common';
 import { UtilisateurCaisseDialogComponent, UtilisateurCaissePopupComponent } from './utilisateur-caisse/utilisateur-caisse-dialog.component';
 import { UtilisateurCaissePopupService } from './utilisateur-caisse/utilisateur-caisse-popup.service';
+import { HistoriqueUtilisateurCaisse } from './historique-caisse/historique-caisse.model';
+import { HistoriqueUtilisateurCaissePopupService } from './historique-caisse/historique-caisse-popup.service';
+import { HistoriqueUtilisateurCaisseDialogComponent, HistoriqueUtilisateurCaissePopupComponent } from './historique-caisse/historique-caisse-dialog.component';
 const ENTITY_STATES = [...caisseNouvelleRoute, ...caisseNouvellePopupRoute];
 
 @NgModule({
@@ -61,7 +64,8 @@ const ENTITY_STATES = [...caisseNouvelleRoute, ...caisseNouvellePopupRoute];
     CaisseNouvelleStatutPopupComponent,
     UtilisateurCaissePopupComponent,
     UtilisateurCaisseDialogComponent,
-
+    HistoriqueUtilisateurCaisseDialogComponent,
+    HistoriqueUtilisateurCaissePopupComponent
   ],
   providers: [
     CaisseNouvelleService,
@@ -71,6 +75,7 @@ const ENTITY_STATES = [...caisseNouvelleRoute, ...caisseNouvellePopupRoute];
     CaisseNouvelleStatutPopupService,
     //CurrencyPipe
     UtilisateurCaissePopupService,
+    HistoriqueUtilisateurCaissePopupService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

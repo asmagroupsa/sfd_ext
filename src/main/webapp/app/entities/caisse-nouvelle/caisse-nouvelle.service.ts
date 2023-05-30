@@ -24,11 +24,50 @@ export class CaisseNouvelleService {
     private alimenterCaisseSfdUrl = HOST + '/api/sfd/alimentation-caisse-agence';
     private soldeCaisseUrl = HOST + '/api/sfd/affiche-solde-caisse';
     private statutCaisseUrl = HOST + '/api/sfd/update-caisse-etat';
+    private historiqueCaisseUrl = HOST + '/api/sfd/historique-affectation-caisse';
+    private affecterCaisseUrl = HOST + 'api/sfd/affectation-caisse';
 
 
     // http://185.98.137.71:8787/api/sfd/info-caisse-agence?agence_reference=0000AG13&codecaisse=000CAIS3
 
     constructor(private http: Http) { }
+
+    getHistorique(model){
+        const options = createRequestOption({
+            codecaisse:model.caisse,
+            agence_reference:model.agence_reference,
+            date1:model.date1,
+            date2:model.date2
+        });
+        
+        return this.http
+            .get(this.historiqueCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+            .map((res: Response) => {
+                let data = res.json();
+                if(data['resultat'] != 'OK'){
+                  throw data;
+                }
+                  return data;
+            });
+    }
+
+    affecterCaisse(model){
+        const options = createRequestOption({
+            code_caisse: model.caisse,
+            user_id: model.user,
+            created_by: UserData.getInstance().userReference
+        });
+        
+        return this.http
+            .get(this.affecterCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
+            .map((res: Response) => {
+                let data = res.json();
+                if(data['resultat'] != 'OK'){
+                  throw data;
+                }
+                  return data;
+            });
+    }
 
     create(caisseNouvelle: CaisseNouvelle): Observable<CaisseNouvelle> {
         const copy = this.convert(caisseNouvelle);

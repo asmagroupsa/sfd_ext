@@ -40,7 +40,6 @@ export class CaisseNouvelleComponent implements OnInit, OnDestroy {
     this.currentSearch = activatedRoute.snapshot.params['search']
       ? activatedRoute.snapshot.params['search']
       : '';
-      console.log(UserData.getInstance());
   }
   ngAfterViewInit() {
     setTimeout(() => {
@@ -77,16 +76,34 @@ let ag = this.getAgenceObj();
  }
  
  changeCategorie(categorie: any) {
-  this.router.navigate(['/entity','caisse-nouvelle', { outlets: { popup:
+  if(categorie.code == 'VIREMENT'){
+  this.router.navigate(['/entity','operation-caisse', { outlets: { popup:
     ['operation-caisse-new'] } }], {
       queryParams:{
         type: categorie.code,
         agence: this.agence
-      },
-
-
+      }
     });
+  } else if(categorie.code == 'CAISSIERS'){
+    this.router.navigate(['/entity','caisse-nouvelle', { outlets: { popup:
+      ['liste-caissier'] } }], {
+        queryParams:{
+          type: categorie.code,
+          agence: this.agence
+        }
+      });
+  }
 }
+navigateToAffectationHistories(caisse:any){
+let ag = this.getAgenceObj();
+  this.router.navigate(['/entity','caisse-nouvelle', { outlets: { popup: ['historique-utilisateur-caisse'] } }],{
+    queryParams: {
+      'nameCaisse': caisse.libelle,
+      'nameAgence':ag.name,
+      'caisse': caisse.reference
+    }
+  })
+ }
 
  navigateToAffecterUtilisateurCaisse(caisse:any){
     //[queryParams]="{agence:getAgence(), caisse:caisseNouvelle.compteCarmes, typeCaisse:'caisseAgence'}"
@@ -175,6 +192,7 @@ let ag = this.getAgenceObj();
   ngOnInit() {
     this.categories = [
       { id: 1, code: 'VIREMENT', name: 'Virement caisse à caisse' },
+      { id: 2, code: 'CAISSIERS', name: 'Les caissiers' }
       ];
     this.loadAll();
     this.principal.identity().then(account => {

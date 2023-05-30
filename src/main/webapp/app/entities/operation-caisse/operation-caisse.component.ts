@@ -240,9 +240,7 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
           agence: this.agence,
           caisseName: this.selectedCaisse.libelle,
           caisse: this.selectedCaisse.compteCarmes
-        },
-
-
+        }
       });
   }
 }
