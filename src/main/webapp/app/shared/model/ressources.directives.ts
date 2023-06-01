@@ -33,6 +33,7 @@ export class HasAnyRessourcesDirective {
 
     private updateView(value: string | string[]): void {
         let ressources = UserData.getInstance().ressources;
+        //console.log(ressources);
         // if (Array.isArray(value) && value[0] && value.length == 1) {
         //     this.viewContainerRef.clear();
         //     let index = -1;

@@ -436,7 +436,7 @@
 
                     <!-- Caisses -->
                     <li class="nav-item drop" routerLinkActive="active"
-                        *jhiHasAnyRessources="['carmesfnmservice/api/caisses/getAllCaisses']">
+                        *jhiHasAnyRessources="['carmesfnmservice/api/caisses/getAllCaisses','carmesfnmservice/api/caisses/caissier_operation']">
                         <a class="nav-link dropbtn">
                             <i class="fa fa-credit-card"></i>
                             <span jhiFnmTranslate='sideMenus.caisse'>Caisses</span>
@@ -444,9 +444,7 @@
                         <div class="drop-content">
                             <a [routerLink]="['/entity','caisse-nouvelle']"
                                 *jhiHasAnyRessources="'carmesfnmservice/api/caisses/getAllCaisses'">Caisse
-                                </a>
-
-
+                            </a>
                             <a [routerLink]="['/entity','operation-caisse']"
                             *jhiHasAnyRessources="'carmesfnmservice/api/caisses/caissier_operation'">Opérations
                             </a>
