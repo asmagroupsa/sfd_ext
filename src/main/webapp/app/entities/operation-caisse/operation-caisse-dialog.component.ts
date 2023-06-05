@@ -190,12 +190,19 @@ export class OperationCaisseDialogComponent implements OnInit {
 
             console.log(this.produits);
             produits.forEach(element => {
+                let type = element.type || element.typeProduit;
                 if(this.isEpargne){
-                    if(!(/Epargne/i.test(element.libelle)))
+                    if(type){
+                        if(type != 'DAV') return ;
+                    }else if( !(/Epargne/i.test(element.libelle))){
                     return ;
+                    }
                 } else if(this.isDat){
-                    if(!(/Dat/i.test(element.libelle)))
+                    if(type){
+                        if(type != 'DAT') return ;
+                    }else if(!(/Dat/i.test(element.libelle))){
                     return ;
+                    }
                 }
                 //console.log(element.libelle);
                 let prod = {
