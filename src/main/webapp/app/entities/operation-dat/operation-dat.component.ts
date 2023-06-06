@@ -5,22 +5,21 @@ import { Subscription } from 'rxjs';
 
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper, UserData } from '../../shared';
 import { LanguesService } from '../../shared/myTranslation/langues';
-import { OperationCaisse } from './operation-caisse.model';
-import { OperationCaisseService } from './operation-caisse.service';
+import { OperationDat } from './operation-dat.model';
+import { OperationDatService } from './operation-dat.service';
 import { CaisseNouvelleService } from '../caisse-nouvelle';
 import { DatePipe } from '@angular/common';
 
 declare let select_init: any;
 @Component({
-  selector: 'jhi-operation-caisse-type',
-  templateUrl: './operation-caisse.component.html'
+  selector: 'jhi-operation-dat-type',
+  templateUrl: './operation-dat.component.html'
 })
-export class OperationCaisseComponent implements OnInit, OnDestroy {
+export class OperationDatComponent implements OnInit, OnDestroy {
   category: { id: number; code; name: string };
-  troisiemeCategories: { id: number; code; name: string }[] = [];
   premiereCategories: { id: number; code; name: string }[] = [];
   deuxiemeCategories: { id: number; code; name: string }[] = [];
-  operationCaisses: OperationCaisse[];
+  compteDats: OperationDat[];
   selectedCaisse:any;
   currentAccount: any;
   eventSubscriber: Subscription;
@@ -34,7 +33,7 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
 
   constructor(
     private caisseNouvelleService: CaisseNouvelleService,
-    private operationCaisseService: OperationCaisseService,
+    private operationDatService: OperationDatService,
     private alertService: JhiAlertService,
     private eventManager: JhiEventManager,
     activatedRoute: ActivatedRoute,
@@ -105,7 +104,7 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
       return this._datePipe.transform(new Date(`${date.year}-${date.month}-${date.day}`), 'y-MM-dd');
     }
     if (this.currentSearch) {
-      this.operationCaisseService
+      this.operationDatService
         .search({
           date1:formatDate(this.date1),
           date2:formatDate(this.date2),
@@ -113,18 +112,18 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
           query: this.currentSearch
         })
         .subscribe(
-          (res: ResponseWrapper) => (this.operationCaisses = res.json),
+          (res: ResponseWrapper) => (this.compteDats = res.json),
           (res: ResponseWrapper) => this.onError(res.json)
         );
       return;
     }
-    this.operationCaisseService.query({
+    this.operationDatService.query({
       date1:formatDate(this.date1),
       date2:formatDate(this.date2),
       comptecarmescaisse: this.selectedCaisse.compteCarmes
     }).subscribe(
       (res: ResponseWrapper) => {
-        this.operationCaisses = res.json;
+        this.compteDats = res.json;
         console.log(res.json);
 
         this.currentSearch = '';
@@ -147,22 +146,15 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.troisiemeCategories = [
-      //{ id: 1, code: 'VIREMENT', name: 'Virement caisse à caisse' },
-      { id: 11, code: 'SOLDE', name: 'Voir le solde de la caisse' },
-      { id: 11, code: 'ARRETE_CAISSE', name: 'Arreté de caisse' }
-    ];
 
     this.premiereCategories = [
-        { id: 4, code: 'COMPTEEPARGNE', name: 'Ouverture Compte Epargne' },
-        //{ id: 44, code: 'COMPTEDAT', name: 'Ouverture Compte DAT' }
+        //{ id: 4, code: 'COMPTEEPARGNE', name: 'Ouverture Compte Epargne' },
+        { id: 44, code: 'COMPTEDAT', name: 'Ouverture Compte DAT' }
       ];
 
       this.deuxiemeCategories = [
-        { id: 2, code: 'DEPOT', name: 'Dépôts'},
-        { id: 3, code: 'RETRAIT', name: 'Retraits'},
-        { id: 5, code: 'ENCAISSEMENT', name: 'Encaissement Divers' },
-        { id: 6, code: 'DECAISSEMENT', name: 'Décaissement Divers' },
+        { id: 2, code: 'DEPOT', name: 'Ajout DAT'},
+        { id: 3, code: 'RUPTURE', name: 'Rupture DAT'}
       ];
       // this.category = this.premiereCategories[0];
 
@@ -170,7 +162,7 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
       this.currentAccount = account;
     });
 
-    this.registerChangeInOperationCaisses();
+    this.registerChangeInOperationDats();
     this.agences = UserData.getInstance().listeAgences;
 
         if (this.agences.length) {
@@ -184,12 +176,12 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
 
   onAgenceChange(){
     this.caisses = [];
-    this.operationCaisses = [];
+    this.compteDats = [];
     this.loadCaisses();
   }
 
   onCaisseChange(){
-    this.operationCaisses = [];
+    this.compteDats = [];
     this.loadAll();
   }
 
@@ -198,12 +190,12 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
     if (this.eventSubscriber) this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: OperationCaisse) {
+  trackId(index: number, item: OperationDat) {
     return item.id;
   }
-  registerChangeInOperationCaisses() {
+  registerChangeInOperationDats() {
     this.eventSubscriber = this.eventManager.subscribe(
-      'operationCaisseListModification',
+      'operationDatListModification',
       response => this.loadAll()
     );
   }
@@ -233,8 +225,8 @@ export class OperationCaisseComponent implements OnInit, OnDestroy {
       return;
     }
 console.log(this.category);
-    this.router.navigate(['/entity','operation-caisse', { outlets: { popup:
-      ['operation-caisse-new'] } }], {
+    this.router.navigate(['/entity','operation-dat', { outlets: { popup:
+      ['operation-dat-new'] } }], {
         queryParams:{
           type: categorie.code,
           agence: this.agence,
@@ -245,4 +237,23 @@ console.log(this.category);
         console.log(e);
       });
   }
+  onSolde(compte:any) {
+    this.alertService.success(`Le solde du compte ${compte.num_account} (Référence: ${compte.reference}) est de ${compte.solde || 0} FCFA`);
+  }
+
+  navigateTo(compte:any,type:string){
+    //[queryParams]="{agence:getAgence(), caisse:caisseNouvelle.compteCarmes, typeCaisse:'caisseAgence'}"
+  //let ag = this.getAgenceObj();
+    //console.log(ag);
+    this.router.navigate(['/entity','operation-dat', { outlets: { popup: ['operation-dat-new'] } }],{
+      queryParams: {
+        type: type,
+          agence: this.agence,
+          compte: compte.num_account,
+          client: compte.client,
+          caisseName: this.selectedCaisse.libelle,
+          caisse: this.selectedCaisse.compteCarmes
+      }
+    })
+   }
 }

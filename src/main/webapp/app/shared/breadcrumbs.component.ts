@@ -403,6 +403,12 @@ export class BreadcrumbsComponent implements OnInit {
                         translate: 'menus.caisses.caisse',
                         ressource: 'carmesfnmservice/api/caisses/caissier_operation'
                     },
+                    {
+                        label: 'DAT',
+                        url: '/entity/operation-dat',
+                        translate: 'menus.caisses.caisse',
+                        ressource: 'carmesfnmservice/api/caisses/operation_dat'
+                    },
                     /* {
                         label: 'Historiques Affectation',
                         url: '/entity/caisse-nouvelle/historique-affectation-caisse',
@@ -722,6 +728,7 @@ export class BreadcrumbsComponent implements OnInit {
         this.caisseMenu = [
             '/entity/caisse',
             '/entity/operation-caisse',
+            '/entity/operation-dat',
             '/entity/historique-affectation',
         ];
 
