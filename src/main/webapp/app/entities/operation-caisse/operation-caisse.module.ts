@@ -19,6 +19,8 @@ import { NationalityService } from '../nationality';
 import { TypeClientService } from '../type-client';
 import { ProfessionService } from '../profession';
 import { CaisseNouvelleService } from '../caisse-nouvelle';
+import { OperationCaisseRequestPrintComponent } from './quittance/operation-caisse-request-print.component';
+import { CreditRequestService } from '../credit-request';
 
 const ENTITY_STATES = [...OperationCaisseRoute, ...OperationCaissePopupRoute];
 
@@ -30,7 +32,8 @@ const ENTITY_STATES = [...OperationCaisseRoute, ...OperationCaissePopupRoute];
     OperationCaisseDialogComponent,
     OperationCaisseDeleteDialogComponent,
     OperationCaissePopupComponent,
-    OperationCaisseDeletePopupComponent
+    OperationCaisseDeletePopupComponent,
+    OperationCaisseRequestPrintComponent
   ],
   entryComponents: [
     OperationCaisseComponent,
@@ -46,7 +49,8 @@ const ENTITY_STATES = [...OperationCaisseRoute, ...OperationCaissePopupRoute];
     NationalityService,
     ProfessionService,
     TypeClientService,
-    CaisseNouvelleService
+    CaisseNouvelleService,
+    CreditRequestService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

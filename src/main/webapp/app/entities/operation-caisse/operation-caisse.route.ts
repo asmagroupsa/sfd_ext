@@ -7,6 +7,7 @@ import { OperationCaisseComponent } from './operation-caisse.component';
 import { OperationCaisseDetailComponent } from './operation-caisse-detail.component';
 import { OperationCaissePopupComponent } from './operation-caisse-dialog.component';
 import { OperationCaisseDeletePopupComponent } from './operation-caisse-delete-dialog.component';
+import { OperationCaisseRequestPrintComponent } from './quittance/operation-caisse-request-print.component';
 
 
 export const OperationCaisseRoute: Routes = [
@@ -22,6 +23,16 @@ export const OperationCaisseRoute: Routes = [
   {
     path: ':id',
     component: OperationCaisseDetailComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'sfdApp.operationCaisse.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'print/:id',
+    //path: 'print',
+    component: OperationCaisseRequestPrintComponent,
     data: {
       authorities: ['ROLE_USER'],
       pageTitle: 'sfdApp.operationCaisse.home.title'

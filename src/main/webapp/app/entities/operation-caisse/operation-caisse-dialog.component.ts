@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs';
@@ -69,6 +69,7 @@ export class OperationCaisseDialogComponent implements OnInit {
         private eventManager: JhiEventManager,
         public langue: LanguesService,
         private activatedRoute: ActivatedRoute,
+        private router: Router,
     ) {
 
         activatedRoute.queryParams.subscribe(params => {
@@ -190,12 +191,12 @@ export class OperationCaisseDialogComponent implements OnInit {
 
             console.log(this.produits);
             produits.forEach(element => {
-                if(this.isEpargne){
-                    if(!(/Epargne/i.test(element.libelle)))
-                    return ;
-                } else if(this.isDat){
-                    if(!(/Dat/i.test(element.libelle)))
-                    return ;
+                if (this.isEpargne) {
+                    if (!(/Epargne/i.test(element.libelle)))
+                        return;
+                } else if (this.isDat) {
+                    if (!(/Dat/i.test(element.libelle)))
+                        return;
                 }
                 //console.log(element.libelle);
                 let prod = {
@@ -209,7 +210,7 @@ export class OperationCaisseDialogComponent implements OnInit {
 
 
             this.produits = prodArray.filter(function (element) {
-               // console.log(element);
+                // console.log(element);
                 return element !== undefined;
             });
             //console.log(this.produits);
@@ -332,6 +333,19 @@ export class OperationCaisseDialogComponent implements OnInit {
             { param: result.id },
             null
         );
+        if (this.type.code == 'DEPOT' || this.type.code == 'COMPTEEPARGNE'
+            || this.type.code == 'ENCAISSEMENT' || this.type.code == 'DECAISSEMENT' ||
+            this.type.code == 'RETRAIT') {
+            // [routerLink]="['/entity','caisse-nouvelle', caisseNouvelle.id ]"
+            // { outlets: { popup: ['132105/print'] } }
+            this.router.navigate(['/entity', 'operation-caisse', 'print', 132105], {
+                queryParams: {
+                    'nomOperation': this.type.code,
+                    //'nameAgence':ag.name,
+                    //'caisse': caisse.reference
+                }
+            })
+        }
 
         this.eventManager.broadcast({
             name: 'operationCaisseListModification',

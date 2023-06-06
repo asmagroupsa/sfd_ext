@@ -220,6 +220,7 @@ export class CaisseNouvelleService {
 
     // http://185.98.137.71:8787/api/sfd/affectation-caisse?code_caisse=05852&user_id=10225&created_by=1
     affecterCaisseToUser(utilisateurCaisse: UtilisateurCaisse): Observable<any> {
+        console.log(utilisateurCaisse);
 
         const options = createRequestOption({
             code_caisse: utilisateurCaisse.reference,
