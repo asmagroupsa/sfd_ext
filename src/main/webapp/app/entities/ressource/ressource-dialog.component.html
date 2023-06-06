@@ -25,8 +25,7 @@
             <div class="ui icon input field" [ngClass]="{loading: !ressources}" style="width: 100%;">
                 <select class="ui fluid search dropdown" id="field_ressources" name="ressources" [(ngModel)]="model.ressources" required multiple>
                 <option value="null" disabled>Choisissez les ressources</option>
-                <option [ngValue]="ressourceOption.id" *ngFor="let ressourceOption of ressources|searchdelete|alreadyressource" [jhiFnmTranslate]="ressourceOption.name"
-                    jhiFnmTranslateTag="true">{{ressourceOption.name}}</option>
+                <option [ngValue]="ressourceOption.id" *ngFor="let ressourceOption of ressources|searchdelete|alreadyressource">{{ressourceOption.name}} ({{ressourceOption.code}})</option>
             </select>
             </div>
         </div>

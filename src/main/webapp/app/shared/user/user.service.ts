@@ -8,7 +8,6 @@ import { User } from './user.model';
 import { ResponseWrapper } from '../model/response-wrapper.model';
 import { createRequestOption, HOST_MVN } from '../model/request-util';
 import { UserData } from '..';
-import { searchRessource, nameSFD, nameZoneAgence, nameAgence } from '../model/functions';
 import { JhiDateUtils } from 'ng-jhipster';
 import { Injectable } from '@angular/core';
 @Injectable()

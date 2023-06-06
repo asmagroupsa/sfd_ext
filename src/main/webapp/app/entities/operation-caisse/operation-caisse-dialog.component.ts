@@ -78,7 +78,7 @@ export class OperationCaisseDialogComponent implements OnInit {
             this.caisseName = this.params.caisseName;
             this.operationCaisse.comptecarmescaisseenvoi = this.params.caisse;
             this.operationCaisse.comptecarmescaisse = this.params.caisse;
-
+            console.log(params);
             if (params['type'] == 'VIREMENT') {
                 this.titre = "Virement de caisse à caisse";
                 this.isVirement = true;
@@ -191,12 +191,12 @@ export class OperationCaisseDialogComponent implements OnInit {
 
             console.log(this.produits);
             produits.forEach(element => {
-                if (this.isEpargne) {
-                    if (!(/Epargne/i.test(element.libelle)))
-                        return;
-                } else if (this.isDat) {
-                    if (!(/Dat/i.test(element.libelle)))
-                        return;
+                if(this.isEpargne){
+                    if(!(/Epargne/i.test(element.libelle)))
+                    return ;
+                } else if(this.isDat){
+                    if(!(/Dat/i.test(element.libelle)))
+                    return ;
                 }
                 //console.log(element.libelle);
                 let prod = {
@@ -419,29 +419,9 @@ export class OperationCaissePopupComponent implements OnInit, OnDestroy {
         private operationCaissePopupService: OperationCaissePopupService
     ) { }
 
-    /* ngOnInit() {
-        let type: any = this.route.snapshot.queryParams['type'];
-        // if (LOCAL_FLAG) {
-        this.routeSub = this.route.params.subscribe(params => {
-            if (params['id']) {
-                this.modalRef = this.operationCaissePopupService.open(
-                    OperationCaisseDialogComponent as Component,
-                    params['id']
-                );
-            } else {
-                this.modalRef = this.operationCaissePopupService.open(
-                    OperationCaisseDialogComponent as Component
-                );
-            }
-        });
-        // } else {
-        //   window.history.back();
-        // }
-    } */
-
     ngOnInit() {
         let type: any = this.route.snapshot.queryParams['type'];
-        if (!type || ['VIREMENT', 'DEPOT', 'RETRAIT', 'COMPTEEPARGNE',
+        if (!type || ['VIREMENT', 'DEPOT', 'RETRAIT', 'COMPTEEPARGNE','COMPTEDAT',
             'ENCAISSEMENT', 'DECAISSEMENT'].indexOf(type) == -1) {
             window.history.back();
         } else {
@@ -452,7 +432,6 @@ export class OperationCaissePopupComponent implements OnInit, OnDestroy {
                         params['id']
                     );
                 } else {
-
                     this.modalRef = this.operationCaissePopupService.open(
                         OperationCaisseDialogComponent as Component
                     );

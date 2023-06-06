@@ -4,7 +4,6 @@ import {
     Principal,
     AccountService,
     JhiLanguageHelper,
-    READFILEURL,
     sendFileToServer,
     createRequestOption,
     UserService,
