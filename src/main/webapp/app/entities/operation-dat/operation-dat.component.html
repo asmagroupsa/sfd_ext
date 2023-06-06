@@ -15,25 +15,17 @@
             </select>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-offset-lg-6 col-lg-6" *ngIf="troisiemeCategories && troisiemeCategories.length">
-            <div class="ui two item menu">
-                <a *ngFor="let categorie of troisiemeCategories" class="item" [ngClass]="{active:category?.id==categorie?.id}"
-                (click)="changeCategorie(categorie)">{{ categorie.name }}</a>
-            </div>
-        </div>
-    </div> 
 
     <div class="row">
-        <div class="col-md-12 col-sm-12 col-lg-3" *ngIf="premiereCategories && premiereCategories.length">
+        <div class="col-md-12 col-sm-12 col-lg-4" *ngIf="premiereCategories && premiereCategories.length">
             <div class="ui one item menu">
                 <a *ngFor="let categorie of premiereCategories" class="item" [ngClass]="{active:category?.id==categorie?.id}"
                 (click)="changeCategorie(categorie)">{{ categorie.name }}</a>
             </div>
         </div>
         <!-- <div class="offset-md-1 offset-lg-1"></div> -->
-        <div class="col-md-12 col-sm-12 col-lg-9" *ngIf="deuxiemeCategories && deuxiemeCategories.length">
-            <div class="ui four item menu">
+        <div class="col-md-12 col-sm-12 col-lg-8" *ngIf="deuxiemeCategories && deuxiemeCategories.length">
+            <div class="ui two item menu">
                 <a *ngFor="let categorie of deuxiemeCategories" class="item" [ngClass]="{active:category?.id==categorie?.id}"
                 (click)="changeCategorie(categorie)">
                 {{categorie.name}}
@@ -68,41 +60,61 @@
         </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-lg-6"></div>
             <div class="field col-lg-3">
-                <!-- <label for="date1" class="form-control-label">Du</label> -->
                 <ngbd-datepicker-i18n name="date1" [(ngModel)]="date1" (ngModelChange)="onPeriodChange()"></ngbd-datepicker-i18n>
             </div>
             <div class="field col-lg-3">
-                <!-- <label for="date2" class="form-control-label">Au</label> -->
                 <ngbd-datepicker-i18n name="date2" [(ngModel)]="date2" (ngModelChange)="onPeriodChange()"></ngbd-datepicker-i18n>
             </div>
-    </div>
+    </div> -->
 
     <table class="bordered striped highlight">
         <thead>
             <tr>
                 <th class="numerotab">N°</th>
-                <!-- <th><span>Réference</span></th> -->
                 <th><span>Numéro de Compte</span></th>
                 <th><span>Date</span></th>
-                <th><span>Observation</span></th>
-                <th><span>Débit</span></th>
-                <th><span>Crédit</span></th>
+                <th><span>Client</span></th>
                 <th><span>Solde</span></th>
+                <th class="text-right">Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let operation of operationCaisses | recherche:currentSearch ;let index=index;trackBy: trackId">
+            <tr *ngFor="let compte of compteDats | recherche:currentSearch ;let index=index;trackBy: trackId">
                 <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
                 <!-- <td>{{operation.reference}}</td> -->
-                <td>{{operation.num_account}}</td>
-                <td>{{operation.created_date | date:'medium'}}</td>
-                <td>{{operation.observation}}</td>
-                <td>{{operation && operation.debit | currency:'XAF':true:'2.0'}}</td>
-                <td>{{ operation && operation.credit | currency:'XAF':true:'2.0' }}</td>
-                <td>{{ operation && operation.solde | currency:'XAF':true:'2.0' }}</td>
+                <td>{{compte.num_account}}</td>
+                <td>{{compte.created_date | date:'medium'}}</td>
+                <td>{{compte.client}}</td>
+                <td>{{ compte && compte.solde | currency:'XAF':true:'2.0' }}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+
+                        <!-- <button type="submit" [routerLink]="['/entity','caisse-nouvelle', caisseNouvelle.id ]" class="btn btn-info btn-sm" *jhiHasAnyRessources="'carmesfnmservice/api/caisse-nouvelles/getCaisseNouvelle'">
+                            <span class="fa fa-eye"></span>
+                        </button> -->
+                        <!-- <button type="submit" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: 'caisse-nouvelle/'+ caisseNouvelle.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm" *jhiHasAnyRessources="['carmesfnmservice/api/caisse-nouvelles/updateCaisseNouvelle']"> -->
+                            <!-- <button type="submit" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: 'caisse-nouvelle/'+ caisseNouvelle.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                        <span class="fa fa-pencil"></span>
+                        </button> -->
+                        <!-- <button type="submit" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: 'caisse-nouvelle/'+ caisseNouvelle.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm" *jhiHasAnyRessources="['carmesfnmservice/api/caisse-nouvelles/deleteCaisseNouvelle']"> -->
+                            <!-- <button type="submit" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: 'caisse-nouvelle/'+ caisseNouvelle.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm" >
+                            <span class="fa fa-remove"></span>
+                        </button> -->
+
+                        <div class="ui dropdown">
+                            <div class="text" style="display:none"></div>
+                            <i class="ellipsis vertical icon"></i>
+                            <div class="left menu">
+                                <div class="item" (click)="navigateTo(compte,'RUPTURE')">Rupture DAT</div>
+                                <div  class="item" (click)="onSolde(compte)">Solde du compte</div>
+                                <div class="item" (click)="navigateTo(compte,'DEPOT')">Ajout DAT</div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>

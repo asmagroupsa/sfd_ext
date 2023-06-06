@@ -9,7 +9,8 @@ import {
     UserService,
     ResponseWrapper,
     EventBus,
-    READBITFILEURL
+    READBITFILEURL,
+    UserData
 } from '../../shared';
 import { LanguesService } from '../../shared/myTranslation/langues';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -58,6 +59,7 @@ export class SettingsComponent implements OnInit {
         this.languageHelper.getAll().then(languages => {
             this.languages = languages;
         });
+        console.log(UserData.getInstance().account);
     }
     onLoaded(settings: any, url: string = '1.png') {
         let options = createRequestOption();
