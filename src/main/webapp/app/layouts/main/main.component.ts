@@ -194,6 +194,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         if (!this.appOpened) {
             principal.identity().then(() => { }).catch(() => { });
         }
+        console.log(UserData.getInstance().account);
     }
 
 
