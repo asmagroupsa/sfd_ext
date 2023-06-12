@@ -19,6 +19,7 @@ import { NationalityService } from '../nationality';
 import { TypeClientService } from '../type-client';
 import { ProfessionService } from '../profession';
 import { CaisseNouvelleService } from '../caisse-nouvelle';
+import { ContratUnDatRequestPrintComponent } from './contrat-dat/contrat-un-dat-request-print.component';
 
 const ENTITY_STATES = [...OperationDatRoute, ...OperationDatPopupRoute];
 
@@ -30,7 +31,8 @@ const ENTITY_STATES = [...OperationDatRoute, ...OperationDatPopupRoute];
     OperationDatDialogComponent,
     OperationDatDeleteDialogComponent,
     OperationDatPopupComponent,
-    OperationDatDeletePopupComponent
+    OperationDatDeletePopupComponent,
+    ContratUnDatRequestPrintComponent
   ],
   entryComponents: [
     OperationDatComponent,

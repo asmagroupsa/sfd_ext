@@ -7,6 +7,7 @@ import { OperationDatComponent } from './operation-dat.component';
 import { OperationDatDetailComponent } from './operation-dat-detail.component';
 import { OperationDatPopupComponent } from './operation-dat-dialog.component';
 import { OperationDatDeletePopupComponent } from './operation-dat-delete-dialog.component';
+import { ContratUnDatRequestPrintComponent } from './contrat-dat/contrat-un-dat-request-print.component';
 
 
 export const OperationDatRoute: Routes = [
@@ -22,6 +23,15 @@ export const OperationDatRoute: Routes = [
   {
     path: ':id',
     component: OperationDatDetailComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'sfdApp.operationDat.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'print-un',
+    component: ContratUnDatRequestPrintComponent,
     data: {
       authorities: ['ROLE_USER'],
       pageTitle: 'sfdApp.operationDat.home.title'

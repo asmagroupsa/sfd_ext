@@ -11,7 +11,7 @@ let BASE_URL;
 let CARMES_HOST_URL = '';
 let BASE_URL_MVN;
 // let FILE_URL;
-let ENABLE_RESSOURCE: boolean = true;
+let ENABLE_RESSOURCE: boolean = false;
 export const DYNAMIC_BASE_URL_FLAG = true;
 export let CARMES_HOST = 'http://carmes.groupasma.com:9711';
 //export const cross_origin_URL = "https://asmagroupsa.sqoin.space";
@@ -47,12 +47,12 @@ switch (SERVER) {
         //CARMES_HOST_URL = "http://carmes.groupasma.com:3000";
         CARMES_HOST_URL = "http://carmes.groupasma.com:4001";
         CARMES_HOST = CARMES_HOST + '/lab';
-        
+
         break;
     case "DEVEXPRESS":
         BASE_URL_MVN = BASE_URL = 'http://devexpress.groupasma.com';
         CARMES_HOST_URL = "http://carmes.groupasma.com:4002";
-      
+
         break;
     case "DEV":
         console.log("tesssst")
@@ -62,7 +62,7 @@ switch (SERVER) {
         //FILE_URL =  'http://lab.groupasma.com:8787/fileupload/';
         CARMES_HOST_URL = "http://carmes.groupasma.com:4002";
         CARMES_HOST = CARMES_HOST + '/dev';
-       
+
         break;
 
     default:

@@ -2,22 +2,20 @@ import {Component, OnInit, OnDestroy,ViewChild,ElementRef,ChangeDetectorRef} fro
 import {ActivatedRoute} from '@angular/router';
 import { ImageService, READFILEURL, UserData } from '../../../shared';
 import { Subscription } from 'rxjs';
-import { CreditRequestService } from '../../credit-request';
 import { StateService } from '../../../shared/state/statistiques';
 
 @Component({
-    selector: 'jhi-operation-caisse-request-print',
-    templateUrl: './operation-caisse-request-print.component.html',
+    selector: 'jhi-contrat-un-dat-request-print',
+    templateUrl: './contrat-un-dat-request-print.component.html',
     //styleUrls: ['../../shared/state/state.css']
     styleUrls: ['../../../shared/state/state.scss']
+
 })
-export class OperationCaisseRequestPrintComponent implements OnInit, OnDestroy {
+export class ContratUnDatRequestPrintComponent implements OnInit, OnDestroy {
     private imageUrl = READFILEURL;
     private _subscription: Subscription;
-    private _creditRequestId: number;
     public data: any;
     params: any;
-    nomOperation  = "Operation";
 
     @ViewChild('printZone') printZone: ElementRef;
     private imageReady:boolean;
@@ -26,7 +24,6 @@ export class OperationCaisseRequestPrintComponent implements OnInit, OnDestroy {
     _DePage: any;
 
     constructor(
-        private _creditRequestService: CreditRequestService,
         private _activatedRoute: ActivatedRoute,
         private _stateService: StateService,
         private _imageService: ImageService,
@@ -42,29 +39,11 @@ export class OperationCaisseRequestPrintComponent implements OnInit, OnDestroy {
     }
 
     private _loadData(): void {
-        this._creditRequestService.query(this._creditRequestId)
-        .subscribe((data: any) => {
-            this.data = data.json[0];
-            this.imageReady=true;
-            this._dataLoadEnd = true;
-            this._activatedRoute.queryParams.subscribe(params => {
-                console.log(params);
-                this.params = params;
-                this.nomOperation = this.params.nomOperation;
-                console.log(this.nomOperation);
-
-            });
-        });
     }
 
     public ngOnInit(): void {
         this._DePage = UserData.getInstance().sfd_;
-        this._subscription = this._activatedRoute.params.subscribe((params: any[]) => {
-            this._creditRequestId = parseInt(params['id']);
-            console.log(params);
-
-            this._loadData();
-        });
+        console.log('Page is ok');
 
     }
 
