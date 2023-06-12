@@ -52,6 +52,7 @@ const ENTITY_STATES = [...OperationCaisseRoute, ...OperationCaissePopupRoute];
     CaisseNouvelleService,
     CreditRequestService
   ],
+  exports: [RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SfdOperationCaisseModule { }

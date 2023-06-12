@@ -191,12 +191,12 @@ export class OperationCaisseDialogComponent implements OnInit {
 
             console.log(this.produits);
             produits.forEach(element => {
-                if(this.isEpargne){
-                    if(!(/Epargne/i.test(element.libelle)))
-                    return ;
-                } else if(this.isDat){
-                    if(!(/Dat/i.test(element.libelle)))
-                    return ;
+                if (this.isEpargne) {
+                    if (!(/Epargne/i.test(element.libelle)))
+                        return;
+                } else if (this.isDat) {
+                    if (!(/Dat/i.test(element.libelle)))
+                        return;
                 }
                 //console.log(element.libelle);
                 let prod = {
@@ -336,15 +336,14 @@ export class OperationCaisseDialogComponent implements OnInit {
         if (this.type.code == 'DEPOT' || this.type.code == 'COMPTEEPARGNE'
             || this.type.code == 'ENCAISSEMENT' || this.type.code == 'DECAISSEMENT' ||
             this.type.code == 'RETRAIT') {
-            // [routerLink]="['/entity','caisse-nouvelle', caisseNouvelle.id ]"
-            // { outlets: { popup: ['132105/print'] } }
+            console.log(this.type.code);
             this.router.navigate(['/entity', 'operation-caisse', 'print', 132105], {
                 queryParams: {
                     'nomOperation': this.type.code,
-                    //'nameAgence':ag.name,
-                    //'caisse': caisse.reference
                 }
-            })
+            }).then(() => console.log('page quittance'));
+            //console.log('page quittance');
+
         }
 
         this.eventManager.broadcast({
@@ -421,7 +420,7 @@ export class OperationCaissePopupComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         let type: any = this.route.snapshot.queryParams['type'];
-        if (!type || ['VIREMENT', 'DEPOT', 'RETRAIT', 'COMPTEEPARGNE','COMPTEDAT',
+        if (!type || ['VIREMENT', 'DEPOT', 'RETRAIT', 'COMPTEEPARGNE', 'COMPTEDAT',
             'ENCAISSEMENT', 'DECAISSEMENT'].indexOf(type) == -1) {
             window.history.back();
         } else {
