@@ -364,6 +364,9 @@ export class OperationCaisseDialogComponent implements OnInit {
                 case 'COMPTE_CAISSE_ERRONEE':
                     msg = "Le compte caisse fourni est erroné";
                     break;
+                case 'COMPTE_CLIENT_ERRONEE':
+                        msg = "Le compte Client fourni est erroné";
+                        break;
                 case 'COMPTE_CAISSE_ENVOI_ERRONEE':
                     msg = "Le compte caisse d'envoi fourni est erroné";
                     break;
