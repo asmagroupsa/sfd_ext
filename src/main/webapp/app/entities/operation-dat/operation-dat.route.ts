@@ -8,6 +8,7 @@ import { OperationDatDetailComponent } from './operation-dat-detail.component';
 import { OperationDatPopupComponent } from './operation-dat-dialog.component';
 import { OperationDatDeletePopupComponent } from './operation-dat-delete-dialog.component';
 import { ContratUnDatRequestPrintComponent } from './contrat-dat/contrat-un-dat-request-print.component';
+import { ContratDeuxDatRequestPrintComponent } from './contrat-dat/contrat-deux-dat-request-print.component';
 
 
 export const OperationDatRoute: Routes = [
@@ -30,8 +31,17 @@ export const OperationDatRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: 'print-un',
+    path: 'print-un/:id',
     component: ContratUnDatRequestPrintComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'sfdApp.operationDat.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'print-deux/:id',
+    component: ContratDeuxDatRequestPrintComponent,
     data: {
       authorities: ['ROLE_USER'],
       pageTitle: 'sfdApp.operationDat.home.title'

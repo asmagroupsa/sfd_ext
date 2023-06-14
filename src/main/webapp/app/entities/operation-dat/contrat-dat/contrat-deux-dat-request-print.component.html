@@ -1,0 +1,159 @@
+<div class="row">
+    <div class="col-4" *ngIf="true">
+
+        <div>
+            Signataire <input type="text" [(ngModel)]="signataire" name="id">
+        </div>
+        <div>
+            Numéro Compte Courant Actif
+            <input type="text"
+                [(ngModel)]="numeroCompteCourantActif"  name="id">
+        </div>
+        <div>
+            Numéro de compte du versement
+            <input type="text"
+                [(ngModel)]="numeroCompteVersement"  name="id">
+        </div>
+        <div>
+            Durée Compte
+            <input type="text"
+                [(ngModel)]="dureeCompte"  name="id">
+        </div>
+        <div>
+            Taux annuel
+            <input type="text"
+                [(ngModel)]="tauxAnnuel"  name="id">
+        </div>
+        <div>
+            Pénalité de Résiliation Anticipée
+            <input type="text"
+                [(ngModel)]="penaliteResiliationAnticipe"  name="id">
+        </div>
+        <div>
+            Frais d'Ouverture
+            <input type="text"
+                [(ngModel)]="fraisOuverture"  name="id">
+        </div>
+        <div>
+            Autres Frais
+            <input type="text"
+                [(ngModel)]="autresFrais"  name="id">
+        </div>
+        <div>
+            Numéro Compte
+            <input type="text"
+                [(ngModel)]="numeroCompte"  name="id">
+        </div>
+        <div><button type="submit" (click)="valider()" >Valider</button></div>
+    </div>
+    <div class="col-8">
+        <div class="ui dimmer" [ngClass]="{'active':!hideLoader}">
+            <div class="ui loader"></div>
+        </div>
+
+        <div class="container" style="margin: auto;" *ngIf="hideLoader">
+            <div class="m" id="print" #printZone
+                style="display: inline-block; background-color: white; font-family: 'Times New Roman', Times, serif; font-size: 23px; width: 100%;"
+                class="browser-default">
+                <div class="print-header">
+                    <span style="text-align:justify"
+                        *ngIf="_DePage.entete !=null ;else elseBlock">
+                        <img [src]="imageUrl+_DePage.entete"
+                            alt="entete de page">
+                    </span>
+                    <ng-template #elseBlock>
+                        <!-- <img src="../../../content/images/header.jpg" alt="logo"> -->
+                    </ng-template>
+                </div>
+
+                <div class="p-wrapper">
+                    <p class="page-break">
+                        <span class="elm"></span>
+                    </p>
+                    <div class="row top-space">
+                        <div class="col-md-12">
+                            <table class="table table-bordered bx-sizing">
+                                <tbody>
+                                    <tr class="bx-shadow">
+                                        <td
+                                            class="text-align-center bold font-size-x-large"
+                                            style="color:gray; "> CONTRAT DE DEPOT A TERME N° ........ </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            ENTRE,
+Le SFD avec adresses …………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………….
+
+ET,
+
+AKA Georges, Tél : 95 00 00 00  domicilié à Akpakpa,
+
+Ci-après dénommé (e) « LE DEPOSANT »
+Article 1 : Objet
+Le Déposant ouvre dans les livres du SDF un compte DAT pour un montant CFA sept cent mille (700.000).
+Article 2 : Durée
+Le présent contrat est conclu pour une durée de douze (12) mois, soit du 09/06/2023  au 09/06/2024
+Article 3 : Rémunération
+Les fonds placés, feront l’objet d’une rémunération au taux net de 6%l’an. Le principal plus les intérêts courus seront payables à échéance.
+Article 4 : Déblocage anticipé
+Le SDF pourra à la demande du déposant, rembourser totalement ou partiellement le dépôt, avant le terme fixé à l’article 2. Ceci entrainera la perte des intérêts courus.
+Article 5 : Option règlement à l’échéance
+Le Client peut opter pour la tacite reconduction du DAT en choisissant  « tacite reconduction » à la signature.
+		Tacite reconduction       				Remboursement à l’échéance
+Article  6 : Tacite reconduction
+En cas de tacite reconduction et sauf avis contraire du déposant, le SDF procèdera automatiquement au renouvellement du contrat pour une durée identique à celle initiale et au taux en vigueur à la date du renouvellement. Le Déposant opte, en cas de renouvellement de son DAT par tacite reconduction pour :
+Option A : La non capitalisation des intérêts
+			Le montant objet de chaque nouveau contrat DAT sera identique au montant
+			Initial.
+Option B : La capitalisation automatique des intérêts
+Le montant objet de chaque nouveau contrat DAT sera identique au montant initial plus les intérêts produits.
+Article  7 : Non reconduction
+En cas de non reconduction, le principal et les intérêts seront automatiquement payés.
+Fait à Cotonou, le 09/06/2023
+
+LE DEPOSANT 							Le SDF
+
+
+*Signature, NOM et PRENOMS précédés de la mention « LU ET APPROUVE »
+               * L’année civile est l’année de référence
+
+                        </div>
+                    </div>
+
+                    <!--  Custumer section-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br><br>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="print-footer">
+                    <!-- Page: -->
+                    <span style="text-align:justify"
+                        *ngIf="_DePage.piedPage !=null;else elseBlock2">
+                        <img [src]="imageUrl+_DePage.piedPage"
+                            alt="pied de page"
+                            width="100%" height="50">
+                    </span>
+                    <ng-template #elseBlock2>
+                        <!-- <img src="../../../content/images/footer.jpg" alt="logo" width="100%" height="50"> -->
+                    </ng-template>
+                </div>
+
+            </div>
+            <div class style="height:400px">
+            </div>
+            <iframe name="print_frame" width="0" height="0" frameborder="0"
+                src="about:blank"></iframe>
+            <button class="btn-floating btn-large waves-effect waves-light red"
+                style="position: fixed; bottom: 25px; right: 25px;"
+                (click)="printAsPdf('membership-form')">
+                <i class="material-icons">print</i>
+            </button>
+        </div>
+
+    </div>
+</div>

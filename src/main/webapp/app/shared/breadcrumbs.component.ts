@@ -409,6 +409,19 @@ export class BreadcrumbsComponent implements OnInit {
                         translate: 'menus.caisses.caisse',
                         ressource: 'carmesfnmservice/api/caisses/operation_dat'
                     },
+                    {
+                        label: 'Contrat DAT N°1',
+                        url: '/entity/operation-dat/print-un/1',
+                        translate: 'menus.caisses.caisse',
+                        ressource: 'carmesfnmservice/api/caisses/operation_dat'
+                    },
+
+                    {
+                        label: 'Contrat DAT N°2',
+                        url: '/entity/operation-dat/print-deux/2',
+                        translate: 'menus.caisses.caisse',
+                        ressource: 'carmesfnmservice/api/caisses/operation_dat'
+                    },
                     /* {
                         label: 'Historiques Affectation',
                         url: '/entity/caisse-nouvelle/historique-affectation-caisse',

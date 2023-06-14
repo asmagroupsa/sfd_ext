@@ -5,13 +5,13 @@ import { Subscription } from 'rxjs';
 import { StateService } from '../../../shared/state/statistiques';
 
 @Component({
-    selector: 'jhi-contrat-un-dat-request-print',
-    templateUrl: './contrat-un-dat-request-print.component.html',
+    selector: 'jhi-contrat-deux-dat-request-print',
+    templateUrl: './contrat-deux-dat-request-print.component.html',
     //styleUrls: ['../../shared/state/state.css']
     styleUrls: ['../../../shared/state/state.scss']
 
 })
-export class ContratUnDatRequestPrintComponent implements OnInit, OnDestroy {
+export class ContratDeuxDatRequestPrintComponent implements OnInit, OnDestroy {
     private imageUrl = READFILEURL;
     private _subscription: Subscription;
     public data: any;
