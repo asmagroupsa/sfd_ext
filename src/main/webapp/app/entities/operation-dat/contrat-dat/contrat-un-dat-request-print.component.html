@@ -1,44 +1,589 @@
-<div class="row">
-    <div class="col-4" *ngIf="true">
-
-        <div>
-            Signataire <input type="text" [(ngModel)]="signataire" name="id">
-        </div>
-        <div>
-            Numéro Compte Courant Actif
-            <input type="text" [(ngModel)]="numeroCompteCourantActif" name="id">
-        </div>
-        <div>
-            Numéro de compte du versement
-            <input type="text" [(ngModel)]="numeroCompteVersement" name="id">
-        </div>
-        <div>
-            Durée Compte
-            <input type="text" [(ngModel)]="dureeCompte" name="id">
-        </div>
-        <div>
-            Taux annuel
-            <input type="text" [(ngModel)]="tauxAnnuel" name="id">
-        </div>
-        <div>
-            Pénalité de Résiliation Anticipée
-            <input type="text" [(ngModel)]="penaliteResiliationAnticipe" name="id">
-        </div>
-        <div>
-            Frais d'Ouverture
-            <input type="text" [(ngModel)]="fraisOuverture" name="id">
-        </div>
-        <div>
-            Autres Frais
-            <input type="text" [(ngModel)]="autresFrais" name="id">
-        </div>
-        <div>
-            Numéro Compte
-            <input type="text" [(ngModel)]="numeroCompte" name="id">
-        </div>
-        <div><button type="submit" (click)="valider()">Valider</button></div>
+<div class="row" *ngIf="impression">
+    <div class="col">
+        <button type="submit" class="btn waves-effect waves-light">
+            <span class="fa fa-edit"></span>&nbsp;
+            <span (click)="editContrat()">Editer le contrat</span>
+        </button>
     </div>
-    <div class="col-8">
+</div>
+
+<div class="row" *ngIf="!impression">
+    <div class="col" *ngIf="true">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save(editForm)" #editForm="ngForm">
+            <div class="row">
+                <div class="col-6">
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_signataire">Signataire</label>
+                        <input type="text" class="form-control" name="signataire" id="field_signataire" [(ngModel)]="signataire"
+                            required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.signataire?.dirty && editForm.controls.signataire?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.signataire?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.signataire?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_numeroCompteCourantActif">Numéro Compte
+                            Courant Actif</label>
+                        <input type="text" class="form-control" name="numeroCompteCourantActif"
+                            id="field_numeroCompteCourantActif" [(ngModel)]="numeroCompteCourantActif" required maxlength="250"
+                            data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.numeroCompteCourantActif?.dirty && editForm.controls.numeroCompteCourantActif?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroCompteCourantActif?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroCompteCourantActif?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_numeroCompteVersement">Numéro de compte du
+                            versement</label>
+                        <input type="text" class="form-control" name="numeroCompteVersement" id="field_numeroCompteVersement"
+                            [(ngModel)]="numeroCompteVersement" required maxlength="250" data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.numeroCompteVersement?.dirty && editForm.controls.numeroCompteVersement?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroCompteVersement?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroCompteVersement?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_dureeCompte">Durée Compte</label>
+                        <input type="text" class="form-control" name="dureeCompte" id="field_numeroCompteVersement"
+                            [(ngModel)]="dureeCompte" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.dureeCompte?.dirty && editForm.controls.dureeCompte?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dureeCompte?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dureeCompte?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_tauxAnnuel">Taux annuel</label>
+                        <input type="text" class="form-control" name="tauxAnnuel" id="field_tauxAnnuel" [(ngModel)]="tauxAnnuel"
+                            required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.tauxAnnuel?.dirty && editForm.controls.tauxAnnuel?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.tauxAnnuel?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.tauxAnnuel?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_penaliteResiliationAnticipe">Pénalité de
+                            Résiliation Anticipée</label>
+                        <input type="text" class="form-control" name="penaliteResiliationAnticipe"
+                            id="field_penaliteResiliationAnticipe" [(ngModel)]="penaliteResiliationAnticipe" required
+                            maxlength="250" data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.penaliteResiliationAnticipe?.dirty && editForm.controls.penaliteResiliationAnticipe?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.penaliteResiliationAnticipe?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.penaliteResiliationAnticipe?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_fraisOuverture">Frais d'Ouverture</label>
+                        <input type="text" class="form-control" name="fraisOuverture" id="field_fraisOuverture"
+                            [(ngModel)]="fraisOuverture" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.fraisOuverture?.dirty && editForm.controls.fraisOuverture?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.fraisOuverture?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.fraisOuverture?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_autresFrais">Autres Frais</label>
+                        <input type="text" class="form-control" name="autresFrais" id="field_autresFrais"
+                            [(ngModel)]="autresFrais" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.autresFrais?.dirty && editForm.controls.autresFrais?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.autresFrais?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.autresFrais?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_numeroCompte">Numéro Compte</label>
+                        <input type="text" class="form-control" name="numeroCompte" id="field_numeroCompte"
+                            [(ngModel)]="numeroCompte" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.numeroCompte?.dirty && editForm.controls.numeroCompte?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.numeroCompte?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.numeroCompte?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_montantVersement">Montant versement</label>
+                        <input type="text" class="form-control" name="montantVersement" id="field_montantVersement"
+                            [(ngModel)]="montantVersement" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.montantVersement?.dirty && editForm.controls.montantVersement?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.montantVersement?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.montantVersement?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_numeroClient">Numéro Client</label>
+                        <input type="text" class="form-control" name="numeroClient"
+                            id="field_numeroClient" [(ngModel)]="numeroClient" required
+                            maxlength="250" data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.numeroClient?.dirty && editForm.controls.numeroClient?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_nomFamilleClient">Nom de famille du client</label>
+                        <input type="text" class="form-control" name="nomFamilleClient" id="field_nomFamilleClient"
+                            [(ngModel)]="nomFamilleClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.nomFamilleClient?.dirty && editForm.controls.nomFamilleClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.nomFamilleClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.nomFamilleClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_prenomsClient">Prénoms du client</label>
+                        <input type="text" class="form-control" name="prenomsClient" id="field_prenomsClient"
+                            [(ngModel)]="prenomsClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.prenomsClient?.dirty && editForm.controls.prenomsClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.prenomsClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.prenomsClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_dateNaissanceClient">Date de naissance du client</label>
+                        <input type="text" class="form-control" name="dateNaissanceClient" id="field_dateNaissanceClient"
+                            [(ngModel)]="dateNaissanceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.dateNaissanceClient?.dirty && editForm.controls.dateNaissanceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dateNaissanceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dateNaissanceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_organisationAppartenanceClient">Organisation d'appartenance du client</label>
+                        <input type="text" class="form-control" name="organisationAppartenanceClient" id="field_organisationAppartenanceClient"
+                            [(ngModel)]="organisationAppartenanceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.organisationAppartenanceClient?.dirty && editForm.controls.organisationAppartenanceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.organisationAppartenanceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.organisationAppartenanceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_adresseEmailClient">Adresse Email Client</label>
+                        <input type="text" class="form-control" name="adresseEmailClient" id="field_adresseEmailClient"
+                            [(ngModel)]="adresseEmailClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.adresseEmailClient?.dirty && editForm.controls.adresseEmailClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.adresseEmailClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.adresseEmailClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_numeroAssuranceSocialClient">Numero Assurance Social Client</label>
+                        <input type="text" class="form-control" name="numeroAssuranceSocialClient"
+                            id="field_numeroAssuranceSocialClient" [(ngModel)]="numeroAssuranceSocialClient" required
+                            maxlength="250" data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.numeroAssuranceSocialClient?.dirty && editForm.controls.numeroAssuranceSocialClient?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroAssuranceSocialClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroAssuranceSocialClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_paysVilleResidenceClient">Pays/Ville Residence Client</label>
+                        <input type="text" class="form-control" name="paysVilleResidenceClient" id="field_paysVilleResidenceClient"
+                            [(ngModel)]="paysVilleResidenceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.paysVilleResidenceClient?.dirty && editForm.controls.paysVilleResidenceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.paysVilleResidenceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.paysVilleResidenceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_adresseDomicileClient">Adresse Domicile Client</label>
+                        <input type="text" class="form-control" name="adresseDomicileClient" id="field_adresseDomicileClient"
+                            [(ngModel)]="adresseDomicileClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.adresseDomicileClient?.dirty && editForm.controls.adresseDomicileClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.adresseDomicileClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.adresseDomicileClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_telephoneDomicileClient">Téléphone Domicile Client</label>
+                        <input type="text" class="form-control" name="telephoneDomicileClient" id="field_telephoneDomicileClient"
+                            [(ngModel)]="telephoneDomicileClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.telephoneDomicileClient?.dirty && editForm.controls.telephoneDomicileClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.telephoneDomicileClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.telephoneDomicileClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_activiteExercesClient">Activités Exercés Client</label>
+                        <input type="text" class="form-control" name="activiteExercesClient" id="field_activiteExercesClient"
+                            [(ngModel)]="activiteExercesClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.activiteExercesClient?.dirty && editForm.controls.activiteExercesClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.activiteExercesClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.activiteExercesClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_etatCivilClient">Etat Civil Client</label>
+                        <input type="text" class="form-control" name="etatCivilClient" id="field_etatCivilClient"
+                            [(ngModel)]="etatCivilClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.etatCivilClient?.dirty && editForm.controls.etatCivilClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.etatCivilClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.etatCivilClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_citoyenneteClient">Citoyennete Client</label>
+                        <input type="text" class="form-control" name="citoyenneteClient"
+                            id="field_citoyenneteClient" [(ngModel)]="citoyenneteClient" required
+                            maxlength="250" data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.citoyenneteClient?.dirty && editForm.controls.citoyenneteClient?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.citoyenneteClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.citoyenneteClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_telephoneTravailClient">Télephone Travail Client</label>
+                        <input type="text" class="form-control" name="telephoneTravailClient" id="field_telephoneTravailClient"
+                            [(ngModel)]="telephoneTravailClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.telephoneTravailClient?.dirty && editForm.controls.telephoneTravailClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.telephoneTravailClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.telephoneTravailClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_lieuDelivrancePieceClient">Lieu Délivrance Pièce Client</label>
+                        <input type="text" class="form-control" name="lieuDelivrancePieceClient" id="field_lieuDelivrancePieceClient"
+                            [(ngModel)]="lieuDelivrancePieceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.lieuDelivrancePieceClient?.dirty && editForm.controls.lieuDelivrancePieceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.lieuDelivrancePieceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.lieuDelivrancePieceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_numeroIdentificationPieceClient">Numéro Identification Pièce Client</label>
+                        <input type="text" class="form-control" name="numeroIdentificationPieceClient" id="field_numeroIdentificationPieceClient"
+                            [(ngModel)]="numeroIdentificationPieceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.numeroIdentificationPieceClient?.dirty && editForm.controls.numeroIdentificationPieceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.numeroIdentificationPieceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.numeroIdentificationPieceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_activiteExercesClient">Date Expiration Pièce Client</label>
+                        <input type="text" class="form-control" name="dateExpirationPieceClient" id="field_dateExpirationPieceClient"
+                            [(ngModel)]="dateExpirationPieceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.dateExpirationPieceClient?.dirty && editForm.controls.dateExpirationPieceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dateExpirationPieceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dateExpirationPieceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_dateVerificationPieceClient">Date Vérification Pièce Client</label>
+                        <input type="text" class="form-control" name="dateVerificationPieceClient" id="field_dateVerificationPieceClient"
+                            [(ngModel)]="dateVerificationPieceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.dateVerificationPieceClient?.dirty && editForm.controls.dateVerificationPieceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dateVerificationPieceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dateVerificationPieceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_etablissementSociete">Etablissement/Societé</label>
+                        <input type="text" class="form-control" name="etablissementSociete"
+                            id="field_etablissementSociete" [(ngModel)]="etablissementSociete" required
+                            maxlength="250" data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.etablissementSociete?.dirty && editForm.controls.etablissementSociete?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.etablissementSociete?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.etablissementSociete?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_natureEntreprise">Nature Entreprise</label>
+                        <input type="text" class="form-control" name="natureEntreprise" id="field_natureEntreprise"
+                            [(ngModel)]="natureEntreprise" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.natureEntreprise?.dirty && editForm.controls.natureEntreprise?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.natureEntreprise?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.natureEntreprise?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_rccm">RCCM</label>
+                        <input type="text" class="form-control" name="rccm" id="field_rccm"
+                            [(ngModel)]="rccm" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.rccm?.dirty && editForm.controls.rccm?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.rccm?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.rccm?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_ifu">IFU</label>
+                        <input type="text" class="form-control" name="ifu" id="field_ifu"
+                            [(ngModel)]="ifu" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.ifu?.dirty && editForm.controls.ifu?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.ifu?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.ifu?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_siegeSocial">Siège Social</label>
+                        <input type="text" class="form-control" name="siegeSocial" id="field_siegeSocial"
+                            [(ngModel)]="siegeSocial" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.siegeSocial?.dirty && editForm.controls.siegeSocial?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.siegeSocial?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.siegeSocial?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_lieuDateSignatureClient">Lieu Date Signature Client</label>
+                        <input type="text" class="form-control" name="lieuDateSignatureClient" id="field_lieuDateSignatureClient"
+                            [(ngModel)]="lieuDateSignatureClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.lieuDateSignatureClient?.dirty && editForm.controls.lieuDateSignatureClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.lieuDateSignatureClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.lieuDateSignatureClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" [disabled]="editForm.form.invalid" class="btn waves-effect waves-light">
+                        <span class="fa fa-save"></span>&nbsp;
+                        <span (click)="valider()">Valider</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
         <div class="ui dimmer" [ngClass]="{'active':!hideLoader}">
             <div class="ui loader"></div>
         </div>
@@ -234,16 +779,14 @@
                             </p>
                             <p>Date </p> <br><br>
                             <p>Signature </p><br>
-                            (Mentionner « Lu et approuvé") <br>
+                            (Mentionner « Lu et approuvé") <br><br><br>
                             <strong>Réservé à IMF X : </strong>
                             <p>Signature vérifiée par (Veuillez renseigner la
                                 fiche
                                 d’identification avant la signature) :
+                                <br><br>
                                 Avis de la banque
                             </p>
-                            <br>
-                            <br>
-                            <br>
                             <br>
                             <br>
                             <br>
@@ -418,7 +961,11 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>Numéro du client</td>
+                                                <td>
+                                                    Numéro du client
+                                                    <br>
+                                                    {{numeroClient}}
+                                                </td>
 
                                             </tr>
                                         </table>
@@ -426,26 +973,47 @@
                                     <br>
                                     <div class="row" style="background-color: #cbe29a;">
                                         <div style="background-color: #cbe29a;">
-                                            <table class="table table-bordered" width="100%" >
-                                                <td><strong>Nom de famille du client</strong><br><br></td>
-                                                <td><strong>Prénoms</strong> (Dans l'ordre de la pièce fournie) <br><br>
+                                            <table class="table table-bordered" width="100%">
+                                                <td><strong>Nom de famille du client</strong><br><br> {{nomFamilleClient}} </td>
+                                                <td><strong>Prénoms</strong> (Dans l'ordre de la pièce fournie) <br><br> {{prenomsClient}}
                                                 </td>
-                                                <td><strong>Date de naissance</strong> JJ-MM-AAAA<br><br></td>
+                                                <td><strong>Date de naissance</strong> JJ-MM-AAAA<br><br> {{dateNaissanceClient}} </td>
                                             </table>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-4">Nom de l’organisation d’appartenance</div>
-                                        <div class="col-4">Adresses e-mail </div>
-                                        <div class="col-4">Numéro d’assurance sociale</div>
+                                        <div class="col-4">
+                                            <div class="row">
+                                                <div class="col">Nom de l’organisation d’appartenance</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">{{organisationAppartenanceClient}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="row">
+                                                <div class="col">Adresses e-mail </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">{{adresseEmailClient}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="row">
+                                                <div class="col">Numéro d’assurance sociale</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">{{numeroAssuranceSocialClient}}</div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="row" style="background-color: #cbe29a;">
                                         <table class="table table-bordered" width="100%">
-                                            <td><strong>Pays/ Ville de résidence</strong><br><br></td>
-                                            <td><strong>Adresse (indication domicile & )</strong><br><br></td>
-                                            <td><strong>N° Téléphones domicile </strong><br><br></td>
+                                            <td><strong>Pays/ Ville de résidence</strong><br><br> {{paysVilleResidenceClient}}</td>
+                                            <td><strong>Adresse (indication domicile & )</strong><br><br> {{adresseDomicileClient}}</td>
+                                            <td><strong>N° Téléphones domicile </strong><br><br> {{telephoneDomicileClient}}</td>
                                         </table>
                                     </div>
                                     <br>
@@ -498,9 +1066,30 @@
                                 <div class="col-2"><strong>B. Pièces présentées</strong></div>
                                 <div class="col-10">
                                     <div class="row">
-                                        <div class="col-4">Etat Civil</div>
-                                        <div class="col-4">Citoyenneté</div>
-                                        <div class="col-4">N° Téléphone de travail</div>
+                                        <div class="col-4">
+                                            <div class="row">
+                                                <div class="col">Etat Civil</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">{{etatCivilClient}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="row">
+                                                <div class="col">Citoyenneté</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">{{citoyenneteClient}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="row">
+                                                <div class="col">N° Téléphone de travail</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">{{telephoneTravailClient}}</div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row" style="background-color: #cbe29a;">
                                         <div class="col-6">
@@ -544,10 +1133,10 @@
                                     <br>
                                     <div class="row">
                                         <table class="table table-bordered" width="100%">
-                                            <td>Lieu de délivrance de la pièce<br><br></td>
-                                            <td>N° d'identification de la pièce<br><br></td>
-                                            <td>Date d'expiration<br><br></td>
-                                            <td>Date de vérification<br><br></td>
+                                            <td>Lieu de délivrance de la pièce<br><br> {{lieuDelivrancePieceClient}} </td>
+                                            <td>N° d'identification de la pièce<br><br>  {{numeroIdentificationPieceClient}} </td>
+                                            <td>Date d'expiration<br><br> {{dateExpirationPieceClient}} </td>
+                                            <td>Date de vérification<br><br> {{dateVerificationPieceClient}} </td>
                                         </table>
                                     </div>
                                 </div>
@@ -559,17 +1148,17 @@
                                 <div class="col-10">
                                     <div class="row" style="background-color: #cbe29a;">
                                         <table class="table table-bordered" width="100%">
-                                            <td>Etablissement/ Société<br><br></td>
-                                            <td>Nature de l'entreprise<br><br></td>
+                                            <td>Etablissement/ Société<br><br> {{etablissementSociete}} </td>
+                                            <td>Nature de l'entreprise<br><br> {{natureEntreprise}} </td>
                                             <td>
                                                 <div class="row">
-                                                    <div class="col-12">N° RCCM ..............................</div>
+                                                    <div class="col-12">N° RCCM {{rccm}} </div>
                                                 </div><br><br>
                                                 <div class="row">
-                                                    <div class="col-12">N° IFU ................................</div>
+                                                    <div class="col-12">N° IFU {{ifu}} </div>
                                                 </div>
                                             </td>
-                                            <td>Siège social (Lieu d'implantation)<br><br></td>
+                                            <td>Siège social (Lieu d'implantation)<br><br>  {{siegeSocial}} </td>
                                         </table>
                                     </div>
                                     <div class="row">
@@ -861,11 +1450,18 @@
                             </div>
                             <!-- Fin -->
                             <div class="row">
-                                <p>NB : Les opérations ponctuelles, remarquables par leur montant et leur caractère
-                                    inhabituel, sont subordonnées à un entretien préalable avant validation dans les
-                                    livres de IMF X</p>
-                                <p>Lieu/date ………………………………………………………………… Signature du client (précédé de la mention lu et
-                                    approuvé)</p>
+                                <div class="col">
+                                    <p>NB : Les opérations ponctuelles, remarquables par leur montant et leur caractère
+                                        inhabituel, sont subordonnées à un entretien préalable avant validation dans les
+                                        livres de IMF X</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Lieu/date {{lieuDateSignatureClient}} <br> Signature du client (précédé de la mention lu
+                                        et
+                                        approuvé)</p>
+                                </div>
                             </div>
 
                         </div>

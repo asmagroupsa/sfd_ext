@@ -16,6 +16,7 @@ export class ContratUnDatRequestPrintComponent implements OnInit, OnDestroy {
     private _subscription: Subscription;
     public data: any;
     params: any;
+    impression = false;
 
     signataire = "";
     numeroCompteCourantActif = "";
@@ -27,6 +28,33 @@ export class ContratUnDatRequestPrintComponent implements OnInit, OnDestroy {
     fraisOuverture = "";
     autresFrais = "";
     numeroCompte = "";
+    numeroClient = "";
+    nomFamilleClient = "";
+    prenomsClient = "";
+    dateNaissanceClient = "";
+    organisationAppartenanceClient = "";
+    adresseEmailClient = "";
+    numeroAssuranceSocialClient = "";
+    paysVilleResidenceClient = "";
+    adresseDomicileClient = "";
+    telephoneDomicileClient = "";
+    activiteExercesClient = "";
+    etatCivilClient = "";
+    citoyenneteClient = "";
+    telephoneTravailClient = "";
+    lieuDelivrancePieceClient = "";
+    numeroIdentificationPieceClient = "";
+    dateExpirationPieceClient = "";
+    dateVerificationPieceClient = "";
+    etablissementSociete = "";
+    natureEntreprise = "";
+    rccm = "";
+    ifu = "";
+    siegeSocial = "";
+    lieuDateSignatureClient = "";
+
+
+
 
     @ViewChild('printZone') printZone: ElementRef;
     private imageReady:boolean;
@@ -58,6 +86,14 @@ export class ContratUnDatRequestPrintComponent implements OnInit, OnDestroy {
 
     valider(){
         this._dataLoadEnd = true;
+        this.impression = true;
+    }
+
+    editContrat(){
+        //this._loadData();
+        this.ngOnInit();
+        this.increment = 0;
+        this.impression = false;
     }
 
     public ngOnInit(): void {
