@@ -12,6 +12,9 @@
             <input type="text" class="form-control" id="id" name="id" [(ngModel)]="operationDat.id" readonly />
         </div>-->
         <div *ngIf='caisseName'> <strong>Caisse:</strong> {{ caisseName }}</div>
+        
+        <div *ngIf="client"><strong> Client: {{client}}</strong> </div>
+        <div *ngIf="compteDat"><strong> Numéro de compte: {{compteDat}}</strong> </div>
         <br/> <br/>
         <!-- <div class="form-group" *ngIf="agences.length > 1 && (!isDecaissement && !isEncaissement && !isRetrait)">
             <label  for="field_agenceReference" class="oblige">Agence</label>
@@ -29,7 +32,7 @@
             </select>
         </div> -->
 
-        <div class="form-group" *ngIf="(!isVirement)">
+        <div class="form-group" *ngIf="(!isVirement && !isRetrait)">
             <label class="form-control-label active oblige" for="field_comptecarmesclient">Compte Carmes de la caisse</label>
             <input type="text" class="form-control" name="comptecarmescaisse" id="field_comptecarmescaisse" [(ngModel)]="operationDat && operationDat.comptecarmescaisse" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.comptecarmescaisse?.dirty && editForm.controls.comptecarmescaisse?.invalid)">
@@ -42,8 +45,8 @@
             </div>
         </div>
 
-        <div class="form-group" *ngIf="(!isDecaissement && !isEncaissement && !isVirement)">
-            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.operationDat.comptecarmesclient" for="field_comptecarmesclient">Virtual Accompt</label>
+        <div class="form-group" *ngIf="(!isDecaissement && !isEncaissement && !isVirement && !isRetrait)">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.operationCaisse.comptecarmesclient" for="field_comptecarmesclient">Virtual Accompt</label>
             <input type="text" class="form-control" name="comptecarmesclient" id="field_comptecarmesclient" [(ngModel)]="operationDat && operationDat.comptecarmesclient" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.comptecarmesclient?.dirty && editForm.controls.comptecarmesclient?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.comptecarmesclient?.errors?.required" jhiFnmTranslate="entity.validation.required">
@@ -56,7 +59,7 @@
         </div>
 
         <!-- <div class="form-group"  *ngIf="(!isDecaissement && !isEncaissement && !isVirement)">
-            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.operationDat.comptecarmesclient" for="field_name">Name</label>
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.operationCaisse.comptecarmesclient" for="field_name">Name</label>
             <input type="text" class="form-control" name="comptecarmesclient" id="field_comptecarmesclient" [(ngModel)]="operationDat && operationDat.comptecarmesclient" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.comptecarmesclient?.dirty && editForm.controls.comptecarmesclient?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.comptecarmesclient?.errors?.required" jhiFnmTranslate="entity.validation.required">
@@ -94,7 +97,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="!isRetrait">
             <label class="form-control-label active oblige" for="field_montant">Montant</label>
             <input type="number" min="1" class="form-control" name="montant" id="field_montant" [(ngModel)]="operationDat && operationDat.montant" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.montant?.dirty && editForm.controls.montant?.invalid)">
@@ -108,7 +111,7 @@
         </div>
 
         <!-- <div class="form-group" *ngIf="isEpargne || isDat">
-            <label  jhiFnmTranslate="sfdApp.operationDat.produit" for="produit_id" class="oblige">Produit</label>
+            <label  jhiFnmTranslate="sfdApp.operationCaisse.produit" for="produit_id" class="oblige">Produit</label>
             <div *ngIf="produits" class="ui icon input field" [ngClass]="{loading: loadingArray.produit}" style="width: 100%;">
                 <select class="ui fluid search dropdwno sfd-dropdown" id="produit_id" name="produit" [(ngModel)]="operationDat && operationDat.produitId" required>
                     <option [ngValue]="null" disabled>Choisissez le produit</option>
@@ -118,7 +121,7 @@
             </div>
         </div> -->
 
-        <div class="form-group" *ngIf="isDat">
+        <div class="form-group" *ngIf="isDat || isDepot">
             <label class="form-control-label oblige" for="field_dateechu">Date écheance</label>
             <ngbd-datepicker-i18n [ngModel]="operationDat && operationDat.dateechu" (ngModelChange)="operationDat.dateechu = $event"  name="dateechu" required="true"></ngbd-datepicker-i18n>
         </div>
@@ -132,7 +135,7 @@
         </div>
 
         <div class="form-group" *ngIf="(!isVirement && !isDecaissement && !isEncaissement && !isRetrait && !isDepot)">
-            <label jhiFnmTranslate="sfdApp.operationDat.typeClient" for="field_typeClient" class="oblige">Type Client</label>
+            <label jhiFnmTranslate="sfdApp.operationCaisse.typeClient" for="field_typeClient" class="oblige">Type Client</label>
             <select class="ui fluid search dropdown sfd-dropdown" id="field_typeClient" name="typeClient" [(ngModel)]="operationDat && operationDat.typeClientId" required>
                 <option [ngValue]="null" disabled>Choisissez le type de client</option>
                 <option [ngValue]="typeClientOption.id" *ngFor="let typeClientOption of typeclients | slice:-3">{{typeClientOption.name}}</option>
@@ -141,7 +144,7 @@
 
 
         <div class="form-group" *ngIf="(!isVirement && !isDecaissement && !isEncaissement && !isRetrait && !isDepot)">
-            <label class="form-control-label active oblige" for="field_nomClient" jhiFnmTranslate="sfdApp.operationDat.nomClient" >Nom du client</label>
+            <label class="form-control-label active oblige" for="field_nomClient" jhiFnmTranslate="sfdApp.operationCaisse.nomClient" >Nom du client</label>
             <input type="text" class="form-control" name="nomClient" id="field_nomClient" [(ngModel)]="operationDat && operationDat.nomClient" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.nomClient?.dirty && editForm.controls.nomClient?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.nomClient?.errors?.required" jhiFnmTranslate="entity.validation.required">
@@ -154,16 +157,12 @@
         </div>
 
         <div class="form-group" *ngIf="(!isVirement && !isDecaissement && !isEncaissement && !isRetrait && !isDepot)">
-            <label class="form-control-label oblige" jhiFnmTranslate="sfdApp.operationDat.birthDate" for="field_birthDate">Birth Date</label>
-            <!-- <ngbd-datepicker-i18n id="field_birthDate" [ngModel]="operationDat && operationDat.birthDate" name="birthDate" required="true" [minDate]="minDate" [maxDate]="maxDate"  >
-            </ngbd-datepicker-i18n> -->
-            <!-- <input [ngModel]="operationDat && (operationDat.birthDate | date:'yyyy-MM-dd')" (ngModelChange)="operationDat.birthDate = $event" type="date" name="birthDate" required="true"/> -->
-            <!-- <input type="date"  [ngModel]="operationDat && operationDat.birthDate" name="birthDate" required="true"> -->
+            <label class="form-control-label oblige" jhiFnmTranslate="sfdApp.operationCaisse.birthDate" for="field_birthDate">Birth Date</label>
             <ngbd-datepicker-i18n [ngModel]="operationDat && operationDat.birthDate" (ngModelChange)="operationDat.birthDate = $event"  name="birthDate" required="true"></ngbd-datepicker-i18n>
         </div>
 
         <div class="form-group" *ngIf="(!isVirement && !isDecaissement && !isEncaissement && !isRetrait && !isDepot)">
-            <label jhiFnmTranslate="sfdApp.operationDat.sexe" for="field_sex" class="oblige">Sexe</label>
+            <label jhiFnmTranslate="sfdApp.operationCaisse.sexe" for="field_sex" class="oblige">Sexe</label>
             <select class="ui fluid search dropdown sfd-dropdown" id="field_sex" name="sexe" [(ngModel)]="operationDat && operationDat.sexe" required>
                 <option [ngValue]="null" disabled>Sélectionner le sexe</option>
                 <option value="M">Masculin</option>
@@ -172,7 +171,7 @@
         </div>
 
         <div class="form-group" *ngIf="(!isVirement && !isDecaissement && !isEncaissement && !isRetrait && !isDepot)">
-            <label class="form-control-label active oblige" for="field_name" jhiFnmTranslate="sfdApp.operationDat.email" >Email</label>
+            <label class="form-control-label active oblige" for="field_name" jhiFnmTranslate="sfdApp.operationCaisse.email" >Email</label>
             <input type="email" min="1" class="form-control" name="email" id="field_email" [(ngModel)]="operationDat && operationDat.email" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.required" jhiFnmTranslate="entity.validation.required">
@@ -185,7 +184,7 @@
         </div>
 
         <div class="form-group" *ngIf="(!isVirement && !isDecaissement && !isEncaissement && !isRetrait && !isDepot)">
-            <label class="form-control-label active oblige" for="field_name"  jhiFnmTranslate="sfdApp.operationDat.telephone" >Téléphone</label>
+            <label class="form-control-label active oblige" for="field_name"  jhiFnmTranslate="sfdApp.operationCaisse.telephone" >Téléphone</label>
             <input type="tel" min="1" class="form-control" name="telephone" id="field_telephone" [(ngModel)]="operationDat && operationDat.telephone" required maxlength="50" data-length="50" />
             <div [hidden]="!(editForm.controls.telephone?.dirty && editForm.controls.telephone?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.telephone?.errors?.required" jhiFnmTranslate="entity.validation.required">
@@ -199,7 +198,7 @@
 
 
         <div class="form-group" *ngIf="(!isVirement && !isDecaissement && !isEncaissement && !isRetrait && !isDepot)" >
-            <label jhiFnmTranslate="sfdApp.operationDat.profession" class="oblige" for="field_profession">Profession</label>
+            <label jhiFnmTranslate="sfdApp.operationCaisse.profession" class="oblige" for="field_profession">Profession</label>
             <div class="ui icon input field" [ngClass]="{loading: loadingArray.profession}" style="width: 100%;">
                 <select required class="ui fluid search dropdown sfd-dropdown" id="field_profession" name="profession" [(ngModel)]="operationDat && operationDat.professionId">
                     <option [ngValue]="null" disabled>Choisissez la profession</option>
@@ -211,7 +210,7 @@
 
 
         <div class="form-group" *ngIf="(!isVirement && !isDecaissement && !isEncaissement && !isRetrait && !isDepot)">
-            <label jhiFnmTranslate="sfdApp.operationDat.nationality" for="field_nationality" class='oblige'>Nationality</label>
+            <label jhiFnmTranslate="sfdApp.operationCaisse.nationality" for="field_nationality" class='oblige'>Nationality</label>
             <div class="ui icon input field" [ngClass]="{loading: loadingArray.nationality}" style="width: 100%;">
                 <select class="ui fluid search dropdown sfd-dropdown" id="field_nationality" name="nationality" [(ngModel)]="operationDat && operationDat.nationalityId" required>
                     <option [ngValue]="null" disabled>Choisissez la nationalité</option>
@@ -223,7 +222,7 @@
 
 
         <div class="form-group" *ngIf="(isDecaissement || isEncaissement) && (!isRetrait && !isDepot) ">
-            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.operationDat.motif" for="field_motif">Motif</label>
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.operationCaisse.motif" for="field_motif">Motif</label>
             <input type="text" class="form-control" name="motif" id="field_motif" [(ngModel)]="operationDat && operationDat.motif" required maxlength="100" data-length="100" />
             <div [hidden]="!(editForm.controls.motif?.dirty && editForm.controls.motif?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.motif?.errors?.required" jhiFnmTranslate="entity.validation.required">

@@ -55,6 +55,8 @@ export class OperationDatDialogComponent implements OnInit {
     isDat: boolean = false;
     titre: string;
     caisseName: string;
+    compteDat:string;
+    client:string;
 
 
     constructor(
@@ -75,9 +77,13 @@ export class OperationDatDialogComponent implements OnInit {
             this.params = params;
             this.operationDat.agenceReference = this.params.agence;
             this.caisseName = this.params.caisseName;
+            this.operationDat.id = this.params.id;
+            this.compteDat = this.params.compte;
+            this.client = this.params.client;
             this.operationDat.comptecarmescaisseenvoi = this.params.caisse;
             this.operationDat.comptecarmescaisse = this.params.caisse;
-            console.log(params);
+            
+            
             if (params['type'] == 'DEPOT') {
                 this.titre = "Opération d'Ajout DAT";
                 this.isDepot = true;
@@ -316,6 +322,10 @@ export class OperationDatDialogComponent implements OnInit {
                 case 'COMPTE_CAISSE_ERRONEE':
                     msg = "Le compte caisse fourni est erroné";
                     break;
+                    case 'DATE_NON_ECHU':
+                        msg = "La date d'écheance n'est pas encore à terme";
+                        break;
+                    
                 case 'COMPTE_CAISSE_ENVOI_ERRONEE':
                     msg = "Le compte caisse d'envoi fourni est erroné";
                     break;

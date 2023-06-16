@@ -10,13 +10,11 @@ import { EventBus } from '../../shared/model/functions';
 
 @Injectable()
 export class OperationDatService {
-    private resourceUrl = HOST + '/api/sfd/liste-operation-dat';
-    private resourceSearchUrl = HOST + '/api/_search/account-types';
+    private resourceUrl = HOST + '/api/sfd/liste-dat';
+    private resourceSearchUrl = HOST + '/api/_search/liste-dat';
     private resourceDatUrl = HOST + '/api/sfd/ouverture-compte-dat';
-    private resourceDepotCaisseUrl = HOST + '/api/sfd/depot-caisse';
-    private resourceRuptureCaisseUrl = HOST + '/api/sfd/retrait-caisse';
-   private resourceEncaissementUrl = HOST + '/api/sfd/encaissement-divers';
-    private resourceDecaissentUrl = HOST + '/api/sfd/decaissement-divers';
+    private resourceDepotCaisseUrl = HOST + '/api/sfd/ajout-dat';
+    private resourceRuptureCaisseUrl = HOST + '/api/sfd/rupture-dat';
 
     constructor(private http: Http) { }
 
@@ -55,10 +53,13 @@ export class OperationDatService {
 
         const options = createRequestOption({
             comptecarmescaisse: operationDat.comptecarmescaisse,
+            comptecarmesCaisse: operationDat.comptecarmescaisse,
             montant: operationDat.montant,
             comptecarmesclient: operationDat.comptecarmesclient,
+            comptecarmesClient: operationDat.comptecarmesclient,
             created_by: UserData.getInstance().userReference,
-            agence_reference: operationDat.agenceReference
+            agence_reference: operationDat.agenceReference,
+            dateechu: this.formatDate(operationDat.dateechu)
 
         });
         return this.http
@@ -78,6 +79,7 @@ export class OperationDatService {
         const options = createRequestOption({
             comptecarmescaisse: operationDat.comptecarmescaisse,
             montant: operationDat.montant,
+            id: operationDat.id,
             comptecarmesclient: operationDat.comptecarmesclient,
             created_by: UserData.getInstance().userReference,
             agence_reference: operationDat.agenceReference
@@ -137,9 +139,11 @@ export class OperationDatService {
             });
     }
 
-    query(req?: any): Observable<ResponseWrapper> {
+    query(req: any): Observable<ResponseWrapper> {
         const options = createRequestOption(Object.assign({}, req, {
             NO_QUERY: true,
+            codecaisse: req.codecaisse,
+            agence_reference: req.agenceReference,
             'sfdReference.equals': UserData.getInstance().getSFDReference()
         }));
         return this.http
