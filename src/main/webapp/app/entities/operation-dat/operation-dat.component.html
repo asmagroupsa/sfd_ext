@@ -24,8 +24,8 @@
             </div>
         </div>
         <!-- <div class="offset-md-1 offset-lg-1"></div> -->
-        <div class="col-md-12 col-sm-12 col-lg-8" *ngIf="deuxiemeCategories && deuxiemeCategories.length">
-            <div class="ui two item menu">
+        <div class="col-md-12 col-sm-12 offset-lg-4 col-lg-4" *ngIf="deuxiemeCategories && deuxiemeCategories.length">
+            <div class="ui one item menu">
                 <a *ngFor="let categorie of deuxiemeCategories" class="item" [ngClass]="{active:category?.id==categorie?.id}"
                 (click)="changeCategorie(categorie)">
                 {{categorie.name}}
@@ -75,20 +75,27 @@
             <tr>
                 <th class="numerotab">N°</th>
                 <th><span>Numéro de Compte</span></th>
-                <th><span>Date</span></th>
                 <th><span>Client</span></th>
-                <th><span>Solde</span></th>
+                <th><span>Date de début</span></th>
+                <th><span>Date echéance</span></th>
+                <th><span>Montant</span></th>
+                <th><span>Montant échu</span></th>
+                <th><span>Libérer</span></th>
+                <th><span>Taux</span></th>
                 <th class="text-right">Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let compte of compteDats | recherche:currentSearch ;let index=index;trackBy: trackId">
                 <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
-                <!-- <td>{{operation.reference}}</td> -->
-                <td>{{compte.num_account}}</td>
-                <td>{{compte.created_date | date:'medium'}}</td>
-                <td>{{compte.client}}</td>
-                <td>{{ compte && compte.solde | currency:'XAF':true:'2.0' }}</td>
+                <td>{{compte.compte}}</td>
+                <td>{{compte.name}}</td>
+                <td>{{compte.date_debut}}</td>
+                <td>{{compte.date_echu}}</td>
+                <td>{{ compte && compte.montant | currency:'XAF':true:'2.0' }}</td>
+                <td>{{ compte && compte.montantechu | currency:'XAF':true:'2.0' }}</td>
+                <td>{{compte.liberer}}</td>
+                <td>{{compte.taux}} %</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
 
@@ -109,7 +116,7 @@
                             <i class="ellipsis vertical icon"></i>
                             <div class="left menu">
                                 <div class="item" (click)="navigateTo(compte,'RUPTURE')">Rupture DAT</div>
-                                <div  class="item" (click)="onSolde(compte)">Solde du compte</div>
+                                <!-- <div  class="item" (click)="onSolde(compte)">Solde du compte</div> -->
                                 <div class="item" (click)="navigateTo(compte,'DEPOT')">Ajout DAT</div>
                             </div>
                         </div>

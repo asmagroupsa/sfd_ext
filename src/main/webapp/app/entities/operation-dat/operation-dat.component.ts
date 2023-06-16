@@ -106,6 +106,8 @@ export class OperationDatComponent implements OnInit, OnDestroy {
     if (this.currentSearch) {
       this.operationDatService
         .search({
+          agenceReference: this.agence,
+          codecaisse: this.selectedCaisse.reference,
           date1:formatDate(this.date1),
           date2:formatDate(this.date2),
           comptecarmescaisse: this.selectedCaisse.compteCarmes,
@@ -120,6 +122,9 @@ export class OperationDatComponent implements OnInit, OnDestroy {
     this.operationDatService.query({
       date1:formatDate(this.date1),
       date2:formatDate(this.date2),
+      agenceReference: this.agence,
+      
+      codecaisse: this.selectedCaisse.reference,
       comptecarmescaisse: this.selectedCaisse.compteCarmes
     }).subscribe(
       (res: ResponseWrapper) => {
@@ -154,7 +159,7 @@ export class OperationDatComponent implements OnInit, OnDestroy {
 
       this.deuxiemeCategories = [
         { id: 2, code: 'DEPOT', name: 'Ajout DAT'},
-        { id: 3, code: 'RUPTURE', name: 'Rupture DAT'}
+        //{ id: 3, code: 'RUPTURE', name: 'Rupture DAT'}
       ];
       // this.category = this.premiereCategories[0];
 
@@ -238,7 +243,7 @@ console.log(this.category);
       });
   }
   onSolde(compte:any) {
-    this.alertService.success(`Le solde du compte ${compte.num_account} (Référence: ${compte.reference}) est de ${compte.solde || 0} FCFA`);
+    this.alertService.success(`Le solde du compte ${compte.compte} est de ${compte.montant || 0} FCFA`);
   }
 
   navigateTo(compte:any,type:string){
@@ -248,9 +253,10 @@ console.log(this.category);
     this.router.navigate(['/entity','operation-dat', { outlets: { popup: ['operation-dat-new'] } }],{
       queryParams: {
         type: type,
+          id: compte.id,
           agence: this.agence,
-          compte: compte.num_account,
-          client: compte.client,
+          compte: compte.account,
+          client: compte.name,
           caisseName: this.selectedCaisse.libelle,
           caisse: this.selectedCaisse.compteCarmes
       }
