@@ -104,7 +104,7 @@ export class ContratUnDatRequestPrintComponent implements OnInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        this._subscription.unsubscribe();
+        //this._subscription.unsubscribe();
     }
 
     public printAsPdf(printArea): void {
