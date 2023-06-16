@@ -16,17 +16,21 @@ export class ContratDeuxDatRequestPrintComponent implements OnInit, OnDestroy {
     private _subscription: Subscription;
     public data: any;
     params: any;
+    impression = false;
 
-    signataire = "";
-    numeroCompteCourantActif = "";
-    montantVersement = "";
-    numeroCompteVersement = "";
-    dureeCompte = "";
-    tauxAnnuel = "";
-    penaliteResiliationAnticipe = "";
-    fraisOuverture = "";
-    autresFrais = "";
-    numeroCompte = "";
+    sfdAdresse = "";
+    numeroContrat= "";
+    nomDeposant = "";
+    prenomsDeposant = "";
+    telephoneDeposant = "";
+    domicileDeposant = "";
+    montantDepot = "";
+    dureeContrat = "";
+    dateDebutContrat = "";
+    dateFinContrat = "";
+    tauxAnnuelNet = "";
+    lieuDateSignature = "";
+
 
     @ViewChild('printZone') printZone: ElementRef;
     private imageReady:boolean;
@@ -58,6 +62,14 @@ export class ContratDeuxDatRequestPrintComponent implements OnInit, OnDestroy {
 
     valider(){
         this._dataLoadEnd = true;
+        this.impression = true;
+    }
+
+    editContrat(){
+        this._loadData();
+        //this.ngOnInit();
+        this.increment = 0;
+        this.impression = false;
     }
 
     public ngOnInit(): void {
