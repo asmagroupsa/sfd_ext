@@ -1,0 +1,23 @@
+<div *ngIf="souscription">
+    <h2><span jhiFnmTranslate="sfdApp.souscription.detail.title">Souscription</span> {{souscription.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.souscription.name">Name</span></dt>
+        <dd>
+            <span>{{souscription.name}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.souscription.code">Code</span></dt>
+        <dd>
+            <span>{{souscription.code}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/', { outlets: { popup: 'souscription/'+ souscription.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

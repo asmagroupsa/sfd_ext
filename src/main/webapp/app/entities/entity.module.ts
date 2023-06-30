@@ -115,6 +115,7 @@ import { SfdTypeCreditRetardModule } from './type-credit-retard/type-credit-reta
 import { SfdOperationCaisseModule } from './operation-caisse/operation-caisse.module';
 import { SfdOperationDatModule } from './operation-dat/operation-dat.module';
 import { SfdCaisseNouvelleModule } from './caisse-nouvelle/caisse-nouvelle.module';
+import { SfdSouscriptionModule } from './souscription/souscription.module';
 
 
 export function authorityRessource() {
@@ -348,6 +349,10 @@ export function remboursementSfd() {
 export function ressource() {
     return SfdRessourceModule;
 }
+
+export function souscription() {
+    return SfdSouscriptionModule;
+}
 export function tauxCommission() {
     return SfdTauxCommissionModule;
 }
@@ -503,12 +508,12 @@ export function compteComptable() {
                 path: 'operation-dat',
                 loadChildren: operationDAT
             },
-            
+
             {
                 path: 'caisse-nouvelle',
                 loadChildren: caisseNouvelle
             },
-            
+
             {
                 path: 'caisse',
                 loadChildren: caisse
@@ -851,6 +856,10 @@ export function compteComptable() {
             {
                 path: 'ressource',
                 loadChildren: ressource
+            },
+            {
+                path: 'souscription',
+                loadChildren: souscription
             },
             {
                 path: 'formation',

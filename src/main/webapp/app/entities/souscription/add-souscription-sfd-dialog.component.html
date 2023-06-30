@@ -1,0 +1,93 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title">Souscription du SFD</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body" *ngIf="true">
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="input-field">
+            <label class="form-control-label oblige" for="compteCarmes">Compte Carmes</label>
+            <input required type="number" class="form-control" name="compteCarmes" id="compteCarmes" [(ngModel)]="sfdSouscription.compteCarmes">
+        </div>
+        <div class="input-field">
+            <label class="form-control-label oblige" for="nom">Nom</label>
+            <input required type="text" class="form-control" name="nom" id="nom" [(ngModel)]="sfdSouscription.nom">
+        </div>
+        <div class="input-field">
+            <label class="form-control-label oblige" for="address">Adresse</label>
+            <input required type="text" class="form-control" name="address" id="address" [(ngModel)]="sfdSouscription.address">
+        </div>
+
+        <div class="input-field">
+            <label class="form-control-label oblige" for="fax">Fax</label>
+            <input required type="text" class="form-control" name="fax" id="fax" [(ngModel)]="sfdSouscription.fax">
+        </div>
+
+        <div class="input-field">
+            <label class="form-control-label oblige" for="boitePostale">Boite Postale</label>
+            <input required type="text" class="form-control" name="boitePostale" id="address" [(ngModel)]="sfdSouscription.boitePostale">
+        </div>
+
+        <div class="input-field">
+            <label class="form-control-label oblige" for="telephone">Téléphone</label>
+            <input required type="tel" class="form-control" name="telephone" id="telephone" [(ngModel)]="sfdSouscription.telephone" maxlength="50" data-length="50" pattern="^([0-9]{2}[-_ ]?){3}[0-9]{2}$">
+            <div [hidden]="!(editForm.controls.telephone?.dirty && editForm.controls.telephone?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.telephone?.errors?.pattern">
+                    Le numéro de téléphone n'est pas correct
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.telephone?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="input-field">
+            <label class="form-control-label oblige" for="email">Email</label>
+            <input required type="email" class="form-control" name="email" id="email" [(ngModel)]="sfdSouscription.email">
+        </div>
+
+        <div class="input-field">
+            <label class="form-control-label oblige" for="logo">Logo</label>
+            <input required type="text" class="form-control" name="logo" id="logo" [(ngModel)]="sfdSouscription.logo">
+        </div>
+        <div class="form-group">
+            <label for="field_modeEcheance" class="oblige">Mode d'echéances</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_modeEcheance" name="modeEcheance" [(ngModel)]="sfdSouscription.modeEcheance" required>
+                <option value="" disabled>Choisissez le mode de calcul</option>
+                <option value="DEGRESSIF">DEGRESSIF</option>
+                <option value="LINEAIRE">LINEAIRE</option>
+                <option value="NOMINAL_CONSTANT">NOMINAL CONSTANT</option>
+                <option value="NOMINAL_LIBRE">NOMINAL LIBRE</option>
+                <option value="ECHEANCIER_LIBRE">ECHEANCIER LIBRE</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label  for="field_periodicity" class="oblige">Periodicity</label>
+            <select class="ui fluid search dropdown" id="field_periodicity" name="periodicity" [(ngModel)]="sfdSouscription.periodicityId">
+                <option [ngValue]="null" disabled>Choisissez la périodicité</option>
+                <option [ngValue]="periodicityOption.id" *ngFor="let periodicityOption of periodicities; trackBy: trackPeriodicityById">{{periodicityOption.libPeriodicite}}</option>
+            </select>
+        </div>
+        <!-- <div class="form-group">
+            <label for="field_periodicity" class="oblige">Periodicity</label>
+            <div class="ui icon input field" [ngClass]="{loading: loadingArray.periodicities}" style="width: 100%;">
+                <select required class="ui fluid search dropdown sfd-dropdown" id="field_periodicity" name="periodicity" [(ngModel)]="sfdSouscription.periodicities" multiple>
+                    <option [ngValue]="null" disabled>Choisissez la périodicité</option>
+                    <option [ngValue]="getSelected(sfdSouscription.periodicities, periodicityOption)" *ngFor="let periodicityOption of periodicities; trackBy: trackPeriodicityById">{{periodicityOption.libPeriodicite}}</option>
+                </select>
+                <i class="icon"></i>
+            </div>
+        </div> -->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

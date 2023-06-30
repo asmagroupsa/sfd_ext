@@ -1,0 +1,57 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title">Souscription du Bailleur</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body" *ngIf="true">
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="input-field">
+            <label class="form-control-label oblige" for="compteCarmes">Compte Carmes</label>
+            <input required type="text" class="form-control" name="compteCarmes" id="compteCarmes" [(ngModel)]="bailleursSouscription.compteCarmes">
+        </div>
+        <div class="input-field">
+            <label class="form-control-label oblige" for="nom">Nom</label>
+            <input required type="text" class="form-control" name="nom" id="nom" [(ngModel)]="bailleursSouscription.nom">
+        </div>
+        <div class="input-field">
+            <label class="form-control-label oblige" for="address">Adresse</label>
+            <input required type="text" class="form-control" name="address" id="address" [(ngModel)]="bailleursSouscription.address">
+        </div>
+
+        <div class="input-field">
+            <label class="form-control-label oblige" for="fax">Fax</label>
+            <input required type="text" class="form-control" name="fax" id="fax" [(ngModel)]="bailleursSouscription.fax">
+        </div>
+
+        <div class="input-field">
+            <label class="form-control-label oblige" for="boitePostale">Boite Postale</label>
+            <input required type="text" class="form-control" name="boitePostale" id="address" [(ngModel)]="bailleursSouscription.boitePostale">
+        </div>
+
+        <div class="input-field">
+            <label class="form-control-label oblige" for="telephone">Téléphone</label>
+            <input required type="tel" class="form-control" name="telephone" id="telephone" [(ngModel)]="bailleursSouscription.telephone">
+        </div>
+
+        <div class="input-field">
+            <label class="form-control-label oblige" for="email">Email</label>
+            <input required type="email" class="form-control" name="email" id="email" [(ngModel)]="bailleursSouscription.email">
+        </div>
+
+        <div class="input-field">
+            <label class="form-control-label oblige" for="logo">Logo</label>
+            <input required type="text" class="form-control" name="logo" id="logo" [(ngModel)]="bailleursSouscription.logo">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
