@@ -50,7 +50,9 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
     dossiersRessources: any[];
     clientsRessources: any[];
     userTime: number = 0;
-    picture: any = 'http://lab.groupasma.com:8787/fileupload/api/files/img_202103-1617121256813.jpg';
+    //picture: any = 'http://lab.groupasma.com:8787/fileupload/api/files/img_202103-1617121256813.jpg';
+    //picture: any = 'http://185.98.137.71:9000/uploads/img_202103-1617121256813.jpg';
+    picture: any = 'http://185.98.137.71:9000/uploads/ads_aveboakx-1689593791034.jpg';
     public disabled = false;
     public height: string;
     public status: { isopen: boolean } = { isopen: false };
@@ -163,7 +165,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         private _alertService: JhiAlertService,
         private firstPopupService: FirstConnectionModalService
     ) {
-  
+
         this.localFlag = LOCAL_FLAG;
         //this.appOpened = this.cookieService.get('tab');
         this.activeModal.dismiss({});
@@ -194,7 +196,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         if (!this.appOpened) {
             principal.identity().then(() => { }).catch(() => { });
         }
-        
+
     }
 
 
@@ -282,7 +284,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
     }
 
     public saveTo() {
-        //let sfdRef = 
+        //let sfdRef =
         const args = {
             sfdRef: UserData.getInstance().currentSfdReference,
             header: this.headPictureUrl,
@@ -452,6 +454,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+
         this.principal.getFirstAuthenticationState().subscribe((isFirst) => {
             if (isFirst === true) {
                 // console.log('valuer de isFirst', isFirst);
@@ -478,6 +481,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
                     .subscribe((res: ResponseWrapper) => {
                         let sfd = res.json;
                         if (sfd && sfd[0]) {
+
 
                             this.sfdName = sfd[0].name;
                             UserData.getInstance().sfdName = sfd[0].name;
@@ -519,7 +523,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         this.principal.getAuthenticationState().subscribe(account => {
             this.account = account;
             if (account) {
-    
+
                 this.cookieService.put('tab', '-~-|_#_*_*');
                 window.sessionStorage.setItem('tab', '-~-|_#_*_*');
                 this.setUSerTime();
@@ -572,6 +576,8 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
     onLoaded() {
         if (!this.account) return;
         let url = this.account['imageUrl'] || this.account['imageURL'];
+        this.picture = this.domSanitizer.bypassSecurityTrustUrl(`${READBITFILEURL}${url}`);
+        console.log(this.account);
         if (!url) return;
         if (
             url.indexOf('../../../content/coreUi/assets/img/avatars/6.jpg') !=
@@ -582,6 +588,8 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
 
         let options = createRequestOption();
         options.headers.set('accept', 'image/*');
+       // options.headers.append('Access-Control-Allow-Origin', 'http://localhost:9003');
+        //options.headers.append('Access-Control-Allow-Credentials', 'true');
         this.http
             .get(`${READBITFILEURL}${url}`, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((response: any) => {

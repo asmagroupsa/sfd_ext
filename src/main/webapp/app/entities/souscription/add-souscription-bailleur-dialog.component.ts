@@ -12,6 +12,7 @@ import {SouscriptionService} from './souscription.service';
 import {ResponseWrapper} from '../../shared/model/response-wrapper.model';
 import {UserService} from '../../shared/user/user.service';
 import {JhiProfileService} from '../../admin/profile/profile.service';
+import { UserData } from '../../shared/model/singleton';
 declare let select_init: any;
 @Component({
     selector: 'jhi-add-souscription-bailleur-dialog',
@@ -33,6 +34,8 @@ export class AddSouscriptionBailleurDialogComponent implements OnInit {
 
     ngOnInit() {
         // this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        console.log(UserData.getInstance());
+
     }
 
     clear() {
