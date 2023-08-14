@@ -5,7 +5,7 @@
                 "title": "CreditComityFNMS",
                 "createLabel": "Créer un nouveau Credit Comité FNM",
                 "createOrEditLabel": "Editer un Credit Comité FNM",
-                "search": "Recherche pour Credit Comité FNM"
+                "search": "Rechercher un Credit Comité FNM"
             },
             "delete": {
                 "question": "Etes-vous certain de vouloir supprimer le Credit Comité FNM {{ id }} ?"

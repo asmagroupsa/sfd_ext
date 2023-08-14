@@ -49,7 +49,7 @@
         <div class="field">
             <label for="field_carmesAccount" jhiFnmTranslate="sfdApp.souscriptionBailleur.compteCarmes" class="oblige">Carmes Account</label>
             <div class="ui input icon" [ngClass]="{loading: loading.compteCarmes}">
-                <input type="text" name="compteCarmes" id="field_carmesAccount" [(ngModel)]="souscriptionBailleur.compteCarmes" required maxlength="9" pattern="^[0-9]{1,9}$" (blur)="checkCARMESAccount()"/>
+                <input type="text"  style="padding:0px" name="compteCarmes" id="field_carmesAccount" [(ngModel)]="souscriptionBailleur.compteCarmes" required maxlength="9" pattern="^[0-9]{1,9}$" (blur)="checkCARMESAccount()"/>
                 <i class="icon"></i>
             </div>
             <div [hidden]="!(editForm.controls.compteCarmes?.dirty && (editForm.controls.compteCarmes?.invalid || !carmesAcountIsValid))">
@@ -65,7 +65,7 @@
         <div class="field">
             <label for="field_indicePrestataire" class="oblige">L'indice prestataire du bailleur</label>
             <div class="ui input icon" [ngClass]="{loading: loading.ip}">
-                <input type="text" name="indicePrestataire" id="field_indicePrestataire" [(ngModel)]="souscriptionBailleur.indicePrestataire" required pattern="^[0-9]{5}$" minlength="5" maxlength="5" (blur)="cip()"/>
+                <input type="text"  style="padding:0px" name="indicePrestataire" id="field_indicePrestataire" [(ngModel)]="souscriptionBailleur.indicePrestataire" required pattern="^[0-9]{5}$" minlength="5" maxlength="5" (blur)="cip()"/>
                 <i class="icon"></i>
             </div>
             <div [hidden]="!(editForm.controls.indicePrestataire?.dirty && editForm.controls.indicePrestataire?.invalid)">
@@ -82,7 +82,7 @@
         </div>
         <div class="field">
             <label jhiFnmTranslate="sfdApp.souscriptionBailleur.address" for="field_address" class="oblige">Address</label>
-            <input type="text" name="address" id="field_address" [(ngModel)]="souscriptionBailleur.address" required maxlength="100" />
+            <input type="text"  style="padding:0px"  name="address" id="field_address" [(ngModel)]="souscriptionBailleur.address" required maxlength="100" />
             <div [hidden]="!(editForm.controls.address?.dirty && editForm.controls.address?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.address?.errors?.required" jhiFnmTranslate="entity.validation.required">
                     This field is required.
@@ -95,7 +95,7 @@
         </div>
         <div class="field">
             <label jhiFnmTranslate="sfdApp.souscriptionBailleur.phone" for="field_phone" class="oblige">Phone</label>
-            <input type="text" name="phone" id="field_phone" [(ngModel)]="souscriptionBailleur.phone" required maxlength="50" pattern="^([0-9]{2}[-_ ]?){3}[0-9]{2}$"
+            <input type="text" style="padding:0px" name="phone" id="field_phone" [(ngModel)]="souscriptionBailleur.phone" required maxlength="50" pattern="^([0-9]{2}[-_ ]?){3}[0-9]{2}$"
             />
             <div [hidden]="!(editForm.controls.phone?.dirty && editForm.controls.phone?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required" jhiFnmTranslate="entity.validation.required">
@@ -112,7 +112,7 @@
         </div>
         <div class="field">
             <label jhiFnmTranslate="sfdApp.souscriptionBailleur.email" for="field_email" class="oblige">Email</label>
-            <input required type="email" name="email" id="field_email" [(ngModel)]="souscriptionBailleur.email" maxlength="50" pattern="^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,6}$" />
+            <input required  style="padding:0px" type="email" name="email" id="field_email" [(ngModel)]="souscriptionBailleur.email" maxlength="50" pattern="^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,6}$" />
             <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.required" jhiFnmTranslate="entity.validation.required">
                     This field is required.
@@ -128,7 +128,7 @@
         </div>
         <div class="field">
             <label jhiFnmTranslate="sfdApp.souscriptionBailleur.fax" for="field_fax">Fax</label>
-            <input type="text" name="fax" id="field_fax" [(ngModel)]="souscriptionBailleur.fax" maxlength="50" />
+            <input type="text"  style="padding:0px" name="fax" id="field_fax" [(ngModel)]="souscriptionBailleur.fax" maxlength="50" />
             <div [hidden]="!(editForm.controls.fax?.dirty && editForm.controls.fax?.invalid)">
                 <!-- <small class="form-text text-danger" [hidden]="!editForm.controls.fax?.errors?.required" jhiFnmTranslate="entity.validation.required">
                     This field is required.
@@ -141,7 +141,7 @@
         </div>
         <div class="field">
             <label jhiFnmTranslate="sfdApp.souscriptionBailleur.bp" for="field_bp">Bp</label>
-            <input type="text" name="bp" id="field_bp" [(ngModel)]="souscriptionBailleur.bp" maxlength="50" />
+            <input type="text"  style="padding:0px" name="bp" id="field_bp" [(ngModel)]="souscriptionBailleur.bp" maxlength="50" />
             <div [hidden]="!(editForm.controls.bp?.dirty && editForm.controls.bp?.invalid)">
                 <!-- <small class="form-text text-danger" [hidden]="!editForm.controls.bp?.errors?.required" jhiFnmTranslate="entity.validation.required">
                     This field is required.
@@ -171,7 +171,7 @@
 
         <div class="field">
             <label jhiFnmTranslate="sfdApp.souscriptionBailleur.city" for="field_city" class="oblige">City</label>
-            <input type="text" name="city" id="field_city" [(ngModel)]="souscriptionBailleur.city" required maxlength="50" />
+            <input type="text"  style="padding:0px" name="city" id="field_city" [(ngModel)]="souscriptionBailleur.city" required maxlength="50" />
             <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.city?.errors?.required" jhiFnmTranslate="entity.validation.required">
                     This field is required.

@@ -5,7 +5,7 @@
                 "title": "CreditRequestStatuses",
                 "createLabel": "Créer un nouveau Credit Request Statue",
                 "createOrEditLabel": "Editer un Credit Request Statue",
-                "search": "Recherche pour Credit Request Statue"
+                "search": "Rechercher un Credit Request Statue"
             },
             "delete": {
                 "question": "Etes-vous certain de vouloir supprimer le Credit Request Statue {{ id }} ?"

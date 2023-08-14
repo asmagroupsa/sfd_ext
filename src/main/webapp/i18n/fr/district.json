@@ -5,7 +5,7 @@
                 "title": "Quartiers",
                 "createLabel": "Créer un nouveau Quartier",
                 "createOrEditLabel": "Editer un Quartier",
-                "search": "Recherche pour Quartier"
+                "search": "Rechercher un Quartier"
             },
             "delete": {
                 "question": "Etes-vous certain de vouloir supprimer le Quartier {{ id }} ?"

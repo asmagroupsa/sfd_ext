@@ -88,14 +88,15 @@ export class SouscriptionBailleurDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
 
-
         this.principal.identity().then((identity) => {
+            //console.log(identity);
             if (this.souscriptionBailleur.id !== undefined) {
                 setLastModifyBy(this.souscriptionBailleur, identity);
                 this.subscribeToSaveResponse(this.SouscriptionBailleurService.update(this.souscriptionBailleur), false);
             } else {
                 setCreateBy(this.souscriptionBailleur, identity);
                 this.souscriptionBailleur.code = `${Date.now()}`;
+                this.souscriptionBailleur.createdBy = identity.id || identity.login;
                 this.subscribeToSaveResponse(this.SouscriptionBailleurService.create(this.souscriptionBailleur), true);
             }
         });
