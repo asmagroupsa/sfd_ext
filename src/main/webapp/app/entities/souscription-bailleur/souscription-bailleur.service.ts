@@ -5,14 +5,14 @@ import { JhiDateUtils } from 'ng-jhipster';
 
 import { SouscriptionBailleur } from './souscription-bailleur.model';
 import { ResponseWrapper, createRequestOption, UserData } from '../../shared';
-import { HOST } from '../../shared/model/request-util';
+import { HOST, HOST_MVN } from '../../shared/model/request-util';
 
 @Injectable()
 export class SouscriptionBailleurService {
     private resourceUrl = HOST + '/api/s-fds';
     private resourceSearchUrl = HOST + '/api/s-fds';
     private resourceUrlNew = HOST + '/api/s-fds-partner';
-    private subscriptionUrl = HOST + '/api/user/souscription-bailleur-sfd';
+    private subscriptionUrl = HOST_MVN + '/api/user/souscription-bailleur-sfd';
 
 
     constructor(private http: Http, private dateUtils: JhiDateUtils) { }
