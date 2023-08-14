@@ -115,7 +115,7 @@ import { SfdTypeCreditRetardModule } from './type-credit-retard/type-credit-reta
 import { SfdOperationCaisseModule } from './operation-caisse/operation-caisse.module';
 import { SfdOperationDatModule } from './operation-dat/operation-dat.module';
 import { SfdCaisseNouvelleModule } from './caisse-nouvelle/caisse-nouvelle.module';
-import { SfdSouscriptionModule } from './souscription/souscription.module';
+import { SfdSouscriptionModule } from './souscription-bailleur/souscription-bailleur.module';
 
 
 export function authorityRessource() {
@@ -858,7 +858,7 @@ export function compteComptable() {
                 loadChildren: ressource
             },
             {
-                path: 'souscription',
+                path: 'souscription-bailleur',
                 loadChildren: souscription
             },
             {

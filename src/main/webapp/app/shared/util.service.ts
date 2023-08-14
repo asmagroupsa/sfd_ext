@@ -12,7 +12,7 @@ export class UtilService {
     toFileRequest(path, params, isPaysage:boolean = false) {
         const header_url = (isPaysage) ? getImgSrc(UserData.getInstance().getSFD().entetePaysage) : getImgSrc(UserData.getInstance().getSFD().entete);
         const o = createRequestOption({
-            qrcode: JSON.stringify({type: 'SFD', reference: UserData.getInstance().getSFD().code}),            
+            qrcode: JSON.stringify({type: 'SFD', reference: UserData.getInstance().getSFD().code}),
             page_header: header_url,
             user: UserData.getInstance().account.firstName+" "+UserData.getInstance().account.lastName,
             ...params,
@@ -33,7 +33,7 @@ export class UtilService {
         const reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = () => {
-            resolve(reader.result);                
+            resolve(reader.result);
         }
     }
 

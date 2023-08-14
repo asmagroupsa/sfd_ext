@@ -1,0 +1,60 @@
+{
+    "sfdApp": {
+        "souscriptionBailleur": {
+            "home": {
+                "title": "SOUSCRIPTION BAILLEUR",
+                "createLabel": "Créer une nouvelle SOUSCRIPTION BAILLEUR",
+                "createOrEditLabel": "Editer une SOUSCRIPTION BAILLEUR",
+                "search": "Recherche pour SOUSCRIPTION BAILLEUR"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le SOUSCRIPTION BAILLEUR {{ id }} ?"
+            },
+            "detail": {
+                "title": "SOUSCRIPTION BAILLEUR"
+            },
+            "code": "Référence",
+            "name": "Nom",
+            "address": "Adresse",
+            "phone": "Téléphone",
+            "email": "Email",
+            "fax": "Fax",
+            "bp": "Bp",
+            "city": "Ville",
+            "createdDate": "créer le",
+            "createdBy": "créer le",
+            "lastModifiedBy": "Modifier par",
+            "lastModifiedDate": "Modifier le",
+            "compteCarmes": "Compte Carmes",
+            "compteCarmes_": "Cpt. Carmes",
+            "agences": "Agences",
+            "contrats": "Contrats",
+            "ligneRequests": "Les demandes de ligne de crédits",
+            "eligibles": "Eligibles",
+            "settingSOUSCRIPTIONBAILLEURs": "Les paramètres du SOUSCRIPT IONBAILLEUR",
+            "indicePrestataire_": "Indice prestataire",
+            "indicePrestataire": "I.P",
+            "client": "Client"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "souscriptionBailleur": {
+            "created": "Une nouvelle SOUSCRIPTION BAILLEUR a été créé",
+            "updated": "La SOUSCRIPTION BAILLEUR a été mise à jour",
+            "deleted": "La SOUSCRIPTION BAILLEUR a été supprimée"
+        },
+        "carmesVerification": {
+            "non": "CE COMPTE CARMES EST DEJA UTILISE",
+            "emailexists": "CE EMAIL EST DEJA UTILISE",
+            "errorCarmesRequest": "IMPOSSIBLE DE JOINDRE LE SERVEUR CARMES",
+            "nonCarmes": "CE COMPTE CARMES N' EXISTE PAS",
+            "compterr": "COMPTE INCORRECT",
+            "err": "ERREUR",
+            "httpError": "IMPOSSIBLE DE VERIFIER LE COMPTE CARMES"
+        },
+        "ip": {
+            "use": "CET INDICE PRESTATAIRE EST DEJA UTILISE",
+            "httpError": "IMPOSSIBLE DE VERIFIER L' INDICE PRESTATAIRE"
+        }
+    }
+}

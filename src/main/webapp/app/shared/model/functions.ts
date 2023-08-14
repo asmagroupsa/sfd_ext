@@ -34,7 +34,7 @@ export function createQueries(): any {
         if (userdata.currentAgence != null) {
             chaine = userdata.currentAgence.codeAgence
         } else {
-            chaine = userdata.agencesReference.join(',');
+            //chaine = userdata.agencesReference.join(',');
         }
         queries = {'agenceReference.in': chaine};
     }
@@ -73,6 +73,14 @@ export let EventBus = {
         });
     }
 };
+
+export function setDotContains(req: any, properties: string[], v: any) {
+    for (let p of properties) {
+        req[`${p}.contains`] = v;
+    }
+
+    return req;
+}
 
 export function numberToLocalStringTonumber(val: string) {
     return parseFloat(val.replace(/[ ]/g, ''));
