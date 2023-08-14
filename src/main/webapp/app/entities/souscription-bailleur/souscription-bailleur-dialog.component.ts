@@ -19,7 +19,14 @@ declare let select_init: any;
 
 @Component({
     selector: 'jhi-souscription-bailleur-dialog',
-    templateUrl: './souscription-bailleur-dialog.component.html'
+    templateUrl: './souscription-bailleur-dialog.component.html',
+    styles: [
+       `
+       input {
+        padding: 0px;
+       }
+       `
+    ]
 })
 export class SouscriptionBailleurDialogComponent implements OnInit {
     souscriptionBailleur: SouscriptionBailleur;

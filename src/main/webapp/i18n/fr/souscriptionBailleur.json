@@ -3,12 +3,12 @@
         "souscriptionBailleur": {
             "home": {
                 "title": "SOUSCRIPTION BAILLEUR",
-                "createLabel": "Créer une nouvelle SOUSCRIPTION BAILLEUR",
-                "createOrEditLabel": "Editer une SOUSCRIPTION BAILLEUR",
-                "search": "Recherche pour SOUSCRIPTION BAILLEUR"
+                "createLabel": "Effectuer une souscription bailleur",
+                "createOrEditLabel": "Editer une souscription bailleur",
+                "search": "Recherche pour une souscription bailleur"
             },
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le SOUSCRIPTION BAILLEUR {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer cette souscription {{ id }} ?"
             },
             "detail": {
                 "title": "SOUSCRIPTION BAILLEUR"
@@ -31,7 +31,7 @@
             "contrats": "Contrats",
             "ligneRequests": "Les demandes de ligne de crédits",
             "eligibles": "Eligibles",
-            "settingSOUSCRIPTIONBAILLEURs": "Les paramètres du SOUSCRIPT IONBAILLEUR",
+            "settingSOUSCRIPTIONBAILLEURs": "Les paramètres de la souscription",
             "indicePrestataire_": "Indice prestataire",
             "indicePrestataire": "I.P",
             "client": "Client"
@@ -39,22 +39,22 @@
     },
     "carmesfnmserviceApp": {
         "souscriptionBailleur": {
-            "created": "Une nouvelle SOUSCRIPTION BAILLEUR a été créé",
-            "updated": "La SOUSCRIPTION BAILLEUR a été mise à jour",
-            "deleted": "La SOUSCRIPTION BAILLEUR a été supprimée"
+            "created": "La souscription bailleur a été effectué",
+            "updated": "La souscription bailleur a été mise à jour",
+            "deleted": "La souscription bailleur a été supprimée"
         },
         "carmesVerification": {
-            "non": "CE COMPTE CARMES EST DEJA UTILISE",
-            "emailexists": "CE EMAIL EST DEJA UTILISE",
+            "non": "CE COMPTE CARMES EST DEJA UTILISÉ",
+            "emailexists": "CET EMAIL EST DEJA UTILISÉ",
             "errorCarmesRequest": "IMPOSSIBLE DE JOINDRE LE SERVEUR CARMES",
-            "nonCarmes": "CE COMPTE CARMES N' EXISTE PAS",
+            "nonCarmes": "CE COMPTE CARMES N'EXISTE PAS",
             "compterr": "COMPTE INCORRECT",
             "err": "ERREUR",
             "httpError": "IMPOSSIBLE DE VERIFIER LE COMPTE CARMES"
         },
         "ip": {
             "use": "CET INDICE PRESTATAIRE EST DEJA UTILISE",
-            "httpError": "IMPOSSIBLE DE VERIFIER L' INDICE PRESTATAIRE"
+            "httpError": "IMPOSSIBLE DE VERIFIER L'INDICE PRESTATAIRE"
         }
     }
 }

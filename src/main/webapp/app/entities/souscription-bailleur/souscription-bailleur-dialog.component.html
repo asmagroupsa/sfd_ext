@@ -8,7 +8,7 @@
         <jhi-alert-error></jhi-alert-error>
         <div class="field">
             <label jhiFnmTranslate="sfdApp.souscriptionBailleur.name" for="field_name" class="oblige">Name</label>
-            <input type="text" name="name" id="field_name" [(ngModel)]="souscriptionBailleur.name" required maxlength="50" />
+            <input type="text" style="padding:0px" name="name" id="field_name" [(ngModel)]="souscriptionBailleur.name" required maxlength="50" />
             <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.required" jhiFnmTranslate="entity.validation.required">
                     This field is required.
@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="field">
-            <label for="field_indicePrestataire" class="oblige">L'indice prestataire du SOUSCRIPTIONBAILLEUR</label>
+            <label for="field_indicePrestataire" class="oblige">L'indice prestataire du bailleur</label>
             <div class="ui input icon" [ngClass]="{loading: loading.ip}">
                 <input type="text" name="indicePrestataire" id="field_indicePrestataire" [(ngModel)]="souscriptionBailleur.indicePrestataire" required pattern="^[0-9]{5}$" minlength="5" maxlength="5" (blur)="cip()"/>
                 <i class="icon"></i>

@@ -12,6 +12,8 @@ export class SouscriptionBailleurService {
     private resourceUrl = HOST + '/api/s-fds';
     private resourceSearchUrl = HOST + '/api/s-fds';
     private resourceUrlNew = HOST + '/api/s-fds-partner';
+    private subscriptionUrl = HOST + '/api/user/souscription-bailleur-sfd';
+
 
     constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
@@ -33,8 +35,7 @@ export class SouscriptionBailleurService {
     // type_abonnement=1&password=password&country_id=1
 
 
-    /* create(souscriptionBailleur: SouscriptionBailleur): Observable<SouscriptionBailleur> {
-
+     create(souscriptionBailleur: SouscriptionBailleur): Observable<SouscriptionBailleur> {
         const copy = this.convert(souscriptionBailleur);
         console.log(copy);
         const options = createRequestOption({
@@ -45,27 +46,27 @@ export class SouscriptionBailleurService {
             fax : souscriptionBailleur.fax,
             bp : souscriptionBailleur.bp,
             city : souscriptionBailleur.city,
-            created_by : UserData.getInstance().partnerId,
+            created_by : UserData.getInstance().user_reference,
             compte_carmes : souscriptionBailleur.compteCarmes,
             indice_prestataire : souscriptionBailleur.indicePrestataire,
             logo: souscriptionBailleur.logo,
             periodicity_id : souscriptionBailleur.periodicityId,
-            acteur: 'FNM',
+            acteur: 'BAILLEUR',
             type_abonnement:souscriptionBailleur.typeAbonnement,
             password: 'password',
             country_id: souscriptionBailleur.paysId
         });
         return this.http
-            .get(this.resourceUrl, options)
+            .get(this.subscriptionUrl, options)
             .map((res: Response) => {
                 const jsonResponse = res.json();
                 this.convertItemFromServer(jsonResponse);
 
                 return jsonResponse;
             });
-    } */
+    } 
 
-    create(souscriptionBailleur: SouscriptionBailleur): Observable<SouscriptionBailleur> {
+   /*  create(souscriptionBailleur: SouscriptionBailleur): Observable<SouscriptionBailleur> {
 
         const copy = this.convert(souscriptionBailleur);
         const options = createRequestOption();
@@ -77,7 +78,7 @@ export class SouscriptionBailleurService {
 
                 return jsonResponse;
             });
-    }
+    } */
 
     update(souscriptionBailleur: SouscriptionBailleur): Observable<SouscriptionBailleur> {
         const copy = this.convert(souscriptionBailleur);
