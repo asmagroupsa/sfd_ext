@@ -21,6 +21,7 @@ export class SouscriptionBailleur {
         public compteCarmes?: string,
         public logo?: string,
         public typeAbonnement?: string,
+        public password?: string,
         public periodicityId?: number,
         public paysId?: number,
 

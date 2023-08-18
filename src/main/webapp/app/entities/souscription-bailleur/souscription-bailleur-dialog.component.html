@@ -6,6 +6,24 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
+
+        <div class="field">
+            <label for="field_carmesAccount" jhiFnmTranslate="sfdApp.souscriptionBailleur.compteCarmes" class="oblige">Carmes Account</label>
+            <div class="ui input icon" [ngClass]="{loading: loading.compteCarmes}">
+                <input type="text"  style="padding:0px" name="compteCarmes" id="field_carmesAccount" [(ngModel)]="souscriptionBailleur.compteCarmes" required maxlength="9" pattern="^[0-9]{1,9}$" (blur)="checkCARMESAccount()"/>
+                <i class="icon"></i>
+            </div>
+            <div [hidden]="!(editForm.controls.compteCarmes?.dirty && (editForm.controls.compteCarmes?.invalid || !carmesAcountIsValid))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.compteCarmes?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.compteCarmes?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 9 }">
+                    This field cannot be longer than 9 characters.
+                </small>
+                <!-- <small class="form-text text-danger" [hidden]="!editForm.controls.compteCarmes?.invalid && carmesAcountIsValid">Le compte CARMES est deja utlisé ou est incorect.</small> -->
+            </div>
+        </div>
+
         <div class="field">
             <label jhiFnmTranslate="sfdApp.souscriptionBailleur.name" for="field_name" class="oblige">Name</label>
             <input type="text" style="padding:0px" name="name" id="field_name" [(ngModel)]="souscriptionBailleur.name" required maxlength="50" />
@@ -46,22 +64,7 @@
         </div>
 
 
-        <div class="field">
-            <label for="field_carmesAccount" jhiFnmTranslate="sfdApp.souscriptionBailleur.compteCarmes" class="oblige">Carmes Account</label>
-            <div class="ui input icon" [ngClass]="{loading: loading.compteCarmes}">
-                <input type="text"  style="padding:0px" name="compteCarmes" id="field_carmesAccount" [(ngModel)]="souscriptionBailleur.compteCarmes" required maxlength="9" pattern="^[0-9]{1,9}$" (blur)="checkCARMESAccount()"/>
-                <i class="icon"></i>
-            </div>
-            <div [hidden]="!(editForm.controls.compteCarmes?.dirty && (editForm.controls.compteCarmes?.invalid || !carmesAcountIsValid))">
-                <small class="form-text text-danger" [hidden]="!editForm.controls.compteCarmes?.errors?.required" jhiFnmTranslate="entity.validation.required">
-                    This field is required.
-                </small>
-                <small class="form-text text-danger" [hidden]="!editForm.controls.compteCarmes?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 9 }">
-                    This field cannot be longer than 9 characters.
-                </small>
-                <!-- <small class="form-text text-danger" [hidden]="!editForm.controls.compteCarmes?.invalid && carmesAcountIsValid">Le compte CARMES est deja utlisé ou est incorect.</small> -->
-            </div>
-        </div>
+
         <div class="field">
             <label for="field_indicePrestataire" class="oblige">L'indice prestataire du bailleur</label>
             <div class="ui input icon" [ngClass]="{loading: loading.ip}">
@@ -189,6 +192,20 @@
                 <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.name}}</option>
             </select>
         </div> -->
+
+        <div class="field">
+            <label jhiFnmTranslate="sfdApp.souscriptionBailleur.password" for="field_password" class="oblige">Mot de passe</label>
+            <input type="password"  style="padding:0px"  name="password" id="field_password" [(ngModel)]="souscriptionBailleur.password" required maxlength="100" />
+            <div [hidden]="!(editForm.controls.password?.dirty && editForm.controls.password?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.password?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.password?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength"
+                    translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="ui button" data-dismiss="modal" (click)="clear()">

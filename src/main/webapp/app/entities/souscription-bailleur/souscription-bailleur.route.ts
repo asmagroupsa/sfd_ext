@@ -44,7 +44,7 @@ export const souscriptionBailleurRoute: Routes = [
     data: {
       authorities: ["ROLE_USER"],
       ressources: ['carmesfnmservice/api/s-fds/getAllSOUSCRIPTIONBAILLEURS'],
-      pageTitle: "fnmappApp.souscriptionBailleur.home.title"
+      pageTitle: "sfdApp.souscriptionBailleur.home.title"
     },
     canActivate: [UserRouteAccessService]
   },
@@ -54,7 +54,7 @@ export const souscriptionBailleurRoute: Routes = [
     data: {
       authorities: ["ROLE_USER"],
       ressources: [],
-      pageTitle: "fnmappApp.souscriptionBailleur.home.title"
+      pageTitle: "sfdApp.souscriptionBailleur.home.title"
     },
     canActivate: [UserRouteAccessService]
   }
@@ -67,7 +67,7 @@ export const souscriptionBailleurPopupRoute: Routes = [
     data: {
       authorities: ["ROLE_USER"],
       ressources: ['carmesfnmservice/api/s-fds/createSOUSCRIPTIONBAILLEUR'],
-      pageTitle: "fnmappApp.souscriptionBailleur.home.title"
+      pageTitle: "sfdApp.souscriptionBailleur.home.title"
     },
     canActivate: [UserRouteAccessService],
     outlet: "popup"
@@ -78,7 +78,7 @@ export const souscriptionBailleurPopupRoute: Routes = [
     data: {
       authorities: ["ROLE_USER"],
       ressources: ['carmesfnmservice/api/s-fds/updateSOUSCRIPTIONBAILLEUR'],
-      pageTitle: "fnmappApp.souscriptionBailleur.home.title"
+      pageTitle: "sfdApp.souscriptionBailleur.home.title"
     },
     canActivate: [UserRouteAccessService],
     outlet: "popup"
@@ -89,7 +89,7 @@ export const souscriptionBailleurPopupRoute: Routes = [
     data: {
       authorities: ["ROLE_USER"],
       ressources: ['carmesfnmservice/api/s-fds/deleteSOUSCRIPTIONBAILLEUR'],
-      pageTitle: "fnmappApp.souscriptionBailleur.home.title"
+      pageTitle: "sfdApp.souscriptionBailleur.home.title"
     },
     canActivate: [UserRouteAccessService],
     outlet: "popup"
