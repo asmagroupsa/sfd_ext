@@ -1,9 +1,0 @@
-{
-    "sfdApp": {
-        "TypeValidation" : {
-            "null": "",
-            "INDIVIDUAL": "INDIVIDUAL",
-            "GROUP": "GROUP"
-        }
-    }
-}

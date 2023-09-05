@@ -1,9 +1,0 @@
-{
-    "sfdApp": {
-        "RequestStatus": {
-            "null": "",
-            "SEND": "ENVOYER",
-            "PROCESSED": "PROCEDER"
-        }
-    }
-}
