@@ -34,7 +34,8 @@
             "settingSOUSCRIPTIONBAILLEURs": "Les paramètres de la souscription",
             "indicePrestataire_": "Indice prestataire",
             "indicePrestataire": "I.P",
-            "client": "Client"
+            "client": "Client",
+            "password": "Mot de passe"
         }
     },
     "carmesfnmserviceApp": {

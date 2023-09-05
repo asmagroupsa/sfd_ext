@@ -53,7 +53,7 @@ export class SouscriptionBailleurService {
             periodicity_id : souscriptionBailleur.periodicityId,
             acteur: 'SFD',
             type_abonnement:souscriptionBailleur.typeAbonnement,
-            password: 'password',
+            password: souscriptionBailleur.password,
             country_id: souscriptionBailleur.paysId
         });
         return this.http
@@ -64,7 +64,7 @@ export class SouscriptionBailleurService {
 
                 return jsonResponse;
             });
-    } 
+    }
 
    /*  create(souscriptionBailleur: SouscriptionBailleur): Observable<SouscriptionBailleur> {
 
