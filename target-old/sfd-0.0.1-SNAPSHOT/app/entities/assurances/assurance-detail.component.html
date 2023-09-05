@@ -1,0 +1,59 @@
+<div *ngIf="address">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.address.detail.title">Address</span> {{address.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.address.maison">Home</span></dt>
+        <dd>
+            <span>{{address.home}}</span>
+        </dd>
+        <!-- <dt><span jhiFnmTranslate="sfdApp.address.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{address.createdDate | date:'dd-MM-y'}}</span>
+        </dd> -->
+        <!-- <dt><span jhiFnmTranslate="sfdApp.address.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{address.createdBy}}</span>
+        </dd> -->
+        <!-- <dt><span jhiFnmTranslate="sfdApp.address.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{address.lastModifiedBy}}</span>
+        </dd> -->
+        <!-- <dt><span jhiFnmTranslate="sfdApp.address.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{address.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd> -->
+        <dt><span jhiFnmTranslate="sfdApp.address.observation">Observation</span></dt>
+        <dd>
+            <span>{{address.observation}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.address.district">District</span></dt>
+        <dd>
+            <div *ngIf="address.districtId">
+                <a [routerLink]="['/entity','district', address.districtId]">{{address.districtId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.address.client">Client</span></dt>
+        <dd>
+            <div *ngIf="address.clientId">
+                <a [routerLink]="['/entity','client', address.clientId]">{{address.clientId}}</a>
+            </div>
+        </dd>
+        <dd>
+            <span>{{address.geoLong}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.address.geoLat">Geo Lat</span></dt>
+        <dd>
+            <span>{{address.geoLat}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','address', { outlets: { popup: 'address/'+ address.id + '/edit'} }]" replaceUrl="true"
+        class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

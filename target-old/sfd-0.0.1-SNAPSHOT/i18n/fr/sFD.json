@@ -1,0 +1,44 @@
+{
+    "sfdApp": {
+        "sFD": {
+            "home": {
+                "title": "SFDS",
+                "createLabel": "Créer un nouveau SFD",
+                "createOrEditLabel": "Editer un SFD",
+                "search": "Recherche pour SFD"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le SFD {{ id }} ?"
+            },
+            "detail": {
+                "title": "SFD"
+            },
+            "code": "Code du SFD",
+            "name": "Nom du SFD",
+            "address": "Adresse",
+            "phone": "Téléphone du SFD",
+            "email": "Email",
+            "fax": "Fax",
+            "bp": "Boîte postale",
+            "city": "Ville",
+            "createdDate": "Crée le",
+            "createdBy": "Créé par",
+            "lastModifiedBy": "Modifié par ",
+            "lastModifiedDate": "Modifié le",
+            "compteCarmes": "Compte Carmes",
+            "agences": "Agences",
+            "contrats": "Contrats",
+            "ligneRequests": "Les demandes de ligne",
+            "eligibles": "Eligibles",
+            "settingSFDs": "Paramètres du SFD",
+            "zone": "Zone"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "sFD": {
+            "created": "Un nouveau SFD a été créé ",
+            "updated": "Le SFD  a été mis à jour",
+            "deleted": "Le SFD  a été supprimé"
+        }
+    }
+}

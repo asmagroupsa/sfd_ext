@@ -1,0 +1,29 @@
+{
+    "sfdApp": {
+        "produitTypeGarantie": {
+            "home": {
+                "title": "ProduitTypeGaranties",
+                "createLabel": "Créer un nouveau Produit Type Garantie",
+                "createOrEditLabel": "Editer un Produit Type Garantie",
+                "search": "Recherche pour Produit Type Garantie"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Produit Type Garantie {{ id }} ?"
+            },
+            "detail": {
+                "title": "Produit Type Garantie"
+            },
+            "amount": "Montant",
+            "typeValeur": "Type Valeur",
+            "produit": "Produit",
+            "typeGarantie": "Type Garantie"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "produitTypeGarantie": {
+            "created": "Un nouveau Produit Type Garantie a été créé ",
+            "updated": "Le Produit Type Garantie  a été mis à jour",
+            "deleted": "Le Produit Type Garantie  a été supprimé"
+        }
+    }
+}

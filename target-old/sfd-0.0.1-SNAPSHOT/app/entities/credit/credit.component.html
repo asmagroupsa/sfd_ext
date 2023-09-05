@@ -1,0 +1,275 @@
+<!-- <ng-template #confirmDecaissement let-c="close" let-d="dismiss">
+    <div class="modal-header" id="confirm-decaissement-modal-header">
+        <h4 class="modal-title">Decaissement</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="font-size: large;">
+        <div>
+            Decaissement d'un montant de
+            <span style="font-weight: bold;">{{selectedCredit?.amount| currency:'XAF':true:'2.0'}}</span> au client
+            <span style="font-weight: bold;">{{selectedCredit?.name}} {{selectedCredit?.first_name}} ({{selectedCredit.code_client}})</span>.
+        </div>
+
+        <div *ngIf="solde">
+            <span>Solde restant: </span>
+            <span style="font-weight: bold;">{{solde| currency:'XAF':true:'2.0'}}</span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" (click)="d()">FERMER</button>&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn waves-effect waves-light" (click)="process()">DECAISSER</button>
+    </div>
+</ng-template> -->
+
+
+
+<ng-template #confirmDecaissement let-c="close" let-d="dismiss">
+    <div class="modal-header" id="confirm-decaissement-modal-header">
+        <h4 class="modal-title">Decaissement</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <fieldset style="display: block; margin-inline-start: 2px; margin-inline-end: 2px; padding-block-start: 0.35em; padding-inline-start: 0.75em; padding-inline-end: 0.75em; padding-block-end: 0.625em; min-inline-size: min-content; border-width: 2px; border-style: groove; border-color: threedface; border-image: initial;">
+            <legend style="display: block; padding-inline-start: 2px; padding-inline-end: 2px; border-width: initial; border-style: none; border-color: initial; border-image: initial; width: initial;">
+                MCM - MICRO ASSURANCE VIE </legend>
+            <div class="form-group">
+                <label for="produit" class="oblige">Options</label>
+                <select class="ui fluid search dropdown sfd-dropdown" id="produit" name="option" [(ngModel)]="optionId" (change)="onOptionChange()">
+                    <option disabled></option>
+                    <option [ngValue]="p.id" *ngFor="let p of listAssuranceOptions">{{p.libelle}}</option>
+                </select>
+            </div>
+            <div class="input-field">
+                <label class="form-control-label active oblige" for="montant">Tarif</label>
+                <input type="number" class="form-control" name="montant" id="montant" [value]="tarif" readonly>
+            </div>
+        </fieldset>
+        <div style="font-size: large;" *ngIf="AsWarning">
+            <div>
+                <span style="color: red">Important: </span><br>
+
+                <span *ngIf="WarningClient.length == 1">Le client suivent n'a pas d'ayant droit enrégistré. Valider ? </span>
+
+                <span *ngIf="WarningClient.length > 1">Les clients dont le nom suivent n'ont pas d'ayant droit enrégistré. Valider ? </span>
+                <ul>
+                    <li *ngFor="let client of WarningClient"> {{client.nom_prenom}}</li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <div style="font-size: large;">
+            <div>
+                Decaissement d'un montant de
+                <span style="font-weight: bold;">{{selectedCredit?.amount| currency:'XAF':true:'2.0'}}</span> au client
+                <span style="font-weight: bold;">{{selectedCredit?.name}} {{selectedCredit?.first_name}}
+                    ({{selectedCredit.code_client}})</span>.
+            </div>
+            <div *ngIf="solde">
+                <span>Solde restant: </span>
+                <span style="font-weight: bold;">{{solde| currency:'XAF':true:'2.0'}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" (click)="d()">FERMER</button>&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn waves-effect waves-light" (click)="process()">DECAISSER</button>
+    </div>
+</ng-template>
+
+
+<ng-template #t_annulationModal let-c="close" let-d="dismiss">
+    <div class="modal-header" id="annulation-decaissement-modal-header">
+        <h4 class="modal-title">Annulation décaissement</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="font-size: large;">
+        <div>
+            Annulation du décaissement d' un montant de
+            <span style="font-weight: bold;">{{selectedCredit?.amount| currency:'XAF':true:'2.0'}}</span> pour le client
+            <span style="font-weight: bold;">{{selectedCredit?.name}} {{selectedCredit?.first_name}}
+                ({{selectedCredit.code_client}})</span>.
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" (click)="d()">Fermer</button>&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn waves-effect waves-light" (click)="annuler()" [disabled]="annilationBtnLabel !== 'Annuler'">{{annilationBtnLabel}}</button>
+    </div>
+</ng-template>
+
+<!-- <div class="ui tiny modal accord" style="height:200px;">
+    <div class="header" style="font-weight: unset;">Confirmez le décaissement de "
+        <span style="font-weight: bold;">{{selectedCredit?.amount| currency:'XAF':true:'2.0'}}</span>" au client "
+        <span style="font-weight: bold;">{{selectedCredit?.name}}</span>".</div>
+    <div class="actions">
+        <div class="ui red button" (click)="closeModal()" [ngClass]="{disabled:isProcess}">
+            Non
+        </div>
+        <div class="ui teal right labeled icon button" (click)="process()" [ngClass]="{loading:isProcess,disabled:isProcess}">
+            <span>Decaisser</span>
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div> -->
+<div>
+    <h2 *ngIf="!decaisse">
+        <span jhiFnmTranslate="sfdApp.credit.home.title">Credits</span>
+        <button class="btn btn-primary float-right create-credit" [routerLink]="['/entity','credit', { outlets: { popup: ['operation','credit-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <!-- <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.credit.home.createLabel">
+                Create new Credit
+            </span> -->
+        </button>
+    </h2>
+    <h3 *ngIf="decaisse">
+        <span>Les crédits décaissés</span>
+    </h3>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.credit.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br />
+    <div class="row search-date">
+        <div class="col-sm-6"> </div>
+        <div class="field col-md-3">
+            <label for="date1" class="form-control-label">Du</label>
+            <ngbd-datepicker-i18n name="date1" [(ngModel)]="date1" (ngModelChange)="onPeriodChange()">
+            </ngbd-datepicker-i18n>
+        </div>
+        <div class="field col-md-3">
+            <label for="date2" class="form-control-label">Au</label>
+            <ngbd-datepicker-i18n name="date2" [(ngModel)]="date2" (ngModelChange)="onPeriodChange()">
+            </ngbd-datepicker-i18n>
+        </div>
+    </div>
+    <br />
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+
+    <div class="table-responsive" *ngIf="credits;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <th class="numerotab">N°</th>
+                    <th>Référence</th>
+                    <th>Client (Référence)</th>
+                    <th>Produit (Réf)</th>
+                    <th jhiSortBy="creditDate">
+                        <span jhiFnmTranslate="sfdApp.credit.creditDate">Credit Date</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <!-- <th jhiSortBy="startDate"><span jhiFnmTranslate="sfdApp.credit.startDate">Start Date</span> <span class="fa fa-sort"></span></th> -->
+                    <!--  <th jhiSortBy="endDate"><span jhiFnmTranslate="sfdApp.credit.endDate">End Date</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="amount">
+                        <span jhiFnmTranslate="sfdApp.credit.amount">Amount</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <!-- <th jhiSortBy="decaisser"><span jhiFnmTranslate="sfdApp.credit.decaisser">Decaisser</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="notificationClientId">
+                        <span>Date notification</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="accountId">
+                        <span jhiFnmTranslate="sfdApp.credit.duration">Duree</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <!-- <th jhiSortBy="ligneCreditId"><span jhiFnmTranslate="sfdApp.credit.ligneCredit">Ligne Credit</span> <span class="fa fa-sort"></span></th> -->
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let credit of credits | recherche:currentSearch;let index = index;">
+                    <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <!-- <td><a [routerLink]="['../credit', credit.id ]">{{credit.id}}</a></td> -->
+                    <td>{{credit?.reference}}</td>
+                    <td>{{credit?.name}} {{credit?.first_name}} ({{credit.code_client}})</td>
+                    <td>{{credit?.produit}} ({{credit.code}})</td>
+                    <td>{{credit.credit_date | date:'dd-MM-y'}}</td>
+                    <td>{{credit.amount | currency:'XAF':true:'2.0'}}</td>
+                    <td>{{credit.notification_date | date:'dd-MM-y'}}</td>
+                    <td>{{credit.duration}} mois</td>
+                    <td>
+                        <div class="btn-group flex-btn-group-container">
+                            <!-- <button type="submit" [routerLink]="['/entity','credit', credit.credit_id ]" class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                            </button> -->
+
+                            <div class="ui dropdown">
+                                <div class="text" style="display:none"></div>
+                                <i class="ellipsis vertical icon"></i>
+                                <div class="left menu">
+                                    <!-- <div class="item" (click)="decaisser(credit, confirmDecaissement)">Décaisser</div> -->
+                                    <!-- <div class="item" (click)="chekProduitEtat(credit, confirmDecaissement)" *ngIf="!decaisse">Décaisser</div> -->
+                                    <div class="item" (click)="process(credit.credit_id)" *ngIf="!decaisse">Décaisser</div>
+                                    <div class="item" (click)="openAnnulationModal(credit, t_annulationModal)" *ngIf="decaisse">Annuler</div>
+                                    <!-- <div class="item" *ngIf="credit.code=='CR-MCM'" [routerLink]="['/entity','credit', credit.credit_id,'loan-agreement']">
+                                        CONTRAT MCM</div> -->
+                                    <div class="item" *ngIf="credit.code=='CR-MCM'" [routerLink]="['/entity','credit', credit.credit_id,'contrat-mcm']">CONTRAT
+                                    </div>
+                                    <!--   -->
+                                    <div class="item" *ngIf="credit.code=='CR-NUMERIQUE'" [routerLink]="['/entity','credit', credit.credit_id,'credit-numerique-print-sheet']">
+                                        CONTRAT CREDIT NUMERIQUE</div>
+                                    <!-- -->
+                                    <div class="item" *ngIf="credit.produit=='CR-TPE'" [routerLink]="['/entity','credit',credit.credit_id,'credit-tpe-print']">CONTRAT CREDIT TPE</div>
+                                    <div *ngIf="credit.typeclient=='GROUPE'  && decaisse" class="item" [routerLink]="['/entity','credit', credit.credit_id,'fiche-payement-order']">
+                                        Ordre de Paiement</div>
+                                    <!--  -->
+                                    <div class="item" *ngIf="credit.code=='CR-USAGER'" [routerLink]="['/entity','credit', credit.credit_id,'credit-contrat-usager-print-sheet']">
+                                        CONTRAT USAGER</div>
+                                    <!--  -->
+                                    <div class="item" *ngIf="credit.code=='CR-CAUTION-MARCHAND'" [routerLink]="['/entity','credit', credit.credit_id,'credit-contrat-caution-marchand-print']">
+                                        CONTRAT CAUTION MARCHAND</div>
+                                    <!--   -->
+                                    <div class="item" *ngIf="credit.code=='CR-SOLIDAIRE'" [routerLink]="['/entity','credit', credit.credit_id,'credit-solidaire-print-sheet']">
+                                        CONTRAT CREDIT SOLIDAIRE</div>
+                                    <!--  -->
+                                    <div class="item" *ngIf="credit.code=='CR-IMMOBILIER'" [routerLink]="['/entity','credit', credit.credit_id,'credit-contrat-immobilier-print-sheet']">
+                                        CONTRAT CREDIT IMMOBILIER</div>
+                                    <!--  -->
+                                    <div class="item" *ngIf="credit.code=='CR-EQUIPEMENT'" [routerLink]="['/entity','credit', credit.credit_id,'credit-contrat-equipement-print']">
+                                        CONTRAT CREDIT EQUIPEMENT</div>
+                                    <!-- <div class="item"
+                                        [routerLink]="['/entity','credit', credit.credit_id,'retranche-credit']">Crédits
+                                        Rapatriements </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <div *ngIf="credits && credits.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage">
+            </ngb-pagination>
+        </div>
+    </div>
+</div>
+
+<div id="snackbar">{{msg}}</div>

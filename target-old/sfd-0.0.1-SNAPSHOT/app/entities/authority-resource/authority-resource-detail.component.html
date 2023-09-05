@@ -1,0 +1,25 @@
+<div *ngIf="authorityResource">
+    <h2><span jhiFnmTranslate="sfdApp.authorityResource.detail.title">Authority Resource</span> {{authorityResource.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.authorityResource.authority">Authority</span></dt>
+        <dd>
+            <span>{{authorityResource.authority}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.authorityResource.ressource">Ressource</span></dt>
+        <dd>
+            <div *ngIf="authorityResource.ressource">
+                <a [routerLink]="['/ressource', authorityResource.ressource?.id]">{{authorityResource.ressource?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/', { outlets: { popup: 'authority-resource/'+ authorityResource.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

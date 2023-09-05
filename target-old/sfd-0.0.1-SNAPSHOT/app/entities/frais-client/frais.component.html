@@ -1,0 +1,97 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.frais.home.title">Frais</span>
+        <button *jhiHasAnyRessources="['carmesfnmservice/api/frais/createFrais']" class="btn btn-primary float-right create-frais"
+            [routerLink]="['/entity','frais-client', { outlets: { popup: ['frais-client-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" jhiFnmTranslate="sfdApp.frais.home.createLabel">
+                Create new Frais
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.frais.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="frais;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th class="numerotab">N°</th>
+                    <th jhiSortBy="libelle">
+                        <span jhiFnmTranslate="sfdApp.frais.libelle">Libellé</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="amount">
+                        <span jhiFnmTranslate="sfdApp.frais.amount">Amount</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="typeValeur">
+                        <span jhiFnmTranslate="sfdApp.frais.typeValeur">Type Valeur</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let frais of frais  | recherche:currentSearch ;let index = index;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','frais', frais.id ]">{{frais.id}}</a></td> -->
+                    <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>{{frais.libelle}}</td>
+                    <td>
+                        <span *ngIf="frais.typeValeur == 'TAUX'">
+                            {{frais.amount}} % </span>
+                        <span *ngIf="frais.typeValeur == 'FRAIS'">
+                            {{frais.amount | currency:'XAF':true:'2.0'}} </span>
+                        <span *ngIf="!frais.typeValeur || frais.typeValeur == 'AUCUN'">
+                            {{frais.amount}}
+                        </span>
+                    </td>
+                    <td>{{frais.typeValeur}}</td>
+                    <td class="text-right">
+                        <div *jhiHasAnyRessources="'carmesfnmservice/api/frais/getAllFraisClient'" class="btn-group flex-btn-group-container">
+                            <!-- <button type="submit" [routerLink]="['/entity','frais-client', frais.id ]" class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                            </button> -->
+                            <button *jhiHasAnyRessources="['carmesfnmservice/api/frais/updateFrais']" type="submit" [routerLink]="['/entity','frais-client', { outlets: { popup: 'frais-client/'+ frais.id + '/edit'} }]"
+                                replaceUrl="true" class="btn btn-primary btn-sm">
+                                <span class="fa fa-pencil"></span>
+                            </button>
+                            <button *jhiHasAnyRessources="['carmesfnmservice/api/frais/deleteFrais']" type="submit" [routerLink]="['/entity','frais-client', { outlets: { popup: 'frais-client/'+ frais.id + '/delete'} }]"
+                                replaceUrl="true" class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="frais && frais.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page"
+                (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>

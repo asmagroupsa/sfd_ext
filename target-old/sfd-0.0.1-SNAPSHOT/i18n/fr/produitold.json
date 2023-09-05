@@ -1,0 +1,57 @@
+{
+    "sfdApp": {
+        "produitold": {
+            "home": {
+                "title": "Produitolds",
+                "createLabel": "Créer un nouveau Produitold",
+                "createOrEditLabel": "Editer un Produitold",
+                "search": "Recherche pour Produitold"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Produitold {{ id }} ?"
+            },
+            "detail": {
+                "title": "Produitold"
+            },
+            "code": "Code",
+            "libelle": "Libelle",
+            "duration": "Duration",
+            "etudiable": "Etudiable",
+            "createdDate": "Créer le",
+            "createdBy": "Créer par",
+            "lastModifiedBy": "Last Modified By",
+            "lastModifiedDate": "Modifier le",
+            "comitable": "Comité",
+            "formable": "Formable",
+            "notifiable": "Notification",
+            "creditable": "Crédit",
+            "contractable": "Contrat",
+            "penalitable": "Penalité",
+            "eligibilite": "Eligibilite",
+            "amountMax": "Amount Max",
+            "amountMin": "Amount Min",
+            "interestRate": "Taux d'interet",
+            "creditRequests": "Demande de credit",
+            "contrats": "Contrats",
+            "ligneRequests": "Ligne Demande",
+            "eligibles": "Eligibles",
+            "conditionss": "Conditionss",
+            "fraiss": "Fraiss",
+            "tranchePenals": "Tranche Penals",
+            "tauxs": "Tauxs",
+            "accountTypes": "Types de compte",
+            "produitTypeGaranties": "Produit Type Garanties",
+            "tauxEpargnes": "Taux Epargnes",
+            "periodicities": "Periodicities",
+            "categorieProduit": "Categorie Produit",
+            "conditionAccess": "Condition Access"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "produitold": {
+            "created": "Un nouveau Produitold a été créé ",
+            "updated": "Le Produitold  a été mis à jour",
+            "deleted": "Le Produitold  a été supprimé"
+        }
+    }
+}

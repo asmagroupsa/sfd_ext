@@ -1,0 +1,52 @@
+{
+    "sfdApp": {
+        "caisseNouvelle" : {
+            "home": {
+                "title": "Type of credit in arrears",
+                "createLabel": "Create a new fund",
+                "createOrEditLabel": "Create or edit fund",
+                "search": "Search overdue credit type",
+                "alimenterCaisse": "Feeding of the box",
+                "etatCaisse": "Closed or open of the box"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete fund {{ id }}?"
+            },
+            "detail": {
+                "title": "Fund"
+            },
+            "compteCarmes": "Carmes account",
+            "libelle": "Name of the fund",
+            "agenceReference": "Agency code",
+            "firstname": "First name of cashier",
+            "username": "Username",
+            "telephone": "Phone number",
+            "email": "Email",
+            "password": "Password",
+            "etatCaisse": "Cash status",
+            "dateOuverture": "Opening date",
+            "retraitMaxAmount": "Maximum withdrawal amount",
+            "soldetMaxAmount": "Maximum balance amount",
+            "comptecarmeagence": "Carmes account of the agency",
+            "comptecarmescaisse": "Carmes account of the fund",
+            "comptecarmessfd": "Carmes account of the SFD",
+            "montant": "Amount",
+            "etat": "Closed or open status of the box"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "caisseNouvelle" : {
+            "created": "A new fund Type is created ",
+            "updated": "A fund Type is updated ",
+            "deleted": "A fund Type is deleted "
+        },
+        "alimentationCaisse" : {
+            "created": "Fund successfully fed ",
+            "updated": "Fund successfully fed"
+        },
+        "etatCaisse" : {
+            "close": "Case successfully closed",
+            "open": "Cash register successfully opened"
+        }
+    }
+}

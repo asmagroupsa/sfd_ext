@@ -1,0 +1,64 @@
+<div *ngIf="leader">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.leader.detail.title">Leader</span> {{leader.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.leader.name">Name</span></dt>
+        <dd>
+            <span>{{leader.name}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.leader.firstName">First Name</span></dt>
+        <dd>
+            <span>{{leader.firstName}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.leader.address">Address</span></dt>
+        <dd>
+            <span>{{leader.address}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.leader.sex">Sex</span></dt>
+        <dd>
+            <span>{{leader.sex}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.leader.title">Title</span></dt>
+        <dd>
+            <span>{{leader.title}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.leader.phone">Phone</span></dt>
+        <dd>
+            <span>{{leader.phone}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.leader.birthDate">Birth Date</span></dt>
+        <dd>
+            <span>{{leader.birthDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.leader.email">Email</span></dt>
+        <dd>
+            <span>{{leader.email}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.leader.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{leader.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.leader.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{leader.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.leader.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{leader.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.leader.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{leader.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','leader', { outlets: { popup: 'leader/'+ leader.id + '/edit'} }]" replaceUrl="true"
+        class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

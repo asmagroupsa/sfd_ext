@@ -1,0 +1,31 @@
+{
+    "sfdApp": {
+        "clientConditionValue" : {
+            "home": {
+                "title": "Valeurs Condition Client",
+                "createLabel": "Créer une nouvelle Valeur Condition Client",
+                "createOrEditLabel": "Editer une Valeur Condition Client",
+                "search": "Rechercher une Valeur Condition Client"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Valeur Condition Client {{ id }} ?"
+            },
+            "detail": {
+                "title": "Valeur Condition Client"
+            },
+            "agenceReference": "Référence Agence",
+            "produitId": "Id Produit",
+            "clientId": "Id Client",
+            "conditionId": "Id Condition",
+            "conditionValeur": "Valeur Condition",
+            "codeNote": "Code Note"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "clientConditionValue" : {
+            "created": "Une nouvelle Valeur Condition Client a été créée ",
+            "updated": "La Valeur Condition Client  a été mise à jour",
+            "deleted": "La Valeur Condition Client  a été supprimée"
+        }
+    }
+}

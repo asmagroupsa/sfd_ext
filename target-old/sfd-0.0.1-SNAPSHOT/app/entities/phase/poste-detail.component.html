@@ -1,0 +1,20 @@
+<div *ngIf="poste">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.poste.detail.title">Poste</span> {{poste.id}}</h2>
+    <hr> -->
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.poste.name">Name</span></dt>
+        <dd>
+            <span>{{poste.name}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','poste', { outlets: { popup: 'poste/'+ poste.id + '/edit'} }]" replaceUrl="true"
+        class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

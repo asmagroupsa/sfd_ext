@@ -1,0 +1,30 @@
+{
+    "sfdApp": {
+        "phase": {
+            "home": {
+                "title": "Phases",
+                "createLabel": "Créer un nouveau Phase",
+                "createOrEditLabel": "Editer un Phase",
+                "search": "Recherche pour Phase"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Phase {{ id }} ?"
+            },
+            "detail": {
+                "title": "Phase"
+            },
+            "code": "Référence",
+            "libelle": "Désignation",
+            "montant": "Montant",
+            "n": "N°",
+            "produit": "Produit"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "phase": {
+            "created": "Une nouvelle Phase a été créé ",
+            "updated": "La Phase  a été mis à jour",
+            "deleted": "La Phase  a été supprimé"
+        }
+    }
+}

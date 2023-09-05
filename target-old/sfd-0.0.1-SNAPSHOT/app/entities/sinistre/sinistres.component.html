@@ -1,0 +1,113 @@
+<div>
+    <h2>
+        <span>Sinistre</span>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <jhi-alert-error></jhi-alert-error>
+    <br />
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <!--
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="ui form" name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch"
+                        name="currentSearch" placeholder="Rechercher un client assuré">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div> -->
+    <br />
+    <button type="button" class="btn btn-primary float-right"
+        [routerLink]="['/entity','sinistre', { outlets: { popup: ['sinistre-new'] } }]">
+        <span class="fa fa-plus"></span>
+    </button>
+
+    <div class="table-responsive" *ngIf="listSinistre ;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th class="numerotab">N°</th>
+                    <th jhiSortBy="logo"><span>Num Convention</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="address"><span>N° Police</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="name"><span>Date d'effet</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="phone"><span>Date d'echéance</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="email"><span>Montant à payer</span> <span class="fa fa-sort"></span></th>
+                    <!-- <th jhiSortBy="createdDate"><span jhiFnmTranslate="sfdApp.partner.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>-->
+                    <!-- <th jhiSortBy="createdBy"><span jhiFnmTranslate="sfdApp.partner.createdBy">Created By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedBy"><span jhiFnmTranslate="sfdApp.partner.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedDate"><span jhiFnmTranslate="sfdApp.partner.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="typePartnerId"><span jhiFnmTranslate="sfdApp.partner.typePartner">Type Partner</span> <span class="fa fa-sort"></span></th> -->
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sinistre of listSinistre | recherche:currentSearch ;let index = index;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','partner', partner.id ]">{{partner.id}}</a></td> -->
+                    <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>{{sinistre.numConvention}} </td>
+                    <td>{{sinistre.numPolice}}</td>
+                    <td>{{sinistre.effet}}</td>
+                    <td>{{sinistre.echeance}}</td>
+                    <td>{{sinistre.montantApayer}}</td>
+                    <!-- <td>{{partner.createdDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>{{partner.createdBy}}</td> -->
+                    <!-- <td>{{partner.lastModifiedBy}}</td> -->
+                    <!-- <td>{{partner.lastModifiedDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>
+                        <div *ngIf="partner.typePartnerId">
+                            <a [routerLink]="['/entity','type-partner', partner.typePartnerId  ]">{{partner.typePartnerId}}</a>
+                        </div>
+                    </td> -->
+                    <td class="text-right">
+                        <div class="ui dropdown">
+                            <div class="text" style="display:none"></div>
+                            <i class="ellipsis vertical icon"></i>
+                            <div class="left menu">
+                                <div class="item" *ngIf="sinistre.typeSinistre === 'AYANT_DROIT' ||  (sinistre.typeSinistre === 'BENEFICIAIRE' && sinistre.creditRegler)"
+                                        [routerLink]="['/entity','sinistre', { outlets: { popup: ['reglement-sinistre'] } }]"
+                                        [queryParams]="{sinistre: sinistre.id}">Règlement sinitre</div>
+                                <!-- <div class="item"
+                                    [routerLink]="['/entity','sinistre', sinistre.num_police,'assurance-releve']">
+                                    Règlement</div> -->
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="listSinistre && listSinistre.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage">
+            </ngb-pagination>
+        </div>
+    </div>
+</div>
+<!-- <div class="ui compact selection dropdown">
+    <i class="dropdown icon"></i>
+    <div class="text">Impressions</div>
+    <div class="menu">
+        <div class="item" jhiFnmTranslate="impressions.partners.all">Tous les bailleurs</div>
+    </div>
+</div> -->
+<div class="ui segment" style="box-shadow: unset; border: none; background: unset;" *ngIf="loading">
+    <p></p>
+    <div class="ui active inverted dimmer" style="background-color: unset;">
+        <div class="ui loader"></div>
+    </div>
+</div>

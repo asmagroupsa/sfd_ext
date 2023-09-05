@@ -1,0 +1,152 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h3 class="modal-title" id="myAddressLabel">Enregistrer un sinistre</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label for="field_country" class="oblige">Assuré</label>
+            <div class="ui icon input field" [ngClass]="{loading: loading}" style="width: 100%;">
+                <select (change)="getAllAyantDroit()" class="ui fluid search dropdown sfd-dropdown" id="field_country"
+                    name="client" [(ngModel)]="Assuree" required>
+                    <option [ngValue]="assurances" *ngFor="let assurances of assurance">{{assurances.name}}
+                        {{assurances.first_name}}
+                    </option>
+                </select>
+                <i class="icon"></i>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="field_departement">Type de sinistre</label>
+            <select class="ui fluid search dropdown" id="field_departement" name="typesinistre"
+                [(ngModel)]="sinistre.typeSinistre" (change)="choiseType()">
+                <option [ngValue]="'BENEFICIAIRE'">BENEFICIAIRE</option>
+                <option [ngValue]="'AYANT_DROIT'">AYANT DROIT</option>
+            </select>
+        </div>
+        <div class="form-group" *ngIf="showAyantDroit">
+            <label for="field_country" class="oblige">Ayant droit</label>
+            <div class="ui icon input field" [ngClass]="{loading: loading}" style="width: 100%;">
+                <select class="ui fluid search dropdown sfd-dropdown" id="field_country" name="ayantDroit"
+                    [(ngModel)]="ayantDroit" required>
+                    <option [ngValue]="ayantDroit" *ngFor="let ayantDroit of listAyantDroit">{{ayantDroit.name}}
+                        {{ayantDroit.first_name}}
+                    </option>
+                </select>
+                <i class="icon"></i>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active" for="field_home">Profession</label>
+            <input type="text" class="form-control" name="proff" id="field_home" [(ngModel)]="sinistre.professionDeces"
+                required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active" for="field_home">Employeur</label>
+            <input type="text" class="form-control" name="employ" id="field_home" [(ngModel)]="sinistre.employeur"
+                required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active" for="field_home">Causes du decès</label>
+            <input type="text" class="form-control" name="causes" id="field_home" [(ngModel)]="sinistre.causeDeces"
+                required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active" for="field_home">Lieu du decès</label>
+            <input type="text" class="form-control" name="lieudeces" id="field_home" [(ngModel)]="sinistre.lieuDeces"
+                required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active" for="field_home">Lieu de déclaration</label>
+            <input type="text" class="form-control" name="lieu" id="field_home" [(ngModel)]="sinistre.lieu"
+                required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active" for="field_home">Evaluation</label>
+            <input type="text" class="form-control" name="eval" id="field_home" [(ngModel)]="sinistre.evaluation"
+                required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="input-field">
+            <div class="form-group">
+                <!-- <label class="form-control-label oblige" for="field_birthDate">Date du decès</label> -->
+                <input type="datetime-local" [(ngModel)]="sinistre.dateDeces" name="dateDeces" required="true"
+                    [min]="minDate" [max]="maxDate">
+            </div>
+        </div>
+
+        <!--  -->
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

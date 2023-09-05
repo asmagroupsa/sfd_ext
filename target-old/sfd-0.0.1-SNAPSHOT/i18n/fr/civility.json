@@ -1,0 +1,27 @@
+{
+    "sfdApp": {
+        "civility" : {
+            "home": {
+                "title": "Civilitié",
+                "createLabel": "Créer un nouvelle Civilité",
+                "createOrEditLabel": "Editer une Civilité",
+                "search": "Rechercher une Civilité"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Civilité {{ id }} ?"
+            },
+            "detail": {
+                "title": "Civilité"
+            },
+            "name": "Nom",
+            "clients": "Clients"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "civility" : {
+            "created": "Une nouvelle Civilité a été créée ",
+            "updated": "La Civilité  a été mise à jour",
+            "deleted": "La Civilité  a été supprimée"
+        }
+    }
+}

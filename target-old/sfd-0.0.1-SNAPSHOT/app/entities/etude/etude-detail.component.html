@@ -1,0 +1,74 @@
+<div *ngIf="etude">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.etude.detail.title">Etude</span> {{etude.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.etude.visitDate">Visit Date</span></dt>
+        <dd>
+            <span>{{etude.visitDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.etude.etudeDate">Etude Date</span></dt>
+        <dd>
+            <span>{{etude.etudeDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.etude.procesVerbal">Proces Verbal</span></dt>
+        <dd>
+            <span>{{etude.procesVerbal}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.etude.result">Result</span></dt>
+        <dd>
+            <span>{{etude.result}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.etude.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{etude.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.etude.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{etude.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.etude.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{etude.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.etude.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{etude.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.etude.geoLat">Geo Lat</span></dt>
+        <dd>
+            <span>{{etude.geoLat}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.etude.geoLong">Geo Long</span></dt>
+        <dd>
+            <span>{{etude.geoLong}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.etude.etudeType">Etude Type</span></dt>
+        <dd>
+            <div *ngIf="etude.etudeTypeId">
+                <a [routerLink]="['/entity','etude-type', etude.etudeTypeId]">{{etude.etudeTypeId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.etude.sfdUsers">Sfd Users</span></dt>
+        <dd>
+            <div *ngIf="etude.sfdUsersId">
+                <a [routerLink]="['/entity','service-user', etude.sfdUsersId]">{{etude.sfdUsersId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.etude.creditRequest">Credit Request</span></dt>
+        <dd>
+            <div *ngIf="etude.creditRequestId">
+                <a [routerLink]="['/entity','credit-request', etude.creditRequestId]">{{etude.creditRequestId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','etude', { outlets: { popup: 'etude/'+ etude.id + '/edit'} }]" replaceUrl="true"
+        class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

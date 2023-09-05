@@ -1,0 +1,30 @@
+<div class="ui centered card">
+  <div class="image">
+    <img src="https://www.w3schools.com/css/img_lights.jpg">
+  </div>
+  <div class="content">
+    <a class="header">
+          Vous n'êtes pas encore connecté <br>
+          Se connecter en tant que membre du comité
+    </a>
+    <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="first_name" type="text" class="validate" [(ngModel)]="username" name="username">
+              <label for="first_name">Identifiant</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="last_name" type="password" class="validate" [(ngModel)]="password" name="password">
+              <label for="last_name">Mot de passe</label>
+            </div>
+          </div>
+        </form>
+  </div>
+<div class="extra content">
+      <span class="right floated">
+        <a class="btn-floating halfway-fab waves-effect waves-light red" (click)="onLogin()"><i class="fa fa-send"></i></a>
+      </span>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+{
+  "sideMenus": {
+    "products": "Produits",
+    "partners": "Banques",
+    "clients": "Clients",
+    "dossiers": "Dossiers",
+    "comities": "Comités",
+    "credits": "Crédits",
+    "caisse": "Caisse",
+    "operations": "Opérations",
+    "affectation":"Affectations"
+  }
+}

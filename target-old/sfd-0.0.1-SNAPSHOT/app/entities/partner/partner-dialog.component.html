@@ -1,0 +1,104 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPartnerLabel" [jhiFnmTranslate]="partner.id ? 'sfdApp.partner.home.createOrEditLabel' : 'sfdApp.partner.home.createLabel'">Create or edit a Partner</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!--<div class="form-group" [hidden]="!partner.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="partner.id" readonly />
+        </div>-->
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.partner.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="partner.name" required maxlength="50" data-length="50"
+            />
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength"
+                    translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.partner.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address" [(ngModel)]="partner.address" required maxlength="100"
+                data-length="100" />
+            <div [hidden]="!(editForm.controls.address?.dirty && editForm.controls.address?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.address?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.address?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength"
+                    translateValues="{ max: 100 }">
+                   This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.partner.phone" for="field_phone">Phone</label>
+            <input type="text" class="form-control" name="phone" id="field_phone" [(ngModel)]="partner.phone" required maxlength="50"
+                data-length="50" pattern="^([0-9]{2}[-_ ]?){3}[0-9]{2}$" />
+            <div [hidden]="!(editForm.controls.phone?.dirty && editForm.controls.phone?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.pattern">
+                   Le numéro de téléphone n'est pas correct
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength"
+                    translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.partner.email" for="field_email">Email</label>
+            <input type="email" class="form-control" name="email" id="field_email" [(ngModel)]="partner.email" required maxlength="50"
+                data-length="50" pattern="^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,6}$" />
+            <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.pattern">
+                   L'email n'est pas correct
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength"
+                    translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <!-- <div class="file-field input-field">
+            <div class="btn" style="line-height:2rem">
+                <span jhiFnmTranslate="sfdApp.client.pictureUrl" class="oblige">File</span>
+                <input type="file" [(ngModel)]="partner.logo" name="file">
+            </div>
+            <div class=" file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="uploader le logo">
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="form-control-label label" for="firstName" (click)="file.click()" #labelPhoto>
+                                {{label}}
+                                </label>
+                    <input type="file" class="form-control" id="photo" name="photo" placeholder="{{'settings.form.photo.placeholder' | fnmtranslate : langue.lang | async}}"
+                        style="display:none;" #file (change)="onChangeFile(labelPhoto)">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

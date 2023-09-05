@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "zoneSfd": {
+            "home": {
+                "title": "Zone Sfds",
+                "createLabel": "Créer une nouvelle Zone Sfd",
+                "createOrEditLabel": "Editer une Zone Sfd",
+                "search": "Recherche pour Zone Sfd"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Zone Sfd {{ id }} ?"
+            },
+            "detail": {
+                "title": "Zone Sfd"
+            },
+            "name": "Nom",
+            "reference": "Référence",
+            "sfds": "Sfds"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "zoneSfd": {
+            "created": "Une nouvelle Zone Sfd a été créé ",
+            "updated": "La Zone Sfd  a été mis à jour",
+            "deleted": "La Zone Sfd  a été supprimé"
+        }
+    }
+}

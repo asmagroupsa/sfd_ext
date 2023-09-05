@@ -1,0 +1,192 @@
+<div class="ui dimmer" [ngClass]="{'active': !hideLoader}">
+    <div class="">
+
+    </div>
+</div>
+
+<div class="container" *ngIf="hideLoader">
+    <div id="print" #printZone class="col-md-12">
+        <div class="print-header">
+            <span style="text-align:justify" *ngIf="_DePage.entete !=null ;else elseBlock">
+                <img [src]="imageUrl+_DePage.entete" alt="entete de page">
+            </span>
+            <ng-template #elseBlock>
+                <img src="../../../content/images/header.jpg" alt="logo">
+            </ng-template>
+        </div>
+        <div class="l-wrapper">
+            <p class="page-break">
+                <span class="elm"></span>
+            </p>
+            <div class="row top-space">
+                <div class="col-md-12">
+                    <br>
+                    <br>
+
+                    <table class="table table-bordered bx-sizing">
+                        <tbody>
+                            <tr class="bx-shadow">
+                                <td class="text-align-center bold font-size-x-large" style="color:gray; "> PROCES-VERBAL
+                                    DE COMITÉ DE CREDIT </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="width: 90%;margin-left:2%; margin-right:5%">
+                        A la date du {{resp.startDate | date:'mediumDate'}} s'est tenue la réunion du comité de crédit des dossiers pour le compte
+                        de l'agence de {{resp.agences[0].name }}. Etaient à cette réunion :
+                        <br>
+                        <br>
+
+                        <div *ngFor="let member of credit_commiy">
+                            <div style="font-weight: bold; font-size:14px">
+                                {{member.roleDelegatedMember.name}} : {{member.comityMber.user}}
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div style="font-weight: bold; font-size:14px">
+                        LES DOSSIERS PRESENTES AU COMITÉ SONT :
+                    </div>
+                    <div *ngIf="_currentCreditComityFicheDossiers.length <= 0">
+                        Aucun Dossier Pour Ce commité
+                    </div>
+                    <p class="page-break">
+                        <span class="elm"></span>
+                    </p>
+                    <div *ngIf="_currentCreditComityFicheDossiers.length > 0">
+
+                        <div class="" *ngFor="let first_arr of _currentCreditComityFicheDossiers; let first=first;let last=last">
+                            <p *ngIf="!first" class="page-break">
+                                <span class="elm"></span>
+                            </p>
+                            <table class="table table-bordered">
+                                <thead *ngIf="first">
+                                    <th>N°</th>
+                                    <th>Code client</th>
+                                    <th>Nom </th>
+                                    <th> Nbr. Membre</th>
+                                    <th> Réf. Demande</th>
+                                    <th> Activité </th>
+                                    <th>Contact</th>
+                                    <th>Localité</th>
+                                    <th style="text-align: right">Montant Sollicité</th>
+                                    <th style="text-align: right">Montant Proposé</th>
+                                    <th style="text-align: right">Montant Accordé </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of first_arr; let index=index">
+                                        <td>{{index+1}}</td>
+                                        <td>{{data.code_client}}</td>
+                                        <td>{{data.nomprenom}}</td>
+                                        <td>{{data.nbr_membre}}</td>
+                                        <td>{{data.reference}}</td>
+                                        <td>{{data.activite}}</td>
+                                        <td>{{data.contact}}</td>
+                                        <td>{{data.localite}}</td>
+                                        <td style="text-align: right">{{data.amount_solicited | currency:'XAF':true:'2.0'}}</td>
+                                        <td style="text-align: right">{{data.amount_proposed | currency:'XAF':true:'2.0'}}</td>
+                                        <td style="text-align: right">{{data.amount_accorder | currency:'XAF':true:'2.0'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                            <div *ngIf="last && first_arr.length <= 4">
+                                <div>
+                                    Après les différents avis des membres, le comité a donc approuvé 
+                                    <span *ngIf="nb_dossiers>1">
+                                        les ({{nb_dossiers}}) dossiers
+                                    </span>
+                                    <span *ngIf="nb_dossiers<=1">Un ({{nb_dossiers}}) dossier</span>
+                                    pour un montant total de
+                                    <span style="font-weight:bold">
+                                        {{montant_en_lettre}} ({{synthese[0].montant_total_comity | currency:'XAF':true:'2.0'}}) </span>
+                                    Francs CFA.
+                                    <br>
+                                    <span> Nombre de bénéficiare : {{synthese[0].nbr_total_beneficiaire}} </span>
+
+                                </div>
+                                <br>
+                                <div style="text-align:center; font-weight:bolder">
+                                    <span>
+                                        ONT SIGNE:
+                                    </span>
+                                </div>
+                                <br>
+
+                                <table class="table ">
+                                    <tr>
+                                        <td *ngFor="let member of credit_commiy" style="font-weight:bolder;font-size: 14px; padding-right: 35px !important;">
+                                            - {{member.roleDelegatedMember.name}}
+                                            <br> <br><br><br> {{member.comityMber.user}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div *ngIf="first_arr.length > 4">
+                                <p class="page-break">
+                                    <span class="elm"></span>
+                                </p>
+                                <div>
+                                    Après les différents avis des membres, le comité a donc approuvé <span *ngIf="nb_dossiers>1">les
+                                        ({{nb_dossiers}}) dossiers
+                                    </span>
+                                    <span *ngIf="nb_dossiers<=1">Un ({{nb_dossiers}}) dossier</span>
+                                    pour un montant total de
+                                    <span style="font-weight:bold">
+                                        {{montant_en_lettre}} ({{synthese[0].montant_total_comity | currency:'XAF':true:'2.0'}}) </span>
+                                    Francs CFA.
+                                    <br>
+                                    <span> Nombre de bénéficiare : {{synthese[0].nbr_total_beneficiaire}} </span>
+
+                                </div>
+                                <br>
+                                <div style="text-align:center; font-weight:bolder;">
+                                    <span>
+                                        ONT SIGNE :
+                                    </span>
+                                </div>
+                                <br>
+
+                                <table class="table">
+                                    <tr>
+                                        <td *ngFor="let member of credit_commiy" style="font-weight:bolder;font-size: 14px;padding-right: 35px !important;">
+                                            - {{member.roleDelegatedMember.name}}
+                                            <br> <br><br><br> {{member.comityMber.user}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="print-footer">
+            <!-- Page: -->
+            <span style="text-align:justify" *ngIf="_DePage.piedPage !=null ;else elseBlock2">
+                <img [src]="imageUrl+_DePage.piedPage" alt="pied de page" width="100%" height="50">
+            </span>
+            <ng-template #elseBlock2>
+                <img src="../../../content/images/footer.jpg" alt="logo" width="100%" height="50">
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+<div class="" style="height:400px">
+    <iframe name="print_frame" width="0" height="100%" frameborder="0" src="about:blank"></iframe>
+    <a class="btn-floating btn-large waves-effect waves-light red" style="position: fixed; bottom: 25px; right: 25px;" (click)="printAsPdf('print')">
+        <i class="material-icons">print</i>
+    </a>

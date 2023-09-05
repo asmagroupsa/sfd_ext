@@ -1,0 +1,50 @@
+{
+    "sfdApp": {
+        "credit": {
+            "home": {
+                "title": "Les Crédits",
+                "createLabel": "Accorder un nouveau crédit",
+                "createOrEditLabel": "Editer un Crédit",
+                "search": "Rechercher un Crédit"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Crédit {{ id }} ?"
+            },
+            "detail": {
+                "title": "Crédit"
+            },
+            "ligneCredit":"La ligne de crédit",
+            "creditDate": "Date du crédit",
+            "duration": "Durée",
+            "nondecaisse": "Les crédits non décaissés",
+            "agenceReference": "Réference de l'agence",
+            "endDate": "Date de fin",
+            "amount": "Montant",
+            "createdDate": "Date Création",
+            "createdBy": "Créé Par",
+            "lastModifiedBy": "Modifié Dernièrement Par",
+            "lastModifiedDate": "Date Dernière Modification",
+            "decaisser": "Décaisser",
+            "modeEcheance": "Mode d'échéance",
+            "reference": "Référence",
+            "rembourser": "Rembourser",
+            "employee": "Employée",
+            "apparente": "Apparenté",
+            "startDate": "Date de début",
+            "client": "Client",
+            "notificationClient": "Notification du client",
+            "operations": "Les opérations",
+            "garanties": "Les garanties",
+            "echeancierClient": "Echeancier du client",
+            "account": "Le compte",
+            "lignecredit": "Ligne de Crédit"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "credit": {
+            "created": "Un nouveau Crédit a été créé ",
+            "updated": "Le Crédit  a été mis à jour",
+            "deleted": "Le Crédit  a été supprimé"
+        }
+    }
+}

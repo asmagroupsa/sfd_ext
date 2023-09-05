@@ -1,0 +1,31 @@
+{
+    "sfdApp": {
+        "conditionAcces" : {
+            "home": {
+                "title": "Les conditions d'accès",
+                "createLabel": "Créer une nouvelle condition d'accès",
+                "createOrEditLabel": "Editer une condition d'accès",
+                "search": "Rechercher une condition d'accès"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la condition d'accès {{ id }} ?"
+            },
+            "detail": {
+                "title": "Condition d'accès"
+            },
+            "name": "Nom",
+            "noteMax": "Note Maximale",
+            "description": "Description",
+            "elements": "Eléments de la condition",
+            "categorie": "Catégorie",
+            "produits": "Produits"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "conditionAcces" : {
+            "created": "Une nouvelle Condition Acces a été créée ",
+            "updated": "La Condition Acces  a été mise à jour",
+            "deleted": "La Condition Acces  a été supprimée"
+        }
+    }
+}

@@ -1,0 +1,23 @@
+<div *ngIf="zoneSfd">
+    <h2><span jhiFnmTranslate="sfdApp.zoneSfd.detail.title">Zone Sfd</span> {{zoneSfd.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.zoneSfd.name">Name</span></dt>
+        <dd>
+            <span>{{zoneSfd.name}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.zoneSfd.reference">Reference</span></dt>
+        <dd>
+            <span>{{zoneSfd.reference}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/', { outlets: { popup: 'zone-sfd/'+ zoneSfd.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,33 @@
+{
+    "sfdApp": {
+        "activation": {
+            "home": {
+                "title": "Activation",
+                "createLabel": "Créer une Activation",
+                "createOrEditLabel": "Editer une Activation",
+                "search": "Rerchercher une activation"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer l'Activation {{ id }} ?"
+            },
+            "detail": {
+                "title": "Activation"
+            },
+            "amount": "Montant",
+            "code": "Code",
+            "operation": "Opération",
+            "createdDate": "Date Création",
+            "createdBy": "Créée Par",
+            "lastModifiedBy": "Modifiée Dernièrement Par",
+            "lastModifiedDate": "Date de la Dernière Modification",
+            "budget": "Budget"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "activation": {
+            "created": "Une nouvelle Activation a été créée ",
+            "updated": "Mise à Jour De L'activation",
+            "deleted": "Suppression De L'activation"
+        }
+    }
+}

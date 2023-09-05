@@ -1,0 +1,75 @@
+<div>
+    <h3>
+        <span jhiFnmTranslate="sfdApp.matiere.home.title">Matieres</span>
+        <button *jhiHasAnyRessources="'carmesfnmservice/api/matieres/createMatiere'" class="btn btn-primary float-right create-matiere" [routerLink]="['/entity','matiere', { outlets: { popup: ['matiere-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.matiere.home.createLabel">
+            Create new Matiere
+            </span>
+        </button>
+    </h3>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.matiere.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="matieres;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <th class="numerotab">N°</th>
+                    <th jhiSortBy="name"><span jhiFnmTranslate="sfdApp.matiere.name">Name</span> <span class="fa fa-sort"></span></th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let matiere of matieres  | recherche:currentSearch ;let index = index;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','matiere', matiere.id ]">{{matiere.id}}</a></td> -->
+                    <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>{{matiere.name}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <!-- <button type="submit" [routerLink]="['/entity','matiere', matiere.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                             </button> -->
+                            <button *jhiHasAnyRessources="'carmesfnmservice/api/matieres/updateMatiere'" type="submit" [routerLink]="['/entity','matiere', { outlets: { popup: 'matiere/'+ matiere.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.edit">Edit</span> -->
+                        </button>
+                            <button *jhiHasAnyRessources="'carmesfnmservice/api/matieres/deleteMatiere'" type="submit" [routerLink]="['/entity','matiere', { outlets: { popup: 'matiere/'+ matiere.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.delete">Delete</span> -->
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="matieres && matieres.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>

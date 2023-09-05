@@ -1,0 +1,135 @@
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+    <div class="form-group" style="flex-grow: 1;">
+        <label for="departement">Departement</label>
+        <select class="ui fluid search dropdown sfd-dropdown" id="departement" name="departement" [(ngModel)]="departement" (change)="city = null">
+            <option [ngValue]="null">Tout</option>
+            <option [ngValue]="d.id" *ngFor="let d of departements">{{d.name}}</option>
+        </select>
+    </div>
+    <div style="width: 10px;"></div>
+    <div class="form-group" style="flex-grow: 1;">
+        <label for="city">Commune</label>
+        <select class="ui fluid search dropdown sfd-dropdown" id="city" name="city" [(ngModel)]="city" (change)="arrondissement = null">
+            <option [ngValue]="null">Tout</option>
+            <option [ngValue]="c.id" *ngFor="let c of cities">{{c.name}}</option>
+        </select>
+    </div>
+    <div style="width: 10px;"></div>
+    <div class="form-group" style="flex-grow: 1;">
+        <label for="arrondissement">Arrondissement</label>
+        <select class="ui fluid search dropdown sfd-dropdown" id="arrondissement" name="arrondissement" [(ngModel)]="arrondissement" (change)="district = null">
+            <option [ngValue]="null">Tout</option>
+            <option [ngValue]="a.id" *ngFor="let a of arrondissements">{{a.name}}</option>
+        </select>
+    </div>
+    <div style="width: 10px;"></div>
+    <div class="form-group" style="flex-grow: 1;">
+        <label for="district">Quartier de ville</label>
+        <select class="ui fluid search dropdown sfd-dropdown" id="district" name="district" [(ngModel)]="district">
+            <option [ngValue]="null">Tout</option>
+            <option [ngValue]="d.id" *ngFor="let d of districts">{{d.name}}</option>
+        </select>
+    </div>
+</div>
+<div style="display: flex; justify-content: space-between;">
+    <button type="button" class="btn waves-effect waves-light" (click)="reload()">Actualiser</button>
+    <button type="button" class="btn waves-effect waves-light" (click)="print()">Imprimer</button>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <form class="ui form" name="searchForm" class="form-inline">
+            <div class="input-group w-100 mt-3">
+                <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Rechercher un agent marchand">
+                <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                    <span class="fa fa-search"></span>
+                </button>
+                <button class="input-group-addon btn btn-danger" (click)="reload()" *ngIf="currentSearch">
+                    <span class="fa fa-trash-o"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+    <br />
+<div>
+    <div class="table-responsive">
+            <table class="bordered striped highlight">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Photo</th>
+                        <th>Nom & Prénom</th>
+                        <th>CARMES</th>
+                        <th>Commune</th>
+                        <th>Quartier</th>
+                        <!-- <th>Téléphone</th> -->
+                        <!-- <th>Adresse</th> -->
+                        <!-- <th>E-mail</th> -->
+                        <!-- <th>Code guichet</th> -->
+                        <th title="Nombre de individu" style="text-align: right;">Nbr. Individu</th>
+                        <th title="Nombre de groupe" style="text-align: right;">Nbr. Groupe</th>
+                        <!-- <th title="Nombre de crédit">Nbr. Crédit</th> -->
+                        <!-- <th title="Montant achat remboursement"Mnt. achat Remb.></th> -->
+                        <th title="Montant dépot client" style="text-align: right;">Mnt. dépot</th>
+                        <th title="Montant retrait" style="text-align: right;">Mnt. retrait</th>
+                        <th title="Montant achat remboursement" style="text-align: right;">Mnt. Remb.</th>
+                        <th></th>
+                        <!-- <th title="Montant crédit">Mnt. crédit</th> -->
+                        <!-- <th title="Taux remboursement">Tx. Remb.</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let agent of agents; let index = index">
+                        <td>{{ start + index + 1}}</td>
+                        <td>
+                            <img [src]="fileURL + agent.photo" class="ui circular image" style="width: 40px; height: 40px;" [alt]="agent.photo">
+                        </td>
+                        <td>{{agent.name}} {{ (agent.first_name || '')}}</td>
+                        <td>{{agent.compte_carmes}}</td>
+                        <td>{{agent.arrondissement}}</td>
+                        <td>{{agent.district}}</td>
+                        <td style="text-align: center;">{{agent.nbre_individu|number}}</td>
+                        <td style="text-align: center;">{{agent.nbre_groupe|number}}</td>
+                        <td style="text-align: right;">{{agent.montant_depot|number}}</td>
+                        <td style="text-align: right;">{{agent.montant_retrait|number}}</td>
+                        <td style="text-align: right;"> {{agent.montant_remb|number}}</td>
+                        <td class="text-right" style="overflow:visible;">
+                            <div class="btn-group flex-btn-group-container">
+                                <div class="ui dropdown">
+                                    <div class="text" style="display:none"></div>
+                                    <i class="ellipsis vertical icon"></i>
+                                    <div class="left menu" style="position: absolute; top: 100%; right: 0;">
+                                        <div class="item" [routerLink]="['/entity','address', {outlets: {popup: ['address-new']}}]" [queryParams]="{client: agent.id}">Ajouter une adresse</div>
+                                        <div class="item" [routerLink]="['/entity','address']" [queryParams]="{client: agent.id, n: (agent.name || '') + ' ' + (agent.last_name || '')}">Adresses</div>
+                                        <div class="item" [routerLink]="['/entity','commission']" [queryParams]="{agent: agent.id}">Commissions</div>
+                                        <div class="item" [routerLink]="['/state','commission']" [queryParams]="{carmes: agent.compte_carmes}">Commissions PDF</div>
+                                        <div class="item" [routerLink]="['/entity','client', 'releve']" [queryParams]="{agent: agent.compte_carmes}">Relevé du compte</div>
+                                        <div class="item" (click)="disconnect(agent.compte_carmes)">Déconnecter</div>
+                                        <div class="item" (click)="openInitPasswordDialog(agent)">Changer le mot de passe</div>
+                                    </div>                                    
+                                </div>
+                            </div>                    
+                        </td>
+                       
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="agents && agents.length">
+            <div class="row justify-content-center">
+                <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+            </div>
+        </div>
+
+                
+</div>
+<div class="ui segment" style="box-shadow: unset; border: none; background: unset;" *ngIf="loading">
+    <p></p>
+    <div class="ui active inverted dimmer" style="background-color: unset;">
+        <div class="ui loader"></div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBankLabel" [jhiFnmTranslate]="bank.id ? 'sfdApp.bank.home.createOrEditLabel' : 'sfdApp.bank.home.createLabel'">Create or edit a Bank</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label class="form-control-label oblige" jhiFnmTranslate="sfdApp.bank.libelle" for="field_libelle">Libellé</label>
+            <input type="text" class="form-control" name="libelle" id="field_libelle" [(ngModel)]="bank.libelle" required maxlength="100"
+            />
+            <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength"
+                    translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiFnmTranslate="sfdApp.bank.phone" for="field_phone">Phone</label>
+            <input type="tel" class="form-control" name="phone" id="field_phone" [(ngModel)]="bank.phone" maxlength="15" data-length="15"
+                pattern="^([0-9]{0,3})[-_. ]?([0-9]{2}[-_. ]?){3}[0-9]{2}$" />
+            <div [hidden]="!(editForm.controls.phone?.dirty && editForm.controls.phone?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.pattern">
+                    Le numéro de téléphone n'est pas correct
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength"
+                    translateValues="{ max: 15 }">
+                    This field cannot be longer than 15 characters.
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp; <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

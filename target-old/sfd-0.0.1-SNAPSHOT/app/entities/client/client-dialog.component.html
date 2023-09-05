@@ -1,0 +1,581 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myClientLabel">
+            <span [jhiFnmTranslate]="client.id ? 'sfdApp.client.home.createOrEditLabel' : 'sfdApp.client.home.createLabel'">Create or edit a Client</span>
+            <strong>{{type?.code}}</strong>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!-- <div class="form-group" *ngIf="isNotGroup() && agences.length > 1"> -->
+        <!-- <div class="form-group" style="pointer-events: none;display:none;">
+            <label jhiFnmTranslate="sfdApp.client.typeClient" for="field_typeClient" class="oblige">Type Client</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_typeClient" name="typeClient" [(ngModel)]="client.typeClientId" (change)="onChange()" required>
+                <option [ngValue]="null" disabled>Choisissez le type de client</option>
+                <option [ngValue]="typeClientOption.id" *ngFor="let typeClientOption of typeclients | slice:-3">{{typeClientOption.name}}</option>
+            </select>
+        </div> -->
+        <div class="form-group" *ngIf="(!client.id && isNotGroup())">
+            <!-- <div class="form-group" *ngIf="(!client.id && isNotGroup()) && (!localFlag || (localFlag && numericFlag))"> -->
+            <label [ngClass]="{oblige:isIndividual || isLead}" for="field_cpteCarmes" jhiFnmTranslate="sfdApp.client.cpteCarmes"></label>
+            <div class="ui input icon field" style="width: 100%;" [ngClass]="{loading: loadingArray.carmes}">
+                <input type="number" min="1" class="form-control" name="cpteCarmes" id="field_cpteCarmes" [(ngModel)]="client.cpteCarmes" maxlength="9" pattern="^[0-9]{1,9}$" [required]="isIndividual || isLead" (blur)="onCompteCarmesBlur()" style="padding-right: 0px !important;" />
+                <i class="icon"></i>
+            </div>
+            <div [hidden]="!(editForm.controls.cpteCarmes?.dirty && editForm.controls.cpteCarmes?.invalid) || identificationComplete !== false">
+
+                <small class="form-text text-danger" *ngIf="identificationComplete === false">
+                    Aucune information complémentaire pour ce compte carmes, l’identification complète doit ếtre faite avant d'enrôler
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.cpteCarmes?.errors?.pattern">
+                    Le compte CARMES est incorrect. Le compte doit être de 09 chiffres ou personnalisé
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.cpteCarmes?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{max: 9}">
+                    This field cannot be longer than 9 characters.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.cpteCarmes?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+            </div>
+            <!-- <div [hidden]="!editForm.controls.cpteCarmes?.invalid && !editForm.controls.pin?.invalid && compteCarmesIsValid">
+                    <span class="form-text text-danger" [hidden]="compteCarmesIsValid">{{cptErrorMsg}}</span>
+                </div> -->
+        </div>
+        <div class="form-group" *ngIf="isIndividual">
+            <label class="oblige" for="recepisse" jhiFnmTranslate="sfdApp.client.recepisse"></label>
+            <div class="ui input icon field" style="width: 100%;" [ngClass]="{loading: loadingArray.recepisse}">
+                <input type="text" class="form-control" name="recepisse" id="recepisse" [(ngModel)]="client.recepisse" required (blur)="onRecepisseBlur()" style="padding-right: 0px !important;">
+                <i class="icon"></i>
+            </div>
+            <div [hidden]="!(editForm.controls.recepisse?.dirty && editForm.controls.recepisse?.invalid) || identificationComplete !== false">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.recepisse?.errors?.required" jhiFnmTranslate="entity.validation.required"></small>
+            </div>
+        </div>
+        <!-- <div class="input-field col s6">
+                <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.client.pin" for="pin">PIN</label>
+                <input type="number" min="4" class="form-control" name="pin" id="field_pin" [(ngModel)]="pinCARMES" (blur)="onCompteCarmesBlur()" pattern="^[0-9]{4,}$" required/>
+                <div [hidden]="!(editForm.controls.pin?.dirty && editForm.controls.pin?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.pin?.errors?.required" jhiFnmTranslate="entity.validation.required">This field is required.</small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.pin?.errors?.pattern">PIN incorrect</small>
+                </div>
+            </div> -->
+        <!-- </div> -->
+        <div class="form-group" *ngIf="agences.length > 1">
+            <label jhiFnmTranslate="sfdApp.client.agence" for="field_agence" class="oblige">Agence</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_agence" name="agence" [(ngModel)]="client.agenceReference" required>
+                <option [ngValue]="null" disabled>Choisissez l'agence</option>
+                <option [ngValue]="agenceOption.codeAgence" *ngFor="let agenceOption of agences">{{agenceOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group" *ngIf="!isIndividual && !isLead && !client.id">
+            <label for="produit_id" class="oblige">Produit</label>
+            <div class="ui icon input field" [ngClass]="{loading: loadingArray.produit}" style="width: 100%;">
+                <select class="ui fluid search dropdown sfd-dropdown" id="produit_id" name="produit" [(ngModel)]="client.produitId" required (change)="onProduitChange()">
+                    <option [ngValue]="null" disabled>Choisissez le produit</option>
+                    <option [ngValue]="produit.id" *ngFor="let produit of produits">{{produit.libelle}}</option>
+                </select>
+                <i class="icon"></i>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="isIndividual">
+            Etes-vous un employé du SFD? &nbsp;&nbsp;
+            <span>
+                <input name="group1" type="radio" id="valide" [checked]="client.employee" #valide (change)="onEmployee($event)" />
+                <label for="valide">Oui</label>
+            </span>&nbsp;&nbsp;&nbsp;
+            <span>
+                <input name="group1" type="radio" id="nonvalide" (change)="onEmployee($event,true)" [checked]="!client.employee" />
+                <label for="nonvalide">Non</label>
+            </span>
+        </div>
+
+        <div class="form-group" *ngIf="isIndividual && isValide">
+            Vous êtes apparenté? &nbsp;&nbsp;
+            <span>
+                <input name="parente" type="radio" id="parente" #parente [checked]="client.apparente" />
+                <label for="parente">Oui</label>
+            </span>&nbsp;&nbsp;&nbsp;
+            <span>
+                <input name="parente" type="radio" id="nonparente" [checked]="!client.apparente" />
+                <label for="nonparente">Non</label>
+            </span>
+        </div>
+
+        <div class="form-group" *ngIf="isValide">
+            <label jhiFnmTranslate="sfdApp.client.poste" for="field_poste" class="oblige">Poste</label>
+            <div class="ui icon input field" [ngClass]="{loading: loadingArray.poste}" style="width: 100%;">
+                <select class="ui fluid search dropdown sfd-dropdown" id="field_poste" name="poste" [(ngModel)]="client.posteId" required>
+                    <option [ngValue]="null" disabled>Choisissez le poste</option>
+                    <option [ngValue]="posteOption.id" *ngFor="let posteOption of postes">{{posteOption.name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="input-field" *ngIf="!isLead">
+            <label class="form-control-label oblige active" jhiFnmTranslate="sfdApp.client.name" for="field_name">Nom</label>
+            <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="client.name" required data-length="100" (input)="onClientLastNameInput($event.target.value)" (blur)="verifierInfoClient()" [readonly]="proprietaire[1]" />
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="input-field" *ngIf="isIndividual">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.client.firstName" for="field_firstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" id="field_firstName" [(ngModel)]="client.firstName" maxlength="50" data-length="50" required (blur)="verifierInfoClient()" [readonly]="proprietaire[2]" />
+            <div [hidden]="!(editForm.controls.firstName?.dirty && editForm.controls.firstName?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.firstName?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="input-field" *ngIf="isIndividual">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.client.maidenName" for="field_maidenName">Maiden Name</label>
+            <input type="text" class="form-control" name="maidenName" id="field_maidenName" [(ngModel)]="client.maidenName" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.maidenName?.dirty && editForm.controls.maidenName?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.maidenName?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="input-field" *ngIf="isIndividual">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.client.alias" for="field_alias">Surnom</label>
+            <input type="text" class="form-control" name="alias" id="field_alias" [(ngModel)]="client.alias" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.alias?.dirty && editForm.controls.alias?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.alias?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="input-field" *ngIf="isLead">
+            <label class="form-control-label oblige active" jhiFnmTranslate="sfdApp.client.denomination" for="field_denomination">Denomination</label>
+            <input type="text" class="form-control" name="denomination" id="field_denomination" [(ngModel)]="client.denomination" maxlength="100" data-length="100" required />
+            <div [hidden]="!(editForm.controls.denomination?.dirty && editForm.controls.denomination?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.denomination?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="isLead">
+            <label jhiFnmTranslate="sfdApp.client.leader" for="field_leader" class="oblige">Leader</label>
+            <div class="ui icon input field" [ngClass]="{loading: loadingArray.leader}" style="width: 100%;">
+                <select class="ui fluid search dropdown sfd-dropdown" id="field_leader" name="leader" [(ngModel)]="client.leaderId" required>
+                    <option [ngValue]="null" disabled>Choisissez le responsable</option>
+                    <option [ngValue]="leaderOption.id" *ngFor="let leaderOption of leaders">{{leaderOption.name}} {{leaderOption.firstName}}</option>
+                </select>
+                <i class="icon"></i>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="isIndividual">
+            <label jhiFnmTranslate="sfdApp.client.profession" class="oblige" for="field_profession">Profession</label>
+            <div class="ui icon input field" [ngClass]="{loading: loadingArray.profession}" style="width: 100%;">
+                <select required class="ui fluid search dropdown sfd-dropdown" id="field_profession" name="profession" [(ngModel)]="client.professionId">
+                    <option [ngValue]="null" disabled>Choisissez la profession</option>
+                    <option [ngValue]="professionOption.id" *ngFor="let professionOption of professions">{{professionOption.name}}</option>
+                </select>
+                <i class="icon"></i>
+            </div>
+        </div>
+
+        <!-- <div class="row" *ngIf="!client.id && isNotGroup()">
+            <div class="input-field col s6">
+                <label class="form-control-label active" [ngClass]="{oblige:isIndividual || isLead}" jhiFnmTranslate="sfdApp.client.cpteCarmes" for="field_cpteCarmes">Compte CARMES</label>
+                <input type="number" min="1" class="form-control" name="cpteCarmes" id="field_cpteCarmes" [(ngModel)]="client.cpteCarmes" maxlength="9" data-length="9" pattern="^[0-9]{1,9}$" [required]="isIndividual || isLead" (blur)="onCompteCarmesBlur()" />
+                <div [hidden]="!(editForm.controls.cpteCarmes?.dirty && editForm.controls.cpteCarmes?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.cpteCarmes?.errors?.pattern">
+                        Le compte CARMES est incorrect. Le compte doit être de 09 chiffres ou personnalisé
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.cpteCarmes?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{max: 9}">
+                        This field cannot be longer than 9 characters.
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.cpteCarmes?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div [hidden]="!editForm.controls.cpteCarmes?.invalid && !editForm.controls.pin?.invalid && compteCarmesIsValid">
+                    <span class="form-text text-danger" [hidden]="compteCarmesIsValid">{{cptErrorMsg}}</span>
+                </div>
+            </div>
+            <div class="input-field col s6">
+                <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.client.pin" for="pin">PIN</label>
+                <input type="number" min="4" class="form-control" name="pin" id="field_pin" [(ngModel)]="pinCARMES" (blur)="onCompteCarmesBlur()" pattern="^[0-9]{4,}$" required/>
+                <div [hidden]="!(editForm.controls.pin?.dirty && editForm.controls.pin?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.pin?.errors?.required" jhiFnmTranslate="entity.validation.required">This field is required.</small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.pin?.errors?.pattern">PIN incorrect</small>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- <div class="input-field" *ngIf="!client.id && isNotGroup()">
+            <label class="form-control-label active" [ngClass]="{oblige:isIndividual || isLead}" jhiFnmTranslate="sfdApp.client.cpteCarmes" for="field_cpteCarmes">Compte CARMES</label>
+            <input type="number" min="1" class="form-control" name="cpteCarmes" id="field_cpteCarmes" [(ngModel)]="client.cpteCarmes" maxlength="9" data-length="9" pattern="^[0-9]{1,9}$" [required]="isIndividual || isLead" (blur)="onCompteCarmesBlur()" />
+            <div [hidden]="!(editForm.controls.cpteCarmes?.dirty && editForm.controls.cpteCarmes?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.cpteCarmes?.errors?.pattern">
+                    Le compte CARMES est incorrect. Le compte doit être de 09 chiffres ou personnalisé
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.cpteCarmes?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{max: 9}">
+                    This field cannot be longer than 9 characters.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.cpteCarmes?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+            </div>
+            <div [hidden]="!editForm.controls.cpteCarmes?.invalid && compteCarmesIsValid">
+                <span class="form-text text-danger" [hidden]="compteCarmesIsValid">Le compte carmes est deja utilise</span>
+            </div>
+        </div> -->
+        <div *ngIf="!isNotGroup()">
+            <div *ngIf="client && !client.id">
+                <h4 class="col s12">Ajout de membres</h4>
+                <div class="row" *ngFor="let nombre of nbreOfMembres;let index = index">
+                    <div class="col s6">
+                        <div class="form-group">
+                            <label>Membre</label>
+                            <select [required]="checkIfMemberIsRequired(index)" name="m{{index}}" class="ui fluid search dropdown sfd-dropdown" (change)="changeIndividu($event.target.value ,index)" [(ngModel)]="mModel['m' + index]">
+                                <option [value]="null" disabled>Choisissez le client</option>
+                                <option [ngValue]="null" *ngIf="[0, 1, 2].indexOf(index) === -1">Aucun</option>
+                                <option [value]="member.id" *ngFor="let member of membersTab[index]">{{member.name}} {{member.firstName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <div class="form-group" style="pointer-events: none;">
+                            <label>Rôle du membre</label>
+                            <select class="ui fluid search dropdown sfd-dropdown">
+                                <option [value]="null" disabled>Choisissez le rôle</option>
+                                <option [value]="role" [selected]="selectRole(role, index)" *ngFor="let role of roles">{{role}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isNotGroup()">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.client.email" for="field_email">Email</label>
+            <input type="email" class="form-control" name="email" id="field_email" [(ngModel)]="client.email" maxlength="50" data-length="50" pattern="^([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-z]{2,6})?$" [readonly]="proprietaire[11]" />
+            <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.pattern">
+                    veuillez entrer un email valide
+                </small>
+            </div>
+        </div>
+
+        <div class="input-field" *ngIf="isNotGroup()">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.client.bp" for="field_bp">Bp</label>
+            <input type="text" class="form-control" name="bp" id="field_bp" [(ngModel)]="client.bp" maxlength="30" data-length="30" />
+            <div [hidden]="!(editForm.controls.bp?.dirty && editForm.controls.bp?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.bp?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 30 }">
+                    This field cannot be longer than 30 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="input-field" *ngIf="isNotGroup()">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.client.fax" for="field_fax">Fax</label>
+            <input type="number" class="form-control" name="fax" id="field_fax" [(ngModel)]="client.fax" maxlength="15" data-length="15" pattern="^[0-9]+$" />
+            <div [hidden]="!(editForm.controls.fax?.dirty && editForm.controls.fax?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.fax?.errors?.pattern">
+                    Le Fixe n'est pas correct
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.fax?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 15 }">
+                    This field cannot be longer than 15 characters.
+                </small>
+            </div>
+        </div>
+
+        <!-- <div class="row" *ngIf="isNotGroup()">
+            <div class="col-sm-4">
+                <div class="input-field">
+                    <label for="indicatif">Indicatif</label>
+                    <input type="number" id="indicatif" name="indicatif">
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="input-field">
+                    <label class="form-control-label oblige active" jhiFnmTranslate="sfdApp.client.phone" for="field_phone">Phone</label>
+                    <input type="text" class="form-control" name="phone" id="field_phone" [(ngModel)]="client.phone" required maxlength="15"
+                        data-length="15" pattern="^([0-9]{0,3})[-_. ]?([0-9]{2}[-_. ]?){3}[0-9]{2}$" (blur)="verifierInfoClient()" />
+                    <div [hidden]="!(editForm.controls.phone?.dirty && (editForm.controls.phone?.invalid || !infoClientValid))">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.pattern">
+                            Le numéro de téléphone n'est pas correct
+                        </small>
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength"
+                            translateValues="{ max: 15 }">
+                            This field cannot be longer than 15 characters.
+                        </small>
+                        <small [hidden]="infoClientValid" class="form-text text-danger">Le phone est deja utilise</small>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="input-field" *ngIf="isNotGroup()">
+            <label class="form-control-label oblige active" jhiFnmTranslate="sfdApp.client.phonee" for="field_phone">Phone</label>
+            <input type="text" class="form-control" name="phone" id="field_phone" [(ngModel)]="client.phone" required pattern="^(00[1-9][0-9]{0,2})?[ ]?([0-9]{2}[- ]?){3}[0-9]{2}$" (blur)="verifierInfoClient()" />
+            <div [hidden]="!(editForm.controls.phone?.dirty && (editForm.controls.phone?.invalid || !infoClientValid))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.pattern">
+                    Le numéro de téléphone n'est pas correct
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <!-- <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength"
+                    translateValues="{ max: 15 }">
+                    This field cannot be longer than 15 characters.
+                </small> -->
+                <small [hidden]="infoClientValid" class="form-text text-danger">Le phone est deja utilise</small>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="isIndividual">
+            <label class="form-control-label oblige" jhiFnmTranslate="sfdApp.client.birthDate" for="field_birthDate">Birth Date</label>
+            <ngbd-datepicker-i18n [ngModel]="client.birthDate" name="birthDate" required="true" (ngModelChange)="verifierInfoClient($event)" [minDate]="minDate" [maxDate]="maxDate" [readonly]="proprietaire[3]"></ngbd-datepicker-i18n>
+            <!-- <ngbd-datepicker-i18n [(ngModel)]="client.birthDate" name="birthDate" required="true""></ngbd-datepicker-i18n> -->
+        </div>
+        <div class="form-group" *ngIf="isIndividual">
+            <label jhiFnmTranslate="sfdApp.client.sex" for="field_sex" class="oblige">Sexe</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_sex" name="sex" [(ngModel)]="client.sex" required>
+                <option [ngValue]="null" disabled>Sélectionner le sexe</option>
+                <option value="M">Masculin</option>
+                <option value="F">Féminin</option>
+            </select>
+        </div>
+        <div class="input-field" *ngIf="isIndividual">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.client.birthPlace" for="field_birthPlace">Birth Place</label>
+            <input type="text" class="form-control" name="birthPlace" id="field_birthPlace" [(ngModel)]="client.birthPlace" maxlength="50" data-length="50" [readonly]="proprietaire[4]" />
+            <div [hidden]="!(editForm.controls.birthPlace?.dirty && editForm.controls.birthPlace?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.birthPlace?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isIndividual">
+            <label class="form-control-label active" for="field_father">Nom du père</label>
+            <input type="text" class="form-control" name="father" id="field_father" [(ngModel)]="client.fatherName" data-length="100" />
+            <div [hidden]="!(editForm.controls.fatherName?.dirty && editForm.controls.fatherName?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.fatherName?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isIndividual">
+            <label class="form-control-label active" for="field_mother">Nom de la mère</label>
+            <input type="text" class="form-control" name="mother" id="field_mother" [(ngModel)]="client.motherName" data-length="100" />
+            <div [hidden]="!(editForm.controls.motherName?.dirty && editForm.controls.motherName?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.motherName?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isIndividual">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.client.conjointName" for="field_conjointName">Conjoint Name</label>
+            <input type="text" class="form-control" name="conjointName" id="field_conjointName" [(ngModel)]="client.conjointName" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.conjointName?.dirty && editForm.controls.conjointName?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.conjointName?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isIndividual">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.client.conjointPhone" for="field_conjointPhone">Conjoint Phone</label>
+            <input type="text" class="form-control" name="conjointPhone" id="field_conjointPhone" [(ngModel)]="client.conjointPhone" maxlength="50" data-length="50" pattern="^([0-9]{2}[-_ ]?){3}[0-9]{2}$" />
+            <div [hidden]="!(editForm.controls.conjointPhone?.dirty && editForm.controls.conjointPhone?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.conjointPhone?.errors?.pattern">
+                    Le numéro de téléphone n'est pas correct
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.conjointPhone?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="row">
+            <div [ngClass]="{'col-sm-5':isIndividual,'col-sm-7':!isIndividual}">
+                <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.client.photo" translateValues="{type: '{{photoType}}'}">Photo</label>
+                <div class="form-group">
+                    <label class="form-control-label label" (click)="file.click()" #labelPhoto>{{label}}</label>
+                    <input type="file" class="form-control" id="photo" name="photo" placeholder="{{'settings.form.photo.placeholder' | fnmtranslate : langue.lang | async}}" #photoInput style="display:none;" #file (change)="onChangeFile(labelPhoto)">
+                </div>
+            </div>
+            <div class="col-sm-2 or" *ngIf="isIndividual">Ou</div>
+            <div class="col-sm-5" *ngIf="isIndividual">
+                <label></label>
+                <div class="camera" (click)="showCamera()">
+                    <span *ngIf="!picture && !taken">Prendre une photo avec la camera </span>
+                    <canvas #canvas [hidden]="!(taken && !picture)"></canvas>
+                    <span [hidden]="!(!taken && picture)" class="close" (click)="takePicture($event)">
+                        <i class="fa fa-check"></i>
+                    </span>
+                    <video #video autoplay [hidden]="!(picture && !taken)"></video>
+                </div>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isNotGroup()">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.client.contactPersonName" for="field_contactPersonName">Contact Person Name</label>
+            <input type="text" class="form-control" name="contactPersonName" id="field_contactPersonName" [(ngModel)]="client.contactPersonName" maxlength="50" data-length="50" required [readonly]="proprietaire[8]" />
+            <div [hidden]="!(editForm.controls.contactPersonName?.dirty && editForm.controls.contactPersonName?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.contactPersonName?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isNotGroup()">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.client.contactPersonPhone" for="field_contactPersonPhone">Contact Person Phone</label>
+            <input type="text" class="form-control" name="contactPersonPhone" id="field_contactPersonPhone" [(ngModel)]="client.contactPersonPhone" maxlength="50" data-length="50" pattern="^([0-9]{2}[-_ ]?){3}[0-9]{2}$" [readonly]="proprietaire[9]" />
+            <div [hidden]="!(editForm.controls.contactPersonPhone?.dirty && editForm.controls.contactPersonPhone?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.contactPersonPhone?.errors?.pattern">
+                    Le numéro de téléphone n'est pas correct
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.contactPersonPhone?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isIndividual">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.client.fingerPrintLeft" for="field_fingerPrintLeft">Finger Print Left</label>
+            <input type="text" class="form-control" name="fingerPrintLeft" id="field_fingerPrintLeft" [(ngModel)]="client.fingerPrintLeft" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.fingerPrintLeft?.dirty && editForm.controls.fingerPrintLeft?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.fingerPrintLeft?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isIndividual">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.client.fingerPrintRight" for="field_fingerPrintRight">Finger Print Right</label>
+            <input type="text" class="form-control" name="fingerPrintRight" id="field_fingerPrintRight" [(ngModel)]="client.fingerPrintRight" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.fingerPrintRight?.dirty && editForm.controls.fingerPrintRight?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.fingerPrintRight?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isNotGroup()">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.client.signature" for="field_signature">Signature</label>
+            <input type="text" class="form-control" name="signature" id="field_signature" [(ngModel)]="client.signature" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.signature?.dirty && editForm.controls.signature?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.signature?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isLead">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.client.commercialRegisterNumber" for="field_commercialRegisterNumber">Commercial Register Number</label>
+            <input type="text" class="form-control" name="commercialRegisterNumber" id="field_commercialRegisterNumber" [(ngModel)]="client.commercialRegisterNumber" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.commercialRegisterNumber?.dirty && editForm.controls.commercialRegisterNumber?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.commercialRegisterNumber?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isNotGroup()">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.client.ifus" for="field_ifus">Ifus</label>
+            <input type="text" class="form-control" name="ifus" id="field_ifus" [(ngModel)]="client.ifus" maxlength="50" data-length="50" [readonly]="proprietaire[13]" />
+            <div [hidden]="!(editForm.controls.ifus?.dirty && editForm.controls.ifus?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.ifus?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isNotGroup()">
+            <label class="form-control-label active" for="field_ravip">Ravip</label>
+            <input type="text" class="form-control" name="ravip" id="field_ravip" [(ngModel)]="client.ravip" maxlength="10" data-length="10" [readonly]="proprietaire[14]" />
+            <div [hidden]="!(editForm.controls.ravip?.dirty && editForm.controls.ravip?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.ravip?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 10 }">
+                    This field cannot be longer than 10 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="isIndividual">
+            <label jhiFnmTranslate="sfdApp.client.situationMat" for="field_situationMat">Situation Mat</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_situationMat" name="situationMat" [(ngModel)]="client.situationMatId">
+                <option [ngValue]="null" disabled>Choisissez la situation matrimoniale</option>
+                <option [ngValue]="situationMatOption.id" *ngFor="let situationMatOption of situationmats">{{situationMatOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group" *ngIf="isNotGroup()">
+            <label jhiFnmTranslate="sfdApp.client.idCarteType" for="field_idCarteType" class="oblige">Id Carte Type</label>
+            <div class="ui icon input field" [ngClass]="{loading: loadingArray.idCardType}" style="width: 100%;">
+                <select class="ui fluid search dropdown sfd-dropdown" id="field_idCarteType" name="idCarteType" [(ngModel)]="client.idCarteTypeId" required>
+                    <option [ngValue]="null" disabled>Choisissez le type de pièces d'identité</option>
+                    <option [ngValue]="idCardTypeOption.id" *ngFor="let idCardTypeOption of idcardtypes">{{idCardTypeOption.name}}</option>
+                </select>
+                <i class="icon"></i>
+            </div>
+        </div>
+        <div class="input-field" *ngIf="isNotGroup()">
+            <label class="form-control-label oblige active" jhiFnmTranslate="sfdApp.client.identityCard" for="field_identityCard">Identity Card</label>
+            <input type="text" class="form-control" name="identityCard" id="field_identityCard" [(ngModel)]="client.identityCard" maxlength="50" data-length="50" required [readonly]="proprietaire[7]" />
+            <div [hidden]="!(editForm.controls.identityCard?.dirty && editForm.controls.identityCard?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.identityCard?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="isNotGroup()">
+            <label jhiFnmTranslate="sfdApp.client.nationality" for="field_nationality" class='oblige'>Nationality</label>
+            <div class="ui icon input field" [ngClass]="{loading: loadingArray.nationality}" style="width: 100%;">
+                <select class="ui fluid search dropdown sfd-dropdown" id="field_nationality" name="nationality" [(ngModel)]="client.nationalityId" required>
+                    <option [ngValue]="null" disabled>Choisissez la nationalité</option>
+                    <option [ngValue]="nationalityOption.id" *ngFor="let nationalityOption of nationalities">{{nationalityOption.name}}</option>
+                </select>
+                <i class="icon"></i>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="isNotGroup()">
+            <label jhiFnmTranslate="sfdApp.client.country" for="field_country" class="oblige">Country</label>
+            <div class="ui icon input field" [ngClass]="{loading: loadingArray.country}" style="width: 100%;">
+                <select class="ui fluid search dropdown sfd-dropdown" id="field_country" name="country" [(ngModel)]="client.countryId" required>
+                    <!--<option [ngValue]="null" disabled>Choisissez le pays</option>-->
+                    <option [ngValue]="countryOption.id" *ngFor="let countryOption of countries">{{countryOption.name}}</option>
+                </select>
+                <i class="icon"></i>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="isIndividual">
+            <label jhiFnmTranslate="sfdApp.client.literacy" for="field_literacy">Literacy</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_literacy" name="literacy" [(ngModel)]="client.literacyId">
+                <option [ngValue]="null" disabled>Choisissez l'alphabétisation</option>
+                <option [ngValue]="literacyOption.id" *ngFor="let literacyOption of literacies">{{literacyOption.niveau}}</option>
+            </select>
+        </div>
+        <div class="form-group" *ngIf="isIndividual">
+            <label jhiFnmTranslate="sfdApp.client.schoolLevel" for="field_schoolLevel">School Level</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_schoolLevel" name="schoolLevel" [(ngModel)]="client.schoolLevelId">
+                <option [ngValue]="null" disabled>Choisissez le niveau d'études</option>
+                <option [ngValue]="schoolLevelOption.id" *ngFor="let schoolLevelOption of schoollevels">{{schoolLevelOption.niveau}}</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <span *ngIf="isSavingPicture && !clientPhotoHasBeenSend" style="color:#f86c6b;">
+            La photo du client en cours d'envoi ...
+        </span>
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving || !compteCarmesIsValid || (!infoClientValid && isIndividual) || !clientPhotoHasBeenSend || (identificationComplete === false) || !validRecepisse" class="btn waves-effect waves-light">
+            <!-- <button type="submit" class="btn waves-effect waves-light"> -->
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

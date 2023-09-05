@@ -1,0 +1,77 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTranchePenalLabel" [jhiFnmTranslate]="penality.id ? 'sfdApp.tranchePenal.home.createOrEditLabel' : 'sfdApp.tranchePenal.home.createLabel'">Create or edit a Tranche Penal</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="input-field">
+            <label class="form-control-label active oblige" for="field_libelle">Libellé</label>
+            <input type="text" class="form-control" name="libelle" id="field_libelle" [(ngModel)]="penality.libelle" required maxlength="50"
+                data-length="50" />
+            <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.required" jhiFnmTranslate="entity.validation.required">This field is required.</small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength"
+                    translateValues="{ max: 50 }">This field cannot be longer than 50 characters.</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" for="field_type">Type</label>
+            <select class="ui fluid search dropdown" name="type" [(ngModel)]="penality.type" id="field_type">
+                <option value="MONTANT">MONTANT</option>
+                <option value="TAUX">TAUX</option>
+                <option value="TRANCHE">TRANCHE</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active oblige" for="field_value">Valeur</label>
+            <input type="number" min="1" class="form-control" name="value" id="field_value" [(ngModel)]="penality.valeur" required />
+            <div [hidden]="!(editForm.controls.value?.dirty && (editForm.controls.value?.invalid || editForm.controls.value?.value < 0))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.value?.errors?.required" jhiFnmTranslate="entity.validation.required">This field is required.</small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.value?.errors?.number" jhiFnmTranslate="entity.validation.number">This field should be a number.</small>
+                <small class="form-text text-danger" *ngIf="editForm.controls.value?.value < 0">La valeur doit être supérieur ou égal à zéro(0)</small>
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.tranchePenal.maxDay" for="field_maxDay">Max Day</label>
+            <input type="number" min="1" class="form-control" name="maxDay" id="field_maxDay" [(ngModel)]="tranchePenal.maxDay" required
+            />
+            <div [hidden]="!(editForm.controls.maxDay?.dirty && (editForm.controls.maxDay?.invalid || editForm.controls.maxDay?.value <= editForm.controls.minDay?.value))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.maxDay?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.maxDay?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+                <small class="form-text text-danger" *ngIf="editForm.controls.amountMax?.value <=1000 || editForm.controls.amountMax?.value <= editForm.controls.amountMin?.value">Le jour maximum doit dépasser le jour minimum</small>
+            </div>
+        </div> -->
+        <!-- <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.tranchePenal.penalRate" for="field_penalRate">Penal Rate</label>
+            <input type="number" min="1" max="100" class="form-control" name="penalRate" id="field_penalRate" [(ngModel)]="tranchePenal.penalRate"
+                required />
+            <div [hidden]="!(editForm.controls.penalRate?.dirty && (editForm.controls.penalRate?.invalid || (editForm.controls.penalRate?.value  < 0 || editForm.controls.penalRate?.value > 100)))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.penalRate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.penalRate?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+                <small class="form-text text-danger" *ngIf="editForm.controls.penalRate?.value && (editForm.controls.penalRate?.value  < 0 || editForm.controls.penalRate?.value > 100)">
+                    Le taux pénal doit être compris entre 0 et 100
+                </small>
+            </div>
+        </div> -->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

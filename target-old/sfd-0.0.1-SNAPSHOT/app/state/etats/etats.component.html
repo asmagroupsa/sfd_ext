@@ -1,0 +1,37 @@
+<div style="display: flex; flex-direction: column; height: 100%;">
+    <div>
+        <!-- <h2  class="col" style=" margin-top: 10px;"> {{ q.title }}</h2> -->
+        <div class="row" style=" padding-top: 10px;"> 
+            <div class="field col">
+                <label for="state_select" class=""> <h2> {{ q.title }}</h2></label>
+                <select class="ui fluid search dropdown form-control" id="state_select" (change)="getData(selectedSate)" name="state_select" [(ngModel)]="selectedSate">
+                    <option [ngValue]="_st[0]" >Par groupe</option>
+                    <option [ngValue]="_st[1]" >Nominatif</option>
+                </select>
+            </div>         
+            <div class="field col-lg-2 ml-auto">
+                <label for="date1" class="form-control-label">Du</label>
+                <ngbd-datepicker-i18n name="date1" [(ngModel)]="date1" (ngModelChange)="getData()"></ngbd-datepicker-i18n>
+            </div>
+            <!-- <div style="width: 10px;" *ngIf="period()"></div> -->
+            <div  class="field col-lg-2">
+                <label for="date2" class="form-control-label">{{ period() ? 'Au' : 'A la date du' }}</label>
+                <ngbd-datepicker-i18n name="date2" [(ngModel)]="date2" (ngModelChange)="getData()"></ngbd-datepicker-i18n>
+            </div>
+            <div class="field col-lg-2" *ngIf="sfd_level">
+                <label for="agence_select" class="">Par agence</label>
+                <select class="ui fluid search dropdown form-control" id="agence_select" (change)="getData()" name="agence_select" [(ngModel)]="selectedAgence">
+                    <option [ngValue]="null">Tout</option>
+                    <option [ngValue]="agence.codeAgence" *ngFor="let agence of listAgences">{{ agence.name }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="ui segment" style="box-shadow: unset; border: none; flex-grow: 2;" *ngIf="loading">
+        <p></p>
+        <div class="ui active inverted dimmer">
+            <div class="ui loader massive"></div>
+        </div>
+    </div>
+    <iframe style="width: 100%; flex-grow: 2;" [hidden]="loading" #iframe></iframe>
+</div>

@@ -1,0 +1,21 @@
+  <jhi-alert-error></jhi-alert-error>
+  <div class="modal-body">
+    <div class="field">
+      <label class="form-control-label" style="font-size: 24px; text-align: justify; font-weight: 400;">
+        {{message}}
+      </label>
+    </div>
+    <div>
+      <ul>
+        <li *ngFor="let compte of data">
+          - {{compte}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="ui button" data-dismiss="modal" (click)="ngbActiveModal.close('cancel')">
+      <span class="fa fa-ban"></span>&nbsp;
+      <span>OK</span>
+    </button>
+  </div>

@@ -1,0 +1,84 @@
+<div *ngIf="budget">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.budget.detail.title">Budget</span> {{budget.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.budget.amount">Amount</span></dt>
+        <dd>
+            <span>{{budget.amount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.amountRequested">Amount Requested</span></dt>
+        <dd>
+            <span>{{budget.amountRequested}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.ammountReport">Ammount Report</span></dt>
+        <dd>
+            <span>{{budget.ammountReport}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.activeDate">Active Date</span></dt>
+        <dd>
+            <span>{{budget.activeDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.carmesAccount">CARMES Account</span></dt>
+        <dd>
+            <span>{{budget.carmesAccount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.active">Active</span></dt>
+        <dd>
+            <span>{{budget.active}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.cloture">Cloture</span></dt>
+        <dd>
+            <span>{{budget.cloture}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.sommeTotalLigne">Somme Total Ligne</span></dt>
+        <dd>
+            <span>{{budget.sommeTotalLigne}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.codeActivation">Code Activation</span></dt>
+        <dd>
+            <span>{{budget.codeActivation}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{budget.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{budget.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{budget.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{budget.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.montantActive">Montant Active</span></dt>
+        <dd>
+            <span>{{budget.montantActive}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.activeurs">Activeurs</span></dt>
+        <dd>
+            <span *ngFor="let activeurs of budget.activeurs; let last = last">
+                <a [routerLink]="['/entity','activeur', activeurs?.id ]">{{activeurs.id}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.budget.annee">Annee</span></dt>
+        <dd>
+            <div *ngIf="budget.anneeId">
+                <a [routerLink]="['/entity','annee', budget.anneeId]">{{budget.anneeId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','budget', { outlets: { popup: 'budget/'+ budget.id + '/edit'} }]" replaceUrl="true"
+        class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

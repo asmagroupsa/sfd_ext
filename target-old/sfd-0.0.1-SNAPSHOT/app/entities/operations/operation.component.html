@@ -1,0 +1,76 @@
+<div *ngIf="tab == 'accords'">
+    accord
+</div>
+<div *ngIf="tab == 'transferts'">
+    transferts
+</div>
+<div *ngIf="tab == 'virements'">
+    virements
+</div>
+<div *ngIf="tab == 'decaissements'">
+    decaissement
+</div>
+<div *ngIf="tab == 'retraits'">
+    <div class="col s12 m7">
+        <h2 class="header">Effectuer un retrait</h2>
+        <div class="card horizontal">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <p>Veillez remplir le compte du client et le montant</p>
+                    <form>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="compte" type="text" class="validate" name="compte" [(ngModel)]="compte">
+                                <label for="compte">Compte du client</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="montant" type="number" class="validate" name="montant" [(ngModel)]="montant">
+                                <label for="montant">Montant</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-action">
+                    <a (click)="addRetrait()">Effectuer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="tab == 'depots'">
+    <div class="col s12 m7">
+        <h2 class="header">Effectuer un depôt</h2>
+        <div class="card horizontal">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <p>Veillez remplir le compte du client et le montant</p>
+                    <form>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="compte" type="text" class="validate" name="compte" [(ngModel)]="compte">
+                                <label for="compte">Compte du client</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="montant" type="number" name="montant" class="validate" [(ngModel)]="montant">
+                                <label for="montant">Montant</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-action">
+                    <a (click)="addRetrait(true)">Effectuer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="tab == 'remboursements'">
+    remboursement
+</div>
+<div *ngIf="tab == 'penalites'">
+    penalite
+</div>

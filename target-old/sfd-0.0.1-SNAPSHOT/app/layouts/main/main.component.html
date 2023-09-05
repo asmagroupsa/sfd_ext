@@ -1,0 +1,944 @@
+<!-- <jhi-page-ribbon></jhi-page-ribbon> -->
+<router-outlet name="printpopup"></router-outlet>
+<jhi-alert></jhi-alert>
+<div class="ui tiny modal" id="session-modal" style="max-height: fit-content;">
+
+    <div class="header">Expiration de votre session</div>
+    <div class="scrolling content">
+        <div>
+            <strong style="color:red" jhiFnmTranslate="login.messages.error.authentication" *ngIf="errorSession">Failed
+                to sign in! Please check your credentials and try again.</strong>
+        </div>
+        <div style="margin-bottom:45px;margin-top:10px" [hidden]="!tapePassword">
+            <div class="ui input" style="width: 100%;margin-bottom:15px">
+                <input type="password" [(ngModel)]="password" placeholder="retapez votre mot de passe">
+            </div>
+        </div>
+        <div [hidden]="tapePassword">
+            Votre session sera expirée dans cinq minutes({{leftTime}}). Souhaiteriez-vous continuer votre session?
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button" (click)="closeModal()">Me déconnecter {{leftTime}}mins</div>
+        <div class="ui button" (click)="closeModal(true)">
+            {{valideSession}}
+        </div>
+    </div>
+</div>
+<ng-template #elseBlockOpen>
+    <div class="relatived">
+        <div class="absoluted">
+            L'application
+            <strong>SYGM@ SFD</strong> est déjà lancée dans un onglet
+        </div>
+    </div>
+</ng-template>
+<div *ngIf="!appOpened;else elseBlockOpen" style="display: flex;">
+    <header class="app-header navbar" [ngStyle]="{'background-color': themePalette.HEADER_BACK}"
+        *ngIf="principal.authenticated">
+        <button class="navbar-toggler d-lg-none" type="button" jhiappMobileSidebarToggler>&#9776;</button>
+        <a class="navbar-brand" [routerLink]="['']" [ngStyle]="{'background-color': themePalette.HEADER_BACK}">SYGM@
+            SFD</a>
+        <ul class="nav navbar-nav d-md-down-none">
+            <li class="nav-item">
+                <a class="nav-link navbar-toggler" jhiappSidebarToggler>&#9776;</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item dropdown" dropdown>
+                <a class="nav-link" style="color: #7dde63;font-weight: bold;">{{sessionOff}}&nbsp;&nbsp;&nbsp;</a>
+            </li>
+            <li class="nav-item dropdown" dropdown *ngIf="hasManyAgences && !isSousTraitant()">
+                <select class="ui fluid dropdown agenceSelect" id="field_agence0" name="agence"
+                    [ngModel]="currentAgence" required (ngModelChange)="onAgenceChange($event)">
+                    <option value="ALL_AGENCE">Toutes les agences</option>
+                    <option [ngValue]="agence" *ngFor="let agence of agences">{{agence?.name}}</option>
+                </select>
+            </li>
+            <li class="nav-item dropdown" dropdown *ngIf="!isSousTraitant()">
+                <a class="nav-link" routerLinkActive="active" [routerLink]="['']" style="color:#ddd;font-weight: bold;"
+                    title="{{agenceNameTitle}}">&nbsp;{{(!hasManyAgences && agenceName)?'Agences: '+agenceName:''}}
+                    {{sfdName?' | SFD:'+sfdName:''}}&nbsp;&nbsp;</a>
+            </li>
+            <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}" *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                style="padding-right: 20px;">
+                <a href class="nav-link dropdown-toggle" dropdownToggle (click)="false"
+                    [ngStyle]="{'color':themePalette.HEADER_COLOR}">
+                    <span class="d-md-down-none" jhiFnmTranslate="global.menu.admin.main">Administration</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+                    <div class="dropdown-header text-center">
+                        <strong>Utilisateurs</strong>
+                    </div>
+                    <a class="dropdown-item" [routerLink]="['/entity','ressource']" routerLinkActive="active">
+                        <span>Profils</span>
+                    </a>
+                    <a class="dropdown-item" [routerLink]="['/entity','souscription-bailleur']" routerLinkActive="active">
+                        <span>Souscription</span>
+                    </a>
+                    <a class="dropdown-item" [routerLink]="['/admin','user-management']" routerLinkActive="active"
+                        jhiFnmTranslate="global.menu.admin.userManagement">
+                        <span>Users</span>
+                    </a>
+                    <!-- <a class="dropdown-item" [routerLink]="['/admin','audits']" routerLinkActive="active" jhiFnmTranslate="global.menu.admin.audits">
+                        <i class="fa fa-fw fa-bell"></i> Audits</a> -->
+                    <div class="dropdown-header text-center">
+                        <strong>Config</strong>
+                    </div>
+                    <a class="dropdown-item" [routerLink]="['/admin','docs']" routerLinkActive="active"
+                        jhiFnmTranslate="global.menu.admin.apidocs" *ngIf="!inProduction">
+                        <i class="fa fa-fw fa-book"></i> API</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)" *ngIf="languages">
+                <a href class="nav-link dropdown-toggle" dropdownToggle (click)="false" style="padding-right: 20px;"
+                    *ngIf="languages.length > 1" [ngStyle]="{'color':themePalette.HEADER_COLOR}">
+                    <span class="d-md-down-none" jhiFnmTranslate="global.menu.language">Language</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+
+                    <a class="dropdown-item" (click)="changeLanguage(language)" *ngFor="let language of languages">
+                        <i class="fa fa-flag"></i> {{language | findLanguageFromKey}}
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}" style="padding-right: 20px;">
+                <a href class="nav-link dropdown-toggle" dropdownToggle (click)="false"
+                    [ngStyle]="{'color':themePalette.HEADER_COLOR}">
+                    <!-- <img [src]="picture" class="img-avatar" alt="photo" *ngIf="principal.authenticated && account.imageUrl"> -->
+                    <!--  <img src="../../../content/coreUi/assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" *ngIf="!principal.authenticated || !account.imageUrl"> -->
+                    <img [src]="picture" class="img-avatar" alt="" #imageUser style="width: 40px;height: 40px;">
+                    <span class="d-md-down-none" jhiFnmTranslate="global.menu.account.main"
+                        *ngIf="!principal.authenticated">Account</span>
+                    <span class="d-md-down-none" *ngIf="principal.authenticated"
+                        [title]="principal?.userIdentity?.login">{{principal?.userIdentity?.lastName}}
+                        {{principal?.userIdentity?.firstName}}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+
+                    <a class="dropdown-item" [routerLink]="['/account','settings']" routerLinkActive="active"
+                        jhiFnmTranslate="global.menu.account.settings" *ngIf="principal.authenticated">
+                        <i class="fa fa-fw fa-wrench"></i> Settings</a>
+                    <a class="dropdown-item" [routerLink]="['/account','password']" routerLinkActive="active"
+                        jhiFnmTranslate="global.menu.account.password" *ngIf="principal.authenticated">
+                        <i class="fa fa-fw fa-clock-o"></i> Password</a>
+                    <a class="dropdown-item" (click)="logout()" id="logout" jhiFnmTranslate="global.menu.account.logout"
+                        *ngIf="principal.authenticated">
+                        <i class="fa fa-fw fa-sign-out"></i> Sign out</a>
+
+                    <a class="dropdown-item" (click)="login()" id="login" jhiFnmTranslate="global.menu.account.login"
+                        *ngIf="!principal.authenticated">
+                        <i class="fa fa-fw fa-sign-in"></i> Sign in</a>
+                    <a class="dropdown-item" [routerLink]="['/account','register']" routerLinkActive="active"
+                        jhiFnmTranslate="global.menu.account.register" *ngIf="!principal.authenticated">
+                        <i class="fa fa-fw fa-registered"></i> Register</a>
+                </div>
+            </li>
+            <li class="nav-item d-md-down-none">
+                <a class="nav-link navbar-toggler" href="#" jhiappAsideMenuToggler
+                    [ngStyle]="{'color':themePalette.HEADER_COLOR}">&#9776;</a>
+            </li>
+        </ul>
+    </header>
+    <div class="app-body" [ngStyle]="{'min-height':height}">
+        <div class="sidebar" [ngStyle]="{'background-color': themePalette.SIDE_BACK,'color':themePalette.SIDE_COLOR}"
+            *ngIf="principal.authenticated">
+            <ng-template #elseBlock>
+                <div jhiFnmTranslate="customs.notConnect">
+                    Vous n'êtes pas connecté
+                </div>
+            </ng-template>
+            <nav class="sidebar-nav" *ngIf="principal.authenticated;else elseBlock">
+                <ul class="nav">
+
+                    <!-- Bailleurs -->
+                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="clientsRessources">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-user"></i>
+                            <span>Partenaires</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a [routerLink]="['/entity','request-partner']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/clients/getAllClients'">
+                                <span>Demande de parteneriat</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Banques -->
+                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="partnersRessources">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-list"></i>
+                            <span jhiFnmTranslate='sideMenus.partners'>Banques</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a [routerLink]="['/entity','partner']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/partners/getAllPartners'">
+                                <span jhiFnmTranslate='menus.partners.partner'> Les Banques</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <div *ngIf="!localFlag">
+                                <a [routerLink]="['/entity','ligne-request']"
+                                    *jhiHasAnyRessources="'carmesfnmservice/api/ligne-requests/getAllLigneRequests'">Demande
+                                    de ligne de crédit
+                                    <span class="sub-alert-badge"></span>
+                                </a>
+                            </div>
+                            <a [routerLink]="['/entity','ligne-credit']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/ligne-credits/getAllLigneCredits'">
+                                <span jhiFnmTranslate='menus.partners.ligne'> Ligne de crédit</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','ligne-credit','complements']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/ligne-credits/getAllLigneCredits'">
+                                <span> Les compléments de ligne</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','ligne-credit', { outlets: { popup: ['complement-new'] } }]"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/ligne-credits/getAllLigneCredits'">
+                                <span> Ajout de complément à une ligne</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <!-- <a [routerLink]="['/entity','remboursement-sfd']" jhiFnmTranslate='menus.partners.remboursements' *jhiHasAnyRessources="'carmesfnmservice/api/getAllRemboursementSFDS'">Remboursements</a> -->
+                            <!-- <a [routerLink]="['/entity','rembt-penal-sfd']" jhiFnmTranslate='menus.partners.penalite' *jhiHasAnyRessources="'carmesfnmservice/api/rembt-penal-sfds/getAllRembtPenalSFDS'">Pénalités</a> -->
+                        </div>
+                    </li>
+
+                    <!-- Produit -->
+                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="produitsRessources">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-user"></i>
+                            <span jhiFnmTranslate="sideMenus.products">Produits</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a [routerLink]="['/entity','produit']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/produits/getAllProduits'">La liste des
+                                Produits
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','type-garantie']"
+                                *jhiHasAnyRessources="['carmesfnmservice/api/type-garanties/getAllTypeGaranties','carmesfnmservice/api/produit-type-garanties/getAllProduitTypeGaranties']">
+                                <span jhiFnmTranslate="menus.produits.garantie">Type garanties</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','taux-epargne']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/taux-epargnes/getAllTauxEpargnes'">
+                                <span jhiFnmTranslate='menus.produits.epargne'>Taux d'épargne</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','frais']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/frais/getAllFrais'">
+                                <span jhiFnmTranslate='menus.produits.frais'>Les frais</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','periodicity']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/peridicities/getAllPeridicities'">
+                                <span jhiFnmTranslate='menus.produits.periodicity'>Periodicité</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','account-type']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/account-types/getAllAccountTypes'">
+                                <span jhiFnmTranslate='menus.produits.compte'>Types de comptes</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','tranche-penal']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/tranche-penals/getAllTranchePenals'">
+                                <span jhiFnmTranslate='menus.produits.penalite'>Tranches pénales</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','penality']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/tranche-penals/getAllTranchePenals'">Pénalités
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','produit-type-garantie']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/tranche-penals/getAllTranchePenals'">Produit
+                                types garanties
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Dossiers -->
+                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="dossiersRessources">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-book"></i>
+                            <span jhiFnmTranslate='sideMenus.dossiers'>Dossiers</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/credit-requests/getAllCreditRequests'"
+                                [routerLink]="['/entity','credit-request']">
+                                <span jhiFnmTranslate='menus.dossiers.request'>Demandes & Etudes</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/etudes/getAllEtudes'"
+                                [routerLink]="['/entity','etude']">
+                                <span jhiFnmTranslate='menus.dossiers.etude'>Liste des dossiers</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Affectations -->
+                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="affectationsRessources">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-book"></i>
+                            <span jhiFnmTranslate='sideMenus.affectation'>Affectations</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a [routerLink]="['/entity','affectation']" [queryParams]="{type:'agent'}"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/sfd/listeMarchandPourAffectation'">
+                                <span jhiFnmTranslate='menus.affectation.agent'>Affectation d' agents</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','affectation']" [queryParams]="{type:'client'}"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/client/listeClientTransfererParUser'">
+                                <span jhiFnmTranslate='menus.affectation.clients'>Affectation de clients</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','affectation']" [queryParams]="{type:'dossier'}"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/client/listeDossierTransfererParUser'">
+                                <span jhiFnmTranslate='menus.affectation.dossier'>Affectation de dossiers</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Clients -->
+                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="clientsRessources">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-user"></i>
+                            <span jhiFnmTranslate='sideMenus.clients'>Clients</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+
+                            <a [routerLink]="['/entity','client']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/clients/getAllClients'">
+                                <span jhiFnmTranslate='menus.clients.client'>Clients</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity','leader']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/leaders/getAllLeaders'">
+                                <span jhiFnmTranslate='menus.clients.leader'>Responsables</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/comptes/getAllComptes'"
+                                [routerLink]="['/entity','compte-client']">
+                                <span jhiFnmTranslate='menus.clients.compte'>Comptes</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <!-- <a [routerLink]="['/entity', 'client', 'pp']" *jhiHasAnyRessources="'carmesfnmservice/api/clients/getAllClients'">Recherche</a> -->
+                            <a [routerLink]="['/entity','address']" style="display:none;">Adresses du client
+                                <span class="sub-alert-badge"></span>
+                            </a>
+
+                            <a [routerLink]="['/entity','condition-request']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/condition-acces/getAllConditionAcces'">
+                                <span jhiFnmTranslate='menus.dossiers.condition'>Conditions d'accès</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a [routerLink]="['/entity', 'client', 'liste-agent']">
+                                <span>Agent Marchand</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Comites -->
+                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="comitiesRessources">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-group"></i>
+                            <span jhiFnmTranslate='sideMenus.comities'>Comités</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/credit-comities/getAllCreditComities'"
+                                [routerLink]="['/entity','credit-comity']">
+                                <span jhiFnmTranslate='menus.comities.comity'>Réunion du comité</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/disponibilites/getAllDisponibilites'"
+                                [routerLink]="['/entity','disponibilite']">
+                                <span jhiFnmTranslate='menus.comities.disponibilite'>Disponibilités</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/validations/getAllValidations'"
+                                [routerLink]="['/entity','validation']">
+                                <span jhiFnmTranslate='menus.comities.validation'>Validations</span>
+                                <span class="sub-alert-badge"></span>
+                            </a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/notification-clients/getAllNotificationClients'"
+                                [routerLink]="['/entity','notification-client']">
+                                <span jhiFnmTranslate='menus.comities.notification'>Notifications</span>
+                                <span class="sub-alert-badge">1</span>
+                            </a>
+                        </div>
+                    </li>
+
+
+                    <!-- Credits -->
+                    <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="creditsRessources">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-bank"></i>
+                            <span jhiFnmTranslate='sideMenus.credits'>Credits</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/credits/getAllCredits'"
+                                [routerLink]="['/entity','credit','operation','deblocage']">
+                                <span jhiFnmTranslate='menus.credits.accord'>Déblocage de crédit</span>
+                                <span class="sub-alert-badge">1</span>
+                            </a>
+
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/credits/getAllCredits'"
+                                [routerLink]="['/entity','credit','operation','decaissement']"
+                                jhiFnmTranslate='menus.credits.decaissement'>Decaissement</a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/credits/getAllCredits'"
+                                [routerLink]="['/entity','credit','credit-en-cours']">Les credits en cours
+                                <span class="sub-alert-badge">1</span>
+                            </a>
+
+                            <a [routerLink]="['/entity','credit','credit-en-perte']">Les credits en perte
+                                <span class="sub-alert-badge">1</span>
+                            </a>
+
+                            <a [routerLink]="['/entity','credit','credit-en-souffrance']">Les credits en souffrance
+                                <span class="sub-alert-badge">1</span>
+                            </a>
+
+                            <a [routerLink]="['/entity','type-credit-retard']">Type Credit retard
+                                <span class="sub-alert-badge">1</span>
+                            </a>
+
+                            <a [routerLink]="['/entity','credit-menu','fiche-client']"
+                                jhiFnmTranslate='menus.credits.fiche'>Fiche de crédit
+                                <span class="sub-alert-badge">1</span>
+                            </a>
+
+                            <a [routerLink]="['/entity','credit-menu','fiche-credit-member']"
+                                jhiFnmTranslate='menus.credits.ficheCreditMembre'>Fiche de crédit membre</a>
+
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/echeancier-clients/getAllEcheancierlients'"
+                                [routerLink]="['/entity','echeancier-client']"
+                                jhiFnmTranslate='menus.credits.echeancier'>Echeanciers</a>
+
+                            <a [routerLink]="['/entity','credit-menu','simulation']"
+                                jhiFnmTranslate='menus.credits.simulation'>Simulation</a>
+                            <a [routerLink]="['/entity','credit','liste-credits-impayes']">Crédits impayés</a>
+                        </div>
+                    </li>
+
+                    <!-- Caisses -->
+                    <li class="nav-item drop" routerLinkActive="active"
+                        *jhiHasAnyRessources="['carmesfnmservice/api/caisses/getAllCaisses','carmesfnmservice/api/caisses/caissier_operation','carmesfnmservice/api/caisses/operation_dat']">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-credit-card"></i>
+                            <span jhiFnmTranslate='sideMenus.caisse'>Caisses</span>
+                        </a>
+                        <div class="drop-content">
+                            <a [routerLink]="['/entity','caisse-nouvelle']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/caisses/getAllCaisses'">Caisse
+                            </a>
+                            <a [routerLink]="['/entity','operation-caisse']"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/caisses/caissier_operation'">Opérations
+                            </a>
+                            <a [routerLink]="['/entity','operation-dat']"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/caisses/operation_dat'">DAT
+                            </a>
+                            <a [routerLink]="['/entity','operation-dat','print-un', '1']"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/caisses/operation_dat'">Contrat N°1 DAT
+                            </a>
+                            <a [routerLink]="['/entity','operation-dat','print-deux', '2']"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/caisses/operation_dat'">Contrat N°2 DAT
+                            </a>
+
+                            <!-- <a [routerLink]="['/entity','caisse-nouvelle', 'historique-affectation-caisse']"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/caisses/getAllCaisses'">Historiques Affectation
+                            </a> -->
+                        </div>
+                    </li>
+
+                    <!-- Caisses 2 -->
+                    <!-- <li class="nav-item drop" routerLinkActive="active"
+                        *jhiHasAnyRessources="['carmesfnmservice/api/caisses/getAllCaisses']">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-credit-card"></i>
+                            <span>Caisse SFD</span>
+                        </a>
+                        <div class="drop-content">
+                            <a class="item" [routerLink]="['/entity','compte-comptable']" routerLinkActive="active">Compte
+                            comptable</a>
+                            <a [routerLink]="['/entity','type-caisse']" routerLinkActive="active"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/type-caisses/getAllTypeCaisses'">Type de
+                            caisse</a>
+                            <a [routerLink]="['/entity','caisse']" jhiFnmTranslate='menus.caisses.caisse'
+                                *jhiHasAnyRessources="'carmesfnmservice/api/caisses/getAllCaisses'">Caisse
+                                principale</a>
+                            <a [routerLink]="['/entity','caisse-centrale']"
+                                >Caisse centrale</a>
+                            <a [routerLink]="['/entity','guichet']" jhiFnmTranslate='menus.caisses.guichet'>Guichets</a>
+                            <a [routerLink]="['/entity','cautions']">Gestion des cautions</a>
+                            <a [routerLink]="['/entity','brouillard-comptable']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/brouillard-comptables/getAllBrouillardComptables'">Brouillard
+                                comptables</a>
+                            <a [routerLink]="['/entity','operation-comptable']"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/operation-comptables/getAllOperationComptables'">Opération
+                                comptable</a>
+                        </div>
+                    </li> -->
+
+                    <!-- <li class="nav-item drop" routerLinkActive="active">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-bar-chart"></i>
+                            <span>Guichetier</span>
+                        </a>
+                        <div class="drop-content">
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/guichetier/getAllDepots'"
+                                [routerLink]="['/entity', 'guichetier','depots']">Dépôts</a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/guichetier/getAllRetraits'"
+                                [routerLink]="['/entity', 'guichetier','retraits']">Retraits</a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/guichetier/getAllCommissions'"
+                                [routerLink]="['/entity', 'guichetier','commissions']">Commissions</a>
+                        </div>
+                    </li> -->
+
+                    <!-- Operations -->
+                    <li class="nav-item drop" routerLinkActive="active"
+                        *jhiHasAnyRessources="['carmesfnmservice/api/commissions/getAllCommissions', 'carmesfnmservice/api/compensations/getAllCompensations', 'carmesfnmservice/api/operation/retraitTpe', 'carmesfnmservice/api/operations/getAllOperations', 'carmesfnmservice/api/operation/depot-local/depotLocal', 'carmesfnmservice/api/operation/retrait-local/retraitLocal', 'carmesfnmservice/api/operation/alimentationGuichetSfd']">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-bar-chart"></i>
+                            <span jhiFnmTranslate='sideMenus.operations'>Opérations</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+
+                        <div class="drop-content">
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/operations/getAllOperations'"
+                                [routerLink]="['/entity', 'operations','liste']">Opérations</a>
+                            <a [routerLink]="['/entity','operations','depots']"
+                                jhiFnmTranslate='menus.operations.depot'>Dêpots</a>
+                            <a [routerLink]="['/entity','operations','retraits']"
+                                jhiFnmTranslate='menus.operations.retrait'>Retraits</a>
+                            <a [routerLink]="['/entity','operations','transferts']"
+                                jhiFnmTranslate='menus.operations.transfert'>Transferts</a>
+                            <a [routerLink]="['/entity','operations','remboursements']"
+                                jhiFnmTranslate='menus.operations.remboursement'>Remboursements</a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/compensations/getAllCompensations'"
+                                [routerLink]="['/entity','compensation']"
+                                jhiFnmTranslate='menus.operations.compensation'>Compensations</a>
+                            <a [routerLink]="['/entity','commission']" jhiFnmTranslate='menus.operations.commission'
+                                *jhiHasAnyRessources="'carmesfnmservice/api/commissions/getAllCommissions'">Commissions</a>
+
+                            <a [routerLink]="['/entity', 'operations', 'consulter-solde']"
+                                *jhiHasAnyRessources="'CONSULTER_SOLDE'">Consulter solde</a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/operation/retraitTpe'"
+                                [routerLink]="['/entity', 'operations', {outlets:{ popup: ['operation-new-type']}}]"
+                                jhiFnmTranslate='menus.operations.retraitTPE'>Retrait TPE</a>
+                            <a [routerLink]="['/entity', 'operations', 'depot-retrait-local']"
+                                *jhiHasAnyRessources="'OPERATION_GUICHETIER'">Operations guichetier</a>
+                            <a [routerLink]="['/entity', 'operations', {outlets:{ popup: ['depot-retrait-local']}}]"
+                                *jhiHasAnyRessources="['carmesfnmservice/api/operation/depot-local/depotLocal', 'carmesfnmservice/api/operation/retrait-local/retraitLocal']">Dépots
+                                & Retraits</a>
+                            <a [routerLink]="['/entity', 'operations', {outlets:{ popup: ['alimentention-guichet-sfd']}}]"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/operation/alimentationGuichetSfd'"
+                                [queryParams]="{type: 'fixe'}">Alimenter un guichetier</a>
+                            <a [routerLink]="['/entity', 'operations', {outlets:{ popup: ['alimentention-guichet-sfd']}}]"
+                                *jhiHasAnyRessources="'carmesfnmservice/api/operation/alimentationGuichetSfd'"
+                                [queryParams]="{type: 'ambulant'}">Dépot caution</a>
+                            <a [routerLink]="['/entity', 'operations', 'commissions-guichetier']"
+                                *jhiHasAnyRessources="'COMMISSION_GUICHETIER'">Commission guichetier</a>
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/operation/retrait-local/retraitLocal'"
+                                [routerLink]="['/entity', 'operations', {outlets:{ popup: ['retrait-local']}}]">Retrait</a>
+                            <a [routerLink]="['/entity','operations','virements']"
+                                jhiFnmTranslate='menus.operations.virement'>Virements</a>
+                        </div>
+                    </li>
+
+                    <!-- Guichetiers -->
+                    <li class="nav-item drop" routerLinkActive="active"
+                        *ngIf="localFlag && jhiHasAnyRessources(['carmesfnmservice/api/user/listeUtilisateurParProfil'])">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-bar-chart"></i>
+                            <span>Guichetiers</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a *jhiHasAnyRessources="'carmesfnmservice/api/user/listeUtilisateurParProfil'"
+                                [routerLink]="['/admin', 'guichetiers']">Guichetiers</a>
+                        </div>
+                    </li>
+
+                    <!-- <li class="nav-item drop" routerLinkActive="active" *jhiHasAnyRessources="['liste_sous_traitant', 'liste_demande_compensation_sous_traitant']">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-bar-chart"></i>
+                            <span jhiFnmTranslate='menus.sousTraitants.liste'>Sous traitants</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a [routerLink]="['/entity', 'sous-traitant']" jhiFnmTranslate='menus.sousTraitants.liste' *jhiHasAnyRessources="'liste_sous_traitant'">Sous traitants</a>
+                            <a [routerLink]="['/entity', 'sous-traitant', 'compensation-request']" jhiFnmTranslate='menus.sousTraitants.compensationRequest' *jhiHasAnyRessources="'liste_demande_compensation_sous_traitant'">Demande de compensation</a>
+                        </div>
+                    </li> -->
+
+                    <li class="nav-title">Audits & Statistiques</li>
+
+                    <li class="nav-item" routerLinkActive="active" *ngIf="!isSousTraitant()">
+                        <a class="nav-link" [routerLink]="['/audits']">
+                            <i class="fa fa-pie-chart"></i>Audits</a>
+                    </li>
+                    <!-- <li class="nav-item" routerLinkActive="active">
+                      <a class="nav-link" [routerLink]="['/bilan-global']">
+                        <i class="fa fa-area-chart"></i>Bilan global</a>
+                   </li> -->
+
+                    <li class="nav-item drop" routerLinkActive="active" *ngIf="!isSousTraitant()">
+                        <a class="nav-link dropbtn">
+                            <i class="fa fa-bar-chart"></i>
+                            <span>Statistiques</span>
+                            <em class="alert-badge">New</em>
+                        </a>
+                        <div class="drop-content">
+                            <a [routerLink]="['/stats']">Taux de remboursement</a>
+                            <a [routerLink]="['/stats/etats']"
+                                [queryParams]="{link: 'credits-accordes', title: 'Etat de crédit accordés'}">Crédit
+                                accordés</a>
+                            <!--  <a [routerLink]="['/stats/etats']"
+                            [queryParams]="{link: 'credits-accordes-beneficiaires', title: 'Etat de crédit accordés par bénéficiaire'}">Crédit accordés par bénéficiaire</a> -->
+                            <a [routerLink]="['/stats/etats']"
+                                [queryParams]="{link: 'credits-solde', title: 'Etat des crédits soldés'}">Crédits
+                                soldés</a>
+                            <a [routerLink]="['/stats/etats']"
+                                [queryParams]="{link: 'credits-echus', title: 'Etat des crédits échus'}">Crédits
+                                échus</a>
+                            <a [routerLink]="['/stats/etats']"
+                                [queryParams]="{link: 'encours-credits', title: 'Etat de l\'encours de crédit'}">Encours
+                                de crédit</a>
+                            <a [routerLink]="['/stats/etats']"
+                                [queryParams]="{link: 'credits-remboursement', title: 'Etat de remboursement des crédits'}">Remboursement
+                                des crédits</a>
+                            <a [routerLink]="['/stats/etats']"
+                                [queryParams]="{link: 'credits-impaye', title: 'Etat des crédits impayés'}">Crédits
+                                impayés</a>
+                            <a [routerLink]="['/stats/etats']"
+                                [queryParams]="{link: 'remboursement-prevu-echeance', title: 'Etat de remboursement prévus par échéancier'}">Remboursement
+                                prévus par échéancier</a>
+                            <a [routerLink]="['/stats/etats']"
+                                [queryParams]="{link: 'remboursement-attendu-retard', title: 'Etat de remboursement attendus'}">Remboursement
+                                attendus</a>
+
+                            <a [routerLink]="['/stats/rapatriements']">Rapatriements sur crédit</a>
+                        </div>
+                    </li>
+
+                    <!-- <li class="nav-item" routerLinkActive="active" *ngIf="!isSousTraitant()">
+                        <a class="nav-link" [routerLink]="['/stats']">
+                            <i class="fa fa-area-chart"></i>Statistiques</a>
+                    </li> -->
+                </ul>
+            </nav>
+        </div>
+        <!-- Main content -->
+        <!-- [hidden]="isPrintSheet" [ngClass]="{cacher:isPrintSheet}" -->
+        <main class="main" style="position: relative !important;">
+
+            <!-- Breadcrumb -->
+            <jhi-breadcrumbs></jhi-breadcrumbs>
+            <!-- je sais {{isPrintSheet }} -->
+            <div class="container-fluid" style="height: 100%;">
+                <router-outlet name="popup"></router-outlet>
+                <router-outlet></router-outlet>
+            </div>
+            <!-- /.conainer-fluid -->
+        </main>
+        <aside class="aside-menu" *ngIf="principal.authenticated">
+            <tabset>
+                <!-- <tab>
+                <ng-template tabHeading>
+                    <i class="icon-list"></i>
+                </ng-template>
+                <div class="callout m-0 py-2 text-muted text-center bg-faded text-uppercase">
+                    <small>
+                        <b>Themes</b>
+                    </small>
+                </div>
+                <hr class="transparent mx-3 my-0">
+                <div class="callout callout-warning m-0 py-3" (click)="changeTheme(0)">
+                    <div>Thème
+                        <strong> Defaut</strong>
+                    </div>
+                    <small class="text-muted mr-3">
+                        <i class="icon-calendar"></i>&nbsp; Noir</small>
+                    <small class="text-muted">
+                        <i class="icon-location-pin"></i>&nbsp; gris </small>
+                </div>
+                <hr class="mx-3 my-0">
+                <div class="callout callout-warning m-0 py-3" (click)="changeTheme(1)">
+                    <div>Thème
+                        <strong>1</strong>
+                    </div>
+                    <small class="text-muted mr-3">
+                        <i class="icon-calendar"></i>&nbsp; Noir</small>
+                    <small class="text-muted">
+                        <i class="icon-location-pin"></i>&nbsp; Blanc </small>
+                </div>
+                <hr class="mx-3 my-0">
+                <div class="callout callout-info m-0 py-3" (click)="changeTheme(2)">
+                    <div>Thème
+                        <strong>2</strong>
+                    </div>
+                    <small class="text-muted mr-3">
+                        <i class="icon-calendar"></i>&nbsp; Rouge</small>
+                    <small class="text-muted">
+                        <i class="icon-social-skype"></i>&nbsp; Vert </small>
+                </div>
+                <hr class="mx-3 my-0">
+                <div class="callout callout-danger m-0 py-3" (click)="changeTheme(3)">
+                    <div>Thème
+                        <strong>3</strong>
+                    </div>
+                    <small class="text-muted mr-3">
+                        <i class="icon-calendar"></i>&nbsp; Gris</small>
+                    <small class="text-muted">
+                        <i class="icon-home"></i>&nbsp; marron </small>
+                </div>
+                <hr class="mx-3 my-0">
+                <div class="callout callout-danger m-0 py-3" (click)="changeTheme(4)">
+                    <div>Thème
+                        <strong>4</strong>
+                    </div>
+                    <small class="text-muted mr-3">
+                        <i class="icon-calendar"></i>&nbsp; Gris</small>
+                    <small class="text-muted">
+                        <i class="icon-home"></i>&nbsp; marron </small>
+                </div>
+                <hr class="mx-3 my-0">
+                <div class="callout callout-danger m-0 py-3" (click)="changeTheme(5)">
+                    <div>Thème
+                        <strong>5</strong>
+                    </div>
+                    <small class="text-muted mr-3">
+                        <i class="icon-calendar"></i>&nbsp; Gris</small>
+                    <small class="text-muted">
+                        <i class="icon-home"></i>&nbsp; marron </small>
+                </div>
+                <hr class="mx-3 my-0">
+            </tab> -->
+                <tab>
+                    <ng-template tabHeading>
+                        <i class="icon-list"></i>
+                    </ng-template>
+                    <div class="p-3">
+                        <h6>Configurations des fiches</h6>
+
+                        <div class="">
+
+                            <form *jhiHasAnyRessources="'carmesfnmservice/api/headerfooter'" name="editForm" role="form"
+                                novalidate #editForm="ngForm">
+                                <input type="file" #file
+                                    (change)="onChangeFile(labelPhoto,labelPhoto2, labelPhoto3, labelPhoto4)" id="photo"
+                                    name="photo" style="display:none" required>
+
+                                <div class="form-group" (click)="onFileClick(file,true)">
+                                    <label for="PrinthHeader">En-tête : </label>
+                                    <label>Larg: 500px Haut:60px</label>
+                                    <br>
+                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                        <i class="input-group-addon fa fa-cloud-upload" style="height:44px"></i>
+                                        <input type="text" #labelPhoto style="padding-left:10px" class="form-control"
+                                            placeholder="{{ headPlaceholder}}" required>
+
+                                        <i *ngIf="headerHasBeenSend" class="btn btn-primary fa fa-check"
+                                            style="height:44px;padding: 14px;"></i>
+                                        <button *ngIf="!headerHasBeenSend" class="btn btn-primary"
+                                            style="height:43px; margin: -1px;padding: 10px;">
+                                            <i class="fa fa-circle-o-notch fa-spin"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" (click)="onFileClick(file,false)">
+                                    <label for="PrinthHeader">Pied de page:</label>
+                                    <label>Larg: 500px Haut:50px</label>
+                                    <br>
+                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                        <i class="input-group-addon fa fa-cloud-upload" style="height:44px"></i>
+                                        <input type="text" #labelPhoto2 style="padding-left:10px" class="form-control"
+                                            placeholder="{{ footerPlaceholder}}" required>
+                                        <i *ngIf="footerHasBeenSend" class="btn btn-primary fa fa-check"
+                                            style="height:44px;padding: 14px;"></i>
+                                        <button *ngIf="!footerHasBeenSend" class="btn btn-primary"
+                                            style="height:43px; margin: -1px;padding: 10px;">
+                                            <i class="fa fa-circle-o-notch fa-spin"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <h6>Paysage</h6>
+                                <div class="form-group" (click)="onPaysageFileClick(file,true)">
+                                    <label for="PrinthHeader">En-tête : </label>
+                                    <label>Larg: 750px Haut:60px</label>
+                                    <br>
+                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                        <i class="input-group-addon fa fa-cloud-upload" style="height:44px"></i>
+                                        <input type="text" #labelPhoto3 style="padding-left:10px" class="form-control"
+                                            placeholder="{{ headPlaceholder}}" required>
+
+                                        <i *ngIf="headerPaysageHasBeenSend" class="btn btn-primary fa fa-check"
+                                            style="height:44px;padding: 14px;"></i>
+                                        <button *ngIf="!headerPaysageHasBeenSend" class="btn btn-primary"
+                                            style="height:43px; margin: -1px;padding: 10px;">
+                                            <i class="fa fa-circle-o-notch fa-spin"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" (click)="onPaysageFileClick(file,false)">
+                                    <label for="PrinthHeader">Pied de page:</label>
+                                    <label>Larg: 750px Haut:50px</label>
+                                    <br>
+                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                        <i class="input-group-addon fa fa-cloud-upload" style="height:44px"></i>
+                                        <input type="text" #labelPhoto4 style="padding-left:10px" class="form-control"
+                                            placeholder="{{ footerPlaceholder}}" required>
+                                        <i *ngIf="footerPaysageHasBeenSend" class="btn btn-primary fa fa-check"
+                                            style="height:44px;padding: 14px;"></i>
+                                        <button *ngIf="!footerPaysageHasBeenSend" class="btn btn-primary"
+                                            style="height:43px; margin: -1px;padding: 10px;">
+                                            <i class="fa fa-circle-o-notch fa-spin"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <button class="btn  btn-primary col-md-12" (click)=saveTo()
+                                    [disabled]="editForm.form.invalid">Enregister</button>
+                            </form>
+
+                            <button *jhiHasAnyRessources="'carmesfnmservice/api/devConfigRessources'"
+                                class="btn btn-default col-md-12 mt-5" [routerLink]="['/entity','type-contrat']"
+                                routerLinkActive="active">
+                                Types de contrat
+                            </button>
+                        </div>
+
+
+                    </div>
+                </tab>
+
+                <tab>
+                    <ng-template tabHeading>
+                        <i class="icon-settings"></i>
+                    </ng-template>
+                    <div class="ui secondary vertical menu">
+                        <p class="tab-title-header"
+                            *jhiHasAnyRessources="['carmesfnmservice/api/condition-garanties/getAllConditionGaranties','carmesfnmservice/api/categorie-conditions/getAllCategorieConditions','carmesfnmservice/api/element-conditions/getAllElementConditions','carmesfnmservice/api/condition-acces/getAllConditionAcces']">
+                            Produits & conditions</p>
+                        <a class="item" [routerLink]="['/entity','condition-garantie']" routerLinkActive="active"
+                            *jhiHasAnyRessources="['carmesfnmservice/api/condition-garanties/getAllConditionGaranties']"
+                            jhiFnmTranslate="tabsets.configurations.garantie">Les conditions de garantie</a>
+                        <a class="item" [routerLink]="['/entity','categorie-condition']" routerLinkActive="active"
+                            *jhiHasAnyRessources="['carmesfnmservice/api/categorie-conditions/getAllCategorieConditions']"
+                            jhiFnmTranslate="tabsets.configurations.categorie">Categorie de conditions d'accès</a>
+                        <a class="item" [routerLink]="['/entity','element-condition']" routerLinkActive="active"
+                            *jhiHasAnyRessources="['carmesfnmservice/api/element-conditions/getAllElementConditions']"
+                            jhiFnmTranslate="tabsets.configurations.element">Element de la condition</a>
+                        <a class="item" [routerLink]="['/entity','condition-acces']" routerLinkActive="active"
+                            *jhiHasAnyRessources="['carmesfnmservice/api/condition-acces/getAllConditionAcces']"
+                            jhiFnmTranslate="tabsets.configurations.access">Les conditions d'accès d'un produit</a>
+                        <a class="item" [routerLink]="['/entity','produit','taux-commission']"
+                            routerLinkActive="active">Les taux de commissions des produits</a>
+                        <p class="tab-title-header" *jhiHasAnyRessources="['carmesfnmservice/api/request-raisons/getAllRequestRaisons','carmesfnmservice/api/type-clients/getAllTypeClients',
+                     'carmesfnmservice/api/clients/getAllClients','carmesfnmservice/api/id-card-types/getAllIdCardTypes','carmesfnmservice/api/school-levels/getAllSchoolLevels',
+                     'carmesfnmservice/api/literacies/getAllLiteracies']">Clients & demandes</p>
+                        <a class="item" [routerLink]="['/entity','request-raison']" routerLinkActive="active"
+                            *jhiHasAnyRessources="['carmesfnmservice/api/request-raisons/getAllRequestRaisons']"
+                            jhiFnmTranslate="tabsets.configurations.objet">Objet des demandes</a>
+                        <a class="item" [routerLink]="['/entity','type-client']" routerLinkActive="active"
+                            *jhiHasAnyRessources="['carmesfnmservice/api/type-clients/getAllTypeClients']"
+                            jhiFnmTranslate="tabsets.configurations.client">Type de clients</a>
+                        <a class="item" [routerLink]="['/entity','frais-client']"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/clients/getAllClients'">Les frais clients</a>
+                        <a class="item" [routerLink]="['/entity','id-card-type']" routerLinkActive="active"
+                            *jhiHasAnyRessources="['carmesfnmservice/api/id-card-types/getAllIdCardTypes']"
+                            jhiFnmTranslate="tabsets.configurations.pieces">Type de pièces d'identité</a>
+                        <a class="item" [routerLink]="['/entity','school-level']" routerLinkActive="active"
+                            *jhiHasAnyRessources="['carmesfnmservice/api/school-levels/getAllSchoolLevels']"
+                            jhiFnmTranslate="tabsets.configurations.niveau">Niveau d'etudes</a>
+                        <a class="item" [routerLink]="['/entity','literacy']" routerLinkActive="active"
+                            *jhiHasAnyRessources="['carmesfnmservice/api/literacies/getAllLiteracies']"
+                            jhiFnmTranslate="tabsets.configurations.alphabetisation">Alphabetisation</a>
+                        <p class="tab-title-header"
+                            *jhiHasAnyRessources="['carmesfnmservice/api/zone-agences/getAllZoneAgences','carmesfnmservice/api/agences/getAllAgences',
+                     'carmesfnmservice/api/banks/getAllBanks','carmesfnmservice/api/bank-accounts/getAllBankAccounts','carmesfnmservice/api/compte-comptables/getAllCompteComptables','carmesfnmservice/api/journals/getAllJournals','carmesfnmservice/api/type-caisses/getAllTypeCaisses','carmesfnmservice/api/postes/getAllPostes', 'carmesfnmservice/api/bank-account-clients/getAllBankAccountClients']">
+                            Agences & structures</p>
+                        <a class="item" [routerLink]="['/entity','zone-agence']" routerLinkActive="active"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/zone-agences/getAllZoneAgences'">Nos Zones
+                            d'agences</a>
+                        <a *jhiHasAnyRessources="'carmesfnmservice/api/agences/getAllAgences'" class="item"
+                            [routerLink]="['/entity','agence']" routerLinkActive="active"
+                            jhiFnmTranslate="tabsets.sfd.agences">Nos agences</a>
+                        <a class="item" [routerLink]="['/entity','bank']" routerLinkActive="active"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/banks/getAllBanks'">Banques</a>
+                        <a class="item" [routerLink]="['/entity','bank-account-client']" routerLinkActive="active"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/bank-account-clients/getAllBankAccountClients'">Comptes
+                            bancaire du SFD</a>
+                        <a class="item" [routerLink]="['/entity','bank-account']" routerLinkActive="active"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/bank-accounts/getAllBankAccounts'">Comptes
+                            Bancaire</a>
+                        <a class="item" [routerLink]="['/entity','compte-comptable']" routerLinkActive="active"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/compte-comptables/getAllCompteComptables'">Compte
+                            comptable</a>
+                        <a class="item" [routerLink]="['/entity','journal']" routerLinkActive="active"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/journals/getAllJournals'">Journal</a>
+                        <a class="item" [routerLink]="['/entity','type-caisse']" routerLinkActive="active"
+                            *jhiHasAnyRessources="'carmesfnmservice/api/type-caisses/getAllTypeCaisses'">Type de
+                            caisse</a>
+                            <a [routerLink]="['/entity','type-credit-retard']">Type Credit retard
+                                <span class="sub-alert-badge">1</span>
+                            </a>
+                        <!-- <a class="item" jhiFnmTranslate="tabsets.sfd.chargeprets">Les chargés de prêts</a> -->
+                        <a *jhiHasAnyRessources="'carmesfnmservice/api/postes/getAllPostes'" class="item"
+                            [routerLink]="['/entity','poste']" routerLinkActive="active"
+                            jhiFnmTranslate="tabsets.sfd.postes">Les postes de l'agence</a>
+                        <p class="tab-title-header"
+                            *jhiHasAnyRessources="['carmesfnmservice/api/delegation-comities/getAllDelegationComities','carmesfnmservice/api/comity-mbers/getAllComityMbers']">
+                            Comités</p>
+                        <a *jhiHasAnyRessources="'carmesfnmservice/api/delegation-comities/getAllDelegationComities'"
+                            class="item" [routerLink]="['/entity','delegation-comity']" routerLinkActive="active"
+                            jhiFnmTranslate="tabsets.sfd.delegations">Les délégations de comité</a>
+                        <!-- <a *jhiHasAnyRessources="'carmesfnmservice/api/delegated-members/getAllDelegatedMembers'" class="item" [routerLink]="['/entity','delegated-member']" routerLinkActive="active">Les membres délégués des comités de crédit</a> -->
+                        <a *jhiHasAnyRessources="'carmesfnmservice/api/comity-mbers/getAllComityMbers'" class="item"
+                            [routerLink]="['/entity','comity-mber']" routerLinkActive="active">Les Membres de
+                            comités</a>
+                        <p class="tab-title-header"
+                            *jhiHasAnyRessources="['carmesfnmservice/api/matieres/getAllMatieres','carmesfnmservice/api/formations/getAllFormations']">
+                            Formations & matières</p>
+                        <a *jhiHasAnyRessources="['carmesfnmservice/api/formations/getAllFormations']" class="item"
+                            [routerLink]="['/entity','formation']" routerLinkActive="active"
+                            jhiFnmTranslate="tabsets.sfd.formations">
+                            Les formations
+                        </a>
+                        <a *jhiHasAnyRessources="'carmesfnmservice/api/matieres/getAllMatieres'" class="item"
+                            [routerLink]="['/entity','matiere']" routerLinkActive="active"
+                            jhiFnmTranslate="tabsets.sfd.matieres">
+                            Les matières
+                        </a>
+                        <p class="tab-title-header">Adresses</p>
+                        <a class="item" [routerLink]="['/entity','district']" routerLinkActive="active">
+                            Quartiers de ville
+                        </a>
+                    </div>
+                </tab>
+
+            </tabset>
+        </aside>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+{
+    "sfdApp": {
+        "activeur" : {
+            "home": {
+                "title": "Activeur",
+                "createLabel": "Créer un nouvel activeur",
+                "createOrEditLabel": "Editer un activeur",
+                "search": "Rechercher un activeur"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer l'activeur {{ id }} ?"
+            },
+            "detail": {
+                "title": "Activeur"
+            },
+            "name": "nom",
+            "firstName": "Prénom",
+            "status": "Statut",
+            "code": "Code",
+            "phone": "Phone",
+            "createdDate": "Date Création",
+            "createdBy": "Créer Par",
+            "lastModifiedBy": "Modifiée Dernièrement Psar",
+            "lastModifiedDate": "Date Dernière Modification",
+            "budgets": "Budgets"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "activeur" : {
+            "created": "Un nouvel activeur a été créé ",
+            "updated": "Activeur Mis à Jour",
+            "deleted": "Suppression De L'Activeur"
+        }
+    }
+}

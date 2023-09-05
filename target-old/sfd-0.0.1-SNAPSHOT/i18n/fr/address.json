@@ -1,0 +1,38 @@
+{
+    "sfdApp": {
+        "address": {
+            "home": {
+                "title": "Adresses",
+                "createLabel": "Créer une nouvelle Adresse",
+                "createOrEditLabel": "Editer une Adresse",
+                "search": "Rechercher une Adresse"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer l'Adresse {{ id }} ?"
+            },
+            "detail": {
+                "title": "Addresse"
+            },
+            "departement": "Département",
+            "commune": "Commune",
+            "arrondissement": "Arrondissement",
+            "maison": "Maison",
+            "createdDate": "Date de création",
+            "createdBy": "Créer par",
+            "lastModifiedBy": "Modifiée Dernièrement Par",
+            "lastModifiedDate": "Date Dernière Modification",
+            "geoLong": "Longitude",
+            "geoLat": "Latitude",
+            "observation": "Observation",
+            "district": "District",
+            "client": "Client"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "address": {
+            "created": "Une nouvelle Adresse a été créée ",
+            "updated": "L'adresse  a été mise à jour",
+            "deleted": "L'adresse  a été supprimée"
+        }
+    }
+}

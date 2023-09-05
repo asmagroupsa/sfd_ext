@@ -1,0 +1,27 @@
+{
+    "sfdApp": {
+        "matiere": {
+            "home": {
+                "title": "Matières",
+                "createLabel": "Créer un nouveau Matière",
+                "createOrEditLabel": "Editer un Matière",
+                "search": "Recherche pour Matière"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Matière {{ id }} ?"
+            },
+            "detail": {
+                "title": "Matière"
+            },
+            "name": "Nom",
+            "formations": "Formations"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "matiere": {
+            "created": "Une nouvelle Matière a été créé ",
+            "updated": "La Matière  a été mis à jour",
+            "deleted": "La Matière  a été supprimé"
+        }
+    }
+}

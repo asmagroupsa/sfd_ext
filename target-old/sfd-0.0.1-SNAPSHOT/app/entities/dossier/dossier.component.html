@@ -1,0 +1,102 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.dossier.home.title">Dossiers</span>
+        <button class="btn btn-primary float-right create-dossier" [routerLink]="['/entity','dossier', { outlets: { popup: ['dossier-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.dossier.home.createLabel">
+            Create new Dossier
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.dossier.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="dossiers;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="createdDate"><span jhiFnmTranslate="sfdApp.dossier.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="createdBy"><span jhiFnmTranslate="sfdApp.dossier.createdBy">Created By</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="lastModifiedBy"><span jhiFnmTranslate="sfdApp.dossier.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="lastModifiedDate"><span jhiFnmTranslate="sfdApp.dossier.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="amountProposed"><span jhiFnmTranslate="sfdApp.dossier.amountProposed">Amount Proposed</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="durationProposed"><span jhiFnmTranslate="sfdApp.dossier.durationProposed">Duration Proposed</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="amountSolicited"><span jhiFnmTranslate="sfdApp.dossier.amountSolicited">Amount Solicited</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="durationSolicited"><span jhiFnmTranslate="sfdApp.dossier.durationSolicited">Duration Solicited</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="reference"><span jhiFnmTranslate="sfdApp.dossier.reference">Reference</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="creditComityId"><span jhiFnmTranslate="sfdApp.dossier.creditComity">Credit Comity</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="creditRequestId"><span jhiFnmTranslate="sfdApp.dossier.creditRequest">Credit Request</span> <span class="fa fa-sort"></span></th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dossier of dossiers ;trackBy: trackId">
+                    <td><a [routerLink]="['../dossier', dossier.id ]">{{dossier.id}}</a></td>
+                    <td>{{dossier.createdDate | date:'dd-MM-y'}}</td>
+                    <td>{{dossier.createdBy}}</td>
+                    <td>{{dossier.lastModifiedBy}}</td>
+                    <td>{{dossier.lastModifiedDate | date:'dd-MM-y'}}</td>
+                    <td>{{dossier.amountProposed}}</td>
+                    <td>{{dossier.durationProposed}}</td>
+                    <td>{{dossier.amountSolicited}}</td>
+                    <td>{{dossier.durationSolicited}}</td>
+                    <td>{{dossier.reference}}</td>
+                    <td>
+                        <div *ngIf="dossier.creditComityId">
+                            <a [routerLink]="['../credit-comity', dossier.creditComityId  ]">{{dossier.creditComityId}}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="dossier.creditRequestId">
+                            <a [routerLink]="['../credit-request', dossier.creditRequestId  ]">{{dossier.creditRequestId}}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['../dossier', dossier.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiFnmTranslate="entity.action.view">View</span>
+                        </button>
+                            <button type="submit" [routerLink]="['/', { outlets: { popup: 'dossier/'+ dossier.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiFnmTranslate="entity.action.edit">Edit</span>
+                        </button>
+                            <button type="submit" [routerLink]="['/', { outlets: { popup: 'dossier/'+ dossier.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiFnmTranslate="entity.action.delete">Delete</span>
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="dossiers && dossiers.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>

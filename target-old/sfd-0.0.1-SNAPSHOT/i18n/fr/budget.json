@@ -1,0 +1,46 @@
+{
+    "sfdApp": {
+        "budget" : {
+            "home": {
+                "title": "Budgets",
+                "createLabel": "Créer un nouveau Budget",
+                "createOrEditLabel": "Editer un Budget",
+                "search": "Rechercher Un Budget"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Budget {{ id }} ?"
+            },
+            "detail": {
+                "title": "Budget"
+            },
+            "amount": "Montant",
+            "amountRequested": "Montant Solicité",
+            "ammountReport": "Montant Reporté",
+            "activeDate": "Date Activation",
+            "carmesAccount": "Compte Carmes",
+            "active": "Active",
+            "cloture": "Clôture",
+            "sommeTotalLigne": "Somme Totale Ligne",
+            "codeActivation": "Code Activation",
+            "createdDate": "DAte Création",
+            "createdBy": "Créé Par",
+            "lastModifiedBy": "Modifiée Dernièrement Par",
+            "lastModifiedDate": "Date Dernière Modification",
+            "montantActive": "Montant Active",
+            "ligneCredits": "Lignes Credits",
+            "compteCommissions": "Compte Commissions",
+            "callResponses": "Appel Correspndant",
+            "clotureBudgets": "Clôture Budgets",
+            "activations": "Activations",
+            "activeurs": "Activeurs",
+            "annee": "Annee"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "budget" : {
+            "created": "Un nouveau Budget a été créé ",
+            "updated": "Le Budget  a été mis à jour",
+            "deleted": "Le Budget  a été supprimé"
+        }
+    }
+}

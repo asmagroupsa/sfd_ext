@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "disponibiliteFNM" : {
+            "home": {
+                "title": "DisponibiliteFNMS",
+                "createLabel": "Créer un nouvelle Disponiblité FNM",
+                "createOrEditLabel": "Editer une Disponibilité FNM",
+                "search": "Recherche Disponibilite FNM"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Disponibilités FNM {{ id }} ?"
+            },
+            "detail": {
+                "title": "Disponibilite FNM"
+            },
+            "presence": "Présence",
+            "creditComityFNM": "Crédit Comity FNM",
+            "delegatedMemberFNM": "Delegué Membre FNM"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "disponibiliteFNM" : {
+            "created": "Une nouvelle Disponibilité FNM a été créée ",
+            "updated": "La Disponibility FNM  a été mise à jour",
+            "deleted": "La Disponibility FNM  a été supprimée"
+        }
+    }
+}

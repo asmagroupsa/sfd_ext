@@ -1,0 +1,23 @@
+{
+    "tabsets": {
+        "configurations": {
+            "garantie": "Conditions de garantie",
+            "categorie": "Categorie de conditions d'accès",
+            "element": "Element de la condition",
+            "access": "Conditions d'accès d'un produit",
+            "objet": "Objet des demandes",
+            "client": "Type de clients",
+            "niveau": "Niveau d'etudes",
+            "alphabetisation": "Alphabétisation",
+            "pieces": "Type de pièces d'identité"
+        },
+        "sfd": {
+            "agences": "Agences",
+            "chargeprets": "Chargés de prêts",
+            "postes": "Postes de l'agence",
+            "delegations": "Délégations de comité",
+            "formations": "Formations",
+            "matieres": "Matières"
+        }
+    }
+}

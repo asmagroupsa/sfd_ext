@@ -1,0 +1,65 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myDelegatedMemberLabel" [jhiFnmTranslate]="delegatedMember.id ? 'sfdApp.delegatedMember.home.createOrEditLabel' : 'sfdApp.delegatedMember.home.createLabel'">Create or edit a Delegated Member</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <h5 [hidden]="!delegationComityLibelle">La délégation {{delegationComityLibelle}}</h5>
+        <br>
+        <div class="form-group">
+            <input type="checkbox" name="status" id="field_status" [(ngModel)]="delegatedMember.status" />
+            <label for="field_status">{{delegatedMember.status ? 'Membre délégué activé' : 'Membre délégué désactivé'}}</label>
+        </div>
+        <!-- <div class="form-group"> -->
+        <div class="form-group" *ngIf="!delegatedMember.id">
+            <label jhiFnmTranslate="sfdApp.delegatedMember.comityMber" for="field_comityMber" class="oblige">Comity Mber</label>
+            <select required class="ui fluid search dropdown" id="field_comityMber" name="comityMber" [(ngModel)]="delegatedMember.comityMberId">
+                <option [ngValue]="null" disabled>Choisissez le membre de comité</option>
+                <option [ngValue]="comityMberOption.id" *ngFor="let comityMberOption of comitymbers">{{comityMberOption.user}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.delegatedMember.roleDelegatedMember" for="field_roleDelegatedMember" class="oblige"></label>
+            <select class="ui fluid search dropdown" id="field_roleDelegatedMember" name="roleDelegatedMember" [(ngModel)]="delegatedMember.roleDelegatedMemberId" required>
+                <option [ngValue]="null" disabled></option>
+                <option [ngValue]="r.id" *ngFor="let r of roleDelegatedMembers">{{r.name}}</option>
+            </select>
+        </div>
+        <div class="form-group" *ngIf="!delegatedMember.id">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.delegatedMember.nominationDate" for="field_nominationDate">Nomination Date</label>
+            <ngbd-datepicker-i18n [(ngModel)]="delegatedMember.nominationDate" name="nominationDate" required="true" minDate="true"></ngbd-datepicker-i18n>
+            <div [hidden]="!(editForm.controls.nominationDate?.dirty && (editForm.controls.nominationDate?.invalid || !startDateValidate()))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.nominationDate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="startDateValidate()">
+                    La date de début doit être supérieur ou égale à la date d'aujourd'hui
+                </small>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="!delegatedMember.id">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.delegatedMember.endNominationDate" for="field_endNominationDate">End Nomination Date</label>
+            <ngbd-datepicker-i18n [(ngModel)]="delegatedMember.endNominationDate" name="endNominationDate" minDate="true" required="true"></ngbd-datepicker-i18n>
+            <div [hidden]="!(editForm.controls.endNominationDate?.dirty && (editForm.controls.endNominationDate?.invalid || !endDateValidate()))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.endNominationDate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="endDateValidate()">
+                    La date de fin doit être supérieur ou égale à la date de début
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+        <!-- <button type="submit" [disabled]="editForm.form.invalid || isSaving || !startDateValidate() || !endDateValidate()" class="btn waves-effect waves-light"> -->
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

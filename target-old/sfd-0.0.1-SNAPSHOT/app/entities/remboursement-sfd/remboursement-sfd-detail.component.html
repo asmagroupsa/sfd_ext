@@ -1,0 +1,46 @@
+<div *ngIf="remboursementSFD">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.remboursementSFD.detail.title">Remboursement SFD</span> {{remboursementSFD.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.remboursementSFD.rembDate">Remb Date</span></dt>
+        <dd>
+            <span>{{remboursementSFD.rembDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.remboursementSFD.amount">Amount</span></dt>
+        <dd>
+            <span>{{remboursementSFD.amount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.remboursementSFD.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{remboursementSFD.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.remboursementSFD.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{remboursementSFD.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.remboursementSFD.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{remboursementSFD.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.remboursementSFD.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{remboursementSFD.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.remboursementSFD.echeancesSFD">Echeances SFD</span></dt>
+        <dd>
+            <div *ngIf="remboursementSFD.echeancesSFDId">
+                <a [routerLink]="['/entity','echeances-sfd', remboursementSFD.echeancesSFDId]">{{remboursementSFD.echeancesSFDLibelle}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','remboursement-sfd', { outlets: { popup: 'remboursement-sfd/'+ remboursementSFD.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

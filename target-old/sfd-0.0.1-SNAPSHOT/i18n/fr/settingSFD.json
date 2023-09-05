@@ -1,0 +1,29 @@
+{
+    "sfdApp": {
+        "settingSFD": {
+            "home": {
+                "title": "ParametreSFDS",
+                "createLabel": "Créer un nouveau Setting SFD",
+                "createOrEditLabel": "Editer un Parametre SFD",
+                "search": "Recherche pour Parametre SFD"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Parametre SFD {{ id }} ?"
+            },
+            "detail": {
+                "title": "Parametre SFD"
+            },
+            "sfdReference": "Sfd Reference",
+            "name": "Name",
+            "valeur": "Valeur",
+            "sfd": "Sfd"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "settingSFD": {
+            "created": "Un nouveau Parametre SFD a été créé ",
+            "updated": "Le Parametre SFD  a été mis à jour",
+            "deleted": "Le Parametre SFD  a été supprimé"
+        }
+    }
+}

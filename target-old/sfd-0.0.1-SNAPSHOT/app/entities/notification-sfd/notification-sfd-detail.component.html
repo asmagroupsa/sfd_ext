@@ -1,0 +1,66 @@
+<div *ngIf="notificationSFD">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.notificationSFD.detail.title">Notification SFD</span> {{notificationSFD.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.notificationSFD.rate">Rate</span></dt>
+        <dd>
+            <span>{{notificationSFD.rate}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.notificationSFD.notificationDate">Notification Date</span></dt>
+        <dd>
+            <span>{{notificationSFD.notificationDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.notificationSFD.status">Status</span></dt>
+        <dd>
+            <span>{{notificationSFD.status}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.notificationSFD.nbrDiffere">Nbr Differe</span></dt>
+        <dd>
+            <span>{{notificationSFD.nbrDiffere}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.notificationSFD.amount">Amount</span></dt>
+        <dd>
+            <span>{{notificationSFD.amount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.notificationSFD.typeEcheancier">Type Echeancier</span></dt>
+        <dd>
+            <span>{{notificationSFD.typeEcheancier}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.notificationSFD.nbreEcheance">Nbre Echeance</span></dt>
+        <dd>
+            <span>{{notificationSFD.nbreEcheance}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.notificationSFD.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{notificationSFD.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.notificationSFD.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{notificationSFD.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.notificationSFD.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{notificationSFD.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.notificationSFD.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{notificationSFD.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.notificationSFD.ligneRequest">Ligne Request</span></dt>
+        <dd>
+            <div *ngIf="notificationSFD.ligneRequestId">
+                <a [routerLink]="['/entity','ligne-request', notificationSFD.ligneRequestId]">{{notificationSFD.ligneRequestId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','notification-sfd', { outlets: { popup: 'notification-sfd/'+ notificationSFD.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

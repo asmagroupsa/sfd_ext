@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "typePartner": {
+            "home": {
+                "title": "TypeBailleur",
+                "createLabel": "Créer un nouveau Type Bailleur",
+                "createOrEditLabel": "Editer un Type Bailleur",
+                "search": "Recherche pour Type Bailleur"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Type Bailleur {{ id }} ?"
+            },
+            "detail": {
+                "title": "Type Bailleur"
+            },
+            "name": "Nom",
+            "code": "Code",
+            "partners": "Bailleur"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "typePartner": {
+            "created": "Un nouveau Type Bailleur a été créé ",
+            "updated": "Le Type Bailleur  a été mis à jour",
+            "deleted": "Le Type Bailleur  a été supprimé"
+        }
+    }
+}

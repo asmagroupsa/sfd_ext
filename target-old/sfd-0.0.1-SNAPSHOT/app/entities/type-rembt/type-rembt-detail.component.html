@@ -1,0 +1,23 @@
+<div *ngIf="typeRembt">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.typeRembt.detail.title">Type Rembt</span> {{typeRembt.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.typeRembt.name">Name</span></dt>
+        <dd>
+            <span>{{typeRembt.name}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.typeRembt.code">Code</span></dt>
+        <dd>
+            <span>{{typeRembt.code}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','type-rembt', { outlets: { popup: 'type-rembt/'+ typeRembt.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,34 @@
+{
+    "sfdApp": {
+        "fundingRequest" : {
+            "home": {
+                "title": "FundingRequests",
+                "createLabel": "Créer un nouveau financement",
+                "createOrEditLabel": "Editer un financement",
+                "search": "Recherche pour financement"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le financement {{ id }} ?"
+            },
+            "detail": {
+                "title": "financement"
+            },
+            "amount": "Amount",
+            "requestDate": "Request Date",
+            "createdDate": "Created Date",
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "lastModifiedDate": "Last Modified Date",
+            "callResponses": "Call Responses",
+            "fundingRequestType": "financement Type",
+            "partner": "Partner"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "fundingRequest" : {
+            "created": "Un nouveau financement a été créé ",
+            "updated": "Le financement  a été mis à jour",
+            "deleted": "Le financement  a été supprimé"
+        }
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "sfdApp": {
+        "tranchePenalSFD": {
+            "home": {
+                "title": "TranchePenalSFDS",
+                "createLabel": "Créer une nouvelle Tranche Penal SFD",
+                "createOrEditLabel": "Editer une Tranche Penal SFD",
+                "search": "Recherche pour Tranche Penal SFD"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Tranche Penal SFD {{ id }} ?"
+            },
+            "detail": {
+                "title": "Tranche Penal SFD"
+            },
+            "minDay": "Jour min",
+            "maxDay": "Jour Max",
+            "penalRate": "Penal Rate",
+            "createdDate": "Créé le ",
+            "createdBy": "Crée par ",
+            "lastModifiedBy": "Modifié par",
+            "lastModifiedDate": "Modifié le "
+        }
+    },
+    "carmesfnmserviceApp": {
+        "tranchePenalSFD": {
+            "created": "Un nouveau Tranche Penal SFD a été créé ",
+            "updated": "Le Tranche Penal SFD  a été mis à jour",
+            "deleted": "Le Tranche Penal SFD  a été supprimé"
+        }
+    }
+}

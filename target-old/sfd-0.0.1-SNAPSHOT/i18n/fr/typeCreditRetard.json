@@ -1,0 +1,32 @@
+{
+    "sfdApp": {
+        "typeCreditRetard" : {
+            "home": {
+                "title": "Type de crédit en retard",
+                "createLabel": "Créer un nouveau type de credit en retard",
+                "createOrEditLabel": "Editer un type de credit en retard",
+                "search": "Rechercher un type de credit en retard"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le type de credit en retard {{ id }} ?"
+            },
+            "detail": {
+                "title": "Type de credit en retard"
+            },
+            "name": "Intitulé",
+            "code": "Code",
+            "initiale": "Durée",
+            "accounts": "Credit en retards",
+            "ecritureOperationAccounts": "Mouvement dans les Credit en retards",
+            "produits": "Produits",
+            "contrainteCredit en retards": "Contrainte Credit en retards"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "typeCreditRetard" : {
+            "created": "Un nouveau Type de credit en retard a été créé ",
+            "updated": "Mis à jour d'un nouveau credit en retard",
+            "deleted": "Suppression d'un nouveau "
+        }
+    }
+}

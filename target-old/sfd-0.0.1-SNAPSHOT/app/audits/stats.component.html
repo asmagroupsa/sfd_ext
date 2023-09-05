@@ -1,0 +1,165 @@
+<br>
+<div class="row">
+    <div class="col">
+        <h3>Taux de remboursement</h3>
+    </div>
+    <div class="field col-lg-3 ml-auto">
+        <label for="sfd_select" class="">Choix de la phase</label>
+        <select class="ui fluid search dropdown form-control" id="phase_select" (change)="getData()" name="phase_select" [(ngModel)]="selectedPhase">
+            <option [ngValue]="null" selected>Tout</option>
+            <option [ngValue]="phase.code" *ngFor="let phase of phaseList">{{  phase.libelle }}</option>
+        </select>
+    </div>
+    <div class="field col-lg-3">
+        <label for="date2" class="form-control-label"> A la date du </label>
+        <ngbd-datepicker-i18n name="date2" [(ngModel)]="date2" (ngModelChange)="getData()"></ngbd-datepicker-i18n>
+    </div>
+</div>
+<div class="container">
+    <div class="animated fadeIn credits" *ngIf="!currentAgence">
+        <div class="ui grid global">
+            <div class="col" *ngIf="global">
+                <!-- Situation globale -->
+                <div class="card-panel teal2">
+                    <div style="display: flex">
+                        <div class="icon">
+                            <i class="fa fa-bank"></i>
+                        </div>
+                        <div class="white-text" style="display: table; width: unset;">
+                            <div style="display: table-row">
+                                <div style="display: table-cell">Total de crédits:</div>
+                                <div style="display: table-cell" style="width: 20px;"></div>
+                                <div style="display: table-cell">{{global?.montant_pret | number}}</div>
+                            </div>
+                            <div style="display: table-row">
+                                <div style="display: table-cell">Capital remboursé:</div>
+                                <div style="display: table-cell" style="width: 20px;"></div>
+                                <div style="display: table-cell">{{global?.capital_remb | number}}</div>
+                            </div>
+                            <div style="display: table-row">
+                                <div style="display: table-cell">Intêret remboursé</div>
+                                <div style="display: table-cell" style="width: 20px;"></div>
+                                <div style="display: table-cell">{{global?.interet_remb | number}}</div>
+                            </div>
+                            <div style="display: table-row">
+                                <div style="display: table-cell">Encours</div>
+                                <div style="display: table-cell" style="width: 20px;"></div>
+                                <div style="display: table-cell">{{global?.encours| number}}</div>
+                            </div>
+                            <div style="display: table-row">
+                                <div style="display: table-cell">Montant Rapatrié</div>
+                                <div style="display: table-cell" style="width: 20px;"></div>
+                                <div style="display: table-cell">{{global?.rapatrier| number}}</div>
+                            </div>
+                        </div>
+                        <div class="stats icon" style="text-align: right; flex-grow: 1;">Taux global de remboursement : {{global?.taux_remb| number:'1.0-2'}}%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" [ngStyle]="{'width.%':global?.taux_remb}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+    <div class="animated fadeIn credits" *ngIf="currentAgence">
+        <div class="ui grid">
+            <div class="col">
+                <!-- Situation globale -->
+                <div class="card-panel teal2">
+                    <div class="icon">
+                        <i class="fa fa-bank"></i>
+                    </div>
+                    <span class="white-text">
+                        {{ agenceGlobal?.montant_pret | number}} &nbsp;&nbsp; prêté <br> {{ agenceGlobal?.capital_remb | number}}&nbsp;&nbsp;
+                        remboursé <br> Intêret remboursé &nbsp;&nbsp;{{ agenceGlobal?.interet_remb | number}}<br> {{ agenceGlobal?.encours
+                        | number}}&nbsp;&nbsp; encours <br> {{ agenceGlobal?.rapatrier
+                            | number}}&nbsp;&nbsp; rapatrié <br>
+                    </span>
+                    <div class="stats icon">
+                        {{ agenceGlobal?.taux_remb| number:'1.0-2'}}%
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" [ngStyle]="{'width.%':agenceGlobal?.taux_remb}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <br>
+        <div style="display: flex; flex-wrap: wrap; margin-top:10px">
+            <h4 *ngFor="let b of breadcumbs; let last = last" class="breadcrumbs-btn" (click)="bn(b, last)" [ngClass]="{hovable: !last}">{{ b.situation.name}}</h4>
+        </div>
+        <br>
+        <h3>{{ label[level]}}</h3>
+        <div class="ui segment" style="box-shadow: unset; border: none;" *ngIf="loading">
+            <p></p>
+            <div class="ui active inverted dimmer">
+                <div class="ui loader"></div>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12" *ngFor="let i of listeSituationData" style="padding: 15px;">
+                <div class="tule" [style.border-color]="i.bg" style="padding: 15px; height: 100%;" (click)="listeSituation(i, null, null, (level !== 'liste-ligne-situation') && (level !== 'liste-credit-membre-situation'))" [ngClass]="{hovable: ((level !== 'liste-ligne-situation') && (level !== 'liste-credit-membre-situation'))}">
+                    <div>
+                        <div [style.background-color]="i.bg" style="color: white; margin: -15px -15px 0px -15px; padding: 30px; display: flex; flex-direction: row; justify-content: space-between;">
+                            <div style="display: flex; flex-direction: column; justify-content: center;">
+                                <h3 style="margin-bottom: 0px;">{{ i.name}}</h3>
+                                <h4 style="padding-top: 15px; font-weight: bold;">{{ i.reference || i.code_client}}</h4>
+                            </div>
+                            <h1 style="display: flex; flex-direction: column; justify-content: center; margin-left: 30px;">
+                                <span>{{ i.taux_remb | number:'1.0-2'}}%</span>
+                            </h1>
+                            <!-- <div *ngIf="(level === 'liste-credit-situation-by-ligne') || (level === 'liste-credit-situation-by-comite')">
+                                <h5>Code client</h5>
+                                <h4>{{ i.code_client}}</h4>
+                            </div>
+                            <div *ngIf="level === 'liste-comite-situation'">
+                                <h5>Code comité</h5>
+                                <h3>{{ i.reference}}</h3>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 15px;">
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" style="padding-top: 15px;">
+                            <h5 style="overflow-wrap: break-word;">Montant des Crédits</h5>
+                            <h3 style="overflow-wrap: break-word;">{{ i.montant_pret | currency:'XAF':true:'2.0'}}</h3>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" style="padding-top: 15px;">
+                            <h5 style="overflow-wrap: break-word;">Capital remboursé</h5>
+                            <h3 style="overflow-wrap: break-word;">{{ i.capital_remb | currency:'XAF':true:'2.0'}}</h3>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" style="padding-top: 15px;">
+                            <h5 style="overflow-wrap: break-word;">Interet remboursé</h5>
+                            <h3 style="overflow-wrap: break-word;">{{ i.interet_remb | currency:'XAF':true:'2.0'}}</h3>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" style="padding-top: 15px;">
+                            <h5 style="overflow-wrap: break-word;">Encours</h5>
+                            <h3 style="overflow-wrap: break-word;">{{ i.encours | currency:'XAF':true:'2.0'}}</h3>
+                        </div>
+                        <div class="col-lg-12" style="padding-top: 15px;">
+                            <h5 style="overflow-wrap: break-word;">Montant Rapatrié</h5>
+                            <h3 style="overflow-wrap: break-word;">{{ i.rapatrier | currency:'XAF':true:'2.0'}}</h3>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 15px;" *ngIf="level === 'liste-ligne-situation'">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <h4 class="tule-action hovable" [style.border-color]="i.bg" (click)="$event.stopPropagation(); listeSituation(i, 'liste-credit-situation-by-ligne')">Crédits</h4>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <h4 class="tule-action hovable" [style.border-color]="i.bg" (click)="$event.stopPropagation(); listeSituation(i, 'liste-comite-situation')">Comités</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+     
+</div>
+<div class="ui compact selection dropdown">
+    <i class="dropdown icon"></i>
+    <div class="text">Par agence</div>
+    <div class="menu">
+        <div class="item" (click)="getBySfd()">Tout le SFD</div>
+        <div class="item" (click)="getByAgence(agence)" *ngFor="let agence of listeAgences">{{ agence?.name}}</div>
+    </div>
+</div>

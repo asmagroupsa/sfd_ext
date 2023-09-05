@@ -1,0 +1,39 @@
+<div *ngIf="ecriture">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.ecriture.detail.title">Ecriture</span> {{ecriture.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.ecriture.codeTypeOperation">Code Type Operation</span></dt>
+        <dd>
+            <span>{{ecriture.codeTypeOperation}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ecriture.libelle">Libellé</span></dt>
+        <dd>
+            <span>{{ecriture.libelle}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ecriture.sens">Sens</span></dt>
+        <dd>
+            <span jhiFnmTranslate="{{'carmesfnmserviceApp.Sens.' + ecriture.sens}}">{{ecriture.sens}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ecriture.ecritureCommission">Ecriture Commission</span></dt>
+        <dd>
+            <div *ngIf="ecriture.ecritureCommissionId">
+                <a [routerLink]="['/entity','ecriture-commission', ecriture.ecritureCommissionId]">{{ecriture.ecritureCommissionId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.ecriture.operationType">Operation Type</span></dt>
+        <dd>
+            <div *ngIf="ecriture.operationTypeId">
+                <a [routerLink]="['/entity','operation-type', ecriture.operationTypeId]">{{ecriture.operationTypeName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','ecriture', { outlets: { popup: 'ecriture/'+ ecriture.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

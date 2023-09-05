@@ -1,0 +1,50 @@
+<div *ngIf="echeancierClient">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.echeancierClient.detail.title">Echeancier Client</span> {{echeancierClient.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.echeancierClient.startDate">Start Date</span></dt>
+        <dd>
+            <span>{{echeancierClient.startDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancierClient.tauxEpargne">Taux Epargne</span></dt>
+        <dd>
+            <span>{{echeancierClient.tauxEpargne}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancierClient.tauxInteret">Taux Interet</span></dt>
+        <dd>
+            <span>{{echeancierClient.tauxInteret}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancierClient.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{echeancierClient.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancierClient.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{echeancierClient.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancierClient.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{echeancierClient.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancierClient.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{echeancierClient.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancierClient.credit">Credit</span></dt>
+        <dd>
+            <div *ngIf="echeancierClient.creditId">
+                <a [routerLink]="['/entity','credit', echeancierClient.creditId]">{{echeancierClient.creditId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','echeancier-client', { outlets: { popup: 'echeancier-client/'+ echeancierClient.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

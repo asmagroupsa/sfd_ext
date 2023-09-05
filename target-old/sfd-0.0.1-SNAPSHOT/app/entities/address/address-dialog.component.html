@@ -1,0 +1,155 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h3 class="modal-title" id="myAddressLabel" [jhiFnmTranslate]="address.id ? 'sfdApp.address.home.createOrEditLabel' : 'sfdApp.address.home.createLabel'" translateValues="{id: '{{client?.name}} {{client?.firstName}}'}">Create or edit a Address</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="ui inline loader active centered" *ngIf="loading"></div>
+        <!--<div class="form-group" [hidden]="!address.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="address.id" readonly />
+        </div>-->
+
+        <!-- <div class="form-group" *ngIf="params?.client">
+            <label jhiFnmTranslate="sfdApp.address.client" for="field_client">Client</label>
+            <select class="ui fluid search dropdown" id="field_client" name="client" [(ngModel)]="address.clientId">
+                <option [ngValue]="null" disabled>Choisissez le client</option>
+                <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.name}}</option>
+            </select>
+        </div> 
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.address.departement" class="oblige" for="field_departement">Departement</label>
+            <select class="ui fluid search dropdown" id="field_departement" name="departement" [(ngModel)]="address.departementId">
+                <option [ngValue]="null" disabled>Choisissez le departement</option>
+                <option [ngValue]="departementOption.id" *ngFor="let departementOption of departements">{{departementOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.address.commune" for="field_commune" class="oblige">Commune</label>
+            <select class="ui fluid search dropdown" id="field_commune" name="commune" [(ngModel)]="address.communeId">
+                <option [ngValue]="null" disabled>Choisissez la commune</option>
+                <option [ngValue]="communeOption.id" *ngFor="let communeOption of communes | departement:address.departementId">{{communeOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.address.arrondissement" for="field_arrondissement" class="oblige">Arrondissement</label>
+            <select class="ui fluid search dropdown" id="field_arrondissement" name="arrondissement" [(ngModel)]="address.arrondissementId">
+                <option [ngValue]="null" disabled>Choisissez l'arrondissement</option>
+                <option [ngValue]="arrondissementOption.id" *ngFor="let arrondissementOption of arrondissements | commune:address.communeId">{{arrondissementOption.name}}</option>
+            </select>
+        </div>-->
+        <div class="form-group">
+            <label for="field_departement">Departement</label>
+            <select class="ui fluid search dropdown" id="field_departement" name="departement" (change)="getCityByDep(address.departementId)" [(ngModel)]="address.departementId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="departementOption.id" *ngFor="let departementOption of departements; trackBy: trackById">{{departementOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_city">Commune</label>
+            <select class="ui fluid search dropdown" id="field_city" name="city" (change)="getTownShipByCity(address.communeId)"  [(ngModel)]="address.communeId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="cityOption.id" *ngFor="let cityOption of communes; trackBy: trackById">{{cityOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_townShip">Arrondissement</label>
+            <select class="ui fluid search dropdown" id="field_townShip" name="townShip" (change) ="getDistricByTownShip(address.arrondissementId)" [(ngModel)]="address.arrondissementId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="townShipOption.id" *ngFor="let townShipOption of arrondissements; trackBy: trackById">{{townShipOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_district" class="oblige">Quartier de ville</label>
+            <select class="ui fluid search dropdown" id="field_district" name="district" [(ngModel)]="address.districtId">
+                <option [ngValue]="null" disabled>Choisissez un quartier</option>
+                <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackById">{{districtOption.name}}</option>
+            </select>
+        </div>
+
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.address.maison" for="field_home">Home</label>
+            <input type="text" class="form-control" name="home" id="field_home" [(ngModel)]="address.home" required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.home?.dirty && editForm.controls.home?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.home?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                   This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label jhiFnmTranslate="sfdApp.address.observation" for="field_observation">Observation</label>
+            <textarea class="materialize-textarea" name="observation" id="field_observation" [(ngModel)]="address.observation"></textarea>
+        </div>
+        <!--<div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.address.createdDate" for="field_createdDate">Created Date</label>
+            <div class="input-group">
+                <input id="field_createdDate" type="text" class="form-control" name="createdDate" ngbDatepicker #createdDateDp="ngbDatepicker" [(ngModel)]="address.createdDate" required/>
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="createdDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdDate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>-->
+        <!-- <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.address.createdBy" for="field_createdBy">Created By</label>
+            <input type="text" class="form-control" name="createdBy" id="field_createdBy" [(ngModel)]="address.createdBy" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdBy?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdBy?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <!-- <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.address.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+            <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy" [(ngModel)]="address.lastModifiedBy" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.lastModifiedBy?.dirty && editForm.controls.lastModifiedBy?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.lastModifiedBy?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <!--   <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.address.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+            <div class="input-group">
+                <input id="field_lastModifiedDate" type="text" class="form-control" name="lastModifiedDate" ngbDatepicker #lastModifiedDateDp="ngbDatepicker" [(ngModel)]="address.lastModifiedDate" />
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="lastModifiedDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.address.geoLong" for="field_geoLong">Geo Long</label>
+            <div>
+                <input type="number" min="1" class="form-control" name="geoLong" id="field_geoLong" [(ngModel)]="address.geoLong" style="width:90%;display:inline-block" [readonly]="checkPosition" />
+                <a class="btn waves-effect waves-light" (click)="userPosition(true)"><span class="fa fa-map"></span></a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.address.geoLat" for="field_geoLat">Geo Lat</label>
+            <div>
+                <input type="number" min="1" class="form-control" name="geoLat" id="field_geoLat" [(ngModel)]="address.geoLat" style="width:90%;display:inline-block" [readonly]="checkPosition" />
+                <a class="btn waves-effect waves-light" (click)="userPosition(true)"><span class="fa fa-map"></span></a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

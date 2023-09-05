@@ -1,0 +1,64 @@
+<div *ngIf="commission">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.commission.detail.title">Commission</span> {{commission.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.commission.taux">Taux</span></dt>
+        <dd>
+            <span>{{commission.taux}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.commission.valeur">Valeur</span></dt>
+        <dd>
+            <span>{{commission.valeur}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.commission.amount">Amount</span></dt>
+        <dd>
+            <span>{{commission.amount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.commission.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{commission.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.commission.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{commission.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.commission.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{commission.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.commission.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{commission.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.commission.compenser">Compenser</span></dt>
+        <dd>
+            <span>{{commission.compenser}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.commission.carmesAccount">CARMES Account</span></dt>
+        <dd>
+            <span>{{commission.carmesAccount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.commission.compensation">Compensation</span></dt>
+        <dd>
+            <div *ngIf="commission.compensationId">
+                <a [routerLink]="['/entity','compensation', commission.compensationId]">{{commission.compensationId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.commission.operation">Operation</span></dt>
+        <dd>
+            <div *ngIf="commission.operationId">
+                <a [routerLink]="['/entity','operation', commission.operationId]">{{commission.operationId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','commission', { outlets: { popup: 'commission/'+ commission.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

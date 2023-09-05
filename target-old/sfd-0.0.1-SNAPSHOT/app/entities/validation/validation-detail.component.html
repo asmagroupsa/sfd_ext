@@ -1,0 +1,56 @@
+<div *ngIf="validation">
+    <h2><span jhiFnmTranslate="sfdApp.validation.detail.title">Validation</span> {{validation.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.validation.amount">Amount</span></dt>
+        <dd>
+            <span>{{validation.amount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.validation.result">Result</span></dt>
+        <dd>
+            <span>{{validation.result}}</span>
+        </dd>
+        <!-- <dt><span jhiFnmTranslate="sfdApp.validation.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{validation.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.validation.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{validation.createdBy}}</span>
+        </dd> -->
+        <!-- <dt><span jhiFnmTranslate="sfdApp.validation.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{validation.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.validation.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{validation.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd> -->
+        <dt><span jhiFnmTranslate="sfdApp.validation.explanation">Explanation</span></dt>
+        <dd>
+            <span>{{validation.explanation}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.validation.dossier">Dossier</span></dt>
+        <dd>
+            <div *ngIf="validation.dossierId">
+                <a [routerLink]="['/dossier', validation.dossierId]">{{validation.dossierId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.validation.comityMber">Comity Mber</span></dt>
+        <dd>
+            <div *ngIf="validation.delegatedMemberId">
+                <a [routerLink]="['/entity','comity-mber', validation.delegatedMemberId]">{{validation.delegatedMemberId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','validation', { outlets: { popup: 'validation/'+ validation.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

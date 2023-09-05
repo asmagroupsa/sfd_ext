@@ -1,0 +1,37 @@
+{
+    "sfdApp": {
+        "remboursementSFD": {
+            "home": {
+                "title": "RemboursementSFDS",
+                "createLabel": "Créer un nouveau Remboursement SFD",
+                "createOrEditLabel": "Editer un Remboursement SFD",
+                "search": "Recherche pour Remboursement SFD"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Remboursement SFD {{ id }} ?"
+            },
+            "detail": {
+                "title": "Remboursement SFD"
+            },
+            "sfdReference": "Sfd Reference",
+            "rembDate": "Remboussement Date",
+            "amount": "Montant",
+            "createdDate": "Créeer le",
+            "createdBy": "Créer par",
+            "lastModifiedBy": "Modifier par",
+            "lastModifiedDate": "Modifier le ",
+            "interet": "Interet",
+            "epargne": "Epargne",
+            "penalite": "Penalite",
+            "capital": "Capital",
+            "echeancesSFD": "Echeances SFD"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "remboursementSFD": {
+            "created": "Un nouveau Remboursement SFD a été créé ",
+            "updated": "Le Remboursement SFD  a été mis à jour",
+            "deleted": "Le Remboursement SFD  a été supprimé"
+        }
+    }
+}

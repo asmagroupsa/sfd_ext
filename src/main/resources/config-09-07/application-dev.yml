@@ -35,9 +35,9 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:sqlserver://185.98.137.71;database=sfdDBnew
+        url: jdbc:sqlserver://185.98.137.71;database=sfdDBNew_DEV
         username: SA
-        password: UY7fue1KmtD!
+        password: Password25931
         # initialize: false
         # primary:
         #     type: com.zaxxer.hikari.HikariDataSource
@@ -113,7 +113,7 @@ liquibase:
 #        keyAlias: sfd-dev
 # ===================================================================
 server:
-    port: 8383
+    port: 8989
     # ssl:
     #    key-store: keystore.p12
     #    key-store-password: Password0

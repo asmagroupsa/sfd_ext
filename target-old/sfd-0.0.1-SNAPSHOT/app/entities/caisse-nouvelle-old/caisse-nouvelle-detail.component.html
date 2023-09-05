@@ -1,0 +1,27 @@
+<div *ngIf="caisseNouvelle">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.caisseNouvelle.detail.title">Account Type</span> {{caisseNouvelle.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.caisseNouvelle.name">Name</span></dt>
+        <dd>
+            <span>{{caisseNouvelle.name}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.caisseNouvelle.code">Code</span></dt>
+        <dd>
+            <span>{{caisseNouvelle.code}}</span>
+        </dd>
+        <dt><span>Initiale</span></dt>
+        <dd>
+            <span>{{caisseNouvelle.initiale}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: 'caisse-nouvelle/'+ caisseNouvelle.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary" *jhiHasAnyRessources="['carmesfnmservice/api/caisse-nouvelles/updateCaisseNouvelle']">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

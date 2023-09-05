@@ -1,0 +1,121 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.caisseNouvelle.home.title">Fund</span>
+        <!-- <button class="btn btn-primary float-right create-caisse-nouvelle" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: ['caisse-nouvelle-new'] } }]" *jhiHasAnyRessources="['carmesfnmservice/api/caisse-nouvelles/createCaisseNouvelle']"> -->
+        <button class="btn btn-primary float-right create-caisse-nouvelle" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: ['caisse-nouvelle-new'] } }]" >
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.caisseNouvelle.home.createLabel">
+                Create a new fund
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.caisseNouvelle.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+
+    <div class="table-responsive">
+
+        <div class="row">
+            <div class="form-group col-4" *ngIf="agences.length > 1">
+                <label class="form-control-label active" for="field_agence">Choisissez une agence</label>
+                <select class="ui fluid search dropdown" name="agence" [(ngModel)]="agence" id="field_agence" (change)="onAgenceChange()">
+                 <option [ngValue]="null">Veuillez choisir une agence</option>
+                    <option [ngValue]="agence.codeAgence" *ngFor="let agence of agences">{{agence.name}}</option>
+                </select>
+            </div>
+            <div clas="col-2"></div>
+            <div  style = "padding-top: 16px;" class="col-md-12 col-sm-12 col-lg-6" *ngIf="categories && categories.length"> 
+                <div class="ui two item menu">
+                    <a *ngFor="let categorie of categories" class="item" [ngClass]="{active:category?.id==categorie?.id}"
+                    (click)="changeCategorie(categorie)">{{ categorie.name }}</a>
+                </div>
+            </div>
+        </div>
+        <table class="bordered striped highlight" *ngIf="caisseNouvelles;else elseBlock">
+            <thead>
+                <tr>
+                    <!-- <th><span jhiFnmTranslate="global.field.id">ID</span></th> -->
+                    <th class="numerotab">N°</th>
+                    <th><span>Compte CARMES</span></th>
+                    <th><span>Réference</span></th>
+                    <th><span>Libellé</span></th>
+                    <th><span>Etat Caisse</span></th>
+                    <th><span>Date Ouverture</span></th>
+                    <th><span>Retrait Montant Maximun</span></th>
+                    <th><span>Solde Montant Maximun</span></th>
+                    <!-- <th><span jhiFnmTranslate="sfdApp.caisseNouvelle.code">Code</span></th> -->
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let caisseNouvelle of caisseNouvelles | recherche:currentSearch ;let index=index;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','caisse-nouvelle', caisseNouvelle.id ]">{{caisseNouvelle.id}}</a></td> -->
+                    <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>{{caisseNouvelle.compteCarmes}}</td>
+                    <td>{{caisseNouvelle.reference}}</td>
+                    <td>{{caisseNouvelle.libelle}}</td>
+                    <td>{{caisseNouvelle.etatCaisse == 'FERMER' ? 'Fermée':'Ouverte'}}</td>
+                    <td>{{caisseNouvelle.dateOuverture}}</td>
+                    <td>{{caisseNouvelle.retraitMaxAmount | currency:'XAF':true:'2.0' }}</td>
+                    <td>{{caisseNouvelle.soldetMaxAmount | currency:'XAF':true:'2.0' }}</td>
+                    <!-- <td>{{caisseNouvelle.code}}</td> -->
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+
+                            <!-- <button type="submit" [routerLink]="['/entity','caisse-nouvelle', caisseNouvelle.id ]" class="btn btn-info btn-sm" *jhiHasAnyRessources="'carmesfnmservice/api/caisse-nouvelles/getCaisseNouvelle'">
+                                <span class="fa fa-eye"></span>
+                            </button> -->
+                            <!-- <button type="submit" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: 'caisse-nouvelle/'+ caisseNouvelle.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm" *jhiHasAnyRessources="['carmesfnmservice/api/caisse-nouvelles/updateCaisseNouvelle']"> -->
+                                <!-- <button type="submit" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: 'caisse-nouvelle/'+ caisseNouvelle.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            </button> -->
+                            <!-- <button type="submit" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: 'caisse-nouvelle/'+ caisseNouvelle.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm" *jhiHasAnyRessources="['carmesfnmservice/api/caisse-nouvelles/deleteCaisseNouvelle']"> -->
+                                <!-- <button type="submit" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: 'caisse-nouvelle/'+ caisseNouvelle.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm" >
+                                <span class="fa fa-remove"></span>
+                            </button> -->
+
+                            <div class="ui dropdown">
+                                <div class="text" style="display:none"></div>
+                                <i class="ellipsis vertical icon"></i>
+                                <div class="left menu">
+                                    <div class="item" (click)="navigateToAlimenterAgence(caisseNouvelle)">Alimentez la caisse de l'agence</div>
+                                    <div  class="item" (click)="onSolde(caisseNouvelle)">Solde de la caisse</div>
+                                    <div class="item" [routerLink]="['/entity','caisse-nouvelle', { outlets: { popup: 'caisse-nouvelle/'+ caisseNouvelle.id + '/etat'} }]">Ouvrir ou fermer la caisse</div>
+                                    <div class="item" (click)="navigateToAffecterUtilisateurCaisse(caisseNouvelle)">Affecter la caisse à un(e) caissier/caissière</div>
+                                    <div class="item" (click)="navigateToAffectationHistories(caisseNouvelle)">Historique des affectations</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="ui compact selection dropdown">
+    <i class="dropdown icon"></i>
+    <div class="text">Impressions</div>
+    <div class="menu">
+        <div class="item" jhiFnmTranslate="impressions.account.all">Tous les types de compte</div>
+    </div>
+</div>

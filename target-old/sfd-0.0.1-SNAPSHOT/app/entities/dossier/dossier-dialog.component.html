@@ -1,0 +1,47 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myDossierLabel" [jhiFnmTranslate]="dossier.id ? 'sfdApp.dossier.home.createOrEditLabel' : 'sfdApp.dossier.home.createLabel'">Create or edit a Dossier</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body" [hidden]="canAdd">
+        <h4>Vous ne pouvez pas ajouter de dossier au comité</h4>
+    </div>
+    <div class="modal-body" [hidden]="!canAdd">
+        <jhi-alert></jhi-alert>
+        <jhi-alert-error></jhi-alert-error>
+         <div class="form-group">
+            <label for="field_creditRequest" class="oblige">
+                <span>Les dossiers dont le montant dépasse le montant maximal d'un dossier de la délegation ne peuvent pas être selectionner</span>
+                <br>
+                <span jhiFnmTranslate="sfdApp.dossier.creditRequest"></span>
+            </label>
+            <select class="ui fluid search dropdown" id="field_creditRequest" name="creditRequest" [(ngModel)]="requests" required (ngModelChange)="onRequestChange()">
+                <option [ngValue]="creditRequestOption.credit_request_id" *ngFor="let creditRequestOption of creditrequests" [disabled]="creditRequestOption.amountIsGreater">Demande du client {{creditRequestOption.name}}({{creditRequestOption.code_client}}) (Montant: {{creditRequestOption.amountetape}})</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.creditRequest?.dirty && editForm.controls.creditRequest?.invalid)">
+            <small class="form-text text-danger" [hidden]="!editForm.controls.creditRequest?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <br>
+        <div class="input-field">
+            <label class="form-control-label active oblige" for="field_montantAccorder">Montant accordé</label>
+            <input type="text" class="form-control" name="montantAccorder" id="field_montantAccorder" [(ngModel)]="dossierMontantAccorder" required (formatNumberMyMiller)="dossier.montantAccorder = $event" [readonly]="request?.produit == 'MCM'">
+            <div [hidden]="!(editForm.controls.montantAccorder?.dirty && (editForm.controls.montantAccorder?.invalid || !amountIsValid()))">
+                <small class="form-text text-danger" [hidden]="amountIsValid()">Montant invalide, le montant doit être compris entre le montant minimum du produit et le montant de l'etude détaillée</small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving || !amountIsValid() || !canAdd" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

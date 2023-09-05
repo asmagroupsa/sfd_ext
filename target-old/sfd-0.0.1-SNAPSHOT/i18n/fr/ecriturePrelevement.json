@@ -1,0 +1,30 @@
+{
+    "sfdApp": {
+        "ecriturePrelevement" : {
+            "home": {
+                "title": "EcriturePrelevements",
+                "createLabel": "Créer un nouveau Ecriture Prelevement",
+                "createOrEditLabel": "Editer un Ecriture Prelevement",
+                "search": "Recherche pour Ecriture Prelevement"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer l'écriture Prelevement {{ id }} ?"
+            },
+            "detail": {
+                "title": "Ecriture Prelevement"
+            },
+            "minInterval": "Min Interval",
+            "maxInterval": "Max Interval",
+            "valeur": "Valeur",
+            "typeValeur": "Type Valeur",
+            "ecriture": "Ecriture"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "ecriturePrelevement" : {
+            "created": "Une nouvelle Ecriture Prelevement a été créée ",
+            "updated": "L'écriture Prelevement a été mis à jour",
+            "deleted": "L'écriture Prelevement a été supprimé"
+        }
+    }
+}

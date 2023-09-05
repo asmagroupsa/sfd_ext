@@ -1,0 +1,40 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="payement-penalite">Payer une pénalité</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <h5>
+            Le nom du client {{credit?.name}}
+        </h5><br><br>
+        <h5>
+            La pénalité restante: {{credit?.penaliterestant}}
+        </h5>
+        <br><br>
+        <div class="input-field">
+            <label class="form-control-label active oblige" for="field_amount">Montant de la pénalité à payer</label>
+            <input type="text" class="form-control" name="amount" id="field_amount" [(ngModel)]="montant" required/>
+            <div [hidden]="!(editForm.controls.amount?.dirty && (editForm.controls.amount?.invalid || editForm.controls.amount?.value < montant))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+                <small class="form-text text-danger" *ngIf="editForm.controls.amount?.value < montant">
+                    Le montant doit être inférieur ou égal à la pénalité
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

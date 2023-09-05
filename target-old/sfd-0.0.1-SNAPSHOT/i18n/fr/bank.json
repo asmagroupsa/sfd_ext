@@ -1,0 +1,29 @@
+{
+    "sfdApp": {
+        "bank": {
+            "home": {
+                "title": "Banques",
+                "createLabel": "Créer une nouvelle Banque",
+                "createOrEditLabel": "Editer une Banque",
+                "search": "Recherche une banque"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Banque {{ id }} ?"
+            },
+            "detail": {
+                "title": "Banque"
+            },
+            "sfdReference": "Réference du Sfd",
+            "libelle": "Libellé",
+            "phone": "Téléphone",
+            "bankAccounts": "Compte en Banque"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "bank": {
+            "created": "Une nouvelle banque a été créé ",
+            "updated": "La banque a été mise à jour",
+            "deleted": "La banque a été supprimée"
+        }
+    }
+}

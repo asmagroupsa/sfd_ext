@@ -1,0 +1,37 @@
+{
+    "sfdApp": {
+        "compensation" : {
+            "home": {
+                "title": "Compensations",
+                "createLabel": "Create a new Compensation",
+                "createOrEditLabel": "Create or edit a Compensation",
+                "search": "Search for Compensation"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Compensation {{ id }}?"
+            },
+            "detail": {
+                "title": "Compensation"
+            },
+            "agenceReference": "Agence Reference",
+            "amount": "Amount",
+            "bankAccount": "Bank Account",
+            "consommer": "Consommer",
+            "createdDate": "Created Date",
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "lastModifiedDate": "Last Modified Date",
+            "operations": "Operations",
+            "commissions": "Commissions",
+            "client": "Client",
+            "compensationType": "Compensation Type"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "compensation" : {
+            "created": "A new Compensation is created ",
+            "updated": "A Compensation is updated ",
+            "deleted": "A Compensation is deleted "
+        }
+    }
+}

@@ -1,0 +1,58 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="mySettingSFDLabel" [jhiFnmTranslate]="settingSFD.id ? 'sfdApp.settingSFD.home.createOrEditLabel' : 'sfdApp.settingSFD.home.createLabel'">Create or edit a Setting SFD</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!--<div class="form-group" [hidden]="!settingSFD.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="settingSFD.id" readonly />
+        </div>-->
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.settingSFD.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="settingSFD.name" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.settingSFD.valeur" for="field_valeur">Valeur</label>
+            <input type="text" class="form-control" name="valeur" id="field_valeur" [(ngModel)]="settingSFD.valeur" required maxlength="100" data-length="100" />
+            <div [hidden]="!(editForm.controls.valeur?.dirty && editForm.controls.valeur?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.valeur?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.valeur?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                   This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.settingSFD.sfd" for="field_sfd">Sfd</label>
+            <select class="ui fluid search dropdown" id="field_sfd" name="sfd" [(ngModel)]="settingSFD.sfdId" required>
+                <option [ngValue]="sFDOption.id" *ngFor="let sFDOption of sfds; trackBy: trackSFDById">{{sFDOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.sfd?.dirty && editForm.controls.sfd?.invalid)">
+            <small class="form-text text-danger" [hidden]="!editForm.controls.sfd?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,111 @@
+<div class="ui dimmer" [ngClass]="{'active':!hideLoader}">
+    <div class="ui loader"></div>
+</div>
+
+<div class="container" style="margin: auto;" *ngIf="hideLoader">
+    <div class="m" id="print" #printZone
+        style="display: inline-block; background-color: white; font-family: 'Times New Roman', Times, serif; font-size: 23px; width: 100%;"
+        class="browser-default">
+        <div class="print-header">
+            <span style="text-align:justify" *ngIf="_DePage.entete !=null ;else elseBlock">
+                <img [src]="imageUrl+_DePage.entete" alt="entete de page">
+            </span>
+            <ng-template #elseBlock>
+                <img src="../../../content/images/header.jpg" alt="logo">
+            </ng-template>
+        </div>
+
+        <div class="p-wrapper">
+            <p class="page-break">
+                <span class="elm"></span>
+            </p>
+            <div class="row top-space">
+                <div class="col-md-12">
+                    <br><br>
+                    <table class="table table-bordered bx-sizing">
+                        <tbody>
+                            <tr class="bx-shadow">
+                                <td class="text-align-center bold font-size-x-large" style="color:gray; "> DEMANDE DE
+                                    CREDIT</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--  Custumer section-->
+            <div class="row">
+                <div class="col-md-12">
+                    <br><br>
+                    <table class="table table-bordered" width="100%">
+
+                        <tr>
+                            <td> Code Client </td>
+                            <td> {{data.client.code}}</td>
+                            <td>Nom Client</td>
+                            <td> {{data.clientLib}}</td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2"> Produit de la demande :</td>
+                            <td colspan="2"> {{data.produit.libelle}}</td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td colspan="2">Montant de la demande</td>
+                            <td colspan="2"> {{data.amount | currency:'XAF':true:'2.0'}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"> Date de la Demande </td>
+                            <td colspan="2"> {{data.createdDate | date:'mediumDate'}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Durée de la demande </td>
+                            <td colspan="2">{{data.duration}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"> Périodicité </td>
+                            <td colspan="2">{{data.periodicity.libPeriodicite}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"> Différé </td>
+                            <td colspan="2"> {{data.nbrDiffere }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Expression de la demande </td>
+                            <td colspan="2"> {{data.expressionRequest}} </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Objet de la demande </td>
+                            <td colspan="2">{{data.requestObject.name}}</td>
+                        </tr>
+                    </table>
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="print-footer">
+            <!-- Page: -->
+            <span style="text-align:justify" *ngIf="_DePage.piedPage !=null;else elseBlock2">
+                <img [src]="imageUrl+_DePage.piedPage" alt="pied de page" width="100%" height="50">
+            </span>
+            <ng-template #elseBlock2>
+                <img src="../../../content/images/footer.jpg" alt="logo" width="100%" height="50">
+            </ng-template>
+        </div>
+
+    </div>
+    <div class="" style="height:400px">
+    </div>
+    <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+    <button class="btn-floating btn-large waves-effect waves-light red"
+        style="position: fixed; bottom: 25px; right: 25px;" (click)="printAsPdf('membership-form')">
+        <i class="material-icons">print</i>
+    </button>
+</div>

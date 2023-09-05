@@ -1,0 +1,31 @@
+{
+    "audits": {
+        "title": "Audits",
+        "filter": {
+            "title": "Filtrer par date",
+            "from": "De",
+            "to": "à",
+            "button": {
+                "weeks": "Semaines",
+                "today": "Aujourd'hui",
+                "clear": "Effacer",
+                "close": "Fermer"
+            }
+        },
+        "table": {
+            "header": {
+                "principal": "Utilisateur",
+                "date": "Date",
+                "status": "Statue",
+                "data": "Autres données"
+            },
+            "data": {
+                "remoteAddress": "Adresse Distante :"
+            }
+        },
+        "widget": {
+            "productPerRequest": "Produits par demande",
+            "ligneCreditByPartner": "Ligne de credit par bailleur"
+        }
+    }
+}

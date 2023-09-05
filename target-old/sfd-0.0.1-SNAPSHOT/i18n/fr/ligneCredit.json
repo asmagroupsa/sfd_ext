@@ -1,0 +1,50 @@
+{
+    "sfdApp": {
+        "ligneCredit": {
+            "home": {
+                "title": "Les ligne de crédits",
+                "createLabel": "Créer une nouvelle ligne de crédit",
+                "createOrEditLabel": "Editer une ligne de crédit",
+                "search": "Rechercher une ligne de crédit"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la ligne de crédit {{ id }} ?"
+            },
+            "detail": {
+                "title": "Ligne de crédit"
+            },
+            "date": "Date",
+            "sfdReference": "Réference du SFD",
+            "amount": "Montant",
+            "libelle": "Libellé",
+            "code": "Code",
+            "duration": "Durée",
+            "createdDate": "Créer le",
+            "createdBy": "Créer par",
+            "lastModifiedBy": "Modifier par",
+            "lastModifiedDate": "Modifier le",
+            "startDate": "Date de début",
+            "decaisser": "Décaisser",
+            "remboursement": "Remboursement",
+            "modeEcheance": "Mode Echeance",
+            "differe": "Différé",
+            "tauxInteret": "Taux d'interêt",
+            "notificationSFD": "Notification SFD",
+            "credits": "Credits",
+            "phases": "Phases",
+            "echeancesSFD": "Echeances du SFD",
+            "revolvingRequests": "Revolving Requests",
+            "budget": "Budget",
+            "periodicity": "Periodicité",
+            "partner": "Bailleur",
+            "tauxSFDs": "Taux SFD"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "ligneCredit": {
+            "created": "Une nouvelle ligne de Credit a été créé ",
+            "updated": "La Ligne de Credit  a été mis à jour",
+            "deleted": "La Ligne de Credit  a été supprimé"
+        }
+    }
+}

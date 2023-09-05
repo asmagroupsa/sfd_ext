@@ -1,0 +1,38 @@
+<div>
+    <br>
+    <h2>
+        <span>Ressources du profil: {{profil.name}}</span>
+        <button class="btn btn-primary float-right" [routerLink]="['/entity/ressource', {outlets: {popup: ['ressource-new']}}]" [queryParams]="{profil: profil.name}">
+            <span class="fa fa-plus"></span>
+        </button>
+    </h2>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Code</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="profil.ressources;else elseBlock">
+                <tr *ngFor="let ressource of profil.ressources">
+                    <td>{{ressource.name}}</td>
+                    <td>{{ressource.code}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" (click)="deleteProfileRessource(ressource.id)" class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

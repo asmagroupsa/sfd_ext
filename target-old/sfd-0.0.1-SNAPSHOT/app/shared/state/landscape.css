@@ -1,0 +1,24 @@
+@media print {
+    @page{
+        size:landscape
+    }
+    .mtop{
+        margin-top: 20px;
+        color: red;
+    }
+
+    .hopes{
+        margin-top: 120px;
+    }
+    .marge-wrapper {
+        margin-left:40px;
+        margin-right:80px;
+      }
+    .l-wrapper{
+        margin-left:2%;
+        margin-right:2%
+      }
+    .top-marg{
+          margin-top:-45px;
+    }
+}

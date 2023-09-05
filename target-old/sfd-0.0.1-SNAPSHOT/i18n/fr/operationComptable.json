@@ -1,0 +1,36 @@
+{
+    "sfdApp": {
+        "operationComptable": {
+            "home": {
+                "title": "OperationComptables",
+                "createLabel": "Créer une nouvelle Operation Comptable",
+                "createOrEditLabel": "Editer une Operation Comptable",
+                "search": "Recherche pour Operation Comptable"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer l'Operation Comptable {{ id }} ?"
+            },
+            "detail": {
+                "title": "Operation Comptable"
+            },
+            "agenceReference": "Agence Reference",
+            "libelle": "Libelle",
+            "debit": "Debit",
+            "credit": "Credit",
+            "date": "Date",
+            "numPiece": "Numéro Piece",
+            "comptabiliser": "Comptabiliser",
+            "referenceCaisse": "Reference Caisse",
+            "journalReference": "Journal Reference",
+            "userReference": "Reference Utilisateur",
+            "compteComptable": "Compte Comptable"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "operationComptable": {
+            "created": "Une nouvelle Operation Comptable a été créé ",
+            "updated": "L'Operation Comptable  a été mis à jour",
+            "deleted": "L'Operation Comptable  a été supprimé"
+        }
+    }
+}

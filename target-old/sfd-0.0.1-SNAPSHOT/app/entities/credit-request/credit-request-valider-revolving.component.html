@@ -1,0 +1,41 @@
+<div style="margin-left: 25%; width: 50%; background-color: #ececec; box-shadow: 12px 12px 2px 1px rgba(223, 223, 223, 0.2);">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm" style=" width: 90%; margin-left: 10px;">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label for="field_typeValide" class="oblige">Type validation</label>
+            <div class="ui icon input field" style="width: 100%;">
+                <select class="ui fluid search dropdown" id="field_typeValide" name="typeValide" [(ngModel)]="typeValide" required>
+                <option value="null" disabled>Choisissez le type validation</option>
+                <!-- <option value="MISE_EN_ATTENTE" >Mise en attente</option> -->
+                <option value="GROUP" >GROUPE</option>
+                <option value="INDIVIDU" >INDIVIDU</option>
+                <!-- <option value="REJETER" >Rejeter</option> -->
+            </select>
+                <i class="icon"></i>
+            </div>
+        </div>
+
+        <div class="input-field">
+            <label class="form-control-label active" for="field_montant">Montant Validation</label>
+            <input type="number" class="form-control" name="montant" id="field_montant" [(ngModel)]="montant" min="0" />
+        </div>
+
+        <!-- <div class="input-field">
+            <label class="form-control-label active" for="field_result">Resultat</label>
+            <input type="text" class="form-control" name="result" id="field_result" [(ngModel)]="result" />
+        </div> -->
+        <div class="input-field">
+            <label class="form-control-label active oblige" for="field_explanation">Observation</label>
+            <textarea class="materialize-textarea" name="explanation" id="field_explanation" [(ngModel)]="explanation" required></textarea>
+        </div>
+        <hr>
+        <button (click)="backClicked()" type="button" class="btn btn-info">
+            <span class="fa fa-arrow-left"></span>&nbsp;<span > Back</span>
+        </button>&nbsp;&nbsp;&nbsp;
+        <button type="button" (click)="save()" replaceUrl="true" class="btn btn-primary">
+          <span class="fa fa-pencil"></span>&nbsp;Valider
+        </button>
+    </form>
+</div>
+
+<div id="snackbar">{{msg}}</div>

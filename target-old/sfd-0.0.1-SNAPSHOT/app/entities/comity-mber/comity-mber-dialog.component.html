@@ -1,0 +1,51 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myComityMberLabel" [jhiFnmTranslate]="comityMber.id ? 'sfdApp.comityMber.home.createOrEditLabel' : 'sfdApp.comityMber.home.createLabel'">Create or edit a Comity Mber</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!--  <div class="form-group" *ngIf="agences.length > 1">
+            <label jhiFnmTranslate="sfdApp.client.agence" for="field_agence" class="oblige">Agence</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_agence" name="agence" [(ngModel)]="comityMber.agenceReference" required>
+                <option [ngValue]="null" disabled>Choisissez l'agence</option>
+                <option [ngValue]="agence.codeAgence" *ngFor="let agence of agences">{{agence.name}}</option>
+            </select>
+        </div> -->
+        <div class="form-group" *ngIf="!comityMber.id">
+            <label jhiFnmTranslate="sfdApp.comityMber.sfdUsers" for="field_sfdUsers" class="oblige">Sfd Users</label>
+            <select class="ui fluid search dropdown" id="field_sfdUsers" name="sfdUsers" [(ngModel)]="comityMber.user" required>
+                <!-- <option [ngValue]="null">Aucun</option> -->
+                <option [ngValue]="serviceUserOption.last_name+' '+serviceUserOption.first_name" *ngFor="let serviceUserOption of serviceusers; trackBy: trackServiceUserById">{{serviceUserOption.last_name}} {{serviceUserOption.first_name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.comityMber.typeMembre" for="field_typeMembre">Type Membre</label>
+            <select class="ui fluid search dropdown" id="field_typeMembre" name="typeMembre" [(ngModel)]="comityMber.typeMembreId">
+                <option [ngValue]="null">Aucun</option>
+                <option [ngValue]="typeMembreOption.id" *ngFor="let typeMembreOption of typemembres; trackBy: trackTypeMembreById">{{typeMembreOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="switch">
+                <label>
+                    {{comityMber.status ? 'Membre de comité activé' : 'Membre de comité désactivé'}}:
+                    <input type="checkbox" name="status" id="field_status" [(ngModel)]="comityMber.status" />
+                    <span class="lever"></span>
+                </label>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

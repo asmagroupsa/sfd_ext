@@ -1,0 +1,31 @@
+{
+    "sfdApp": {
+        "bankAccount": {
+            "home": {
+                "title": "Comptes En Banque",
+                "createLabel": "Créer un nouveau compte en banque",
+                "createOrEditLabel": "Editer un compte en Banque",
+                "search": "Rechercher un compte en Banque"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le compte en banque {{ id }} ?"
+            },
+            "detail": {
+                "title": "Compte en banque"
+            },
+            "sfdReference": "Réference du SFD",
+            "bankNumber": "Numéro Bancaire",
+            "managerName": "Nom du gestionnaire",
+            "managerContact": "Contact du gestionnaire",
+            "date": "Date",
+            "bank": "Banque"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "bankAccount": {
+            "created": "Un nouvel Compte En Banque a été créé ",
+            "updated": "Compte En Banque  Mis à jour",
+            "deleted": "Compte En Banque  Supprimé"
+        }
+    }
+}

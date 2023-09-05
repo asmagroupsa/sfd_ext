@@ -1,0 +1,50 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPosteLabel" [jhiFnmTranslate]="phase.id ? 'sfdApp.phase.home.createOrEditLabel' : 'sfdApp.phase.home.createLabel'">Create or edit a Poste</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.phase.libelle" for="field_name"></label>
+            <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="phase.libelle" required>
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <!-- <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength"
+                    translateValues="{ max: 100 }">
+                   This field cannot be longer than 100 characters.
+                </small> -->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="oblige" jhiFnmTranslate="sfdApp.phase.produit" for="field_produit"></label>
+            <div class="ui icon input field" [ngClass]="{loading: loading.produit}" style="width: 100%;">
+                <select required class="ui fluid search dropdown sfd-dropdown" id="field_produit" name="produit" [(ngModel)]="phase.produitId">
+                    <option [ngValue]="null" disabled></option>
+                    <option [ngValue]="p.id" *ngFor="let p of produits">{{p.libelle}} - {{p.code}}</option>
+                </select>
+                <i class="icon"></i>
+            </div>
+        </div>
+        <br>
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.phase.montant" for="field_amountMax"></label>
+            <input type="text" class="form-control" name="amountMax" id="field_amountMax" [ngModel]="phaseMontant" required (formatNumberMyMiller)="phase.montant = $event" required>
+        </div>
+        <div>
+            <input type="checkbox" name="status" id="status" [(ngModel)]="phase.status">
+            <label for="status">Active</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

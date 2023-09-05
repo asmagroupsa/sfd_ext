@@ -1,0 +1,27 @@
+{
+    "sfdApp": {
+        "bankAccountClient": {
+            "home": {
+                "title": "Compte bancaires",
+                "createLabel": "Créer un nouveau compte bancaire",
+                "createOrEditLabel": "Editer un compte bancaire",
+                "search": "Recherche un compte bancaire"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le compte bancaire {{ id }} ?"
+            },
+            "detail": {
+                "title": "Compte bancaires"
+            },
+            "numAccount": "Numéro du compte",
+            "bank": "Banques"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "bankAccountClient": {
+            "created": "Un nouveau compte bancaire a été créé ",
+            "updated": "Le compte bancaire a été mise à jour",
+            "deleted": "Le compte bancaire a été supprimée"
+        }
+    }
+}

@@ -1,0 +1,74 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.creditRequestStatus.home.title">Credit Request Statuses</span>
+        <button class="btn btn-primary float-right create-credit-request-status" [routerLink]="['/entity','credit-request-status', { outlets: { popup: ['credit-request-status-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.creditRequestStatus.home.createLabel">
+            Create new Credit Request Status
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.creditRequestStatus.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="creditRequestStatuses;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="name"><span jhiFnmTranslate="sfdApp.creditRequestStatus.name">Name</span> <span class="fa fa-sort"></span></th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let creditRequestStatus of creditRequestStatuses  | recherche:currentSearch ;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','credit-request-status', creditRequestStatus.id ]">{{creditRequestStatus.id}}</a></td> -->
+                    <td>{{creditRequestStatus.name}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['/entity','credit-request-status', creditRequestStatus.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.view">View</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','credit-request-status', { outlets: { popup: 'credit-request-status/'+ creditRequestStatus.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.edit">Edit</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','credit-request-status', { outlets: { popup: 'credit-request-status/'+ creditRequestStatus.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.delete">Delete</span> -->
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="creditRequestStatuses && creditRequestStatuses.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>

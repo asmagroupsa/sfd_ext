@@ -1,0 +1,76 @@
+<div *ngIf="echeancesClient">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.echeancesClient.detail.title">Echeances Client</span> {{echeancesClient.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.libelle">Libellé</span></dt>
+        <dd>
+            <span>{{echeancesClient.libelle}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.numEcheance">Num Echeance</span></dt>
+        <dd>
+            <span>{{echeancesClient.numEcheance}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.echeanceDate">Echeance Date</span></dt>
+        <dd>
+            <span>{{echeancesClient.echeanceDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.capital">Capital</span></dt>
+        <dd>
+            <span>{{echeancesClient.capital}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.interet">Interet</span></dt>
+        <dd>
+            <span>{{echeancesClient.interet}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.epargne">Epargne</span></dt>
+        <dd>
+            <span>{{echeancesClient.epargne}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.total">Total</span></dt>
+        <dd>
+            <span>{{echeancesClient.total}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.payer">Payer</span></dt>
+        <dd>
+            <span>{{echeancesClient.payer}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{echeancesClient.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{echeancesClient.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{echeancesClient.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{echeancesClient.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.compte">Compte</span></dt>
+        <dd>
+            <div *ngIf="echeancesClient.compteId">
+                <a [routerLink]="['/entity','compte-client', echeancesClient.compteId]">{{echeancesClient.compteId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.echeancesClient.echeancierClient">Echeancier Client</span></dt>
+        <dd>
+            <div *ngIf="echeancesClient.echeancierClientId">
+                <a [routerLink]="['/entity','echeancier-client', echeancesClient.echeancierClientId]">{{echeancesClient.echeancierClientId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','echeances-client', { outlets: { popup: 'echeances-client/'+ echeancesClient.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

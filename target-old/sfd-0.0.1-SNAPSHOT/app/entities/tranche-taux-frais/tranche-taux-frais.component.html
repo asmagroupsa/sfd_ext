@@ -1,0 +1,88 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.trancheTauxFrais.home.title">Tranche Taux Frais</span>
+        <button class="btn btn-primary float-right create-tranche-taux-frais" [routerLink]="['/entity','tranche-taux-frais', { outlets: { popup: ['tranche-taux-frais-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.trancheTauxFrais.home.createLabel">
+            Create new Tranche Taux Frais
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.trancheTauxFrais.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="trancheTauxFrais;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="minInterval"><span jhiFnmTranslate="sfdApp.trancheTauxFrais.minInterval">Min Interval</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="maxInterval"><span jhiFnmTranslate="sfdApp.trancheTauxFrais.maxInterval">Max Interval</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="valeur"><span jhiFnmTranslate="sfdApp.trancheTauxFrais.valeur">Valeur</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="type"><span jhiFnmTranslate="sfdApp.trancheTauxFrais.type">Type</span> <span class="fa fa-sort"></span></th>
+                    <!-- <th jhiSortBy="createdDate"><span jhiFnmTranslate="sfdApp.trancheTauxFrais.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>-->
+                    <!-- <th jhiSortBy="createdBy"><span jhiFnmTranslate="sfdApp.trancheTauxFrais.createdBy">Created By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedBy"><span jhiFnmTranslate="sfdApp.trancheTauxFrais.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedDate"><span jhiFnmTranslate="sfdApp.trancheTauxFrais.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th> -->
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let trancheTauxFrais of trancheTauxFrais  | recherche:currentSearch ;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','tranche-taux-frais', trancheTauxFrais.id ]">{{trancheTauxFrais.id}}</a></td> -->
+                    <td>{{trancheTauxFrais.minInterval}}</td>
+                    <td>{{trancheTauxFrais.maxInterval}}</td>
+                    <td>{{trancheTauxFrais.valeur}}</td>
+                    <td jhiFnmTranslate="{{'carmesfnmserviceApp.TauxFraisType.' + trancheTauxFrais.type}}">{{trancheTauxFrais.type}}</td>
+                    <!-- <td>{{trancheTauxFrais.createdDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>{{trancheTauxFrais.createdBy}}</td> -->
+                    <!-- <td>{{trancheTauxFrais.lastModifiedBy}}</td> -->
+                    <!-- <td>{{trancheTauxFrais.lastModifiedDate | date:'dd-MM-y'}}</td> -->
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['/entity','tranche-taux-frais', trancheTauxFrais.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.view">View</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','tranche-taux-frais', { outlets: { popup: 'tranche-taux-frais/'+ trancheTauxFrais.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.edit">Edit</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','tranche-taux-frais', { outlets: { popup: 'tranche-taux-frais/'+ trancheTauxFrais.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.delete">Delete</span> -->
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="trancheTauxFrais && trancheTauxFrais.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,460 @@
+<div class="ui dimmer" *ngIf="!endLoad">
+   <!--  <div class="ui loader"></div> -->
+    <div class="ui active centered inline loader">
+        {{principal.loading}}
+    </div>
+</div>
+
+<div style="margin: auto; padding:auto" class="container" *ngIf="endLoad">
+    <div id="print" #printZone style="display: inline-block; background-color: white; font-family: 'Times New Roman', Times, serif; margin:100px; font-size: medium;"
+        class="browser-default">
+
+        <!-- <div class="print-header">
+            <span style="text-align:justify" *ngIf="_DePage.entete != null ;else elseBlock">
+                <img [src]="imageUrl+_DePage.entete" alt="entete de page">
+            </span>
+            <ng-template #elseBlock>
+                <img src="../../../content/images/header.jpg" alt="logo">
+            </ng-template>
+        </div> -->
+
+        <div class="p-wrapper" style="margin-left: 40px; margin-right: 40px;padding:0px">
+            <p class="page-break">
+                <span class="elm"></span>
+            </p>
+            <br><br>
+            <table class="table table-bordered bx-sizing">
+                <tr class="bx-shadow">
+                    <td>
+                        <h1 class="text-align-center bold font-size-x-large" style="color:gray; ">CONTRAT DE PRET</h1>
+                    </td>
+                </tr>
+            </table>
+            <br><br>
+            <table class="table " style=" text-align:justify; font-family: 'Times New Roman', Times, serif;  line-height: 1.4;">
+                <tr style="text-align:justify">
+                    <td style="font-weight: 23px; width:28%; height:100%">
+                        <span style="text-decoration: none; font-weight:bold">TYPE DE CREDIT :</span>
+                        <br>
+                        <span>{{data.naturecredit}}</span>
+                        <br>
+                        <br>
+                        <span style="font-weight:bold">LE PRETEUR</span>
+                        <br>
+                        <span>{{sfdName}}</span>
+                        <br>
+                        <br>
+                        <span style="font-weight:bold">L'EMPRUNTEUR</span>
+                        <br>
+                        <span> Groupe {{data.name}}</span>
+                        <br>
+                        <br>
+                        <span style="font-weight:bold">LA CAUTION</span>
+                        <br>
+                        <span>Groupe {{data.president}}</span>
+                        <br>
+                        
+                       
+                    </td>
+                    <td>
+                        <div style="text-align:justify">
+                            <span style="font-weight:bold">ENTRE</span>
+                            <br>
+                            <span style="text-align:justify" >
+                                {{data.president}} Président(e) du Groupe {{data.name}} sis à {{data.quartier}}, dans la Commune de: {{data.commune}}
+                                département de  {{data.departement}} demeurant et domicilié(e) à {{data.domicile}};
+                                Ci-après dénommée la <span style="font-weight:bold"> "LA CAUTION"; </span> 
+                            </span>
+                           
+                            <br>
+                            <br>
+                            <span style="font-weight: bold"> D’UNE PART,</span>
+                            <br>
+                            <span>ET</span>
+                            <br>
+                            <br>
+                            <span style="text-align:justify">{{sfdName}}, représentée par le Chef d'Agence Mr(Mme) {{data.nameCa}} de l'agence {{data.agenceName}} sise à {{data.adressAgence}},
+                                Tel: {{data.phoneAgence}} ci-après dénommé <span style="font-weight: bold">"LE PRETEUR".</span>
+                            </span>
+                        </div>
+                        <br>
+                        <p>
+                            <span style="font-weight:bold">D’AUTRE PART, </span>
+                            <br>
+                            <br>
+                            <span>IL A ETE CONVENU CE QUI SUIT:</span>
+                        </p>
+                        <div style="text-align:justify;">
+                            <span style=" font-weight: bold">EXPOSE DES MOTIFS</span>
+                            <br>
+                            
+                            <span>Pour participer au développement des couches les plus pauvres de notre société, {{sfdName}}
+                                a noué un partenariat avec le Fonds National de la Microfinance afin d’exécuter le programme
+                                du Micro crédit Mobile. 
+                            </span>
+                            <br>
+                            <span>Au titre de ce partenariat, {{sfdName}} a reçu un fonds d’exécution en phase pilote afin de financer
+                                les différents groupes solidaires éligibles. Ainsi, pour assurer la garantie et le recouvrement
+                                ponctuel et intégral desdits fonds, Mme/Mr {{data.president}} se porte caution solidaire et indivisible
+                                de tous engagements pour un montant de {{montant_en_lettre}} ({{data.montant}}) Francs CFA au profit
+                                
+                                    du Groupe {{data.name}}
+                                
+                               
+                            </span>
+                            <br>
+                            <span>
+                                La présente convention de cautionnement s’articule autour des dispositions ci-après:
+
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <p class="page-break">
+                <span class="elm"></span>
+            </p>
+            <div style="text-align:justify;  font-family: 'Times New Roman', Times, serif;">
+
+                <span style="font-weight:bold">Article 1: Engagement de la caution</span>
+                <br>
+                <span>
+                    
+                        Mme/Mr {{data.president}}, déclare par les présentes se constituer CAUTION
+                        du Groupe {{data.name}} {{hole}}
+                    
+                    
+                    à raison de toutes les sommes qui peuvent ou pourront être dues à la Microfinance par
+                   <!--  <span *ngIf="data.president !='';else elseBlock2"> -->
+                        le Groupe {{data.name}},
+                   <!--  </span> -->
+                    <!-- <ng-template #elseBlock2>
+                        <span>
+                            Mr/Mme {{data.name}},
+                        </span>
+                    </ng-template> -->
+                </span>
+
+
+                <span>
+                    pour quelque cause que ce soit à concurrence de la somme de {{montant_en_lettre}} ({{data.montant | currency:'XAF':true:'2.0'}});
+                </span>
+                <br><br>
+                <span style="font-weight:bold">Article 2 : Obligation de la caution</span>
+                <br>
+                <span>En raison du caractère solidaire du présent cautionnement la Caution renonce au bénéfice de discussion et
+                    de division. {{sfdName}}. pourra donc exiger de Mme/Mr {{data.president}} le remboursement immédiat de la totalité
+                    des sommes dues par
+                    <span *ngIf="data.president !='';else elseBlock3">
+                        le Groupe {{data.name}} {{hole}}
+                    </span>
+                    <ng-template #elseBlock3>
+                        <span>
+                            Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template>
+                    cautionné(e) sans avoir à engager de poursuites à l’encontre de ce dernier.
+                </span>
+                <br>
+                <br>
+                <span style="font-weight:bold">Article 3 :Exigibilité</span>
+                <br>
+                <span>
+                    Toutefois, Mme/Mr {{data.president}} ne peut être poursuivi(e) qu’après mise en demeure infructueuse
+                    <span *ngIf="data.president !='';else elseBlock4">
+                        du Groupe {{data.name}} {{hole}}
+                    </span>
+                    <ng-template #elseBlock4>
+                        <span>
+                            de Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template>. Cependant celui-ci sera appelé à la cause entre {{sfdName}} et le Groupe{{data.name}}.
+                </span>
+                <br>
+                <span>{{sfdName}} pourra toujours rendre le présent cautionnement exigible en cas d’inexécution par
+                    <span *ngIf="data.president !='';else elseBlock5">
+                        le Groupe {{data.name}} {{hole}}
+                    </span>
+                    <ng-template #elseBlock5>
+                        <span>
+                            Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template>
+                    {{hole}} de ses obligations pour quelque cause que ce soit.
+
+                    <br>
+
+                    Mme/Mr {{data.president}}{{hole}} sera alors tenu(e) d’exécuter et de payer à {{sfdName}},
+                    à sa demande, le montant intégral des sommes dues sans pouvoir se prévaloir du maintien du terme, des
+                    remises ou délais qui pourraient profiter
+                    <span *ngIf="data.president !='';else elseBlock6">
+                        au Groupe {{data.name}} {{hole}}
+                    </span>
+                    <ng-template #elseBlock6>
+                        <span>
+                            à Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template>
+                    {{hole}} notamment dans le cadre d’une dissolution. Sauf décision contraire de {{sfdName}}, toutes sommes dues à la Microfinance
+                    en principal, intérêt, commissions, frais et accessoires au titre des crédits cautionnés deviendront
+                    immédiatement exigibles dès réception par Mr/Mme {{data.president}}, de la visite d’un agent de recouvrement ou d’une
+                    lettre recommandée avec accusé de réception ou par exploit d’huissier.
+                </span>
+                <br>
+                <br>
+
+                <span style="font-weight:bold">Article 4 : Preuve des créances</span>
+                <br>
+                <span>La preuve de l’existence des créances résultera notamment de la fiche de décaissement
+                    <span *ngIf="data.president !='';else elseBlock7">
+                        du Groupe {{data.name}} {{hole}}
+                    </span>
+                    <ng-template #elseBlock7>
+                        <span>
+                            de Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template>, du dossier de crédit et même des divers actes ou les écritures figurant sur ses registres de crédits
+                    et ou ses livres comptables qui seront réputés avoir valeur de titres de créances.
+                </span>
+                <br>
+                <!-- <span> -->
+                <span>La preuve de l’existence des créances résultera notamment de la fiche de décaissement.
+                    <span *ngIf="data.president !='';else elseBlock7">
+                         Mr/Mme {{data.president}} {{hole}}
+                    </span>
+                    <ng-template #elseBlock7>
+                        <span>
+                            Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template>
+
+                    {{hole}} reconnaît que le présent acte constitutif du dossier de crédit et de l’obligation principale, est annexé à la convention
+                    de prêt et du nantissement de stock.
+                </span>
+                <br>
+                <span>
+                    {{sfdName}} déclare connaître la situation financière et juridique du débiteur à la date de signature des présentes.
+                </span>
+                <br>
+                <br>
+
+
+
+                <p class="page-break">
+                    <span class="elm"></span>
+                </p>
+                <span style="font-weight:bold">Article 5 : Révocation du cautionnement</span>
+                <br>
+                <span>Le présent engagement de cautionnement reste en vigueur tant que
+                    <span *ngIf="data.president !='';else elseBlock8">
+                        le Groupe {{data.name}} {{hole}}
+                    </span>
+                    <ng-template #elseBlock8>
+                        <span>
+                            Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template>
+                    {{hole}} débiteur principal, restera devoir une quelconque somme à {{sfdName}}. et ce jusqu’à révocation par la caution.
+                </span>
+                <br>
+                <span>Ce cautionnement sera valable jusqu’à révocation dûment signifiée dans les formes ci-après indiquées : cette
+                    révocation n’en portera décharge de que par le paiement dans les limites ci-dessus de toutes les sommes
+                    que
+                    <span *ngIf="data.president !='';else elseBlock9">
+                        le Groupe {{data.name}} {{hole}}
+                    </span>
+                    <ng-template #elseBlock9>
+                        <span>
+                            Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template>
+                    {{hole}} pourra devoir à {{sfdName}}.
+                </span>
+
+               
+                <span>
+                    en raison du contrat ou des engagements y compris les cautions délivrées par {{sfdName}} et les engagements directs ou indirects
+                    dont l’origine sera antérieure à la date à laquelle prendra effet ladite révocation et notamment le reliquat
+                    de tous comptes crédits arrêtés de plein droit à cette date et de tous engagements en cours.
+                </span>
+                <span>Cette révocation devra s’effectuer par une lettre recommandée avec accusé de réception à {{sfdName}} pour
+                    lui faire part de sa décision de révoquer le présent engagement.
+                </span>
+                <br>
+                <br>
+                <br>
+
+
+
+                <span style="font-weight:bold">Article 6 : Effet de la révocation </span>
+                <br>
+                <span>La révocation prendra effet dès réception de la lettre de révocation; les obligations de la caution de {{hole}}  Mr/Mme {{data.president}},
+                    ne seront déterminées qu’à terme sans pouvoir excéder le montant de la position débitrice lors de la
+                    révocation mais en tenant compte de la liquidation des opérations en cours à cette date et dénouées ultérieurement.
+                </span>
+                <br>
+                <span>Si, en raison de cette révocation, {{sfdName}} décidait de réduire ou d’ interrompre les concours consentis
+                    <span *ngIf="data.president !='';else elseBlock10">
+                        au Groupe {{data.name}}
+                    </span>
+                    <ng-template #elseBlock10>
+                        <span>
+                            à Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template>
+                    et d’en demander le remboursement, elle devra respecter un délai de préavis.
+                </span>
+                <br>
+                <span>La caution,
+                    <span *ngIf="data.president !='';else elseBlock10">
+                        Mme/Mr {{data.president}}
+                    </span>
+                    <ng-template #elseBlock10>
+                        <span>
+                            Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template>
+                    {{hole}} , resterait alors tenue, dans les limites de son engagement, des obligations contractées par le débiteur,{{hole}}
+                    <span *ngIf="data.president !='';else elseBlock10">
+                        le Groupe {{data.name}},
+                    </span>
+                    <ng-template #elseBlock10>
+                        <span>
+                            Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template>
+                    postérieurement à la révocation et jusqu’à l’expiration de la période de préavis, à charge pour {{sfdName}} de notifier
+                    <span *ngIf="data.president !='';else elseBlock10">
+                        au Groupe {{data.name}}
+                    </span>
+                    <ng-template #elseBlock10>
+                        <span>
+                            à Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template>
+                    {{hole}}, sa décision dans les trente (30) jours qui suivront la réception de la lettre de révocation.
+                </span>
+
+                <br><br><br>
+                <span style="font-weight:bold">
+                    
+                     Article 7 : Concours de garanties
+                </span>
+                <br>
+                <span>
+                    - L’épargne stratégique constitué par
+                    <span *ngIf="data.president !='';else elseBlock11">
+                        les membres du Groupe {{data.name}} {{hole}}
+                    </span>
+                    <ng-template #elseBlock11>
+                        <span>
+                            à Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template> {{hole}} ne sera restitué que si la bénéficiaire, la caution et l’ensemble des autres bénéficiaires de
+                    la commune de ne sont pas défaillants à l’échéance ;
+                </span>
+                <br>
+                <span>- garantie résultant du présent acte n’affecte et ne pourra affecter la nature et l’étendue de tous engagements
+                    et toutes garanties, réels, ou personnels, qui ont pu ou pourront être contractés ou fournis 
+                    <br><br><br>
+                    <p class="page-break">
+                        <span class="elm"></span>
+                    </p>
+                    en faveur de {{sfdName}}, soit par  le Groupe {{data.name}}
+                    <!-- <span *ngIf="data.president !='';else elseBlock12">
+                        {{hole}}
+                    </span> -->
+                   <!--  <ng-template #elseBlock12>
+                        <span>
+                            Mr/Mme {{data.name}}
+                        </span>
+                    </ng-template> -->
+                    , soit par  Mr/Mme {{data.president}}, soit par tout tiers, le montant de la présente caution s’ajoutant au contraire
+                    auxdits engagements et garanties.
+                </span>
+
+
+                
+                <span style="font-weight:bold">
+                     Article 8 : Frais et accessoires
+                </span>
+                <br>
+                <span>Tous les frais de justice et de contentieux ou d’actes d’huissier qu’ engendrerait le non respect des engagements
+                    pris par la caution lui seront imputés.
+                </span>
+                <br>
+                <br>
+
+
+                <!-- <p class="page-break"></p> -->
+
+                <span style="font-weight:bold">Article 9 : Election de domicile</span>
+                <br>
+                <span>Pour l’exécution des présentes et leurs suites et notamment pour la validité de tout envoi postal ou de toute
+                    notification qui s’avérait nécessaire, {{hole}} fait élection de domicile à l’adresse ci-dessous indiquée
+                    :
+                </span>
+                <br>
+                <br>
+                
+                <span style="font-weight:bold">Article 10 : Attribution de juridiction</span>
+                <br>
+                <span>Le Prêteur et la caution s’engagent à régler à l’amiable, tout différend pouvant naître de la mise en application
+                    du présent acte ;
+                </span>
+                <br>
+                <span>En cas d’échec, les juridictions béninoises compétentes seront habilitées à connaître du litige.</span>
+                    <br><br>
+                <span style="font-weight:bold">Article 11 : Entrée en vigueur</span>
+                <br>
+                <span>Le présent acte de cautionnement solidaire et indivisible entre en vigueur dès sa signature.</span>
+                <!-- </div> -->
+                <br>
+                <br>
+                <br>
+                
+                <p>Fait en deux Exemplaires Originaux à .................................., le {{todayDate | date:'mediumDate'}}</p>
+                <br>
+                <br>
+                <br>
+            </div>
+
+
+
+
+
+                <table class=" ">
+                    <tr width=100>
+                        <td style="width: 43%;">Pour {{sfdName}}</td>
+                        <td style="width: 25%">
+                            <img #qrimage src="" alt="some code" width="100px">
+                        </td>
+                        <td style="text-align:end">
+                            <span>L'Emprunteur</span>
+                            <span>(Lu et approuvé)</span> <br>
+                             {{data.name}}
+                        </td>
+                    </tr>
+
+                   <!--  <tr>
+                        <td>{{data.name}}</td>
+                        <td>{{hole}}</td>
+                    </tr> -->
+                </table>
+            </div>
+
+            <div class="print-footer">
+                <span style="text-align:justify" *ngIf="_DePage.piedPage != null ;else elseFooterBlock">
+                    <img [src]="imageUrl+_DePage.piedPage" alt="pied de page" width="100%" height="50">
+                </span>
+                <ng-template #elseFooterBlock>
+                    <img src="../../../content/images/footer.jpg" alt="logo" width="100%" height="50">
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+    <button class="btn-floating btn-large waves-effect waves-light red" style="position: fixed; bottom: 25px; right: 25px;" (click)="printAsPdf('print')">
+        <i class="material-icons">print</i>
+    </button>

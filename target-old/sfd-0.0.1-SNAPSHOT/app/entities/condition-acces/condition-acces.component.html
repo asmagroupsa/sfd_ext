@@ -1,0 +1,83 @@
+<div>
+    <h3>
+        <span jhiFnmTranslate="sfdApp.conditionAcces.home.title">Condition Acces</span>
+        <button *jhiHasAnyRessources="'carmesfnmservice/api/condition-access/createConditionAcces'" class="btn btn-primary float-right jh-create-entity create-condition-acces" [routerLink]="['/entity','condition-acces', { outlets: { popup: ['condition-acces-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.conditionAcces.home.createLabel">
+            Create new Condition Acces
+            </span>
+        </button>
+    </h3>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.conditionAcces.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="conditionAcces;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <th class="numerotab">N°</th>
+                    <th jhiSortBy="name"><span jhiFnmTranslate="sfdApp.conditionAcces.name">Name</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="noteMax"><span jhiFnmTranslate="sfdApp.conditionAcces.noteMax">Note Max</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="description"><span jhiFnmTranslate="sfdApp.conditionAcces.description">Description</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="categorieId"><span jhiFnmTranslate="sfdApp.conditionAcces.categorie">Categorie</span> <span class="fa fa-sort"></span></th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let conditionAcces of conditionAcces | recherche:currentSearch ;let index = index;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['../condition-acces', conditionAcces.id ]">{{conditionAcces.id}}</a></td> -->
+                    <td class="numerotab">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</td>
+                    <td>{{conditionAcces.name}}</td>
+                    <td>{{conditionAcces.noteMax}}</td>
+                    <td>{{conditionAcces.description}}</td>
+                    <td>
+                        <div *ngIf="conditionAcces.categorieId">
+                            <a>{{categorieCondition(conditionAcces.categorieId)?.name}}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+
+                            <button *jhiHasAnyRessources="'carmesfnmservice/api/condition-access/updateConditionAcces'" type="submit" [routerLink]="['/entity','condition-acces', { outlets: { popup: 'condition-acces/'+ conditionAcces.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.edit">Edit</span> -->
+                        </button>
+                            <button *jhiHasAnyRessources="'carmesfnmservice/api/condition-access/deleteConditionAcces'" type="submit" [routerLink]="['/entity','condition-acces', { outlets: { popup: 'condition-acces/'+ conditionAcces.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.delete">Delete</span> -->
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="conditionAcces && conditionAcces.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>

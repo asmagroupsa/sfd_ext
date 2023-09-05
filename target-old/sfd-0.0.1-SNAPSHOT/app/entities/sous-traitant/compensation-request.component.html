@@ -1,0 +1,58 @@
+<div>
+    <h2>
+        <span>Demandes de compensation</span>
+        <button class="btn btn-primary float-right jh-create-entity create-poste" (click)="dialog()">
+            <span class="fa fa-plus"></span>
+            <!-- <span class="hidden-sm-down" jhiFnmTranslate="sfdApp.poste.home.createLabel">
+                Create new Poste
+            </span> -->
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <!-- <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.poste.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div> -->
+    <br />
+    <!-- <ng-template #elseBlock>
+        <div class="ui active centered inline loader"></div>
+    </ng-template> -->
+    <div class="table-responsive">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Réference</th>
+                    <th>Montant</th>
+                    <th>Etat</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let r of requests; let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{r.reference}}</td>
+                    <td>{{r.amount | currency:'XAF':true:'2.0-3'}}</td>
+                    <td>{{r.etat}}</td>
+                    <td>{{r.createdDate|date:'medium'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- <div *ngIf="postes && postes.length">
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div> -->
+</div>

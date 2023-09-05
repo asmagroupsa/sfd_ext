@@ -1,0 +1,61 @@
+<div>
+    <h2>
+        <span>Les compléments des ligne de crédits</span>
+        <button *jhiHasAnyRessources="['carmesfnmservice/api/ligne-credits/createLigneCredit']" class="btn btn-primary float-right create-ligne-credit-complement" [routerLink]="['/entity','ligne-credit', { outlets: { popup: ['complement-new'] } }]">
+            <span class="fa fa-plus"></span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.complement.home.search' | fnmtranslate : langue.lang | async }}">
+                    <!-- <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button> -->
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="form-group">
+            <label for="field_ligne" class="oblige">Filtrer par ligne de crédit</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_ligne" name="ligne" [(ngModel)]="ligneCreditId"
+                required>
+                <option [ngValue]="null">Tout</option>
+                <option [ngValue]="ligneOption.id" *ngFor="let ligneOption of lignes">{{ligneOption.libelle}} ({{ligneOption.code}})</option>
+            </select>
+        </div>
+    <div class="table-responsive" *ngIf="complements;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr>
+                <th class="numerotab">N°</th>
+                    <th>Montant demandé</th>
+                    <th>Montant accordé</th>
+                    <th>Raison de la demande</th>
+                    <th>Etat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let complement of complements | byLigne:ligneCreditId | recherche:currentSearch ;let index = index">
+                <td class="numerotab">{{index + 1}}</td>
+                    <td>{{complement.amountRequest | currency:'XAF':true:'2.0'}}</td>
+                    
+                    <td>{{complement.amountAccorder | currency:'XAF':true:'2.0'}}</td>
+                    <td>{{complement.requestRaison}}</td>
+                    <td>{{complement.etat}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

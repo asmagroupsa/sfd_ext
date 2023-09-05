@@ -1,0 +1,48 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCaisseNouvelleLabel">Historique des affectations</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="row">
+            <div class="col-lg-6"></div>
+                <div class="field col-lg-3">
+                    <!-- <label for="date1" class="form-control-label">Du</label> -->
+                    <ngbd-datepicker-i18n name="date1" [(ngModel)]="date1" (ngModelChange)="onPeriodChange()"></ngbd-datepicker-i18n>
+                </div>
+                <div class="field col-lg-3">
+                    <!-- <label for="date2" class="form-control-label">Au</label> -->
+                    <ngbd-datepicker-i18n name="date2" [(ngModel)]="date2" (ngModelChange)="onPeriodChange()"></ngbd-datepicker-i18n>
+                </div>
+        </div>
+        <table class="bordered striped highlight" *ngIf="historiques">
+            <thead>
+                <tr>
+                    <th class="numerotab">N°</th>
+                    <th><span>Caisse</span></th>
+                    <th><span>Date de début</span></th>
+                    <th><span>Date de fin</span></th>
+                    <th><span>Caissier</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let historique of historiques | recherche:currentSearch ;let index=index;trackBy: trackId">
+                    <td class="numerotab">{{index + 1}}</td>
+                    <td>{{historique.codecaisse}}</td>
+                    <td>{{historique.date1}}</td>
+                    <td>{{historique.date2}}</td>
+                    <td>{{ historique.libelle || historique.caissier || historique.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+       
+    </div>
+</form>

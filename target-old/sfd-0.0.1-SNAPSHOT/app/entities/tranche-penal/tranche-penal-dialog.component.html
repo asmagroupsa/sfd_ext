@@ -1,0 +1,115 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTranchePenalLabel" [jhiFnmTranslate]="tranchePenal.id ? 'sfdApp.tranchePenal.home.createOrEditLabel' : 'sfdApp.tranchePenal.home.createLabel'">Create or edit a Tranche Penal</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!--<div class="form-group" [hidden]="!tranchePenal.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="tranchePenal.id" readonly />
+        </div>-->
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.tranchePenal.minDay" for="field_minDay">Min Day</label>
+            <input type="number" min="1" class="form-control" name="minDay" id="field_minDay" [(ngModel)]="tranchePenal.minDay" required />
+            <div [hidden]="!(editForm.controls.minDay?.dirty && (editForm.controls.minDay?.invalid || editForm.controls.minDay?.value < 0))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.minDay?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.minDay?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+                <small class="form-text text-danger" *ngIf="editForm.controls.minDay?.value < 0">Le jour minimum doit être supérieur ou égal à zéro(0)</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.tranchePenal.maxDay" for="field_maxDay">Max Day</label>
+            <input type="number" min="1" class="form-control" name="maxDay" id="field_maxDay" [(ngModel)]="tranchePenal.maxDay" required />
+            <div [hidden]="!(editForm.controls.maxDay?.dirty && (editForm.controls.maxDay?.invalid || editForm.controls.maxDay?.value <= editForm.controls.minDay?.value))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.maxDay?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.maxDay?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+                <small class="form-text text-danger" *ngIf="editForm.controls.amountMax?.value <=1000 || editForm.controls.amountMax?.value <= editForm.controls.amountMin?.value">Le jour maximum doit dépasser le jour minimum</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.tranchePenal.penalRate" for="field_penalRate">Penal Rate</label>
+            <input type="number" min="1" max="100" class="form-control" name="penalRate" id="field_penalRate" [(ngModel)]="tranchePenal.penalRate" required />
+            <div [hidden]="!(editForm.controls.penalRate?.dirty && (editForm.controls.penalRate?.invalid || (editForm.controls.penalRate?.value  < 0 || editForm.controls.penalRate?.value > 100)))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.penalRate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.penalRate?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+                <small class="form-text text-danger" *ngIf="editForm.controls.penalRate?.value && (editForm.controls.penalRate?.value  < 0 || editForm.controls.penalRate?.value > 100)">
+                   Le taux pénal doit être compris entre 0 et 100
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="field_penality" class="oblige">Penalites</label>
+            <select class="ui fluid search dropdown" id="field_penality" name="penality" [(ngModel)]="tranchePenal.penaliteId" required>
+                <option [ngValue]="null" disabled>Choisissez la penalite</option>
+                <option [ngValue]="penality.id" *ngFor="let penality of penalities">{{penality.libelle}}</option>
+            </select>
+        </div>
+        <!--  <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.tranchePenal.createdDate" for="field_createdDate">Created Date</label>
+            <div class="input-group">
+                <input id="field_createdDate" type="text" class="form-control" name="createdDate" ngbDatepicker #createdDateDp="ngbDatepicker" [(ngModel)]="tranchePenal.createdDate" required/>
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="createdDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdDate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>-->
+        <!--<div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.tranchePenal.createdBy" for="field_createdBy">Created By</label>
+            <input type="text" class="form-control" name="createdBy" id="field_createdBy" [(ngModel)]="tranchePenal.createdBy" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdBy?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdBy?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <!--    <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.tranchePenal.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+            <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy" [(ngModel)]="tranchePenal.lastModifiedBy" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.lastModifiedBy?.dirty && editForm.controls.lastModifiedBy?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.lastModifiedBy?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <!--   <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.tranchePenal.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+            <div class="input-group">
+                <input id="field_lastModifiedDate" type="text" class="form-control" name="lastModifiedDate" ngbDatepicker #lastModifiedDateDp="ngbDatepicker" [(ngModel)]="tranchePenal.lastModifiedDate" />
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="lastModifiedDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving || !controlForm()" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

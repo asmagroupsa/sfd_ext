@@ -1,0 +1,38 @@
+{
+    "sfdApp": {
+        "formation" : {
+            "home": {
+                "title": "Formations",
+                "createLabel": "Créer une nouvelle Formation",
+                "createOrEditLabel": "Editer une Formation",
+                "search": "Recherche pour Formation"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Formation {{ id }} ?"
+            },
+            "detail": {
+                "title": "Formation"
+            },
+            "libelle": "Libellé",
+            "agenceReference": "Agence",
+            "formateur": "Formateur",
+            "avis": "Avis",
+            "nbHour": "Nombre d'heure",
+            "createdBy": "Créée par",
+            "lastModifiedBy": "Modifiée dernièrement par",
+            "lastModifiedDate": "Date dernière modification",
+            "lieu": "Lieu",
+            "dateFormation": "Date de la formation",
+            "createdDate": "Date création",
+            "matieres": "Matières",
+            "notificationClients": "Notification des clients"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "formation" : {
+            "created": "Une nouvelle Formation a été créée ",
+            "updated": "La Formation  a été mise à jour",
+            "deleted": "La Formation  a été supprimée"
+        }
+    }
+}

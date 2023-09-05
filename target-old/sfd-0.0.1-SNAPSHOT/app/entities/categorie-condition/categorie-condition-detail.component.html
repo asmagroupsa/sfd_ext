@@ -1,0 +1,25 @@
+
+<div *ngIf="categorieCondition">
+    <h2><span jhiFnmTranslate="sfdApp.categorieCondition.detail.title">Categorie Condition</span> {{categorieCondition.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.categorieCondition.name">Name</span></dt>
+        <dd>
+            <span>{{categorieCondition.name}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/entity','categorie-condition', { outlets: { popup: 'categorie-condition/'+ categorieCondition.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

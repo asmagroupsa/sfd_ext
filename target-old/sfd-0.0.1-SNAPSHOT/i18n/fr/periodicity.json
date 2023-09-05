@@ -1,0 +1,35 @@
+{
+    "sfdApp": {
+        "periodicity": {
+            "home": {
+                "title": "Periodicities",
+                "createLabel": "Créer un nouveau Periodicité",
+                "createOrEditLabel": "Editer un Periodicité",
+                "search": "Recherche pour Periodicité"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Periodicité {{ id }} ?"
+            },
+            "detail": {
+                "title": "Periodicité"
+            },
+            "code": "Code de la périodicité",
+            "denominateur": "Denominateur",
+            "unite": "Unité",
+            "codePeriodicite": "Code Periodicité",
+            "constante": "Constante",
+            "libPeriodicite": "Libellé Periodicite",
+            "creditRequests": "Demande de credit",
+            "ligneCredits": "Ligne Credits",
+            "produits": "Produits",
+            "libelle": "Libelle"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "periodicity": {
+            "created": "Une nouvelle Periodicité a été créé ",
+            "updated": "La Periodicité  a été mis à jour",
+            "deleted": "La Periodicité  a été supprimé"
+        }
+    }
+}

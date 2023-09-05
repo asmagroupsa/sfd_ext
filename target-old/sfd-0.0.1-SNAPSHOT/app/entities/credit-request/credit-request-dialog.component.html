@@ -1,0 +1,137 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCreditRequestLabel" [jhiFnmTranslate]="creditRequest.id ? 'sfdApp.creditRequest.home.createOrEditLabel' : 'sfdApp.creditRequest.home.createLabel'">Create or edit a Credit Request</h4>
+        <!-- <h4 *ngIf="clientOK && !creditRequest.id">
+            Ajout de demande pour le client {{nom(creditRequest.clientId)}}
+        </h4> -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.creditRequest.produit" for="field_produit" class="oblige">Produit</label>
+            <div class="ui icon input field" [ngClass]="{loading: loading.produits}" style="width: 100%;">
+                <select class="ui fluid search dropdown" id="field_produit" name="produit" [(ngModel)]="creditRequest.produitId" (change)="getCurrentProduit()" required>
+                    <option [ngValue]="null" disabled>Choisissez le produit</option>
+                    <option [ngValue]="produitOption.id" *ngFor="let produitOption of produits">{{produitOption.libelle}}</option>
+                </select>
+                <i class="icon"></i>
+            </div>
+        </div>
+        <div class="form-group" [hidden]="currentProduit ? !currentProduit.phasable : true">
+            <label for="field_phase" class="oblige">Phase</label>
+            <div class="ui icon input field" [ngClass]="{loading: loading.phase}" style="width: 100%;">
+                <select class="ui fluid search dropdown" id="field_phase" name="phase" [required]="currentProduit ? currentProduit.phasable : false" (ngModelChange)="onPhaseChange($event)" [(ngModel)]="creditRequest.codePhase">
+                    <option [ngValue]="null" disabled></option>
+                    <option [ngValue]="p.code" *ngFor="let p of phases">{{p.libelle}} - {{p.code}} - {{p.montant | currency:'XAF':true:'2.0'}}</option>
+                </select>
+                <i class="icon"></i>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="!clientOK">
+            <label jhiFnmTranslate="sfdApp.creditRequest.client" for="field_client" class="oblige">Client</label>
+            <div class="ui icon input field" [ngClass]="{loading: loading.clients}" style="width: 100%;">
+                <select class="ui fluid search dropdown" id="field_client" name="client" [(ngModel)]="creditRequest.clientId" required (change)="onClientChange()">
+                    <option [ngValue]="null" disabled>Choisissez le client</option>
+                    <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients">{{clientOption?.name}} {{clientOption?.firstName}} {{clientOption?.denomination}} ({{clientOption.userReference || clientOption.user_reference || clientOption.code}})</option>
+                </select>
+                <i class="icon"></i>
+            </div>
+        </div>
+        <div>
+            <span class="form-text text-danger" *ngIf="invalidGroupLength">Le groupe doit contenir 3 ou 5 membres actifs</span>
+        </div>
+        <!-- <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.creditRequest.requestDate" for="field_requestDate" class="oblige">Request Date</label>
+            <ngbd-datepicker-i18n name="requestDate" [(ngModel)]="creditRequest.requestDate" required="true" minDate="true" readonly="true">
+            </ngbd-datepicker-i18n>
+            <div [hidden]="!(editForm.controls.requestDate?.dirty && editForm.controls.requestDate?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.requestDate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                This field is required.
+            </small>
+            </div>
+        </div> -->
+
+        <div class="form-group periodicity">
+            <label jhiFnmTranslate="sfdApp.creditRequest.periodicity" for="field_periodicity" class="oblige">Periodicity</label>
+            <select class="ui fluid search dropdown" id="field_periodicity" name="periodicity" [(ngModel)]="creditRequest.periodicityId" required>
+                <option [ngValue]="periodicityOption.id" *ngFor="let periodicityOption of periodicities | period:currentProduit">{{periodicityOption.libPeriodicite}}</option>
+            </select>
+        </div>
+        <div class="input-field" *ngIf="(!creditRequest.id || (creditRequest.id && creditRequest.requestStatusId == 10))">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.creditRequest.amount" for="field_amount">Amount</label>
+            <input type="text" class="form-control" name="amount" id="field_amount" [ngModel]="creditRequestAmount" (formatNumberMyMiller)="creditRequest.amount = $event" required [disabled]="!creditRequest.produitId" [readonly]="currentProduit?.libelle == 'MCM'"
+            />
+            <div [hidden]="!(editForm.controls.amount?.dirty && (editForm.controls.amount?.invalid  || !controlMontant()))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.number" jhiFnmTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+                <small class="form-text text-danger" [hidden]="controlMontant()">Le montant doit être entre {{currentProduitAmountMin |currency:'XAF':true:'2.0'}} et {{currentProduitAmountMax | currency:'XAF':true:'2.0'}}</small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.creditRequest.duration" for="field_duration">Duration</label>
+            <input type="number" class="form-control" name="duration" id="field_duration" [(ngModel)]="creditRequest.duration" min="1" required [max]="currentProduit?.duration" [readonly]="currentProduit?.libelle == 'MCM'">
+            <div [hidden]="!(editForm.controls.duration?.dirty && (editForm.controls.duration?.invalid  || !validateDurationPeriodicity() || (creditRequest.duration > currentProduit?.duration)))">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.duration?.errors?.required" jhiFnmTranslate="entity.validation.required">This field is required.</small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.duration?.errors?.number" jhiFnmTranslate="entity.validation.number">This field should be a number.</small>
+                <small class="form-text text-danger" [hidden]="creditRequest.duration <= currentProduit?.duration">La durée doit etre inferieur ou egale a {{currentProduit?.duration}}(Duree de produit)</small>
+                <small class="form-text text-danger" [hidden]="validateDurationPeriodicity()">La durée doit dépasser la périodicité et supérieure à zéro</small>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="currentProduit?.libelle == 'MCM'">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.creditRequest.nbrDiffere" for="field_nbrDiffere">Nbr Differe</label>
+            <select class="ui fluid search dropdown" id="field_nbrDiffere" name="nbrDiffere" [(ngModel)]="creditRequest.nbrDiffere" [required]="creditRequest.nbrDiffere != 0">
+                <option [ngValue]="null" disabled></option>
+                <option [ngValue]="0">0</option>
+                <option [ngValue]="1">1</option>
+            </select>
+        </div>
+        <div class="input-field" *ngIf="currentProduit?.libelle != 'MCM'">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.creditRequest.nbrDiffere" for="field_nbrDiffere">Nbr Differe</label>
+            <input type="number" class="form-control" name="nbrDiffere" id="field_nbrDiffere" [(ngModel)]="creditRequest.nbrDiffere" min="0" [readonly]="currentProduit?.libelle == 'MCM'" />
+            <div [hidden]="!(editForm.controls.nbrDiffere?.dirty && (editForm.controls.nbrDiffere?.invalid  || (creditRequest.nbrDiffere > currentProduit?.differe)))">
+
+                <small class="form-text text-danger" [hidden]="!editForm.controls.nbrDiffere?.errors?.number" jhiFnmTranslate="entity.validation.number">This
+                    field should be a number.</small>
+                <small class="form-text text-danger" [hidden]="creditRequest.nbrDiffere <= currentProduit?.differe">Le differé doit
+                    etre inférieur ou egale à celui du produit ({{currentProduit?.differe}})</small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active" for="field_delaiGrace">Delai de grâce</label>
+            <input type="number" class="form-control" name="delaiGrace" id="field_delaiGrace" [(ngModel)]="creditRequest.delaiGrace" min="0" />
+            <div [hidden]="!(editForm.controls.delaiGrace?.dirty && (editForm.controls.delaiGrace?.invalid  || (creditRequest.delaiGrace > currentProduit?.delaiGrace)))">
+
+                <small class="form-text text-danger" [hidden]="!editForm.controls.delaiGrace?.errors?.number" jhiFnmTranslate="entity.validation.number">This
+                    field should be a number.</small>
+                <small class="form-text text-danger" [hidden]="creditRequest.delaiGrace <= currentProduit?.delaiGrace">Le delai de grâce
+                    doit
+                    etre inférieur ou egale à celui du produit ({{currentProduit?.delaiGrace}})</small>
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.creditRequest.expressionRequest" for="field_expressionRequest">Expression Request</label>
+            <textarea class="materialize-textarea" name="expressionRequest" id="field_expressionRequest" [(ngModel)]="creditRequest.expressionRequest" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.creditRequest.requestObject" for="field_requestObject" class="oblige">Request Object</label>
+            <select class="ui fluid search dropdown" id="field_requestObject" name="requestObject" [(ngModel)]="creditRequest.requestObjectId" required>
+                <option [ngValue]="requestRaisonOption.id" *ngFor="let requestRaisonOption of requestraisons; trackBy: trackRequestRaisonById">{{requestRaisonOption.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving || !controlMontant() || !validateDurationPeriodicity() || (creditRequest.duration > currentProduit?.duration) || invalidGroupLength" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

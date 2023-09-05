@@ -1,0 +1,53 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCaisseNouvelleLabel" [jhiFnmTranslate]="utilisateurCaisse.id ? 'sfdApp.caisseNouvelle.home.alimenterCaisse' : 'sfdApp.caisseNouvelle.home.affecterUtilisateurCaissier'">Feeding of the box</h4>
+
+
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body" >
+        <jhi-alert-error></jhi-alert-error>
+        <!--<div class="form-group" [hidden]="!utilisateurCaisse.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="utilisateurCaisse.id" readonly />
+        </div>-->
+        <div *ngIf='nameCaisse'> <strong>Caisse:</strong> {{ nameCaisse }}</div>
+        <div *ngIf='nameAgence'> <strong>Nom de l'agence:</strong> {{ nameAgence }}</div>
+        <div *ngIf='codeCaisse'> <strong>Code de la caisse:</strong> {{ codeCaisse }}</div>
+        <br/> <br/>
+
+        <!-- <div class="form-group" >
+            <label class="form-control-label active oblige" for="field_comptecarmesclient">Compte Carmes de la caisse</label>
+            <input type="text" readonly class="form-control" name="comptecarmescaisse" id="field_comptecarmescaisse" [(ngModel)]="utilisateurCaisse && utilisateurCaisse.comptecarmescaisse" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.comptecarmescaisse?.dirty && editForm.controls.comptecarmescaisse?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.comptecarmescaisse?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.comptecarmescaisse?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div> -->
+
+        <div class="form-group" >
+            <label  for="field_agenceReference" class="oblige">Caissier/caissière</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_caissier" name="caissier" [(ngModel)]="utilisateurCaisse && utilisateurCaisse.caissier" required>
+                <option [ngValue]="null" disabled>Choisissez un utillisateur de caisse</option>
+                <option [ngValue]="c.id_user" *ngFor="let c of caissiers">{{c.nom}}</option>
+            </select>
+        </div>
+
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid ||  isSaving " class="btn waves-effect waves-light">
+            <!-- <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light"> -->
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

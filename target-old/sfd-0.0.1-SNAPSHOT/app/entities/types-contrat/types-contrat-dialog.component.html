@@ -1,0 +1,55 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myFraisLabel" [jhiFnmTranslate]="typesContrat.id ? 'sfdApp.typesContrat.home.createOrEditLabel' : 'sfdApp.typesContrat.home.createLabel'">Create or edit a type of contrat</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.typesContrat.code" for="field_libelle">Code</label>
+            <input type="text" class="form-control" name="code" id="field_code" [(ngModel)]="typesContrat.code" required maxlength="50"
+                data-length="50" />
+
+            <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.code?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.code?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength"
+                    translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.typesContrat.libelle" for="field_libelle">Libellé</label>
+            <input type="text" class="form-control" name="libelle" id="field_libelle" [(ngModel)]="typesContrat.libelle" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.libelle?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.typesContrat.typeClient" for="field_typeClient" required>Type Client</label>
+            <select class="ui fluid search dropdown" name="field_typeClient" id="field_typeClient" [(ngModel)]="typesContrat.typeClient" id="field_typeClient" required>
+                <option value="INDIVIDU">INDIVIDU</option>
+                <option value="ENTREPRISE">ENTREPRISE</option>
+                <option value="GROUPE">GROUPE</option>
+                <option value="MARCHAND">MARCHAND</option>
+            </select>
+        </div> <br>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

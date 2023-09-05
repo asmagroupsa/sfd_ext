@@ -1,0 +1,1505 @@
+<div class="row" *ngIf="impression">
+    <div class="col">
+        <button type="submit" class="btn waves-effect waves-light">
+            <span class="fa fa-edit"></span>&nbsp;
+            <span (click)="editContrat()">Editer le contrat</span>
+        </button>
+    </div>
+</div>
+
+<div class="row" *ngIf="!impression">
+    <div class="col" *ngIf="true">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save(editForm)" #editForm="ngForm">
+            <div class="row">
+                <div class="col-6">
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_signataire">Signataire</label>
+                        <input type="text" class="form-control" name="signataire" id="field_signataire" [(ngModel)]="signataire"
+                            required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.signataire?.dirty && editForm.controls.signataire?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.signataire?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.signataire?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_numeroCompteCourantActif">Numéro Compte
+                            Courant Actif</label>
+                        <input type="text" class="form-control" name="numeroCompteCourantActif"
+                            id="field_numeroCompteCourantActif" [(ngModel)]="numeroCompteCourantActif" required maxlength="250"
+                            data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.numeroCompteCourantActif?.dirty && editForm.controls.numeroCompteCourantActif?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroCompteCourantActif?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroCompteCourantActif?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_numeroCompteVersement">Numéro de compte du
+                            versement</label>
+                        <input type="text" class="form-control" name="numeroCompteVersement" id="field_numeroCompteVersement"
+                            [(ngModel)]="numeroCompteVersement" required maxlength="250" data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.numeroCompteVersement?.dirty && editForm.controls.numeroCompteVersement?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroCompteVersement?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroCompteVersement?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_dureeCompte">Durée Compte</label>
+                        <input type="text" class="form-control" name="dureeCompte" id="field_numeroCompteVersement"
+                            [(ngModel)]="dureeCompte" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.dureeCompte?.dirty && editForm.controls.dureeCompte?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dureeCompte?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dureeCompte?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_tauxAnnuel">Taux annuel</label>
+                        <input type="text" class="form-control" name="tauxAnnuel" id="field_tauxAnnuel" [(ngModel)]="tauxAnnuel"
+                            required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.tauxAnnuel?.dirty && editForm.controls.tauxAnnuel?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.tauxAnnuel?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.tauxAnnuel?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_penaliteResiliationAnticipe">Pénalité de
+                            Résiliation Anticipée</label>
+                        <input type="text" class="form-control" name="penaliteResiliationAnticipe"
+                            id="field_penaliteResiliationAnticipe" [(ngModel)]="penaliteResiliationAnticipe" required
+                            maxlength="250" data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.penaliteResiliationAnticipe?.dirty && editForm.controls.penaliteResiliationAnticipe?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.penaliteResiliationAnticipe?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.penaliteResiliationAnticipe?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_fraisOuverture">Frais d'Ouverture</label>
+                        <input type="text" class="form-control" name="fraisOuverture" id="field_fraisOuverture"
+                            [(ngModel)]="fraisOuverture" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.fraisOuverture?.dirty && editForm.controls.fraisOuverture?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.fraisOuverture?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.fraisOuverture?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_autresFrais">Autres Frais</label>
+                        <input type="text" class="form-control" name="autresFrais" id="field_autresFrais"
+                            [(ngModel)]="autresFrais" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.autresFrais?.dirty && editForm.controls.autresFrais?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.autresFrais?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.autresFrais?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_numeroCompte">Numéro Compte</label>
+                        <input type="text" class="form-control" name="numeroCompte" id="field_numeroCompte"
+                            [(ngModel)]="numeroCompte" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.numeroCompte?.dirty && editForm.controls.numeroCompte?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.numeroCompte?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.numeroCompte?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_montantVersement">Montant versement</label>
+                        <input type="text" class="form-control" name="montantVersement" id="field_montantVersement"
+                            [(ngModel)]="montantVersement" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.montantVersement?.dirty && editForm.controls.montantVersement?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.montantVersement?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.montantVersement?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_numeroClient">Numéro Client</label>
+                        <input type="text" class="form-control" name="numeroClient"
+                            id="field_numeroClient" [(ngModel)]="numeroClient" required
+                            maxlength="250" data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.numeroClient?.dirty && editForm.controls.numeroClient?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_nomFamilleClient">Nom de famille du client</label>
+                        <input type="text" class="form-control" name="nomFamilleClient" id="field_nomFamilleClient"
+                            [(ngModel)]="nomFamilleClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.nomFamilleClient?.dirty && editForm.controls.nomFamilleClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.nomFamilleClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.nomFamilleClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_prenomsClient">Prénoms du client</label>
+                        <input type="text" class="form-control" name="prenomsClient" id="field_prenomsClient"
+                            [(ngModel)]="prenomsClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.prenomsClient?.dirty && editForm.controls.prenomsClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.prenomsClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.prenomsClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_dateNaissanceClient">Date de naissance du client</label>
+                        <input type="text" class="form-control" name="dateNaissanceClient" id="field_dateNaissanceClient"
+                            [(ngModel)]="dateNaissanceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.dateNaissanceClient?.dirty && editForm.controls.dateNaissanceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dateNaissanceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dateNaissanceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_organisationAppartenanceClient">Organisation d'appartenance du client</label>
+                        <input type="text" class="form-control" name="organisationAppartenanceClient" id="field_organisationAppartenanceClient"
+                            [(ngModel)]="organisationAppartenanceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.organisationAppartenanceClient?.dirty && editForm.controls.organisationAppartenanceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.organisationAppartenanceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.organisationAppartenanceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_adresseEmailClient">Adresse Email Client</label>
+                        <input type="text" class="form-control" name="adresseEmailClient" id="field_adresseEmailClient"
+                            [(ngModel)]="adresseEmailClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.adresseEmailClient?.dirty && editForm.controls.adresseEmailClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.adresseEmailClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.adresseEmailClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_numeroAssuranceSocialClient">Numero Assurance Social Client</label>
+                        <input type="text" class="form-control" name="numeroAssuranceSocialClient"
+                            id="field_numeroAssuranceSocialClient" [(ngModel)]="numeroAssuranceSocialClient" required
+                            maxlength="250" data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.numeroAssuranceSocialClient?.dirty && editForm.controls.numeroAssuranceSocialClient?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroAssuranceSocialClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.numeroAssuranceSocialClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_paysVilleResidenceClient">Pays/Ville Residence Client</label>
+                        <input type="text" class="form-control" name="paysVilleResidenceClient" id="field_paysVilleResidenceClient"
+                            [(ngModel)]="paysVilleResidenceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.paysVilleResidenceClient?.dirty && editForm.controls.paysVilleResidenceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.paysVilleResidenceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.paysVilleResidenceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_adresseDomicileClient">Adresse Domicile Client</label>
+                        <input type="text" class="form-control" name="adresseDomicileClient" id="field_adresseDomicileClient"
+                            [(ngModel)]="adresseDomicileClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.adresseDomicileClient?.dirty && editForm.controls.adresseDomicileClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.adresseDomicileClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.adresseDomicileClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_telephoneDomicileClient">Téléphone Domicile Client</label>
+                        <input type="text" class="form-control" name="telephoneDomicileClient" id="field_telephoneDomicileClient"
+                            [(ngModel)]="telephoneDomicileClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.telephoneDomicileClient?.dirty && editForm.controls.telephoneDomicileClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.telephoneDomicileClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.telephoneDomicileClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_activiteExercesClient">Activités Exercés Client</label>
+                        <input type="text" class="form-control" name="activiteExercesClient" id="field_activiteExercesClient"
+                            [(ngModel)]="activiteExercesClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.activiteExercesClient?.dirty && editForm.controls.activiteExercesClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.activiteExercesClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.activiteExercesClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_etatCivilClient">Etat Civil Client</label>
+                        <input type="text" class="form-control" name="etatCivilClient" id="field_etatCivilClient"
+                            [(ngModel)]="etatCivilClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.etatCivilClient?.dirty && editForm.controls.etatCivilClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.etatCivilClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.etatCivilClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_citoyenneteClient">Citoyennete Client</label>
+                        <input type="text" class="form-control" name="citoyenneteClient"
+                            id="field_citoyenneteClient" [(ngModel)]="citoyenneteClient" required
+                            maxlength="250" data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.citoyenneteClient?.dirty && editForm.controls.citoyenneteClient?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.citoyenneteClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.citoyenneteClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_telephoneTravailClient">Télephone Travail Client</label>
+                        <input type="text" class="form-control" name="telephoneTravailClient" id="field_telephoneTravailClient"
+                            [(ngModel)]="telephoneTravailClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.telephoneTravailClient?.dirty && editForm.controls.telephoneTravailClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.telephoneTravailClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.telephoneTravailClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_lieuDelivrancePieceClient">Lieu Délivrance Pièce Client</label>
+                        <input type="text" class="form-control" name="lieuDelivrancePieceClient" id="field_lieuDelivrancePieceClient"
+                            [(ngModel)]="lieuDelivrancePieceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.lieuDelivrancePieceClient?.dirty && editForm.controls.lieuDelivrancePieceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.lieuDelivrancePieceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.lieuDelivrancePieceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_numeroIdentificationPieceClient">Numéro Identification Pièce Client</label>
+                        <input type="text" class="form-control" name="numeroIdentificationPieceClient" id="field_numeroIdentificationPieceClient"
+                            [(ngModel)]="numeroIdentificationPieceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.numeroIdentificationPieceClient?.dirty && editForm.controls.numeroIdentificationPieceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.numeroIdentificationPieceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.numeroIdentificationPieceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_activiteExercesClient">Date Expiration Pièce Client</label>
+                        <input type="text" class="form-control" name="dateExpirationPieceClient" id="field_dateExpirationPieceClient"
+                            [(ngModel)]="dateExpirationPieceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.dateExpirationPieceClient?.dirty && editForm.controls.dateExpirationPieceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dateExpirationPieceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dateExpirationPieceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_dateVerificationPieceClient">Date Vérification Pièce Client</label>
+                        <input type="text" class="form-control" name="dateVerificationPieceClient" id="field_dateVerificationPieceClient"
+                            [(ngModel)]="dateVerificationPieceClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.dateVerificationPieceClient?.dirty && editForm.controls.dateVerificationPieceClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dateVerificationPieceClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dateVerificationPieceClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_etablissementSociete">Etablissement/Societé</label>
+                        <input type="text" class="form-control" name="etablissementSociete"
+                            id="field_etablissementSociete" [(ngModel)]="etablissementSociete" required
+                            maxlength="250" data-length="250" />
+                        <div
+                            [hidden]="!(editForm.controls.etablissementSociete?.dirty && editForm.controls.etablissementSociete?.invalid)">
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.etablissementSociete?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                [hidden]="!editForm.controls.etablissementSociete?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_natureEntreprise">Nature Entreprise</label>
+                        <input type="text" class="form-control" name="natureEntreprise" id="field_natureEntreprise"
+                            [(ngModel)]="natureEntreprise" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.natureEntreprise?.dirty && editForm.controls.natureEntreprise?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.natureEntreprise?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.natureEntreprise?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_rccm">RCCM</label>
+                        <input type="text" class="form-control" name="rccm" id="field_rccm"
+                            [(ngModel)]="rccm" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.rccm?.dirty && editForm.controls.rccm?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.rccm?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.rccm?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_ifu">IFU</label>
+                        <input type="text" class="form-control" name="ifu" id="field_ifu"
+                            [(ngModel)]="ifu" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.ifu?.dirty && editForm.controls.ifu?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.ifu?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.ifu?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_siegeSocial">Siège Social</label>
+                        <input type="text" class="form-control" name="siegeSocial" id="field_siegeSocial"
+                            [(ngModel)]="siegeSocial" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.siegeSocial?.dirty && editForm.controls.siegeSocial?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.siegeSocial?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.siegeSocial?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label class="form-control-label active oblige" for="field_lieuDateSignatureClient">Lieu Date Signature Client</label>
+                        <input type="text" class="form-control" name="lieuDateSignatureClient" id="field_lieuDateSignatureClient"
+                            [(ngModel)]="lieuDateSignatureClient" required maxlength="250" data-length="250" />
+                        <div [hidden]="!(editForm.controls.lieuDateSignatureClient?.dirty && editForm.controls.lieuDateSignatureClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.lieuDateSignatureClient?.errors?.required"
+                                jhiFnmTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.lieuDateSignatureClient?.errors?.maxlength"
+                                jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" [disabled]="editForm.form.invalid" class="btn waves-effect waves-light">
+                        <span class="fa fa-save"></span>&nbsp;
+                        <span (click)="valider()">Valider</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="ui dimmer" [ngClass]="{'active':!hideLoader}">
+            <div class="ui loader"></div>
+        </div>
+
+        <div class="container" style="margin: auto;" *ngIf="hideLoader">
+            <div class="m" id="print" #printZone
+                style="display: inline-block; background-color: white; font-family: 'Times New Roman', Times, serif; font-size: 23px; width: 100%;"
+                class="browser-default">
+                <div class="print-header">
+                    <span style="text-align:justify" *ngIf="_DePage.entete !=null ;else elseBlock">
+                        <img [src]="imageUrl+_DePage.entete" alt="entete de page">
+                    </span>
+                    <ng-template #elseBlock>
+                        <!-- <img src="../../../content/images/header.jpg" alt="logo"> -->
+                    </ng-template>
+                </div>
+
+                <div class="p-wrapper">
+                    <p class="page-break">
+                        <span class="elm"></span>
+                    </p>
+                    <div class="row top-space">
+                        <div class="col-md-12">
+                            <p>Système Financier Décentralisé</p>
+                            <p>Forme Juridique : Association</p>
+                            <p>Capital social : FCFA </p>
+                            <p>N° agrément : </p>
+                            <p>Immatriculation : </p>
+
+                            <!-- <table class="table table-bordered" width="100%">
+
+                                <tr>
+                                    <td colspan="2"> Système Financier
+                                        Décentralisé
+                                        (SFD)</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">Forme Juridique :
+                                        Association</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Capital social : FCFA </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">N° agrément : </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">N° agrément : </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Immatriculation : </td>
+                                </tr>
+                            </table> -->
+                            <br>
+                            <table class="table table-bordered bx-sizing">
+                                <tbody>
+                                    <tr class="bx-shadow">
+                                        <td class="text-align-center bold font-size-x-large" style="color:gray; ">
+                                            Conditions
+                                            spécifiques - Compte de dépôt à
+                                            terme </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                            <p>
+                                Je soussigné(e)
+                                {{signataire}},
+                                personne physique capable majeur et titulaire
+                                d’un
+                                compte courant actif à IMF X sous le numéro
+
+                                {{numeroCompteCourantActif}}, demande, sous mon
+                                entière
+                                responsabilité et à titre privé, l’ouverture
+                                d’un
+                                compte de dépôt à terme (DAT).
+
+                            </p>
+                            <p>
+                                Les modalités de souscription et de
+                                fonctionnement de ce
+                                DAT sont régies par les présentes
+                                Conditions spécifiques, que je reconnais
+                                accepter dans
+                                leur intégralité, ainsi que par la
+                                Convention générale d’ouverture de compte dont
+                                les
+                                dispositions s’appliquent sans contradiction.
+                            </p>
+                            <p>
+                                Le montant du versement est de
+                                {{montantVersement}}, sous le numéro
+                                de
+                                compte
+                                {{numeroCompteVersement}}.
+                            </p>
+                            <p>
+                                Ce compte est constitué pour une durée de
+                                {{dureeCompte}} soit
+                                jusqu’au / / ; selon les conditions
+                                mentionnées ci-dessous :
+                            </p>
+                            <div>
+                                <ul>
+                                    <li>
+                                        - Intérêt créditeur au taux annuel de
+                                        {{tauxAnnuel}}.
+                                        à compter de la date de valeur du dépôt
+                                        et
+                                        jusqu’à sa clôture, cet intérêt est
+                                        calculé
+                                        automatiquement par le logiciel
+                                        d’exploitation
+                                        en fin de période et additionné au solde
+                                        principal.
+
+                                    </li>
+                                    <li>- Pénalité en cas de résiliation
+                                        anticipée
+                                        (pourcentage du montant déposé) :
+                                        {{penaliteResiliationAnticipe}}.(entre
+                                        0 et 2%, dépend du taux d’intérêt
+                                        notamment)
+                                    </li>
+                                    <li>- Frais d’ouverture, de tenue ou de
+                                        clôture de
+                                        compte : {{fraisOuverture}} (gratuits)
+                                    </li>
+                                    <li>- Autres frais :{{autresFrais}}.
+                                        (gratuits)
+                                    </li>
+                                </ul>
+                            </div>
+                            <br>
+                            <strong>Durée </strong>
+                            <p>A la date d’échéance du DAT mentionnée ci-dessus,
+                                la
+                                clôture du compte est subordonnée au
+                                retrait. Le montant déposé et les éventuels
+                                intérêts
+                                produits seront versés sur le compte
+                                courant du client. </p>
+                            <strong>Résiliation anticipée </strong>
+                            <p>Durant la période de dépôt, le client pourra, à
+                                tout
+                                moment et en agence, demander la résiliation
+                                anticipée du contrat de DAT et la restitution de
+                                son
+                                dépôt. Le remboursement du montant déposé
+                                avant l’échéance prévue est possible mais sera
+                                forcément
+                                total, et entraînera la clôture du
+                                produit</p>
+                            <div>IMF X pourra également prendre l’initiative
+                                d’une
+                                résiliation anticipée du contrat de DAT dans
+                                les cas suivants :
+                                <ul>
+                                    <li>• Clôture par le client du compte
+                                        courant ouvert
+                                        dans les livres de IMF X ; </li>
+                                    <li>• Non-respect par le client de l’une de
+                                        ses
+                                        obligations contractuelles, comportement
+                                        frauduleux ou contraire à la loi. </li>
+                                </ul>
+                            </div>
+                            <p>Toute résiliation anticipée du contrat de DAT,
+                                qu’elle
+                                soit à l’initiative du client ou de IMF X,
+                                entrainera l’annulation de : 100 % des intérêts
+                                cumulés.
+                                Toute résiliation anticipée peut
+                                également entraîner la perception par IMF X
+                                d’une
+                                pénalité comme prévue ci-dessus. Le Client
+                                autorise alors irrévocablement IMF X à prélever
+                                la
+                                pénalité sur le montant déposé. </p>
+                            <strong>Acceptation des conditions et signature :
+                            </strong>
+                            <p>Je certifie sur l’honneur que les informations
+                                fournies
+                                sont exactes et sincères. </p>
+                            <p>Je déclare avoir pris connaissance des termes de
+                                la
+                                présente demande d’ouverture de compte à
+                                terme et de la Convention générale d’ouverture
+                                de compte
+                                et confirme y adhérer sans réserve.
+                            </p>
+                            <p>Date </p> <br><br>
+                            <p>Signature </p><br>
+                            (Mentionner « Lu et approuvé") <br><br><br>
+                            <strong>Réservé à IMF X : </strong>
+                            <p>Signature vérifiée par (Veuillez renseigner la
+                                fiche
+                                d’identification avant la signature) :
+                                <br><br>
+                                Avis de la banque
+                            </p>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <p>Signature du directeur de l’agence ou du
+                                Directeur
+                                Exécutif : </p>
+                            <br>
+                            <p>Numéro de Compte :
+                                {{numeroCompte}}</p> <br>
+                            <strong>IMF X</strong>
+                            <table class="table table-bordered bx-sizing">
+                                <tbody>
+                                    <tr class="bx-shadow">
+                                        <td class="text-align-center bold font-size-x-large" style="color:gray; "> Fiche
+                                            d'identification
+                                            du client</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Partie A -->
+                            <div class="row">
+                                <div class="col-2">
+                                    <strong>A.</strong> L’agent ou le représente
+                                    de IMF X, certifie qu’il a vérifié
+                                    l’identité du souscripteur conformément aux
+                                    dispositions réglementaires de la lutte
+                                    contre le blanchiment des capitaux et du
+                                    financement du terrorisme ; en examinant
+                                    avec rigueur les pièces du souscripteur.
+                                </div>
+                                <div class="col-10">
+                                    <div class="row">
+                                        <table class="table table-bordered" width="100%">
+                                            <tr>
+                                                <td>Sexe<br><br>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>F</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>H</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Langue<br><br>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Français</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Anglais</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Fon</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Dendi</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Yoruba</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Autres</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Niveau d'instruction
+                                                    <br><br>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id=""
+                                                                        name="">
+                                                                    <label for="">
+                                                                        <span>Primaire</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id=""
+                                                                        name="">
+                                                                    <label for="">
+                                                                        <span>Secondaire</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id=""
+                                                                        name="">
+                                                                    <label for="">
+                                                                        <span>Universitaire</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Numéro du client
+                                                    <br>
+                                                    {{numeroClient}}
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <br>
+                                    <div class="row" style="background-color: #cbe29a;">
+                                        <div style="background-color: #cbe29a;">
+                                            <table class="table table-bordered" width="100%">
+                                                <td><strong>Nom de famille du client</strong><br><br> {{nomFamilleClient}} </td>
+                                                <td><strong>Prénoms</strong> (Dans l'ordre de la pièce fournie) <br><br> {{prenomsClient}}
+                                                </td>
+                                                <td><strong>Date de naissance</strong> JJ-MM-AAAA<br><br> {{dateNaissanceClient}} </td>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="row">
+                                                <div class="col">Nom de l’organisation d’appartenance</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">{{organisationAppartenanceClient}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="row">
+                                                <div class="col">Adresses e-mail </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">{{adresseEmailClient}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="row">
+                                                <div class="col">Numéro d’assurance sociale</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">{{numeroAssuranceSocialClient}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row" style="background-color: #cbe29a;">
+                                        <table class="table table-bordered" width="100%">
+                                            <td><strong>Pays/ Ville de résidence</strong><br><br> {{paysVilleResidenceClient}}</td>
+                                            <td><strong>Adresse (indication domicile & )</strong><br><br> {{adresseDomicileClient}}</td>
+                                            <td><strong>N° Téléphones domicile </strong><br><br> {{telephoneDomicileClient}}</td>
+                                        </table>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-5">Activités exercées : </div>
+                                        <div class="col-7">Preuves fournies
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <div class="form-check">
+                                                        <p>
+                                                            <input type="checkbox" class="filled-in" id="">
+                                                            <label for="">
+                                                                <span>RCCM</span>
+                                                            </label>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-check">
+                                                        <p>
+                                                            <input type="checkbox" class="filled-in" id="">
+                                                            <label for="">
+                                                                <span>JO</span>
+                                                            </label>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-check">
+                                                        <p>
+                                                            <input type="checkbox" class="filled-in" id="">
+                                                            <label for="">
+                                                                <span>Aucune</span>
+                                                            </label>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div style="background-color: #cbe29a;">
+                                        <p>Si aucune preuve n’a été fournie, veuillez demander au client de nous décrire
+                                            l’origine des fonds</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Partie B -->
+                            <div class="row">
+                                <div class="col-2"><strong>B. Pièces présentées</strong></div>
+                                <div class="col-10">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="row">
+                                                <div class="col">Etat Civil</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">{{etatCivilClient}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="row">
+                                                <div class="col">Citoyenneté</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">{{citoyenneteClient}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="row">
+                                                <div class="col">N° Téléphone de travail</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">{{telephoneTravailClient}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background-color: #cbe29a;">
+                                        <div class="col-6">
+                                            <div class="form-check">
+                                                <p>
+                                                    <input type="checkbox" class="filled-in" id="">
+                                                    <label for="">
+                                                        <span>Carte Nationale d'Identité</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                            <div class="form-check">
+                                                <p>
+                                                    <input type="checkbox" class="filled-in" id="">
+                                                    <label for="">
+                                                        <span>IFI</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-check">
+                                                <p>
+                                                    <input type="checkbox" class="filled-in" id="">
+                                                    <label for="">
+                                                        <span>Passe port biométrique</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                            <div class="form-check">
+                                                <p>
+                                                    <input type="checkbox" class="filled-in" id="">
+                                                    <label for="">
+                                                        <span>Permis de conduire</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                    <div class="row">
+                                        <table class="table table-bordered" width="100%">
+                                            <td>Lieu de délivrance de la pièce<br><br> {{lieuDelivrancePieceClient}} </td>
+                                            <td>N° d'identification de la pièce<br><br>  {{numeroIdentificationPieceClient}} </td>
+                                            <td>Date d'expiration<br><br> {{dateExpirationPieceClient}} </td>
+                                            <td>Date de vérification<br><br> {{dateVerificationPieceClient}} </td>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Partie C -->
+                            <div class="row">
+                                <div class="col-2"><strong>C.</strong>Personne morale</div>
+                                <div class="col-10">
+                                    <div class="row" style="background-color: #cbe29a;">
+                                        <table class="table table-bordered" width="100%">
+                                            <td>Etablissement/ Société<br><br> {{etablissementSociete}} </td>
+                                            <td>Nature de l'entreprise<br><br> {{natureEntreprise}} </td>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-12">N° RCCM {{rccm}} </div>
+                                                </div><br><br>
+                                                <div class="row">
+                                                    <div class="col-12">N° IFU {{ifu}} </div>
+                                                </div>
+                                            </td>
+                                            <td>Siège social (Lieu d'implantation)<br><br>  {{siegeSocial}} </td>
+                                        </table>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-check">
+                                                <p>
+                                                    <input type="checkbox" class="filled-in" id="">
+                                                    <label for="">
+                                                        <span>Entreprise Individuelle</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                            <div class="form-check">
+                                                <p>
+                                                    <input type="checkbox" class="filled-in" id="">
+                                                    <label for="">
+                                                        <span>Entreprise nationale</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-check">
+                                                <p>
+                                                    <input type="checkbox" class="filled-in" id="">
+                                                    <label for="">
+                                                        <span>Filiale d’un groupe</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                            <div class="form-check">
+                                                <p>
+                                                    <input type="checkbox" class="filled-in" id="">
+                                                    <label for="">
+                                                        <span>Entreprise en création</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-check">
+                                                <p>
+                                                    <input type="checkbox" class="filled-in" id="">
+                                                    <label for="">
+                                                        <span>Société Etrangère</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                            <div class="form-check">
+                                                <p>
+                                                    <input type="checkbox" class="filled-in" id="">
+                                                    <label for="">
+                                                        <span>Autres</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background-color: #cbe29a;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <p style="display: block; align-content: center;">Renseignements sur le KYC de
+                                                    l’entreprise</p><br>
+                                            </div>
+                                        </div>
+                                        <div class="form-check">
+                                            <p>
+                                                <input type="checkbox" class="filled-in" id="" name="">
+                                                <label for="">
+                                                    <span>Avez-vous mis en place des procédures pour l’identification de
+                                                        vos clients ? </span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                        <div class="form-check">
+                                            <p>
+                                                <input type="checkbox" class="filled-in" id="" name="">
+                                                <label for="">
+                                                    <span>Avez-vous une obligation de recueillir des informations
+                                                        concernant l’activités de vos clients ?</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                        <div class="form-check">
+                                            <p>
+                                                <input type="checkbox" class="filled-in" id="" name="">
+                                                <label for="">
+                                                    <span>Avez-vous un programme de lutte contre le blanchiment et
+                                                        contre le financement du terrorisme ? </span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- Partie D -->
+                            <div class="row">
+                                <div class="col-2"><strong>D. </strong>Informations financières</div>
+                                <div class="col-10">
+                                    <div class="row">
+                                        <table class="table table-bordered" width="100%">
+                                            <tr>
+                                                <td colspan="2"> L’entreprise a-t-elle fait objet d’un interdit de
+                                                    chèque ? </td>
+                                                <td colspan="2">
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Oui</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Non</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <label for="">
+                                                                        <span>Si oui, pourquoi ? </span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"> L’entreprise a-t-elle fait objet d’une déclaration à la
+                                                    CENTIF ?</td>
+                                                <td colspan="2">
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Oui</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Non</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <label for="">
+                                                                        <span>Si oui, pourquoi ? </span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">L’entreprise est-elle très active dans les opérations de
+                                                    transactions financières avec l’étranger ? </td>
+                                                <td colspan="2">
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Oui</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Non</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <label for="">
+                                                                        <span>Si oui, vers quelle destination ? </span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"> Avez-vous des comptes bancaires ouverts à l’étranger ?
+                                                </td>
+                                                <td colspan="2">
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Oui</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Non</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <label for="">
+                                                                        <span> Si oui, quels pays ? </span><br>
+                                                                        <span> A quelle fin ? </span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Sur le territoire national, Avez-vous d’autres relations
+                                                    bancaires en dehors de IMF X ? </td>
+                                                <td colspan="2">
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Oui</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <input type="checkbox" class="filled-in" id="">
+                                                                    <label for="">
+                                                                        <span>Non</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-check">
+                                                                <p>
+                                                                    <label for="">
+                                                                        <span>Si oui, lesquelles ? </span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fin -->
+                            <div class="row">
+                                <div class="col">
+                                    <p>NB : Les opérations ponctuelles, remarquables par leur montant et leur caractère
+                                        inhabituel, sont subordonnées à un entretien préalable avant validation dans les
+                                        livres de IMF X</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Lieu/date {{lieuDateSignatureClient}} <br> Signature du client (précédé de la mention lu
+                                        et
+                                        approuvé)</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--  Custumer section-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br><br>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="print-footer">
+                    <!-- Page: -->
+                    <span style="text-align:justify" *ngIf="_DePage.piedPage !=null;else elseBlock2">
+                        <img [src]="imageUrl+_DePage.piedPage" alt="pied de page" width="100%" height="50">
+                    </span>
+                    <ng-template #elseBlock2>
+                        <!-- <img src="../../../content/images/footer.jpg" alt="logo" width="100%" height="50"> -->
+                    </ng-template>
+                </div>
+
+            </div>
+            <div class style="height:400px">
+            </div>
+            <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+            <button class="btn-floating btn-large waves-effect waves-light red"
+                style="position: fixed; bottom: 25px; right: 25px;" (click)="printAsPdf('membership-form')">
+                <i class="material-icons">print</i>
+            </button>
+        </div>
+
+    </div>
+</div>

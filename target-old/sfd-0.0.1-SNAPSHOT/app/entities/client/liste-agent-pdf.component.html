@@ -1,0 +1,9 @@
+<div style="display: flex; flex-direction: column; height: 100%;">
+    <div class="ui segment" style="box-shadow: unset; border: none; flex-grow: 1; background: unset;" *ngIf="loading">
+        <p></p>
+        <div class="ui active inverted dimmer" style="background-color: unset;">
+            <div class="ui loader massive"></div>
+        </div>
+    </div>
+    <iframe style="width: 100%; flex-grow: 1;" [hidden]="loading" #iframe></iframe>
+</div>

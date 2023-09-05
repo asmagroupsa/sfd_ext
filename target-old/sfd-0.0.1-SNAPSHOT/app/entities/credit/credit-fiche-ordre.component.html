@@ -1,0 +1,114 @@
+<!--loader-->
+
+
+
+<div class="ui dimmer" [ngClass]="{'active': !hideLoader}">
+    <div class="ui loader"></div>
+</div>
+<div class="container" *ngIf="hideLoader">
+    <div id="print" #printZone class="col-md-12" >
+        <div class="print-header">
+            <span style="text-align:justify" *ngIf="_DePage.entete !=null ;else elseBlock">
+                <img [src]="imageUrl+_DePage.entete" alt="entete de page">
+            </span>
+            <ng-template #elseBlock>
+                <img src="../../../content/images/header.jpg" alt="logo">
+            </ng-template>
+        </div>
+        <div class="wrapper">
+            <p class="page-break"></p>
+            <div class="row top-space">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="text-align-center bold font-size-x-large">ORDRE  DE PAIEMENT MCM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <table class="table-bordered" *ngIf="_ficheLoadEnd">
+                        <tr>
+                            <td colspan="3"class="section-header bold style">Identification du client</td>
+                        </tr>
+                          <tr>
+                              <td style="width:100%">
+                                  <table class="table  table-bordered">
+                                      <tr>
+                                          <td> N. Client: {{ficheClient.nclient}}</td>
+                                          <td>Nom Client: {{ficheClient.nomduclient}}</td>
+
+                                      </tr>
+                                      <tr>
+                                          <td colspan="2">Adresse:{{ficheClient.adresse}} </td>
+                                      </tr>
+                                      <tr>
+                                          <td> Catégorie: {{ficheClient.categorie}}</td>
+                                          <td>Revenus: {{ficheClient.revenus | currency:'XAF':true:'2.0'}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td colspan="2"> Bien possédés: {{ficheClient.bienpossedes}}</td>
+                                      </tr>
+                                  </table>
+                              </td>
+                              <td>
+                                  <img [src]="ficheClient.photo_groupe ? imageUrl + ficheClient.photo_groupe : '../../../content/images/avatar.png'" alt="" width="70" height="70">
+                              </td>
+                          </tr>
+                      </table>
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Photo</th>
+                            <th>Nom Prénom</th>
+                            <th>Role du membre</th>
+                            <th> Montant </th>
+                            <th>Tél</th>
+                            <th>Signature</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                          </tr>
+                            <tr *ngFor="let data of _currentCreditFicheOrdre">
+                                <td>
+                                    <img [src]="data.photo" alt="" width="50" height="50">
+                                </td>
+                                <td>{{data.nompren}}</td>
+                                <td>{{data.member_role}}</td>
+                                <td>{{data.montant | currency:'XAF':true:'2.0'}}</td>
+                                <td>{{data.phone}}</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <img #qrimage src="" alt="some code" width="70" height="70">
+                </div>
+            </div>
+            <!-- <p class="page-break"></p> -->
+        </div>
+        <div class="print-footer">
+            <!-- Page: -->
+            <span style="text-align:justify" *ngIf="_DePage.piedPage != null ;else elseBlock2">
+                <img [src]="imageUrl+_DePage.piedPage" alt="pied de page" width="100%" height="50">
+            </span>
+            <ng-template #elseBlock2>
+                <img src="../../../content/images/footer.jpg" alt="logo" width="100%" height="50">
+            </ng-template>
+        </div>
+    </div>
+</div>
+<div class="" style="height:200px">
+
+</div>
+<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+<a  class="btn-floating btn-large waves-effect waves-light red" style="position: fixed; bottom: 25px; right: 25px;" (click)="printAsPdf('print')">
+    <i class="material-icons">print</i>
+</a>
+
+<!-- </div> -->

@@ -1,0 +1,43 @@
+{
+    "sfdApp": {
+        "operation": {
+            "home": {
+                "title": "Operations",
+                "createLabel": "Créer un nouveau Operation",
+                "createOrEditLabel": "Editer un Operation",
+                "search": "Recherche pour Operation"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Operation {{ id }} ?"
+            },
+            "detail": {
+                "title": "Operation"
+            },
+            "agenceReference": "Agence Reference",
+            "title": "Titre",
+            "amount": "Montant",
+            "observation": "Observation",
+            "compenser": "Compenser",
+            "createdDate": "Créer le",
+            "createdBy": "Créer par",
+            "lastModifiedBy": "Modifier par",
+            "lastModifiedDate": "Modifier le",
+            "ecritureCode": "Ecriture Code",
+            "comptable": "Comptable",
+            "commissions": "Commissions",
+            "prelevements": "Prelèvements",
+            "mises": "Mises",
+            "account": "Compte",
+            "credit": "Credit",
+            "compensation": "Compensation",
+            "operationType": "Operation Type"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "operation": {
+            "created": "Une nouvelle Operation a été créé ",
+            "updated": "L'OOperation  a été mis à jour",
+            "deleted": "L'Operation  a été supprimé"
+        }
+    }
+}

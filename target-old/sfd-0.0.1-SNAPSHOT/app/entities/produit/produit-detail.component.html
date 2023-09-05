@@ -1,0 +1,127 @@
+<button class="circular ui icon button" (click)="previousState()">
+    <i class="angle left icon"></i>
+</button>
+<div class="container" *ngIf="produit">
+    <h2 class="name text-center">{{produit?.libelle}}</h2>
+    <p class="text-center">Le code du produit : {{produit?.code}}</p>
+    <div class="flex-container">
+        <div class="flex-item">
+            <div class="card2">
+                <div class="positionned-child">
+                    <p>
+                        <strong> Montant minimum:</strong> {{produit?.amountMin | currency:'XAF':true:'2.0-3'}}</p>
+                    <p>
+                        <strong>Montant maximum:</strong> {{produit?.amountMax | currency:'XAF':true:'2.0-3'}} </p>
+                    <p>
+                        <strong>Age minimum des clients pour le produit:</strong> {{produit?.ageMin}} ans </p>
+                </div>
+            </div>
+            <div class="card1">
+                <div class="positionned-child">
+                    <ng-template #elseCible>
+                        <div class="ui active centered">
+                            Pas de cibles sur le produit
+                        </div>
+                    </ng-template>
+                    <p style="margin-top:3px">
+                        <strong>
+                            Les cibles du produit
+                        </strong>
+                    </p>
+                    <div *ngIf="produit?.typeClients;elseCible">
+                        <div class="fab" *ngFor="let cible of produit?.typeClients">
+                            {{cible?.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-item">
+            <div class="card1">
+                <div class="positionned-child">
+                    <h6 *ngIf="produit.duration">
+                        <strong jhiFnmTranslate="sfdApp.produit.duration">Duration</strong>: {{produit.duration?produit.duration+' mois':''}}</h6>
+                </div>
+            </div>
+            <div class="card2">
+                <div class="positionned-child">
+                    <div class="info-details">
+                        <p *ngIf="produit.interestRate">
+                            <strong jhiFnmTranslate="sfdApp.produit.interestRate"></strong>: {{produit?.interestRate}} %
+                        </p>
+
+                        <div>
+                            <div class="icon-group" *ngIf="produit.fraisses">
+                                <span class="bold">
+                                    <strong jhiFnmTranslate="sfdApp.produit.fraiss">Frais</strong>:</span>
+                                <span class="contact">
+                                    <span *ngFor="let fraiss of produit.fraisses; let last = last">
+                                        <a>{{fraiss.libelle}}</a>{{last ? '' : ', '}}
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="icon-group" *ngIf="produit.tranchePenals">
+                                <span class="bold">
+                                    <strong jhiFnmTranslate="sfdApp.produit.tranchePenals">Tranche Penals</strong>:</span>
+                                <span class="contact">
+                                    <span *ngFor="let tranchePenals of produit.tranchePenals; let last = last">
+                                        <a [routerLink]="['/entity','tranche-penal', tranchePenals?.id ]">{{tranchePenals.minDay}}-{{tranchePenals.maxDay}}({{tranchePenals.penalRate}})</a>{{last ? '' : ', '}}
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="icon-group" *ngIf="produit.tauxs">
+                                <span class="bold">
+                                    <strong jhiFnmTranslate="sfdApp.produit.tauxs">Tauxs</strong>:</span>
+                                <a class="contact">
+                                    <span *ngFor="let tauxs of produit.tauxs; let last = last">
+                                        <a>{{tauxs.libelle}}</a>{{last ? '' : ', '}}
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="icon-group" *ngIf="produit.periodicities">
+                                <span class="bold">
+                                    <strong jhiFnmTranslate="sfdApp.produit.periodicity">Periodicity</strong>:</span>
+                                <a class="contact">
+                                    <span *ngFor="let periodicity of produit.periodicities; let last = last">
+                                        <a>{{periodicity.libPeriodicite}}</a>{{last ? '' : ', '}}
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-item">
+            <div class="card2">
+                <div class="positionned-child">
+                    <span class="tag" *ngIf="produit.comitable">Comité</span>
+                    <span class="tag" *ngIf="produit.formable">Formation</span>
+                    <span class="tag" *ngIf="produit.notifiable">Notification</span>
+                    <span class="tag" *ngIf="produit.creditable">Crédit</span>
+                    <span class="tag" *ngIf="produit.contractable">Contrat</span>
+                    <span class="tag" *ngIf="produit.etudiable">Etude</span>
+                    <span class="tag" *ngIf="produit.penalitable">Pénalité</span>
+                    <span class="tag" *ngIf="produit.eligibilite">Eligibilité</span>
+                </div>
+                <!-- <div class="positionned-child">
+                    <span class="tag">{{produit.comitable ? 'Comité' : 'Comité'}}</span>
+                    <span class="tag">{{produit.formable ? 'Formable' : 'Non formable'}}</span>
+                    <span class="tag">{{produit.notifiable ? 'Notifié' : 'Non notifié'}}</span>
+                    <span class="tag">{{produit.creditable ? 'Est un crédit' : "N'est pas un crédit"}}</span>
+                    <span class="tag">{{produit.contractable ? 'Avec contrat' : 'Sans contrat'}}</span>
+                    <span class="tag">{{produit.etudiable ? 'Avec etudute' : 'Sans etude'}}</span>
+                    <span class="tag">{{produit.penalitable ? 'Avec pénalité' : 'Sans pénalité'}}</span>
+                    <span class="tag">{{produit.eligibilite ? 'Eligible' : 'non eligible'}}</span>
+                </div> -->
+            </div>
+            <div class="card1">
+                <div class="positionned-child">
+                    <p>{{produit?.activerConditionAcces ? "Les conditions d'accès sont activées": "Les conditions d'accès ne sont pas activées"}} </p>
+                    <p *ngIf="produit.activerConditionAcces">{{produit?.conditionAccesses?.length}} conditions d'accès </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

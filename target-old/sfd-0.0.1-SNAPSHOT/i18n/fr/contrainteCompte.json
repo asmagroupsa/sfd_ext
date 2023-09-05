@@ -1,0 +1,35 @@
+{
+    "sfdApp": {
+        "contrainteCompte" : {
+            "home": {
+                "title": "ContrainteComptes",
+                "createLabel": "Créer une nouvelle Contrainte De Compte",
+                "createOrEditLabel": "Editer une Contrainte De Compte",
+                "search": "Recherche Une Contrainte De Compte"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Contrainte De Compte {{ id }} ?"
+            },
+            "detail": {
+                "title": "Contrainte De Compte"
+            },
+            "name": "Nom",
+            "valeur": "Valeur",
+            "createdDate": "Date Création",
+            "createdBy": "Créée Par",
+            "lastModifiedBy": "odifiée Dernièrement Par",
+            "lastModifiedDate": "Date Dernière Modification",
+            "typeTraitement": "Type Traitement",
+            "typeValeur": "Type Valeur",
+            "accountTypes": "Type Compte",
+            "typeAlgo": "Type Algo"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "contrainteCompte" : {
+            "created": "Une nouvelle Contrainte Compte a été créée ",
+            "updated": "La Contrainte Compte  a été mise à jour",
+            "deleted": "La Contrainte Compte  a été supprimée"
+        }
+    }
+}

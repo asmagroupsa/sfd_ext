@@ -1,0 +1,32 @@
+<div *ngIf="compensation">
+
+
+    <h4>Les {{params?.type}}S de {{type == 'ordre'?"L'ordre de virement":''}}{{type == 'compensation'?"la compensation":''}}</h4>
+<table class="bordered striped highlight">
+            <thead>
+                <tr>
+                    <th class="numerotab">N°</th>
+                    <th>Date</th>
+                    <th>Libellé</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let comp of compensation;let index = index;">
+                    <td class="numerotab">{{(index + 1)}}</td>
+                    <td>
+                        {{comp.createdDate | date:'mediumDate'}}
+                    </td>
+                    <td>
+                        {{comp.libelle}}
+                    </td>
+                    <td>
+                        {{comp.amount | currency:'XAF':true:'2.0'}}
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+
+            <!-- <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button> -->

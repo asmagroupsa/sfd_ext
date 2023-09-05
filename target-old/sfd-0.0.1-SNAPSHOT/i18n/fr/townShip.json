@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "townShip": {
+            "home": {
+                "title": "Commune",
+                "createLabel": "Créer une nouvelle Commune",
+                "createOrEditLabel": "Editer une Commune",
+                "search": "Recherche pour Commune"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Commune {{ id }} ?"
+            },
+            "detail": {
+                "title": "Commune"
+            },
+            "name": "Nom",
+            "districts": "Districts",
+            "city": "Cité"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "townShip": {
+            "created": "Une nouvelle Commune a été créé ",
+            "updated": "La Commune  a été mis à jour",
+            "deleted": "La Commune  a été supprimé"
+        }
+    }
+}

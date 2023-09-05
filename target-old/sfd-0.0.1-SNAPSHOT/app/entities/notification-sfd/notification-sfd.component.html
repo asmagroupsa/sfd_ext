@@ -1,0 +1,119 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.notificationSFD.home.title">Notification SFDS</span>
+        <button class="btn btn-primary float-right create-notification-sfd" [routerLink]="['/entity','notification-sfd', { outlets: { popup: ['notification-sfd-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.notificationSFD.home.createLabel">
+            Create new Notification SFD
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.notificationSFD.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="notificationSFDS;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="rate"><span jhiFnmTranslate="sfdApp.notificationSFD.rate">Rate</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="notificationDate"><span jhiFnmTranslate="sfdApp.notificationSFD.notificationDate">Notification Date</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="status"><span jhiFnmTranslate="sfdApp.notificationSFD.status">Status</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="nbrDiffere"><span jhiFnmTranslate="sfdApp.notificationSFD.nbrDiffere">Nbr Differe</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="amount"><span jhiFnmTranslate="sfdApp.notificationSFD.amount">Amount</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="typeEcheancier"><span jhiFnmTranslate="sfdApp.notificationSFD.typeEcheancier">Type Echeancier</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="nbreEcheance"><span jhiFnmTranslate="sfdApp.notificationSFD.nbreEcheance">Nbre Echeance</span> <span class="fa fa-sort"></span></th>
+                    <!-- <th jhiSortBy="createdDate"><span jhiFnmTranslate="sfdApp.notificationSFD.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>-->
+                    <!-- <th jhiSortBy="createdBy"><span jhiFnmTranslate="sfdApp.notificationSFD.createdBy">Created By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedBy"><span jhiFnmTranslate="sfdApp.notificationSFD.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedDate"><span jhiFnmTranslate="sfdApp.notificationSFD.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="ligneRequestId"><span jhiFnmTranslate="sfdApp.notificationSFD.ligneRequest">Ligne Request</span> <span class="fa fa-sort"></span></th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let notificationSFD of notificationSFDS  | recherche:currentSearch ;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','notification-sfd', notificationSFD.id ]">{{notificationSFD.id}}</a></td> -->
+                    <td>{{notificationSFD.rate}}</td>
+                    <td>{{notificationSFD.notificationDate | date:'dd-MM-y'}}</td>
+                    <td>{{notificationSFD.status}}</td>
+                    <td>{{notificationSFD.nbrDiffere}}</td>
+                    <td>{{notificationSFD.amount}}</td>
+                    <td>{{notificationSFD.typeEcheancier}}</td>
+                    <td>{{notificationSFD.nbreEcheance}}</td>
+                    <!-- <td>{{notificationSFD.createdDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>{{notificationSFD.createdBy}}</td> -->
+                    <!-- <td>{{notificationSFD.lastModifiedBy}}</td> -->
+                    <!-- <td>{{notificationSFD.lastModifiedDate | date:'dd-MM-y'}}</td> -->
+                    <td>
+                        <div *ngIf="notificationSFD.ligneRequestId">
+                            <a [routerLink]="['/entity','ligne-request', notificationSFD.ligneRequestId  ]">{{notificationSFD.ligneRequestId}}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['/entity','notification-sfd', notificationSFD.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.view">View</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','notification-sfd', { outlets: { popup: 'notification-sfd/'+ notificationSFD.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.edit">Edit</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','notification-sfd', { outlets: { popup: 'notification-sfd/'+ notificationSFD.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.delete">Delete</span> -->
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="notificationSFDS && notificationSFDS.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>
+<div id="print-container" class="print">
+    <ul id="print-picker" class="print-list" [ngClass]="{open:printed}">
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="nl"><a class="waves-effect waves-teal btn-flat">Nederlands</a></li>
+        <li data-value="fr"><a class="waves-effect waves-teal btn-flat">Français</a></li>
+        <li data-value="de"><a class="waves-effect waves-teal btn-flat">Deutsch</a></li>
+    </ul>
+    <div class="print-toggle" (click)="printed = !printed"><span class="printor-current" id="tx-live-lang-current">Impression</span>
+        <i class="fa fa-print"></i>
+    </div>
+</div>

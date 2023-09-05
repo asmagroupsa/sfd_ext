@@ -1,0 +1,533 @@
+<ng-template #Beneficiaire let-c="close" let-d="dismiss">
+    <div class="modal-header" id="beneficiary-modal-header">
+        <h4 class="modal-title">Les Bénéficiaires du client </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div style="font-size: large;">
+            <div>
+                - Liste des bénéficiaires
+
+                <ul>
+                    <li *ngFor="let benef of listBeneficiary">
+                        {{benef.nomPrenom}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" (click)="d()">FERMER</button>&nbsp;&nbsp;&nbsp;
+        <!-- <button type="button" class="btn waves-effect waves-light" (click)="process()">DECAISSER</button> -->
+    </div>
+</ng-template>
+
+<ng-template #t_dissoudreModal let-c="close" let-d="dismiss">
+    <div class="modal-header" id="dissoudre-modal-header">
+        <h4 class="modal-title">Dissoudre le groupe {{currentGroupD?.name}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="font-size: large;">
+        <!-- <div>Dissoudre le groupe {{currentGroupD?.name}}</div> -->
+        <div class="input-field">
+            <label for="observation" class="form-control-label">Observation</label>
+            <input type="text" class="form-control" id="observation" #t_observation>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" (click)="d()">Fermer</button>&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn waves-effect waves-light"
+            (click)="dissoudreP(t_observation?.value)">Dissoudre</button>
+    </div>
+</ng-template>
+
+<ng-template #t_groupMembersModal let-c="close" let-d="dismiss">
+    <div class="modal-header" id="group-member-modal-header">
+        <h4 class="modal-title">Membres du groupe {{ngroup?.name}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="table-responsive">
+            <table class="bordered striped highlight">
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Nom & Prénoms</th>
+                        <th>Numéro</th>
+                        <th>Rôle</th>
+                        <th *ngIf="showDissous === 'false'"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let member of ngroup?.groups;let index = index;">
+                        <td>
+                            <img [src]="member.client?.picture" alt="photo" class="ui circular image"
+                                style="width: 40px; height: 40px;" *ngIf="member.client.pictureUrl">
+                        </td>
+                        <td>{{member.client.name}} {{member.client.firstName}}</td>
+                        <td>{{member.client.phone}}</td>
+                        <td>{{member.memberRole}}</td>
+                        <td *ngIf="showDissous === 'false'">
+                            <div class="btn waves-effect waves-light" style="cursor:pointer"
+                                (click)="deleteMember(member.client.id,member.status,index)"
+                                [ngClass]="{red: member.status}">{{member.status?'Désactiver':'Activer'}}</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" (click)="d()">Fermer</button>&nbsp;&nbsp;&nbsp;
+    </div>
+</ng-template>
+
+<div class="ui tiny modal" id="activer-client-modal">
+    <div class="header">Activation client</div>
+    <div class="content">
+        <h6>Activer le client {{activationClient?.name}}</h6>
+        <br><br>
+        <div class="input-field">
+            <label class="form-control-label oblige active" for="field_montant">Montant de l'activation</label>
+            <input type="number" class="form-control" name="montant" id="field_montant" [(ngModel)]="montant"
+                maxlength="50" data-length="50" required />
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button" (click)="closeActivationModal()" [ngClass]="{disabled:isSaving}">Annuler</div>
+        <div class="ui button" (click)="activerClient()" [ngClass]="{loading:isSaving,disabled:isSaving}">Activer</div>
+    </div>
+</div>
+<!-- <div class="ui tiny modal" id="group-members-modal">
+    <div class="header">Liste des membres de {{memberGroup?.name}}</div>
+    <div class="content">
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>Nom</th>
+                    <th>Prénoms</th>
+                    <th>Numéro</th>
+                    <th>Rôle</th>
+                    <th *ngIf="showDissous === 'false'"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let member of memberGroup?.groups;let index = index;">
+                    <td>
+                        <img [src]="member.client?.picture" alt="photo" class="ui circular image" style="width:40px;height:40px;" *ngIf="member.client.pictureUrl" />
+                    </td>
+                    <td>{{member.client.name}}</td>
+                    <td>{{member.client.firstName}}</td>
+                    <td>{{member.client.phone}}</td>
+                    <td>{{member.memberRole}}</td>
+                    <td *ngIf="showDissous === 'false'">
+                        <div class="btn waves-effect waves-light" style="cursor:pointer" (click)="deleteMember(member.client.id,member.status,index)" [ngClass]="{red: member.status}">{{member.status?'Désactiver':'Activer'}}</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button" (click)="closegroupMembersModal()">Fermer</div>
+    </div>
+</div>
+<div class="ui tiny modal" id="delete-group-members-modal">
+    <div class="header">Liste des membres de {{currentGroup?.name}}</div>
+    <div class="content">
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th class="numerotab">N°</th>
+                    <th>Nom</th>
+                    <th>Prénoms</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let member of currentGroup?.groups;let i = index">
+                    <td class="numerotab">{{(i + 1)}}</td>
+                    <td>{{member.client.name}}</td>
+                    <td>{{member.client.firstName}}</td>
+                    <td>{{member.memberRole}}</td>
+                    <td>{{member.status?'Actif':'Désactif'}}</td>
+                    <td>
+                        <div class="btn waves-effect waves-light" style="cursor:pointer" (click)="deleteMember(member.client.id,member.status,i)" [ngClass]="{red: member.status}">{{member.status?'Désactiver':'Activer'}}</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button" (click)="closeDeleteMembersModal()">Fermer</div>
+    </div>
+</div> -->
+<div class="row">
+    <div class="col-sm-5">
+        <h4 class="card-title mb-0" jhiFnmTranslate="sfdApp.client.home.title">Clients</h4>
+        <div *ngIf="type?.code == 'MUTUEL'">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group" data-toggle="buttons" aria-label="First group">
+                    <!-- <label class="btn btn-outline-secondary" [ngClass]="{active: showDissous == 'tout'}" (click)="groupFilter('tout')">
+                        <input type="radio" name="grp_options" id="option1" [checked]="showDissous  === 'tout'"> Tout
+                    </label> -->
+                    <label class="btn btn-outline-secondary" [ngClass]="{active: showDissous == 'false'}"
+                        (click)="groupFilter('false')">
+                        <input type="radio" name="grp_options" id="option1" [checked]="!showDissous"> Actifs
+                    </label>
+                    <label class="btn btn-outline-secondary" [ngClass]="{active: showDissous == 'true'}"
+                        (click)="groupFilter('true')">
+                        <input type="radio" name="grp_options" id="option1" [checked]="showDissous == 'true'"> Dissous
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-7 hidden-sm-down">
+        <div *ngIf="type?.code !== 'MARCHAND'">
+            <button *jhiHasAnyRessources="'carmesfnmservice/api/clients/createClient'" type="button"
+                class="btn btn-primary float-right"
+                [routerLink]="['/entity','client', { outlets: { popup: ['client-new'] } }]"
+                [queryParams]="{type:type?.code}">
+                <span class="fa fa-plus"></span>
+            </button>
+        </div>
+
+        <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-3" data-toggle="buttons" aria-label="First group">
+                <label class="btn btn-outline-secondary" [ngClass]="{active: type?.code == typeClient.code}"
+                    (click)="changeType(typeClient)" *ngFor="let typeClient of typeClients">
+                    <input type="radio" name="options" id="option1" [checked]="type?.code == typeClient.code">
+                    {{typeClient.name}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row search-date">
+    <div class="col-sm-6">
+        <form name="searchForm" class="form-inline">
+            <div class="input-group w-100 mt-3">
+                <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch"
+                    name="currentSearch"
+                    placeholder="{{ 'sfdApp.client.home.search' | fnmtranslate : langue.lang | async }}">
+                <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                    <span class="fa fa-search"></span>
+                </button>
+                <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                    <span class="fa fa-trash-o"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="field col-md-3">
+        <label for="date1" class="form-control-label">Du</label>
+        <ngbd-datepicker-i18n name="date1" [(ngModel)]="date1" (ngModelChange)="onPeriodChange()">
+        </ngbd-datepicker-i18n>
+    </div>
+    <div class="field col-md-3">
+        <label for="date2" class="form-control-label">Au</label>
+        <ngbd-datepicker-i18n name="date2" [(ngModel)]="date2" (ngModelChange)="onPeriodChange()">
+        </ngbd-datepicker-i18n>
+    </div>
+</div>
+
+<div>
+    <jhi-alert></jhi-alert>
+    <!-- <div class="row">
+
+    </div> -->
+    <br />
+    <!-- <ng-template #elseBlock>
+        <div class="ui active centered inline loader"></div>
+    </ng-template> -->
+    <div class="table-responsive" *ngIf="clients;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th class="numerotab">N°</th>
+                    <th>Photo</th>
+                    <th *ngIf="type?.code !== 'MARCHAND'">Code</th>
+                    <th *ngIf="type?.code === 'MARCHAND'">N° CARMES</th>
+                    <th *ngIf="type?.code != 'ENTREPRISE'" jhiSortBy="name">
+                        <span jhiFnmTranslate="sfdApp.client.name">Name</span><span
+                            *ngIf="type?.code === 'MARCHAND'">&prénoms</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th *ngIf="type?.code === 'MARCHAND'">Affecté à</th>
+                    <th *ngIf="type?.code != 'MUTUEL' && type?.code != 'ENTREPRISE' && type?.code != 'MARCHAND'"
+                        jhiSortBy="firstName">
+                        <span jhiFnmTranslate="sfdApp.client.firstName">Prénom</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiFnmTranslate="sfdApp.client.dateHour" *ngIf="type?.code != 'MARCHAND'">Date Hour</th>
+                    <th *ngIf="type?.code == 'MARCHAND'">Date d'affect.</th>
+                    <th *ngIf="type?.code == 'ENTREPRISE'" jhiSortBy="denomination">
+                        <span jhiFnmTranslate="sfdApp.client.denomination">Dénomination</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th *ngIf="type?.code == 'ENTREPRISE'" jhiSortBy="firstName">
+                        <span jhiFnmTranslate="sfdApp.client.leader">Gerant</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th *ngIf="type?.code == 'MUTUEL'">
+                        <span>Président</span>
+                        <!-- <span class="fa fa-sort"></span> -->
+                    </th>
+                    <th jhiSortBy="phone">
+                        <span jhiFnmTranslate="sfdApp.client.phone">Phone</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th *ngIf="type?.code == 'MUTUEL'">
+                        <span>Nbre de membre</span>
+                        <!-- <span class="fa fa-sort"></span> -->
+                    </th>
+                    <th *ngIf="type?.code != 'INDIVIDU' && type?.code != 'MUTUEL' && type?.code != 'MARCHAND'"
+                        jhiSortBy="email">
+                        <span jhiFnmTranslate="sfdApp.client.email">Email</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th *ngIf="type?.code != 'MUTUEL' && type?.code != 'MARCHAND'" jhiSortBy="professionId">
+                        <span jhiFnmTranslate="sfdApp.client.profession">Profession</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th *ngIf="type?.code == 'INDIVIDU'">Groupe</th>
+                    <th class="text-right" *ngIf="type?.code != 'MARCHAND'">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let client of clients|sorted:'id'|recherche:currentSearch|status:!inactif;let index = index;"
+                    style="cursor:pointer;" [ngClass]="{current:currentGroupD?.id == client.id}">
+                    <td class="numerotab">
+                        <span *ngIf="type?.code != 'MARCHAND'">{{(index + 1) + (itemsPerPage * ((page|| 1) -1))}}</span>
+                        <span *ngIf="type?.code === 'MARCHAND'">{{(index + 1)}}</span>
+                    </td>
+                    <td *ngIf="type?.code !== 'MARCHAND'">
+                        <a>
+                            <img [src]="client?.picture" alt="photo" class="ui circular image"
+                                style="width:40px;height:40px;" *ngIf="client.pictureUrl" />
+                            <img src="../../../content/images/avatar.png" alt="photo" class="ui circular image"
+                                style="width:40px;height:40px;" *ngIf="!client.pictureUrl" />
+                        </a>
+                    </td>
+                    <td *ngIf="type?.code === 'MARCHAND'">
+                        <img [src]="getImgSrc(client?.photo)" alt="photo" class="ui circular image"
+                            style="width:40px;height:40px;">
+                    </td>
+                    <td *ngIf="type?.code !== 'MARCHAND'">{{client?.code||client?.userReference}}</td>
+                    <td *ngIf="type?.code === 'MARCHAND'">{{client?.login}}</td>
+                    <td *ngIf="type?.code != 'ENTREPRISE'">{{client.name}}</td>
+                    <td *ngIf="type?.code === 'MARCHAND'">{{client?.nomcp || client?.affectedTo}}</td>
+                    <td *ngIf="type?.code != 'MUTUEL' && type?.code != 'ENTREPRISE' && type?.code != 'MARCHAND'">
+                        {{client.firstName}}</td>
+                    <td *ngIf="type?.code != 'MARCHAND'">
+                        {{client.dateHour|date: 'dd-MM-y H:mm'}}
+                    </td>
+                    <td *ngIf="type?.code == 'MARCHAND'">
+                        {{client.date_affectation||client.dateAffectation | date: 'mediumDate'}}</td>
+                    <!-- <td *ngIf="type?.code == 'INDIVIDU' && type?.code != 'MUTUEL'">{{client.alias}}</td> -->
+                    <td *ngIf="type?.code == 'ENTREPRISE'">{{client.denomination}}</td>
+                    <td *ngIf="type?.code == 'ENTREPRISE'">
+                        <div *ngIf="client.leaderId">
+                            <a>{{getLeader(client.leaderId)?.name}}</a>
+                        </div>
+                    </td>
+                    <td *ngIf="type?.code == 'MUTUEL'">{{getPresidentName(client?.groups)}}</td>
+                    <td>{{client.phone}}</td>
+                    <td *ngIf="type?.code == 'MUTUEL'">{{client?.groups?.length}}</td>
+                    <td *ngIf="type?.code != 'INDIVIDU' && type?.code != 'MUTUEL' && type?.code != 'MARCHAND'">
+                        {{client.email}}</td>
+                    <td *ngIf="type?.code != 'MUTUEL' && type?.code != 'MARCHAND'">
+                        <div *ngIf="client.professionId">
+                            <a>{{profession(client.professionId)?.name}}</a>
+                        </div>
+                    </td>
+                    <td *ngIf="type?.code == 'INDIVIDU'">{{isDisponibleForGroup(client?.groupMembers)}}</td>
+                    <td class="text-right" *ngIf="type?.code == 'MARCHAND'">
+                        <div class="btn-group flex-btn-group-container">
+                            <div class="ui dropdown">
+                                <div class="text" style="display:none"></div>
+                                <i class="print icon"></i>
+                                <div class="left menu">
+                                    <div class="item"
+                                        [routerLink]="['/entity', 'client', client.login,'commission-acteur']"
+                                        [queryParams]="{clientRef: client.code}">Fiche commission
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td class="text-right" *ngIf="type?.code != 'MARCHAND'">
+                        <div class="btn-group flex-btn-group-container">
+                            <!--<button type="button" [routerLink]="['/entity','client', client.id, 'report', 'indentification-sheet']" class="btn btn-info btn-sm">
+                                <span class="fa fa-print"></span>
+                            </button>-->
+                            <button *jhiHasAnyRessources="'carmesfnmservice/api/clients/getAllClients'" type="submit"
+                                [routerLink]="['/entity','client', client.id]" class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                            </button>
+                            <!-- *jhiHasAnyRessources="'carmesfnmservice/api/clients/updateClient'" -->
+                            <button type="submit"
+                                [routerLink]="['/entity','client', { outlets: { popup: 'client/'+ client.id + '/edit'} }]"
+                                replaceUrl="true" class="btn btn-primary btn-sm" [queryParams]="{type:type?.code}">
+                                <span class="fa fa-pencil"></span>
+                            </button>
+                            <!-- <button *jhiHasAnyRessources="'carmesfnmservice/api/clients/deleteClient'" type="submit" [routerLink]="['/entity','client', { outlets: { popup: 'client/'+ client.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                            </button> -->
+
+                            <div class="ui dropdown" *ngIf="type?.code == 'INDIVIDU'">
+                                <div class="text" style="display:none"></div>
+                                <i class="print icon"></i>
+                                <div class="left menu">
+                                    <div class="item"
+                                        [routerLink]="['/entity', 'client', client.id,'membership-form-new']"
+                                        [queryParams]="{clientRef: client.code}">Fiche d'adhesion</div>
+                                    <div class="item"
+                                        [routerLink]="['/entity', 'client', client.id,'report','indentification-sheet']">
+                                        Fiche d' identification</div>
+                                    <div class="item"
+                                        [routerLink]="['/entity', 'client', client.id,'report','condition-acces-sheet']"
+                                        *ngIf="type?.code === 'INDIVIDU'">Fiche des conditions d'accès</div>
+                                </div>
+                            </div>
+                            <div class="ui dropdown">
+                                <div class="text" style="display:none"></div>
+                                <i class="ellipsis vertical icon"></i>
+                                <div class="left menu">
+                                    <!-- <div class="item" *ngIf="type?.code != 'MUTUEL' && (inactif || !client.status)" (click)="activerClientModal(client)">Activer</div> -->
+                                    <div [hidden]="(type?.code != 'MUTUEL') || ((type?.code != 'MUTUEL') && (showDissous === 'true'))"
+                                        class="item"
+                                        [routerLink]="['/entity', 'group-member', {outlets: {popup: ['group-member-new']}}]"
+                                        [queryParams]="{'groupe':client?.id || -1}" fragment="client">Ajouter un membre
+                                    </div>
+                                    <!-- <div [hidden]="(type?.code != 'MUTUEL') && (showDissous === 'true')" class="item" (click)="deletegroupMembersModal(client)">Activer ou désactiver un membre du groupe</div> -->
+                                    <div [hidden]="type?.code != 'MUTUEL'" class="item"
+                                        (click)="nshowgroupMembersModal(client, t_groupMembersModal)">Liste des membres
+                                    </div>
+                                    <!-- <div [hidden]="type?.code != 'MUTUEL'" class="item" (click)="showgroupMembersModal(client)">Liste des membres</div> -->
+                                    <div [hidden]="type?.code != 'MUTUEL'" class="divider"></div>
+                                    <div class="item"
+                                        [routerLink]="['/entity','address', { outlets: { popup: ['address-new'] } }]"
+                                        [queryParams]="{client: client.id}"
+                                        [hidden]="(type?.code === 'MUTUEL') && (showDissous === 'true')">Ajouter une
+                                        adresse au client</div>
+                                    <div class="item" [routerLink]="['/entity','address']"
+                                        [queryParams]="{client: client.id}">Les adresses du client</div>
+                                    <!-- <div class="item" [routerLink]="['/entity','credit-request', { outlets: { popup: ['credit-request-new'] } }]" [queryParams]="{client: client.id}">
+                                        <i class="folder icon"></i> Ajouter une demande au client</div> -->
+                                    <div class="item" [routerLink]="['/entity','credit-request']"
+                                        [queryParams]="{client: client.id}"
+                                        *jhiHasAnyRessources="'carmesfnmservice/api/credit-requests/getAllCreditRequests'">
+                                        Les demandes du client</div>
+                                    <div class="item"
+                                        [routerLink]="['/entity','compte-client', { outlets: { popup: ['compte-new'] } }]"
+                                        [queryParams]="{client: client.id}"
+                                        *jhiHasAnyRessources="'carmesfnmservice/api/comptes/createCompte'"
+                                        [hidden]="(type?.code === 'MUTUEL') && (showDissous === 'true')">Ajouter un compte au client</div>
+                                    <!-- <div class="item" [routerLink]="['/entity','client', 'releve']"
+                                        [queryParams]="{client: client.id}">Relevé du compte du client</div> -->
+                                    <!-- <div class="item" [routerLink]="['/entity','client', 'assurance']" [queryParams]="{client: client.id}">Informations Assurance</div> -->
+                                    <!-- <div class="item"
+                                        [routerLink]="['/entity','assurance', { outlets: { popup: ['assurance-new'] } }]"
+                                        [queryParams]="{client: client.id}">Ajouter Assurance</div>
+                                    <div class="item" *ngIf="(type?.code === 'MUTUEL') && (showDissous === 'false')"
+                                        (click)="dissoudre(client, t_dissoudreModal)">Dissoudre</div>
+                                        <div class="item" (click)="beneficiaire(client, Beneficiaire)">Voir Bénéficiaire</div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="ui active centered inline loader" [hidden]="!loading"></div>
+    <div *ngIf="clients && clients.length">
+        <br>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage">
+            </ngb-pagination>
+        </div>
+    </div>
+    <div class="table-responsive scroll" *ngIf="currentGroupD && isLead">
+        <hr>
+        <div class="row">
+            <div class="col-sm-5">
+                <h3 class="card-title mb-0">Responsable du client {{currentGroupD?.name}}</h3>
+            </div>
+        </div>
+        <hr>
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th class="numerotab">N°</th>
+                    <th jhiSortBy="name">
+                        <span jhiFnmTranslate="sfdApp.leader.name">Name</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="firstName">
+                        <span jhiFnmTranslate="sfdApp.leader.firstName">First Name</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="address">
+                        <span jhiFnmTranslate="sfdApp.leader.address">Address</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="sex">
+                        <span jhiFnmTranslate="sfdApp.leader.sex">Sex</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="title">
+                        <span jhiFnmTranslate="sfdApp.leader.title">Title</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="phone">
+                        <span jhiFnmTranslate="sfdApp.leader.phone">Phone</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="birthDate">
+                        <span jhiFnmTranslate="sfdApp.leader.birthDate">Birth Date</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="email">
+                        <span jhiFnmTranslate="sfdApp.leader.email">Email</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let leader of leaders | leader:currentGroupD;let index = index;trackBy: trackId">
+                    <td class="numerotab">{{(index + 1)}}</td>
+                    <td>{{leader?.name}}</td>
+                    <td>{{leader?.firstName}}</td>
+                    <td>{{leader?.address}}</td>
+                    <td>{{leader?.sex}}</td>
+                    <td>{{leader?.title}}</td>
+                    <td>{{leader?.phone}}</td>
+                    <td>{{leader?.birthDate | date:'dd-MM-y'}}</td>
+                    <td>{{leader?.email}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="ui compact selection dropdown" *ngIf="type?.code === 'MARCHAND' || type?.code === 'INDIVIDU'">
+    <i class="dropdown icon"></i>
+    <div class="text">Impressions</div>
+    <div class="menu">
+        <div class="item" [routerLink]="['/entity','client', 'marchands-print']" [queryParams]="{type: type.code}">Tous
+            les <span *ngIf="type?.code === 'MARCHAND'">marchands</span> <span *ngIf="type?.code === 'INDIVIDU'">clients
+                individu</span></div>
+    </div>
+</div>

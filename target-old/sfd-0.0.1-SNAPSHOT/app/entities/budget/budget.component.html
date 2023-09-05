@@ -1,0 +1,125 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.budget.home.title">Budgets</span>
+        <button class="btn btn-primary float-right create-budget" [routerLink]="['/entity','budget', { outlets: { popup: ['budget-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.budget.home.createLabel">
+            Create new Budget
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.budget.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="budgets;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="amount"><span jhiFnmTranslate="sfdApp.budget.amount">Amount</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="amountRequested"><span jhiFnmTranslate="sfdApp.budget.amountRequested">Amount Requested</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="ammountReport"><span jhiFnmTranslate="sfdApp.budget.ammountReport">Ammount Report</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="activeDate"><span jhiFnmTranslate="sfdApp.budget.activeDate">Active Date</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="carmesAccount"><span jhiFnmTranslate="sfdApp.budget.carmesAccount">CARMES Account</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="active"><span jhiFnmTranslate="sfdApp.budget.active">Active</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="cloture"><span jhiFnmTranslate="sfdApp.budget.cloture">Cloture</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="sommeTotalLigne"><span jhiFnmTranslate="sfdApp.budget.sommeTotalLigne">Somme Total Ligne</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="codeActivation"><span jhiFnmTranslate="sfdApp.budget.codeActivation">Code Activation</span> <span class="fa fa-sort"></span></th>
+                    <!-- <th jhiSortBy="createdDate"><span jhiFnmTranslate="sfdApp.budget.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>-->
+                    <!-- <th jhiSortBy="createdBy"><span jhiFnmTranslate="sfdApp.budget.createdBy">Created By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedBy"><span jhiFnmTranslate="sfdApp.budget.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedDate"><span jhiFnmTranslate="sfdApp.budget.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="montantActive"><span jhiFnmTranslate="sfdApp.budget.montantActive">Montant Active</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="anneeId"><span jhiFnmTranslate="sfdApp.budget.annee">Annee</span> <span class="fa fa-sort"></span></th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let budget of budgets  | recherche:currentSearch ;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','budget', budget.id ]">{{budget.id}}</a></td> -->
+                    <td>{{budget.amount}}</td>
+                    <td>{{budget.amountRequested}}</td>
+                    <td>{{budget.ammountReport}}</td>
+                    <td>{{budget.activeDate | date:'dd-MM-y'}}</td>
+                    <td>{{budget.carmesAccount}}</td>
+                    <td>{{budget.active}}</td>
+                    <td>{{budget.cloture}}</td>
+                    <td>{{budget.sommeTotalLigne}}</td>
+                    <td>{{budget.codeActivation}}</td>
+                    <!-- <td>{{budget.createdDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>{{budget.createdBy}}</td> -->
+                    <!-- <td>{{budget.lastModifiedBy}}</td> -->
+                    <!-- <td>{{budget.lastModifiedDate | date:'dd-MM-y'}}</td> -->
+                    <td>{{budget.montantActive}}</td>
+                    <td>
+                        <div *ngIf="budget.anneeId">
+                            <a [routerLink]="['/entity','annee', budget.anneeId  ]">{{budget.anneeId}}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['/entity','budget', budget.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.view">View</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','budget', { outlets: { popup: 'budget/'+ budget.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.edit">Edit</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','budget', { outlets: { popup: 'budget/'+ budget.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.delete">Delete</span> -->
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="budgets && budgets.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>
+<div id="print-container" class="print">
+    <ul id="print-picker" class="print-list" [ngClass]="{open:printed}">
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="nl"><a class="waves-effect waves-teal btn-flat">Nederlands</a></li>
+        <li data-value="fr"><a class="waves-effect waves-teal btn-flat">Français</a></li>
+        <li data-value="de"><a class="waves-effect waves-teal btn-flat">Deutsch</a></li>
+    </ul>
+    <div class="print-toggle" (click)="printed = !printed"><span class="printor-current" id="tx-live-lang-current">Impression</span>
+        <i class="fa fa-print"></i>
+    </div>
+</div>

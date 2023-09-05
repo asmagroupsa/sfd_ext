@@ -1,0 +1,43 @@
+<div *ngIf="frais">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.frais.detail.title">Frais</span> {{frais.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.frais.libelle">Libellé</span></dt>
+        <dd>
+            <span>{{frais.libelle}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.frais.amount">Amount</span></dt>
+        <dd>
+            <span>{{frais.amount}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.frais.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{frais.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.frais.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{frais.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.frais.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{frais.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.frais.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{frais.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.frais.typeValeur">Type Valeur</span></dt>
+        <dd>
+            <span jhiFnmTranslate="{{'carmesfnmserviceApp.TauxFraisType.' + frais.typeValeur}}">{{frais.typeValeur}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','frais', { outlets: { popup: 'frais/'+ frais.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary" *jhiHasAnyRessources="['carmesfnmservice/api/frais/updateFrais']">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "etudeType" : {
+            "home": {
+                "title": "EtudeTypes",
+                "createLabel": "Créer un nouveau Type d'étude",
+                "createOrEditLabel": "Editer un Type d'étude",
+                "search": "Recherche pour Type d'étude"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Type d'étude {{ id }} ?"
+            },
+            "detail": {
+                "title": "Type d'étude"
+            },
+            "name": "Name",
+            "code": "Code",
+            "etudes": "Etudes"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "etudeType" : {
+            "created": "Un nouveau Type d'étude a été créé ",
+            "updated": "Le Type d'étude  a été mis à jour",
+            "deleted": "Le Type d'étude  a été supprimé"
+        }
+    }
+}

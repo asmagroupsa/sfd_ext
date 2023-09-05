@@ -1,0 +1,10 @@
+{
+    "sfdApp": {
+        "ValidationResult" : {
+            "null": "",
+            "ACCEPTER": "ACCEPTER",
+            "REJETER": "REJETER",
+            "ATTENTE": "ATTENTE"
+        }
+    }
+}

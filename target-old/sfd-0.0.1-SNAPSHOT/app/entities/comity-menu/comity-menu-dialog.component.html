@@ -1,0 +1,114 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myComityMberLabel" [jhiFnmTranslate]="comityMber.id ? 'sfdApp.comityMber.home.createOrEditLabel' : 'sfdApp.comityMber.home.createLabel'">Create or edit a Comity Mber</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!-- <div class="form-group" [hidden]="!comityMber.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="comityMber.id" readonly />
+        </div>-->
+
+        <div class="form-group">
+            <div class="switch">
+                <label>
+      Status: 
+      <input type="checkbox" name="status" id="field_status" [(ngModel)]="comityMber.status" />
+      <span class="lever"></span>
+    </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.comityMber.nominationDate" for="field_nominationDate">Nomination Date</label>
+            <div class="input-group">
+                <input id="field_nominationDate" type="text" class="form-control" name="nominationDate" ngbDatepicker #nominationDateDp="ngbDatepicker" [(ngModel)]="comityMber.nominationDate" required/>
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="nominationDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.nominationDate?.dirty && editForm.controls.nominationDate?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.nominationDate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.comityMber.endNominationDate" for="field_endNominationDate">End Nomination Date</label>
+            <div class="input-group">
+                <input id="field_endNominationDate" type="text" class="form-control" name="endNominationDate" ngbDatepicker #endNominationDateDp="ngbDatepicker" [(ngModel)]="comityMber.endNominationDate" />
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="endNominationDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.comityMber.createdDate" for="field_createdDate">Created Date</label>
+            <div class="input-group">
+                <input id="field_createdDate" type="text" class="form-control" name="createdDate" ngbDatepicker #createdDateDp="ngbDatepicker" [(ngModel)]="comityMber.createdDate" required/>
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="createdDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdDate?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>-->
+        <!--  <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.comityMber.createdBy" for="field_createdBy">Created By</label>
+            <input type="text" class="form-control" name="createdBy" id="field_createdBy" [(ngModel)]="comityMber.createdBy" required maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdBy?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.createdBy?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <!--<div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.comityMber.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+            <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy" [(ngModel)]="comityMber.lastModifiedBy" maxlength="50" data-length="50" />
+            <div [hidden]="!(editForm.controls.lastModifiedBy?.dirty && editForm.controls.lastModifiedBy?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.lastModifiedBy?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>-->
+        <!--<div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.comityMber.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+            <div class="input-group">
+                <input id="field_lastModifiedDate" type="text" class="form-control" name="lastModifiedDate" ngbDatepicker #lastModifiedDateDp="ngbDatepicker" [(ngModel)]="comityMber.lastModifiedDate" />
+                <span class="input-group-btn">
+                    <button type="button" class="waves-effect waves-teal btn-flat" (click)="lastModifiedDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>-->
+
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.comityMber.sfdUsers" for="field_sfdUsers">Sfd Users</label>
+            <select class="ui fluid search dropdown" id="field_sfdUsers" name="sfdUsers" [(ngModel)]="comityMber.sfdUsersId">
+                <option [ngValue]="null">Aucun</option>
+                <option [ngValue]="serviceUserOption.id" *ngFor="let serviceUserOption of serviceusers; trackBy: trackServiceUserById">{{serviceUserOption.last_name}} {{serviceUserOption.first_name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.comityMber.typeMembre" for="field_typeMembre">Type Membre</label>
+            <select class="ui fluid search dropdown" id="field_typeMembre" name="typeMembre" [(ngModel)]="comityMber.typeMembreId">
+                <option [ngValue]="null">Aucun</option>
+                <option [ngValue]="typeMembreOption.id" *ngFor="let typeMembreOption of typemembres; trackBy: trackTypeMembreById">{{typeMembreOption.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;<span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

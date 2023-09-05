@@ -1,0 +1,31 @@
+{
+    "sfdApp": {
+        "disponibilite" : {
+            "home": {
+                "title": "Les disponibilités",
+                "createLabel": "Créer une nouvelle disponibilité",
+                "createOrEditLabel": "Editer une disponibilité",
+                "search": "Rechercher une disponibilité"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer la Disponibilité {{ id }} ?"
+            },
+            "detail": {
+                "title": "Disponibilité"
+            },
+            "agenceReference": "Référence de l'Agence",
+            "sfdReference": "Référence du SFD",
+            "presence": "Présence",
+            "creditComity": "Comité de crédit",
+            "delegatedMember": "Membre Délégué",
+            "comity": "Les disponibilités"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "disponibilite" : {
+            "created": "une nouvelle Disponibilité a été créé ",
+            "updated": "La Disponibilité  a été mise à jour",
+            "deleted": "La Disponibilité  a été supprimée"
+        }
+    }
+}

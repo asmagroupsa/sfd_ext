@@ -1,0 +1,94 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.fraisGestionAccorde.home.title">Frais Gestion Accordes</span>
+        <button class="btn btn-primary float-right create-frais-gestion-accorde" [routerLink]="['/entity','frais-gestion-accorde', { outlets: { popup: ['frais-gestion-accorde-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.fraisGestionAccorde.home.createLabel">
+            Create new Frais Gestion Accorde
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.fraisGestionAccorde.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="fraisGestionAccordes;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="amount"><span jhiFnmTranslate="sfdApp.fraisGestionAccorde.amount">Amount</span> <span class="fa fa-sort"></span></th>
+                    <!-- <th jhiSortBy="createdDate"><span jhiFnmTranslate="sfdApp.fraisGestionAccorde.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>-->
+                    <!-- <th jhiSortBy="createdBy"><span jhiFnmTranslate="sfdApp.fraisGestionAccorde.createdBy">Created By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedBy"><span jhiFnmTranslate="sfdApp.fraisGestionAccorde.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedDate"><span jhiFnmTranslate="sfdApp.fraisGestionAccorde.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="ligneCreditId"><span jhiFnmTranslate="sfdApp.fraisGestionAccorde.ligneCredit">Ligne Credit</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="fraisGestionId"><span jhiFnmTranslate="sfdApp.fraisGestionAccorde.fraisGestion">Frais Gestion</span> <span class="fa fa-sort"></span></th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let fraisGestionAccorde of fraisGestionAccordes  | recherche:currentSearch ;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','frais-gestion-accorde', fraisGestionAccorde.id ]">{{fraisGestionAccorde.id}}</a></td> -->
+                    <td>{{fraisGestionAccorde.amount}}</td>
+                    <!-- <td>{{fraisGestionAccorde.createdDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>{{fraisGestionAccorde.createdBy}}</td> -->
+                    <!-- <td>{{fraisGestionAccorde.lastModifiedBy}}</td> -->
+                    <!-- <td>{{fraisGestionAccorde.lastModifiedDate | date:'dd-MM-y'}}</td> -->
+                    <td>
+                        <div *ngIf="fraisGestionAccorde.ligneCreditId">
+                            <a [routerLink]="['/entity','ligne-credit', fraisGestionAccorde.ligneCreditId  ]">{{fraisGestionAccorde.ligneCreditId}}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="fraisGestionAccorde.fraisGestionId">
+                            <a [routerLink]="['/entity','frais-gestion', fraisGestionAccorde.fraisGestionId  ]">{{fraisGestionAccorde.fraisGestionId}}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['/entity','frais-gestion-accorde', fraisGestionAccorde.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.view">View</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','frais-gestion-accorde', { outlets: { popup: 'frais-gestion-accorde/'+ fraisGestionAccorde.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.edit">Edit</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','frais-gestion-accorde', { outlets: { popup: 'frais-gestion-accorde/'+ fraisGestionAccorde.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.delete">Delete</span> -->
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="fraisGestionAccordes && fraisGestionAccordes.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>

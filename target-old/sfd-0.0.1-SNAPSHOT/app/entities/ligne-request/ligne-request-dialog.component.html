@@ -1,0 +1,84 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myLigneRequestLabel"
+            [jhiFnmTranslate]="ligneRequest.id ? 'sfdApp.ligneRequest.home.createOrEditLabel' : 'sfdApp.ligneRequest.home.createLabel'">
+            Create or edit a Ligne Request</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!--<div class="form-group" [hidden]="!ligneRequest.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="ligneRequest.id" readonly />
+        </div>-->
+
+        <!-- <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.ligneRequest.sfd" for="field_sfd" class="oblige">Sfd</label>
+            <select class="ui fluid search dropdown" id="field_sfd" name="sfd" [(ngModel)]="ligneRequest.sfdId" required>
+                <option [ngValue]="null">Aucun</option>
+                <option [ngValue]="sFDOption.id" *ngFor="let sFDOption of sfds; trackBy: trackSFDById">{{sFDOption.name}}</option>
+            </select>
+        </div> -->
+        <!-- <div class="form-group">
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.ligneRequest.requestDate" for="field_requestDate">Request Date</label>
+            <ngbd-datepicker-i18n [(ngModel)]="ligneRequest.requestDate" name="requestDate" required="true" readonly="true" class="sfd-dropdown"></ngbd-datepicker-i18n>
+        </div> -->
+        <div class="form-group">
+            <label jhiFnmTranslate="partenaire" for="field_produit" class="oblige">Produit</label>
+            <select (change)="getProduit()" class="ui fluid search dropdown sfd-dropdown" id="field_partner"
+                name="partner" [(ngModel)]="partner" required>
+                <option [ngValue]="partner" *ngFor="let partner of partners; trackBy: trackProduitById">
+                    {{partner.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.ligneRequest.produit" for="field_produit" class="oblige">Produit</label>
+            <select (change)="onProduitChange()" class="ui fluid search dropdown sfd-dropdown" id="field_produit"
+                name="produit" [(ngModel)]="ligneRequest.produitId" required>
+                <option [ngValue]="produitOption.id" *ngFor="let produitOption of produits; trackBy: trackProduitById">
+                    {{produitOption.libelle}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_credit_comities" class="oblige">Comites de credit</label>
+            <select (change)="onCreditComitiesChange()" class="ui fluid search dropdown sfd-dropdown"
+                id="field_credit_comities" name="creditComities" [(ngModel)]="creditComityIdArray" required multiple>
+                <option [ngValue]="creditComity.id" *ngFor="let creditComity of creditComities">{{creditComity.libelle}}
+                    ({{creditComity.code}})</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.ligneRequest.amount">Amount</label>
+            <div style="padding: 5px;border-bottom: 1px solid #9e9e9e;" name="nbreBenef" id="field_nbreBenef">
+                {{ligneRequestAmount || 0}}</div>
+            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">This field is required.</small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.number"
+                    jhiFnmTranslate="entity.validation.number">This field should be a number.</small>
+            </div>
+            <!-- <div [hidden]="editForm.controls.amount?.invalid">
+                <span [hidden]="amountIsValid" class="form-text text-danger">Amount invalide</span>
+            </div> -->
+        </div>
+        <div class="form-group">
+            <label class="form-control-label active oblige" jhiFnmTranslate="sfdApp.ligneRequest.nbreBenef">Nbre
+                Benef</label>
+            <div style="padding: 5px;border-bottom: 1px solid #9e9e9e;" name="nbreBenef" id="field_nbreBenef">
+                {{ligneRequest.nbreBenef || 0}}</div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit"
+            [disabled]="editForm.form.invalid || isSaving || !ligneRequestAmount || !ligneRequest.nbreBenef"
+            class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

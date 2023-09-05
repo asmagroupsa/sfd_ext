@@ -1,0 +1,26 @@
+<div style="display: flex; flex-direction: column; height: 100%;">
+    <div class="row ui form">
+        <h2 class="col-lg-6 col-md-6 col-sm-12" style="display: flex; flex-direction: column; justify-content: center;">
+            <span>Commisions</span>
+        </h2>
+        <div class="field col-lg-2 col-md-2 col-sm-4" *ngIf="!queryParams.carmes">
+            <label for="carmes" class="form-control-label">CARMES</label>
+            <input type="text" name="carmes" id="carmes" [(ngModel)]="carmes" (blur)="getData()"/>
+        </div>
+        <div class="field col-lg-2 col-md-2 col-sm-4">
+            <label for="date1" class="form-control-label">Du</label>
+            <ngbd-datepicker-i18n name="date1" [(ngModel)]="date1" (ngModelChange)="getData()"></ngbd-datepicker-i18n>
+        </div>
+        <div class="field col-lg-2 col-md-2 col-sm-4">
+            <label for="date2" class="form-control-label">Au</label>
+            <ngbd-datepicker-i18n name="date2" [(ngModel)]="date2" (ngModelChange)="getData()"></ngbd-datepicker-i18n>
+        </div>
+    </div>
+    <div class="ui segment" style="box-shadow: unset; border: none; flex-grow: 2;" *ngIf="loading">
+        <p></p>
+        <div class="ui active inverted dimmer">
+            <div class="ui loader massive"></div>
+        </div>
+    </div>
+    <iframe style="width: 100%; flex-grow: 2;" [hidden]="loading" #iframe></iframe>
+</div>

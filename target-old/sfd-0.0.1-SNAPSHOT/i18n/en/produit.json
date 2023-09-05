@@ -1,0 +1,59 @@
+{
+    "sfdApp": {
+        "produit" : {
+            "home": {
+                "title": "Produits",
+                "createLabel": "Create a new Produit",
+                "createOrEditLabel": "Create or edit a Produit",
+                "search": "Search for Produit"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Produit {{ id }}?"
+            },
+            "detail": {
+                "title": "Produit"
+            },
+            "code": "Code",
+            "libelle": "Libelle",
+            "duration": "Duration",
+            "etudiable": "Etudiable",
+            "createdDate": "Created Date",
+            "createdBy": "Created By",
+            "lastModifiedBy": "Last Modified By",
+            "lastModifiedDate": "Last Modified Date",
+            "comitable": "Comity",
+            "formable": "Formable",
+            "notifiable": "Notification",
+            "creditable": "Credit",
+            "contractable": "Contrat",
+            "penalitable": "Penality",
+            "eligibilite": "Eligibilite",
+            "amountMax": "Amount Max",
+            "amountMin": "Amount Min",
+            "interestRate": "Interest Rate",
+            "noteMinConditionAcces": "Note Min Condition Acces",
+            "activerConditionAcces": "Activer Condition Acces",
+            "creditRequests": "Credit Requests",
+            "contrats": "Contrats",
+            "ligneRequests": "Ligne Requests",
+            "eligibles": "Eligibles",
+            "produitTypeGaranties": "Produit Type Garanties",
+            "tauxEpargnes": "Taux Epargnes",
+            "conditionss": "Conditionss",
+            "fraiss": "Fraiss",
+            "tranchePenals": "Tranche Penals",
+            "tauxs": "Tauxs",
+            "accountTypes": "Account Types",
+            "periodicities": "Periodicities",
+            "conditionAccess": "Condition Access",
+            "categorieProduit": "Categorie Produit"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "produit" : {
+            "created": "A new Produit is created ",
+            "updated": "A Produit is updated ",
+            "deleted": "A Produit is deleted "
+        }
+    }
+}

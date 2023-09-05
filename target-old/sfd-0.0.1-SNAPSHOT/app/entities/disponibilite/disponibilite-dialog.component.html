@@ -1,0 +1,60 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myDisponibiliteLabel" [jhiFnmTranslate]="disponibilite.id ? 'sfdApp.disponibilite.home.createOrEditLabel' : 'sfdApp.disponibilite.home.createLabel'">Create or edit a Disponibilite</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <!-- <div class="form-group" [hidden]="!disponibilite.id">
+            <label for="id" jhiFnmTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="disponibilite.id" readonly />
+        </div> -->
+        <div class="form-group" *ngIf="agences?.length > 1">
+            <label jhiFnmTranslate="sfdApp.client.agence" for="field_agence" class="oblige">Agence</label>
+            <select class="ui fluid search dropdown sfd-dropdown" id="field_agence" name="agence" [(ngModel)]="disponibilite.agenceReference" required>
+                <option [ngValue]="null" disabled>Choisissez l'agence</option>
+                <option [ngValue]="agenceOption.codeAgence" *ngFor="let agenceOption of agences; trackBy: trackAgenceById">{{agenceOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" class="filled-in" name="presence" id="field_presence" [(ngModel)]="disponibilite.presence" />
+            <label class="form-control-label active" jhiFnmTranslate="sfdApp.disponibilite.presence" for="field_presence">Presence</label>
+            <div [hidden]="!(editForm.controls.presence?.dirty && editForm.controls.presence?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.presence?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.disponibilite.creditComity" for="field_creditComity">Credit Comity</label>
+            <input type="text" class="form-control" name="creditComity" id="creditComity" [value]="currentComity?.libelle" readonly/>
+        </div>
+        <br>
+        <br>
+        <div class="form-group">
+            <label jhiFnmTranslate="sfdApp.disponibilite.delegatedMember" for="field_delegatedsmber" class="oblige">delegated Mber</label>
+            <select class="ui fluid search dropdown" id="field_delegatedsmber" name="delegatedsmber" [(ngModel)]="disponibilite.delegatedMemberId"
+                required>
+                <option value="null" disabled>Choix du membre délégué</option>
+                <option [ngValue]="delegatedsmber.id" *ngFor="let delegatedsmber of currentComity?.delegationComity?.delegatedMembers | presence:disponibilites">{{delegatedsmber.user}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.delegatedsmber?.dirty && editForm.controls.delegatedsmber?.invalid)">
+            <small class="form-text text-danger" [hidden]="!editForm.controls.delegatedsmber?.errors?.required" jhiFnmTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="waves-effect waves-teal btn-flat" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn waves-effect waves-light">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

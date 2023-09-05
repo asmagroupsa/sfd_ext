@@ -1,0 +1,44 @@
+<div *ngIf="tranchePenalSFD">
+    <!-- <h2><span jhiFnmTranslate="sfdApp.tranchePenalSFD.detail.title">Tranche Penal SFD</span> {{tranchePenalSFD.id}}</h2> -->
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiFnmTranslate="sfdApp.tranchePenalSFD.minDay">Min Day</span></dt>
+        <dd>
+            <span>{{tranchePenalSFD.minDay}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.tranchePenalSFD.maxDay">Max Day</span></dt>
+        <dd>
+            <span>{{tranchePenalSFD.maxDay}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.tranchePenalSFD.penalRate">Penal Rate</span></dt>
+        <dd>
+            <span>{{tranchePenalSFD.penalRate}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.tranchePenalSFD.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{tranchePenalSFD.createdDate | date:'dd-MM-y'}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.tranchePenalSFD.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{tranchePenalSFD.createdBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.tranchePenalSFD.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+            <span>{{tranchePenalSFD.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.tranchePenalSFD.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{tranchePenalSFD.lastModifiedDate | date:'dd-MM-y'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" [routerLink]="['/entity','tranche-penal-sfd', { outlets: { popup: 'tranche-penal-sfd/'+ tranchePenalSFD.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

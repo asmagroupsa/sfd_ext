@@ -1,0 +1,123 @@
+<div>
+    <h2>
+        <span jhiFnmTranslate="sfdApp.sFD.home.title">SFDS</span>
+        <button class="btn btn-primary float-right create-sfd" [routerLink]="['/entity','sfd', { outlets: { popup: ['sfd-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiFnmTranslate="sfdApp.sFD.home.createLabel">
+            Create new SFD
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'sfdApp.sFD.home.search' | fnmtranslate : langue.lang | async }}">
+                    <button class="btn-floating waves-effect waves-light" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="btn-floating waves-effect waves-light" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <ng-template #elseBlock>
+        <div class="ui active centered inline loader">
+            {{principal.loading}}
+        </div>
+    </ng-template>
+    <div class="table-responsive" *ngIf="sFDS;else elseBlock">
+        <table class="bordered striped highlight">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- <th jhiSortBy="id"><span jhiFnmTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="code"><span jhiFnmTranslate="sfdApp.sFD.code">Code</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="name"><span jhiFnmTranslate="sfdApp.sFD.name">Name</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="address"><span jhiFnmTranslate="sfdApp.sFD.address">Address</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="phone"><span jhiFnmTranslate="sfdApp.sFD.phone">Phone</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="email"><span jhiFnmTranslate="sfdApp.sFD.email">Email</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="fax"><span jhiFnmTranslate="sfdApp.sFD.fax">Fax</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="bp"><span jhiFnmTranslate="sfdApp.sFD.bp">Bp</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="city"><span jhiFnmTranslate="sfdApp.sFD.city">City</span> <span class="fa fa-sort"></span></th>
+                    <!-- <th jhiSortBy="createdDate"><span jhiFnmTranslate="sfdApp.sFD.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>-->
+                    <!-- <th jhiSortBy="createdBy"><span jhiFnmTranslate="sfdApp.sFD.createdBy">Created By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedBy"><span jhiFnmTranslate="sfdApp.sFD.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th> -->
+                    <!-- <th jhiSortBy="lastModifiedDate"><span jhiFnmTranslate="sfdApp.sFD.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th> -->
+                    <th jhiSortBy="compteCarmes"><span jhiFnmTranslate="sfdApp.sFD.compteCarmes">Compte CARMES</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="clientId"><span jhiFnmTranslate="sfdApp.sFD.client">Client</span> <span class="fa fa-sort"></span></th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sFD of sFDS  | recherche:currentSearch ;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/entity','sfd', sFD.id ]">{{sFD.id}}</a></td> -->
+                    <!-- <td>{{sFD.code}}</td> -->
+                    <td>{{sFD.name}}</td>
+                    <td>{{sFD.address}}</td>
+                    <td>{{sFD.phone}}</td>
+                    <td>{{sFD.email}}</td>
+                    <td>{{sFD.fax}}</td>
+                    <td>{{sFD.bp}}</td>
+                    <td>{{sFD.city}}</td>
+                    <!-- <td>{{sFD.createdDate | date:'dd-MM-y'}}</td> -->
+                    <!-- <td>{{sFD.createdBy}}</td> -->
+                    <!-- <td>{{sFD.lastModifiedBy}}</td> -->
+                    <!-- <td>{{sFD.lastModifiedDate | date:'dd-MM-y'}}</td> -->
+                    <td>{{sFD.compteCarmes}}</td>
+                    <td>
+                        <div *ngIf="sFD.clientId">
+                            <a [routerLink]="['/entity','client', sFD.clientId  ]">{{sFD.clientId}}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['/entity','sfd', sFD.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.view">View</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','sfd', { outlets: { popup: 'sfd/'+ sFD.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.edit">Edit</span> -->
+                        </button>
+                            <button type="submit" [routerLink]="['/entity','sfd', { outlets: { popup: 'sfd/'+ sFD.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <!-- <span class="hidden-md-down" jhiFnmTranslate="entity.action.delete">Delete</span> -->
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="sFDS && sFDS.length">
+        <div class="row justify-content-center">
+            <!-- <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count> -->
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)" [pageSize]="itemsPerPage"></ngb-pagination>
+        </div>
+    </div>
+</div>
+<div id="print-container" class="print">
+    <ul id="print-picker" class="print-list" [ngClass]="{open:printed}">
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="en">
+            <a class="waves-effect waves-teal btn-flat">English</a>
+        </li>
+        <li data-value="nl"><a class="waves-effect waves-teal btn-flat">Nederlands</a></li>
+        <li data-value="fr"><a class="waves-effect waves-teal btn-flat">Français</a></li>
+        <li data-value="de"><a class="waves-effect waves-teal btn-flat">Deutsch</a></li>
+    </ul>
+    <div class="print-toggle" (click)="printed = !printed"><span class="printor-current" id="tx-live-lang-current">Impression</span>
+        <i class="fa fa-print"></i>
+    </div>
+</div>

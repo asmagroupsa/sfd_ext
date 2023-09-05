@@ -1,0 +1,28 @@
+{
+    "sfdApp": {
+        "ecritureOperationAccount" : {
+            "home": {
+                "title": "EcritureOperationAccounts",
+                "createLabel": "Créer un nouveau Ecriture Operation Account",
+                "createOrEditLabel": "Editer un Ecriture Operation Account",
+                "search": "Recherche pour Ecriture Operation Account"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Ecriture Operation Account {{ id }} ?"
+            },
+            "detail": {
+                "title": "Ecriture Operation Account"
+            },
+            "accountType": "Account Type",
+            "operationType": "Operation Type",
+            "ecriture": "Ecriture"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "ecritureOperationAccount" : {
+            "created": "Un nouveau Ecriture Operation Account a été créé ",
+            "updated": "Le Ecriture Operation Account  a été mis à jour",
+            "deleted": "Le Ecriture Operation Account  a été supprimé"
+        }
+    }
+}
