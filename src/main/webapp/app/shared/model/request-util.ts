@@ -11,7 +11,7 @@ let BASE_URL;
 let CARMES_HOST_URL = '';
 let BASE_URL_MVN;
 // let FILE_URL;
-let ENABLE_RESSOURCE: boolean = false;
+let ENABLE_RESSOURCE: boolean = true;
 export const DYNAMIC_BASE_URL_FLAG = true;
 export let CARMES_HOST = 'http://carmes.groupasma.com:9711';
 //export const cross_origin_URL = "https://asmagroupsa.sqoin.space";
