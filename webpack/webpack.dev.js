@@ -30,7 +30,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
                 '/v2/api-docs',
                 '/h2-console'
             ],
-            target: 'http://172.16.100.212:8383',
+            target: 'http://185.98.137.71:8989',
             secure: false
         }]
     },
@@ -53,7 +53,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
           new BrowserSyncPlugin(
               {
                 host: 'localhost',
-                port: 9003,// 8989, //
+                port: 9003, //9003,// 
                 proxy: {
                   target: 'http://localhost:9063'
                 }
