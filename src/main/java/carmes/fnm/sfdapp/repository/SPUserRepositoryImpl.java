@@ -265,13 +265,13 @@ public class SPUserRepositoryImpl implements SPUserRepository2{
 	@Override
 	public Object sousSouscriptionBailleurSFD(String name, String address, String phone, String email, String fax, String bp, String city, 
 											String created_by, String compte_carmes, String indice_prestataire, String logo, Long periodicity_id, 
-											String acteur, String type_abonnement, String password_hash) {
+											String acteur, String type_abonnement, String password_hash, int country_id) {
 		// TODO Auto-generated method stub
 		return  Util.getProcedure(em,
 				"sousSouscriptionBailleurSFD", "ResultInfo",
-				new String[]{"name","address","phone","email","fax","bp","city","created_by","compte_carmes","indice_prestataire","logo","periodicity_id","acteur","type_abonnement","password_hash"},
-				new Object[]{name,address,phone,email,fax,bp,city,created_by,compte_carmes,indice_prestataire,logo,periodicity_id,acteur,type_abonnement, password_hash},
-				new Class[]{String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Long.class, String.class, String.class, String.class})
+				new String[]{"name","address","phone","email","fax","bp","city","created_by","compte_carmes","indice_prestataire","logo","periodicity_id","acteur","type_abonnement","password_hash", "country_id"},
+				new Object[]{name,address,phone,email,fax,bp,city,created_by,compte_carmes,indice_prestataire,logo,periodicity_id,acteur,type_abonnement, password_hash, country_id},
+				new Class[]{String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Long.class, String.class, String.class, String.class, int.class})
 				.getSingleResult();
 	}
 }

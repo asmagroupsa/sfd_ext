@@ -166,11 +166,11 @@ public class SPUserService {
 		return  this.spUserRepository.listeUtilisateurAgence(agence_reference);
 	}
 	
-	public Object sousSouscriptionBailleurSFD(String name, String address, String phone, String email, String fax, String bp, String city, String created_by, String compte_carmes, String indice_prestataire, String logo, Long periodicity_id, String acteur, String type_abonnement, String password_hash)
+	public Object sousSouscriptionBailleurSFD(String name, String address, String phone, String email, String fax, String bp, String city, String created_by, String compte_carmes, String indice_prestataire, String logo, Long periodicity_id, String acteur, String type_abonnement, String password_hash, int country_id)
 	 {
 		String passwordHash = passwordEncoder.encode(password_hash);
 		System.out.println("MOT DE PASSE HASHER =>"+ passwordHash);
 		// TODO Auto-generated method stub
-		return this.spUserRepository.sousSouscriptionBailleurSFD(name, address, phone, email, fax, bp, city, created_by, compte_carmes, indice_prestataire, logo, periodicity_id, acteur, type_abonnement, passwordHash);
+		return this.spUserRepository.sousSouscriptionBailleurSFD(name, address, phone, email, fax, bp, city, created_by, compte_carmes, indice_prestataire, logo, periodicity_id, acteur, type_abonnement, passwordHash, country_id);
 	}
 }

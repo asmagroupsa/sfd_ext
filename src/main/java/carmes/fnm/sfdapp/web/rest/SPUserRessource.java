@@ -317,10 +317,10 @@ public class SPUserRessource{
 		        @ApiParam(value = "Etude detaillée (1:etudierDetaille| 0: Non etudierDetaille") Long periodicity_id,
 		        @ApiParam(value = "Comité (1:comiter| 0: non comiter)") String acteur,
 		        @ApiParam(value = "Notifier (1:notifier| 0:non notifier)") String type_abonnement,
-		        @ApiParam(value = "Notifier (1:notifier| 0:non notifier)") String password) throws JSONException {
+		        @ApiParam(value = "Notifier (1:notifier| 0:non notifier)") String password, int country_id) throws JSONException {
 		        // TODO Auto-generated method stub
 
-				ResultInfo r = (ResultInfo) this.spUserService.sousSouscriptionBailleurSFD(name, address, phone, email, fax, bp, city, created_by, compte_carmes, indice_prestataire, logo, periodicity_id, acteur, type_abonnement, password);
+				ResultInfo r = (ResultInfo) this.spUserService.sousSouscriptionBailleurSFD(name, address, phone, email, fax, bp, city, created_by, compte_carmes, indice_prestataire, logo, periodicity_id, acteur, type_abonnement, password, country_id);
 		        //String password_hash = passwordEncoder.encode(password);
 				if(r.getResultat()=="OK") {
 					String message = "FELICITATION VOUS ETES "+acteur.toUpperCase()+" SUR NOTRE PLATEFORME.\nVEUILLEZ VOUS CONNECTER POUR LA SUITE DES OPERATION.";

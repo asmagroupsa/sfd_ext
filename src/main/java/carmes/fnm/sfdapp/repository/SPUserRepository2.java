@@ -46,5 +46,5 @@ public interface SPUserRepository2{
 	
 	public Object sousSouscriptionBailleurSFD(String name, String address, String phone, String email, 
 			String fax, String bp, String city, String created_by, String compte_carmes, String indice_prestataire, 
-			String logo, Long periodicity_id, String acteur, String type_abonnement, String password_hash);
+			String logo, Long periodicity_id, String acteur, String type_abonnement, String password_hash, int country_id);
 }
