@@ -53,13 +53,13 @@ public class SPUserRepositoryImpl implements SPUserRepository2{
 	public Object insertUser(Long id, String login, String password_hash, String first_name, String last_name,
 			String email, String phone, String image_url, Boolean activated, String created_by,
 			String chaine_authorities, String sfd_reference, String zone_reference, String agence_reference,
-			String zone_sfd_ref, String type_user,String date_function, String date_end_function, String signature_url, String carte_url) {
+			String zone_sfd_ref, String type_user,String date_function, String date_end_function, String signature_url, String carte_url, int country_id) {
 		// TODO Auto-generated method stub
 		return  Util.getProcedure(em,
 				"insertUser", "ResultInfo",
-				new String[]{"id","login","password_hash","first_name","last_name","email","phone","image_url","activated","created_by","chaine_authorities","sfd_reference","zone_reference","agence_reference","zone_sfd_ref","type_user","date_function","date_end_function", "signature_url","carte_url"},
-				new Object[]{id,login,password_hash,first_name,last_name,email,phone,image_url,activated,created_by,chaine_authorities,sfd_reference,zone_reference,agence_reference, zone_sfd_ref,type_user,Util.strToDate(date_function),Util.strToDate(date_end_function), signature_url,carte_url},
-				new Class[]{Long.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Boolean.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Date.class, Date.class, String.class, String.class})
+				new String[]{"id","login","password_hash","first_name","last_name","email","phone","image_url","activated","created_by","chaine_authorities","sfd_reference","zone_reference","agence_reference","zone_sfd_ref","type_user","date_function","date_end_function", "signature_url","carte_url", "country_id"},
+				new Object[]{id,login,password_hash,first_name,last_name,email,phone,image_url,activated,created_by,chaine_authorities,sfd_reference,zone_reference,agence_reference, zone_sfd_ref,type_user,Util.strToDate(date_function),Util.strToDate(date_end_function), signature_url,carte_url, country_id},
+				new Class[]{Long.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Boolean.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Date.class, Date.class, String.class, String.class, int.class})
 				.getSingleResult();
 	}
 

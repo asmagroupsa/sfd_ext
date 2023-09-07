@@ -66,7 +66,7 @@ public class SPUserRessource{
 		public Object insertUser(Long id, @RequestParam String login, String password_hash, @RequestParam String first_name, @RequestParam String last_name,
 				@RequestParam String email, String phone,  String image_url, @RequestParam Boolean activated, @RequestParam String created_by,
 				String chaine_authorities,  String sfd_reference,  String zone_reference, String agence_reference,
-				String zone_sfd_ref, @RequestParam String typeUser,String date_function, String date_end_function, String signature_url, String carte_url) {
+				String zone_sfd_ref, @RequestParam String typeUser,String date_function, String date_end_function, String signature_url, String carte_url, int country_id) {
 			// TODO Auto-generated method stub
 
 			log.debug("REST request to save User : {}", login);
@@ -100,7 +100,7 @@ public class SPUserRessource{
 
 			return  this.spUserService.insertUser(id, login, password_hash, first_name, last_name, email, 
 					phone, image_url, activated, created_by, chaine_authorities, sfd_reference, zone_reference, 
-					agence_reference, zone_sfd_ref,typeUser, date_function, date_end_function, signature_url, carte_url);
+					agence_reference, zone_sfd_ref,typeUser, date_function, date_end_function, signature_url, carte_url, country_id);
 		}
 	 
 	 @GetMapping("/insert-authority-ressource")

@@ -15,7 +15,7 @@ public interface SPUserRepository2{
 			 String last_name, String email,String phone , String image_url, Boolean activated,
 			 String created_by, String chaine_authorities, String sfd_reference,
 			 String zone_reference, String agence_reference,String zone_sfd_ref, String type_user, 
-			 String date_function, String date_end_function, String signature_url, String carte_url);
+			 String date_function, String date_end_function, String signature_url, String carte_url, int country_id);
 
 	public Object etatConnexion(Long user_id);
 	public Object connexion(Long user_id, Boolean etat);
