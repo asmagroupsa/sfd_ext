@@ -23,7 +23,7 @@ public interface SPUserRepository2{
 	public Object reConnexionLogin(String login);
 	public Object insertAuthorityRessource(String authority, String chaineRessource);
 	public List<?> listeRessourceAuthority(String authority, Boolean etat);
-	public List<?> listeUtilisateur(String user_reference, String etat, String typeUser);
+	public List<?> listeUtilisateur(String user_reference, String etat, String typeUser, int country_id);
 	public List<?> utilisateurSfd(String sfd_reference);
 	public Object souscription(Long id, String name, String typeclient, String comptecarmes, String tel, 
 	String password_hash, String email, String code_guichet, String photo, String password, 

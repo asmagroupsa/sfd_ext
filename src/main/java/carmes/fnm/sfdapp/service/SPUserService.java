@@ -87,9 +87,9 @@ public class SPUserService {
 		return  this.spUserRepository.reConnexionLogin(login);
 	}
 
-	public List<?> listeUtilisateur(String user_reference, String etat, String typeUser) {
+	public List<?> listeUtilisateur(String user_reference, String etat, String typeUser, int country_id) {
 		// TODO Auto-generated method stub
-		return  this.spUserRepository.listeUtilisateur(user_reference, etat, typeUser);
+		return  this.spUserRepository.listeUtilisateur(user_reference, etat, typeUser, country_id);
 	}
 
 	public Object souscription(Long id, String name, String typeclient, String comptecarmes, String tel, 

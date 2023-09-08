@@ -130,13 +130,13 @@ public class SPUserRepositoryImpl implements SPUserRepository2{
 	}
 
 	@Override
-	public List<?> listeUtilisateur(String user_reference, String etat, String typeUser) {
+	public List<?> listeUtilisateur(String user_reference, String etat, String typeUser, int country_id) {
 		// TODO Auto-generated method stub
 		return  Util.getProcedure(em,
 				"listeUtilisateur", "UserInfo",
-				new String[]{"user_reference","etat", "type_user"},
-				new Object[]{user_reference,etat, typeUser},
-				new Class[]{String.class, String.class, String.class})
+				new String[]{"user_reference","etat", "type_user", "country_id"},
+				new Object[]{user_reference,etat, typeUser, country_id},
+				new Class[]{String.class, String.class, String.class, int.class})
 				.getResultList();
 	}
 
