@@ -53,13 +53,13 @@ public class SPUserRepositoryImpl implements SPUserRepository2{
 	public Object insertUser(Long id, String login, String password_hash, String first_name, String last_name,
 			String email, String phone, String image_url, Boolean activated, String created_by,
 			String chaine_authorities, String sfd_reference, String zone_reference, String agence_reference,
-			String zone_sfd_ref, String type_user,String date_function, String date_end_function, String signature_url, String carte_url) {
+			String zone_sfd_ref, String type_user,String date_function, String date_end_function, String signature_url, String carte_url, int country_id) {
 		// TODO Auto-generated method stub
 		return  Util.getProcedure(em,
 				"insertUser", "ResultInfo",
-				new String[]{"id","login","password_hash","first_name","last_name","email","phone","image_url","activated","created_by","chaine_authorities","sfd_reference","zone_reference","agence_reference","zone_sfd_ref","type_user","date_function","date_end_function", "signature_url","carte_url"},
-				new Object[]{id,login,password_hash,first_name,last_name,email,phone,image_url,activated,created_by,chaine_authorities,sfd_reference,zone_reference,agence_reference, zone_sfd_ref,type_user,Util.strToDate(date_function),Util.strToDate(date_end_function), signature_url,carte_url},
-				new Class[]{Long.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Boolean.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Date.class, Date.class, String.class, String.class})
+				new String[]{"id","login","password_hash","first_name","last_name","email","phone","image_url","activated","created_by","chaine_authorities","sfd_reference","zone_reference","agence_reference","zone_sfd_ref","type_user","date_function","date_end_function", "signature_url","carte_url", "country_id"},
+				new Object[]{id,login,password_hash,first_name,last_name,email,phone,image_url,activated,created_by,chaine_authorities,sfd_reference,zone_reference,agence_reference, zone_sfd_ref,type_user,Util.strToDate(date_function),Util.strToDate(date_end_function), signature_url,carte_url, country_id},
+				new Class[]{Long.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Boolean.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Date.class, Date.class, String.class, String.class, int.class})
 				.getSingleResult();
 	}
 
@@ -130,13 +130,13 @@ public class SPUserRepositoryImpl implements SPUserRepository2{
 	}
 
 	@Override
-	public List<?> listeUtilisateur(String user_reference, String etat, String typeUser) {
+	public List<?> listeUtilisateur(String user_reference, String etat, String typeUser, int country_id) {
 		// TODO Auto-generated method stub
 		return  Util.getProcedure(em,
 				"listeUtilisateur", "UserInfo",
-				new String[]{"user_reference","etat", "type_user"},
-				new Object[]{user_reference,etat, typeUser},
-				new Class[]{String.class, String.class, String.class})
+				new String[]{"user_reference","etat", "type_user", "country_id"},
+				new Object[]{user_reference,etat, typeUser, country_id},
+				new Class[]{String.class, String.class, String.class, int.class})
 				.getResultList();
 	}
 
@@ -265,13 +265,13 @@ public class SPUserRepositoryImpl implements SPUserRepository2{
 	@Override
 	public Object sousSouscriptionBailleurSFD(String name, String address, String phone, String email, String fax, String bp, String city, 
 											String created_by, String compte_carmes, String indice_prestataire, String logo, Long periodicity_id, 
-											String acteur, String type_abonnement, String password_hash) {
+											String acteur, String type_abonnement, String password_hash, int country_id) {
 		// TODO Auto-generated method stub
 		return  Util.getProcedure(em,
 				"sousSouscriptionBailleurSFD", "ResultInfo",
-				new String[]{"name","address","phone","email","fax","bp","city","created_by","compte_carmes","indice_prestataire","logo","periodicity_id","acteur","type_abonnement","password_hash"},
-				new Object[]{name,address,phone,email,fax,bp,city,created_by,compte_carmes,indice_prestataire,logo,periodicity_id,acteur,type_abonnement, password_hash},
-				new Class[]{String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Long.class, String.class, String.class, String.class})
+				new String[]{"name","address","phone","email","fax","bp","city","created_by","compte_carmes","indice_prestataire","logo","periodicity_id","acteur","type_abonnement","password_hash", "country_id"},
+				new Object[]{name,address,phone,email,fax,bp,city,created_by,compte_carmes,indice_prestataire,logo,periodicity_id,acteur,type_abonnement, password_hash, country_id},
+				new Class[]{String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Long.class, String.class, String.class, String.class, int.class})
 				.getSingleResult();
 	}
 }
