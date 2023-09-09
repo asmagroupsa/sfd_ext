@@ -56,8 +56,10 @@ export class UserService {
             );
     }
     queryUsers(
+        country:any,
         etat: any = 'TOUS',
-        login?: string
+        login?: string,
+        
     ): Observable<ResponseWrapper | any> {
         let user;
         if (this.users) {
@@ -76,6 +78,7 @@ export class UserService {
             UserData.getInstance().userReference
         );
         options.params.set('etat', etat);
+        options.params.set('country_id', country);
         return this.http.get(this.usersUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); }).map((res: Response) => {
             this.users = res.json();
             if (login) {

@@ -24,6 +24,7 @@ import { styles } from '../../entities/remboursement-sfd/remboursement-sfd.compo
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthorityResourceService } from '../../entities/authority-resource';
 import { Observable } from 'rxjs';
+import { CountryService } from '../../entities/country';
 declare let select_init: any;
 declare let modal: any;
 declare let modalHide: any;
@@ -64,9 +65,12 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
     titleShown: string;
     profils: any[] = [];
     currentProfil = 'ALL';
+    currentCountry;
+    countries:any = [];
 
     constructor(
         private userService: UserService,
+        private countryService: CountryService,
         private parseLinks: JhiParseLinks,
         private alertService: JhiAlertService,
         private principal: Principal,
@@ -91,6 +95,9 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
     }
     isDG(user,field){
         return user && (user.authority.indexOf('DG') != -1 || user.authority.indexOf('DIRECTEUR_EXECUTIF') != -1) && field  && field.indexOf('content/coreUi/assets/img') == -1;
+    }
+    onCountryChange(){
+        this.loadAll();
     }
     onProfilChange(){
         select_init();
@@ -170,7 +177,18 @@ getDoc(url: string): string {
         //this.authorities =   || [];
         this.principal.identity().then(account => {
             this.currentAccount = account;
-            this.loadAll();
+            this.countryService.query()
+            .subscribe(
+                (res: ResponseWrapper)=>{
+                    this.countries = res.json;
+                    if(this.countries.length){
+                       this.currentCountry = this.countries[0].id;
+                    this.loadAll();   
+                    }
+                },
+                (res: ResponseWrapper) => this.onError(res.json)
+            );
+            
             this.registerChangeInUsers();
         });
 
@@ -209,7 +227,7 @@ getDoc(url: string): string {
 
     loadAll() {
         this.userService
-            .queryUsers()
+            .queryUsers(this.currentCountry)
             .subscribe(
                 (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
                 (res: ResponseWrapper) => this.onError(res.json)
@@ -234,6 +252,14 @@ getDoc(url: string): string {
             this.transition();
         }
     }
+
+    createUser(){
+        this.router.navigate(['/admin', { outlets: { popup: ['user-management-new'] } }], {
+            queryParams: {
+                country: this.currentCountry
+            }
+        });
+}
 
     transition() {
         this.router.navigate(['/admin', 'user-management'], {
