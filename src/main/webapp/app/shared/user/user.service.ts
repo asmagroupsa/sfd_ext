@@ -165,6 +165,7 @@ export class UserService {
             'date_end_function',
             'signature_url',
             'carte_url',
+            'country_id'
         ];
 
         for (let allowedParam of allowedParams) {

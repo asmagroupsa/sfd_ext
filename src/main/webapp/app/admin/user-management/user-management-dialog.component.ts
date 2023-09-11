@@ -294,6 +294,7 @@ if(this.model.date_function.year <= ev.year && this.model.date_function.month <=
             return;
         }
         this.isSaving = true;
+        this.model.country_id = this.country;
         this.model.created_by = UserData.getInstance().userReference;
         if (Array.isArray(this.model.chaine_authorities)) {
             this.model.chaine_authorities = this.model.chaine_authorities.join('*');
