@@ -68,7 +68,7 @@
         <div class="field">
             <label for="field_indicePrestataire" class="oblige">L'indice prestataire du bailleur</label>
             <div class="ui input icon" [ngClass]="{loading: loading.ip}">
-                <input type="text"  style="padding:0px" name="indicePrestataire" id="field_indicePrestataire" [(ngModel)]="souscriptionBailleur.indicePrestataire" required pattern="^[0-9]{5}$" minlength="5" maxlength="5" (blur)="cip()"/>
+                <input type="text"  style="padding:0px" name="indicePrestataire" id="field_indicePrestataire" [(ngModel)]="souscriptionBailleur.indicePrestataire" required pattern="^[0-9]{4}$" minlength="5" maxlength="5" (blur)="cip()"/>
                 <i class="icon"></i>
             </div>
             <div [hidden]="!(editForm.controls.indicePrestataire?.dirty && editForm.controls.indicePrestataire?.invalid)">
