@@ -90,11 +90,18 @@ export class SouscriptionBailleurDialogComponent implements OnInit {
 
         this.principal.identity().then(async (identity) => {
             //console.log(identity);
-            let result = await this.SouscriptionBailleurService.checkIndicePrestataire(this.souscriptionBailleur.indicePrestataire)
+            try {
+                let result = await this.SouscriptionBailleurService.checkIndicePrestataire(this.souscriptionBailleur.indicePrestataire)
             .toPromise();
             if(result['Resultat'] != 1){
+                this.isSaving = false;
                 this.alertService.error("L'indice prestataire est invalide", null, null);
                 return ;
+            }
+            } catch (e) {
+                this.isSaving = false;
+                this.alertService.error("Vérification de l'indice prestataire échouée", null, null);
+                return ;  
             }
             if (this.souscriptionBailleur.id !== undefined) {
                 setLastModifyBy(this.souscriptionBailleur, identity);
