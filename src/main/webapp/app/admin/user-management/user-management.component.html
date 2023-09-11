@@ -65,9 +65,20 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label for="countries">Profils</label>
+                <select class="ui fluid search dropdown" name="countries" id="countries" [(ngModel)]="currentCountry" (change)="onCountryChange()">
+                    <option>Choisir un pays</option>
+                    <option *ngFor="let country of countries" [value]="country.id">{{country.name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
     <h2>
         <span jhiFnmTranslate="userManagement.home.title">Users</span>
-        <button class="btn btn-primary float-right" [routerLink]="['/admin', { outlets: { popup: ['user-management-new'] } }]">
+        <button class="btn btn-primary float-right" (click)="createUser()">
             <span class="fa fa-plus"></span>
         </button>
     </h2>

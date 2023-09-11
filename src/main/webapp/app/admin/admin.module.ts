@@ -47,6 +47,7 @@ import { ZoneAgenceService } from '../entities/zone-agence/zone-agence.service';
 import { GuichetierComponent } from './user-management/guichetier.component';
 import { GuichetierPrintComponent } from './user-management/guichetier-print.component';
 import { ImageService, UserData, EventBus } from '../shared';
+import { CountryService } from '../entities/country';
 
 @NgModule({
     imports: [
@@ -97,6 +98,7 @@ import { ImageService, UserData, EventBus } from '../shared';
         UserResolvePagingParams,
         UserResolve,
         UserModalService,
+        CountryService,
         JhiProfileService,
         RessourceService,
         JhiDeconnexionService,

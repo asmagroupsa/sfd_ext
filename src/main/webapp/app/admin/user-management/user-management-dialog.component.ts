@@ -92,6 +92,7 @@ export class UserMgmtDialogComponent implements OnInit {
     numericFlag: boolean;
     minDate = { year: new Date().getFullYear(), month: new Date().getMonth(), day: new Date().getDate() };
     isPhotoSaving: string = '';
+    country:any; 
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -105,6 +106,7 @@ export class UserMgmtDialogComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         public langue: LanguesService
     ) {
+       
         this.localFlag = LOCAL_FLAG;
         this.numericFlag = NUMERIC_FLAG;
         this.zones = UserData.getInstance().listeZones;
@@ -228,6 +230,7 @@ if(this.model.date_function.year <= ev.year && this.model.date_function.month <=
         this.fillModel();
         this.activatedRoute.queryParams.subscribe((params) => {
             this.guichetier = params.guichetier == 'true' ? true : false;
+            this.country = params.country;
         });
 
         if (
@@ -235,7 +238,9 @@ if(this.model.date_function.year <= ev.year && this.model.date_function.month <=
             !UserData.getInstance().sfd
         ) {
             this.isSuperAdmin = true;
-            this.sfdService.query({ size: 1000 }).subscribe(
+            this.sfdService.query({
+                'country_id':this.country,
+                size: 1000 }).subscribe(
                 (res: ResponseWrapper) => {
                     this.sfds = res.json;
                 },
@@ -245,7 +250,7 @@ if(this.model.date_function.year <= ev.year && this.model.date_function.month <=
         this.authorities = [];
         /* this.agences = UserData.getInstance().listeAgences;
         if (!this.agences || !this.agences.length) { */
-        this.agenceService.query({ size: 1000 }).subscribe(
+        this.agenceService.query({ 'country_id':this.country,size: 1000 }).subscribe(
             (res: ResponseWrapper) => {
                 this.agences = res.json;
             },
@@ -253,14 +258,14 @@ if(this.model.date_function.year <= ev.year && this.model.date_function.month <=
         );
         // }
         //if (!this.zones || !this.zones.length) {
-        this.zoneService.query({ size: 1000 }).subscribe(
+        this.zoneService.query({ 'country_id':this.country, size: 1000 }).subscribe(
             (res: ResponseWrapper) => {
                 this.zones = res.json;
             },
             (res: ResponseWrapper) => { }
         );
         //}
-        this.userService.authoritys({ size: 1000 }).subscribe(authorities => {
+        this.userService.authoritys({ 'country_id':this.country,size: 1000 }).subscribe(authorities => {
             this.authorities = authorities.map((auth)=>{
                 return auth.name;
             });
