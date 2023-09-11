@@ -130,9 +130,9 @@ public class SPUserService {
 		return  this.spUserRepository.addGuichetierSfd(id, name, first_name, username, tel, password_hash, email, agence_reference, created_by, typeclient);
 	}
 
-	public List<?> listeUtilisateurParProfil(String authority, String agence_reference, int partner_id) {
+	public List<?> listeUtilisateurParProfil(String authority, String agence_reference, int partner_id, int country_id) {
 		// TODO Auto-generated method stub
-		return  this.spUserRepository.listeUtilisateurParProfil(authority, agence_reference, partner_id);
+		return  this.spUserRepository.listeUtilisateurParProfil(authority, agence_reference, partner_id, country_id);
 	}
 
 	public Object initialiserPassword(String login, String password_hash) {
@@ -161,9 +161,9 @@ public class SPUserService {
 		return this.spUserRepository.qrCodeFnmUserInfo();
 	}
 
-	public List<?> listeUtilisateurAgence(String agence_reference) {
+	public List<?> listeUtilisateurAgence(String agence_reference, int country_id) {
 		// TODO Auto-generated method stub
-		return  this.spUserRepository.listeUtilisateurAgence(agence_reference);
+		return  this.spUserRepository.listeUtilisateurAgence(agence_reference, country_id);
 	}
 	
 	public Object sousSouscriptionBailleurSFD(String name, String address, String phone, String email, String fax, String bp, String city, String created_by, String compte_carmes, String indice_prestataire, String logo, Long periodicity_id, String acteur, String type_abonnement, String password_hash, int country_id)
@@ -173,4 +173,11 @@ public class SPUserService {
 		// TODO Auto-generated method stub
 		return this.spUserRepository.sousSouscriptionBailleurSFD(name, address, phone, email, fax, bp, city, created_by, compte_carmes, indice_prestataire, logo, periodicity_id, acteur, type_abonnement, passwordHash, country_id);
 	}
+
+	public Object ajoutCaisse( String name, String first_name, String username, String tel, String password_hash, String email, String agence_reference, String created_by, Float retraitmax, Float soldemax, String comptecarmes) {
+        // TODO Auto-generated  method stub
+        password_hash = null != password_hash ? passwordEncoder.encode(password_hash):null;
+        long id = 1;
+        return  this.spUserRepository.ajoutCaisse(id,  name,  first_name,  username,  tel,  password_hash,  email,  agence_reference,  created_by,  retraitmax,  soldemax,  comptecarmes);
+    }
 }
