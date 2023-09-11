@@ -90,7 +90,12 @@ export class CaisseNouvelleDialogComponent implements OnInit {
     try {
       error.json();
     } catch (exception) {
-      error.message = error.text();
+      //console.log(error);
+      try {
+        error.message = error.text();
+      } catch (e) {
+        error.message = "Une erreur s'est produite";
+      }
     }
     this.isSaving = false;
     this.onError(error);

@@ -17,7 +17,6 @@ import { UtilisateurCaisse } from './utilisateur-caisse/utilisateur-caisse.model
 export class CaisseNouvelleService {
     private resourceUrl = HOST + '/api/sfd/create-type-retard-credit';
     private resourceSearchUrl = HOST + '/api/_search/account-types';
-    //private createCaisseUrl = HOST + '/api/user/add-caisse?';
     private createCaisseUrl = HOST_MVN + '/api/user/add-caisse';
     private getInfosCaisseUrl = HOST + '/api/sfd/liste-caisse-agence';
     private getListeCaisseUrl = HOST + '/api/sfd/liste-caisse-agence';
