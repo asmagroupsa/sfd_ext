@@ -13,6 +13,7 @@ export class SouscriptionBailleurService {
     private resourceSearchUrl = HOST + '/api/s-fds';
     private resourceUrlNew = HOST + '/api/s-fds-partner';
     private subscriptionUrl = HOST_MVN + '/api/user/souscription-bailleur-sfd';
+    private indicePrestataireUrl = 'http://185.98.137.71:4002/api/user/check-indice-prestataire';
 
 
     constructor(private http: Http, private dateUtils: JhiDateUtils) { }
@@ -27,7 +28,15 @@ export class SouscriptionBailleurService {
             .map((res: Response) => new ResponseWrapper(res.headers, res.json(), res.status));
     }
 
+    checkIndicePrestataire(indice: string): Observable<any> {
+        const options = createRequestOption();
+        options.params.set('indice_prestataire', indice);
 
+        return this.http
+            .get(this.indicePrestataireUrl, options)
+            .map((res: Response) => new ResponseWrapper(res.headers, res.json(), res.status));
+    }
+    
     // http://185.98.137.71:8989/api/user/souscription-bailleur-sfd?
     // name=alide&address=cotonou&phone=96969696&email=sfdsfd@gmail.com&
     // fax=365&bp=356&city=cotonou&created_by=admin&compte_carmes=4571254&
