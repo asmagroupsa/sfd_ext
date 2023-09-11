@@ -68,7 +68,7 @@
         <div class="field">
             <label for="field_indicePrestataire" class="oblige">L'indice prestataire du bailleur</label>
             <div class="ui input icon" [ngClass]="{loading: loading.ip}">
-                <input type="text"  style="padding:0px" name="indicePrestataire" id="field_indicePrestataire" [(ngModel)]="souscriptionBailleur.indicePrestataire" required pattern="^[0-9]{4}$" minlength="4" maxlength="4" (blur)="cip()"/>
+                <input type="text"  style="padding:0px" name="indicePrestataire" id="field_indicePrestataire" [(ngModel)]="souscriptionBailleur.indicePrestataire" required pattern="^[0-9]{1,10}$" minlength="4" maxlength="10" (blur)="cip()"/>
                 <i class="icon"></i>
             </div>
             <div [hidden]="!(editForm.controls.indicePrestataire?.dirty && editForm.controls.indicePrestataire?.invalid)">
@@ -79,7 +79,7 @@
                    This field cannot be longer than 9 characters.
                 </small>
                 <small class="form-text text-danger" [hidden]="!editForm.controls.indicePrestataire?.errors?.pattern">
-                   L'indice prestataire doit être de 4 chiffres.
+                   L'indice prestataire doit être de 04 chiffres minimum.
                 </small>
             </div>
         </div>
