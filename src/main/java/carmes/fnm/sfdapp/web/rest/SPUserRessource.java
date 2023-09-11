@@ -189,9 +189,9 @@ public class SPUserRessource{
 		}
 		
 		@GetMapping("/liste-utilisateurs-profil")
-		public List<?> listeUtilisateurParProfil(String authority, String agence_reference, int partner_id) {
+		public List<?> listeUtilisateurParProfil(String authority, String agence_reference, int partner_id, int country_id) {
 			// TODO Auto-generated method stub
-			return  this.spUserService.listeUtilisateurParProfil(authority, agence_reference, partner_id);
+			return  this.spUserService.listeUtilisateurParProfil(authority, agence_reference, partner_id, country_id);
 		}
 
 		@GetMapping("/initialiser-password")
@@ -213,9 +213,9 @@ public class SPUserRessource{
 		}
 		
 		@GetMapping("/liste-utilisateur-agence")
-		public List<?> listeUtilisateurAgence(String agence_reference) {
+		public List<?> listeUtilisateurAgence(String agence_reference, int country_id) {
 			// TODO Auto-generated method stub
-			return  this.spUserService.listeUtilisateurAgence(agence_reference);
+			return  this.spUserService.listeUtilisateurAgence(agence_reference, country_id);
 		}
 		
 		   @GetMapping(params = {"principal","after"})
@@ -330,5 +330,12 @@ public class SPUserRessource{
 		        System.out.println("MOT DE PASSE =>"+ password);
 		        return r;
 		    }
+
+			@GetMapping("/add-caisse")
+			public Object ajoutCaisse(String name, String first_name, String username, String tel, String password, String email, String agence_reference, String created_by, Float retraitmax, Float soldemax, String comptecarmes) {
+					// TODO Auto-generated method stub
+			
+					return  this.spUserService.ajoutCaisse(name,  first_name,  username,  tel,  password,  email,  agence_reference,  created_by,  retraitmax,  soldemax,  comptecarmes);
+			}
 			
 }

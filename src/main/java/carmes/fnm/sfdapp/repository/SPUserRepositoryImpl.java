@@ -202,13 +202,13 @@ public class SPUserRepositoryImpl implements SPUserRepository2{
 	}
 
 	@Override
-	public List<?> listeUtilisateurParProfil(String authority, String agence_reference, int partner_id) {
+	public List<?> listeUtilisateurParProfil(String authority, String agence_reference, int partner_id, int country_id) {
 		// TODO Auto-generated method stub
 		return  Util.getProcedure(em,
 				"listeUtilisateurParProfil", "ListeUtilisateurParProfilInfo",
-				new String[]{"authority", "agence_reference", "partner_id"},
-				new Object[]{authority, agence_reference, partner_id},
-				new Class[]{String.class, String.class, int.class})
+				new String[]{"authority", "agence_reference", "partner_id", "country_id"},
+				new Object[]{authority, agence_reference, partner_id, country_id},
+				new Class[]{String.class, String.class, int.class, int.class})
 				.getResultList();
 	}
 
@@ -251,13 +251,13 @@ public class SPUserRepositoryImpl implements SPUserRepository2{
 	}
 	
 	@Override
-	public List<?> listeUtilisateurAgence(String agence_reference) {
+	public List<?> listeUtilisateurAgence(String agence_reference, int country_id) {
 		// TODO Auto-generated method stub
 		return  Util.getProcedure(em,
 				"listeUtilisateurAgence", "ListeUtilisateurAgenceInfo",
-				new String[]{"agence_reference"},
-				new Object[]{agence_reference},
-				new Class[]{String.class})
+				new String[]{"agence_reference", "country_id"},
+				new Object[]{agence_reference, country_id},
+				new Class[]{String.class, int.class})
 				.getResultList();
 	}
 
@@ -274,4 +274,14 @@ public class SPUserRepositoryImpl implements SPUserRepository2{
 				new Class[]{String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Long.class, String.class, String.class, String.class, int.class})
 				.getSingleResult();
 	}
+
+	public Object ajoutCaisse(Long id, String name, String first_name, String username, String tel, String password_hash, String email, String agence_reference, String created_by, Float retraitmax, Float soldemax, String comptecarmes) {
+
+                return  Util.getProcedure(em,
+                                "add_caisse", "ResultInfo",
+                                new String[]{"id","name", "first_name", "username", "tel", "password_hash", "email", "agence_reference", "created_by", "retraitmax", "soldemax" ,"comptecarmes"},
+                                new Object[]{id,name, first_name, username, tel, password_hash, email, agence_reference, created_by, retraitmax,soldemax ,comptecarmes},
+                                new Class[]{Long.class,String.class,String.class,String.class,String.class,String.class,String.class,String.class,String.class,Float.class,Float.class,String.class})
+                                                        .getSingleResult();
+        }
 }

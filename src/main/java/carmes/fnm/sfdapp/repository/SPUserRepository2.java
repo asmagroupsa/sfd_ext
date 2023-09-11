@@ -34,7 +34,7 @@ public interface SPUserRepository2{
 
 	public Object addGuichetierSfd(Long id, String name, String first_name, String username, String tel, String password_hash, String email, String agence_reference, String created_by, String typeclient);
 
-	public List<?> listeUtilisateurParProfil(String authority, String agence_reference, int partner_id);
+	public List<?> listeUtilisateurParProfil(String authority, String agence_reference, int partner_id, int country_id);
 
 	public Object initialiserPassword(String login, String password_hash);
 	
@@ -42,9 +42,14 @@ public interface SPUserRepository2{
 	
 	public Object qrCodeFnmUserInfo();
 	
-	public List<?> listeUtilisateurAgence(String agence_reference);
+	public List<?> listeUtilisateurAgence(String agence_reference, int country_id);
 	
 	public Object sousSouscriptionBailleurSFD(String name, String address, String phone, String email, 
 			String fax, String bp, String city, String created_by, String compte_carmes, String indice_prestataire, 
 			String logo, Long periodicity_id, String acteur, String type_abonnement, String password_hash, int country_id);
+
+	public Object ajoutCaisse(Long id, String name, String first_name, String username, String tel, String password_hash, String email, 
+			String agence_reference, String created_by, Float retraitmax, Float soldemax, String comptecarmes);
+		   
+		   
 }
