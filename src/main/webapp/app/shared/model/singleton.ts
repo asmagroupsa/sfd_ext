@@ -31,6 +31,7 @@ export class UserData {
     account;
     partner_id: number;
     user_reference: string;
+    countryId;
 
     getSFDReference() {
         return this.currentSfdReference || this.sfd || (this.sfd_ ? this.sfd_.code : null);
@@ -43,6 +44,7 @@ export class UserData {
         }
         return this._instance;
     }
+   
     getCurrentOrFirstAgence(){
         //console.log(this.listeAgences);
         if(this.currentAgence != null) return this.currentAgence;
@@ -72,6 +74,7 @@ export class UserData {
         this.listeAgencesState.next(null);
         this.currentAgence = null;
         this.currentSfdReference = null;
+        this.countryId = null;
         UserData._instance = null;
     }
     loadData(obj) {
@@ -88,10 +91,10 @@ export class UserData {
         this.userReference = obj.userReference;
         this.listeAgences = obj.listeAgences;
         this.listeZones = obj.listeZones;
-        this
         this.listeAgencesState.next(this.listeAgences);
         this.currentAgence = obj.currentAgence;
         this.currentSfdReference = obj.currentSfdReference;
+        this.countryId = obj.country_id || obj.countryId || 1;
     }
     getListeAgencesState() {
         return this.listeAgencesState.asObservable();

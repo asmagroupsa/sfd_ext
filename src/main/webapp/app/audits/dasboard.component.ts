@@ -1,28 +1,18 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Account, LoginModalService, Principal } from '../shared';
 import { Router, ActivatedRoute } from '@angular/router';
 /* import { StateService } from '../shared/state/statistiques'; */
-import * as jsPDF from 'jspdf';
 import { LanguesService } from '../shared/myTranslation/langues';
-import { ClientService } from '../entities/client';
-import { AgenceService } from '../entities/agence';
-import { CreditService } from '../entities/credit';
-import { CreditRequestService } from '../entities/credit-request';
 // import {UserData, EventBus} from '../shared';
-import { ResponseWrapper, createRequestOption } from '../shared';
-import { ErrorHandlerInterceptor } from '../blocks/interceptor/errorhandler.interceptor';
 import { AuditsService } from './audits.service';
-import { SFDService } from '../entities/s-fd';
 import {
-    searchRessource,
     nameSFD,
     nameZoneAgence,
     nameAgence
 } from '../shared/model/functions';
-import { agence } from '../entities/entity.module';
 
 
 @Component({

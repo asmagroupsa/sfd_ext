@@ -7,6 +7,7 @@ import { LocalStorageService, SessionStorageService } from 'ng2-webstorage';
 import { AuthExpiredInterceptor } from './auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from './errorhandler.interceptor';
 import { NotificationInterceptor } from './notification.interceptor';
+import { CountryIdInterceptor } from './country_id.interceptor';
 
 export function interceptableFactory(
     backend: XHRBackend,
@@ -24,7 +25,8 @@ export function interceptableFactory(
             new AuthExpiredInterceptor(injector),
             // Other interceptors can be added here
             new ErrorHandlerInterceptor(eventManager),
-            new NotificationInterceptor()
+            new NotificationInterceptor(),
+            new CountryIdInterceptor()
         ]
     );
 };
