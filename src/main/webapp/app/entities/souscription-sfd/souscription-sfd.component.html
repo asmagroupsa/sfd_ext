@@ -268,7 +268,7 @@
                                     'suivi-decaissement-mcm'
                                 ]"
                                 [queryParams]="{
-                                    souscriptionbailleurReference: souscriptionSfd.code,
+                                    souscriptionSfdReference: souscriptionSfd.code,
                                     souscriptionsfd: souscriptionSfd.name,
                                     link: 'suivi-remboursement-ligne',
                                     title: 'Suivi des remboursements'
@@ -283,7 +283,7 @@
                                     'suivi-decaissement-mcm'
                                 ]"
                                 [queryParams]="{
-                                    souscriptionbailleurReference: souscriptionSfd.code,
+                                    souscriptionSfdReference: souscriptionSfd.code,
                                     souscriptionsfd: souscriptionSfd.name,
                                     link: 'balance-agee-ligne',
                                     title: 'Balance âgée'
@@ -298,7 +298,7 @@
                                     'suivi-decaissement-mcm'
                                 ]"
                                 [queryParams]="{
-                                    souscriptionbailleurReference: souscriptionSfd.code,
+                                    souscriptionSfdReference: souscriptionSfd.code,
                                     souscriptionsfd: souscriptionSfd.name,
                                     link: 'suivi-compensation-ligne',
                                     title: 'Suivi des compensations'
@@ -316,7 +316,7 @@
 <div
     class="ui segment"
     style="box-shadow: unset; border: none;"
-    *ngIf="loader.souscriptionbailleurs"
+    *ngIf="loader.souscriptionSfd"
 >
     <p></p>
     <div class="ui active inverted dimmer">
