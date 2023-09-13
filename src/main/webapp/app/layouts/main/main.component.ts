@@ -459,8 +459,8 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
             if (isFirst === true) {
                 // console.log('valuer de isFirst', isFirst);
                 // this._router.navigate(['/first-connection']);
-                this.firstPopupService
-                    .open();
+                //this.firstPopupService.open();
+                this.router.navigate(['/']);
             } else if (isFirst === false) {
                 // console.log('valuer de isFirst', isFirst);
                 // this._router.navigate(['/first-connection'], { queryParams: { step: 1 } });
