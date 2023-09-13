@@ -26,7 +26,6 @@ export class CreditComityService {
 
     syntheseCreditComity(id) {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
         options.params.set('credit_comity_id', id);
 
         return this.http.get(`${HOST}/api/client/synthese-credit-comity`, options);
@@ -34,9 +33,9 @@ export class CreditComityService {
 
     showDossierComityPV(id: any): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('credit_comity_id', '' + id);
-        options.params = urlParams;
+        
+        options.params.set('credit_comity_id', '' + id);
+        
         return this.http
             .get(this.ficheDossierComityUrl, options)
             .map((res: Response) => {
@@ -46,9 +45,9 @@ export class CreditComityService {
 
     showSynthese(id: any) {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('credit_comity_id', '' + id);
-        options.params = urlParams;
+        
+        options.params.set('credit_comity_id', '' + id);
+        
         return this.http
             .get(this.comitySyntheseUrl, options)
             .map((res: Response) => {
@@ -60,9 +59,9 @@ export class CreditComityService {
 
     showDossier(id: any): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('credit_comity_id', '' + id);
-        options.params = urlParams;
+        
+        options.params.set('credit_comity_id', '' + id);
+        
         return this.http
             .get(this.listeDossierUrl, options)
             .catch((res: Response) => {
@@ -82,9 +81,9 @@ export class CreditComityService {
 
     showFicheDossier(id: number): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('dossier_id', '' + id);
-        options.params = urlParams;
+        
+        options.params.set('dossier_id', '' + id);
+        
         return this.http
             .get(this.ficheDossierUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
@@ -94,9 +93,9 @@ export class CreditComityService {
 
     showFicheDossierComityMember(id: number): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('dossier_id', '' + id);
-        options.params = urlParams;
+        
+        options.params.set('dossier_id', '' + id);
+        
         return this.http
             .get(this.ficheDossierComityMemberUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
@@ -106,9 +105,9 @@ export class CreditComityService {
 
     showFicheOrdre(id: number): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('dossier_id', '' + id);
-        options.params = urlParams;
+        
+        options.params.set('dossier_id', '' + id);
+        
         return this.http
             .get(this.ficheOrdreUrl, options)
             .catch((res: Response) => {

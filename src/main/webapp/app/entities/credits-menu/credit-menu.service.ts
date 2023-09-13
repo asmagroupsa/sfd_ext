@@ -35,36 +35,36 @@ export class CreditMenuService {
 
   planAmortis(model: any) {
     const options = createRequestOption();
-    const urlParams: URLSearchParams = new URLSearchParams();
-    urlParams.set('periodicite', model.periodicity);
-    urlParams.set('mode_calcul', model.mode);
-    urlParams.set('montantpret', model.montant);
-    urlParams.set('duree', model.duree);
-    urlParams.set('tauxInteret', model.interet);
-    urlParams.set('differe', model.differe);
-    urlParams.set('cumulInteretDiffere', model.cumul);
-    urlParams.set('tauxEpargne', model.epargne);
-    urlParams.set('JOURFERIER', model.ferie);
-    urlParams.set('periodeGrace', model.grace);
-    options.params = urlParams;
+    
+    options.params.set('periodicite', model.periodicity);
+    options.params.set('mode_calcul', model.mode);
+    options.params.set('montantpret', model.montant);
+    options.params.set('duree', model.duree);
+    options.params.set('tauxInteret', model.interet);
+    options.params.set('differe', model.differe);
+    options.params.set('cumulInteretDiffere', model.cumul);
+    options.params.set('tauxEpargne', model.epargne);
+    options.params.set('JOURFERIER', model.ferie);
+    options.params.set('periodeGrace', model.grace);
+    
     return this.http
       .get(this.planAmortisUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
       .map((res: Response) => this.convertResponse(res));
   }
   ficheEcheances(creditId: string) {
     const options = createRequestOption();
-    const urlParams: URLSearchParams = new URLSearchParams();
-    urlParams.set('credit_id', creditId);
-    options.params = urlParams;
+    
+    options.params.set('credit_id', creditId);
+    
     return this.http
       .get(this.echeancesUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
       .map((res: Response) => this.convertResponse(res));
   }
   ficheClient(creditId: string) {
     const options = createRequestOption();
-    const urlParams: URLSearchParams = new URLSearchParams();
-    urlParams.set('credit_id', creditId);
-    options.params = urlParams;
+    
+    options.params.set('credit_id', creditId);
+    
     return this.http
       .get(this.ficheUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
       .map((res: Response) => this.convertResponse(res));
@@ -72,18 +72,18 @@ export class CreditMenuService {
 
   ficheEcheancesLigne(creditId: string) {
     const options = createRequestOption();
-    const urlParams: URLSearchParams = new URLSearchParams();
-    urlParams.set('ligne_credit_id', creditId);
-    options.params = urlParams;
+    
+    options.params.set('ligne_credit_id', creditId);
+    
     return this.http
       .get(this.echeancesLigneUrl, options)
       .map((res: Response) => this.convertResponse(res));
   }
   ficheLigne(creditId: string) {
     const options = createRequestOption();
-    const urlParams: URLSearchParams = new URLSearchParams();
-    urlParams.set('ligne_credit_id', creditId);
-    options.params = urlParams;
+    
+    options.params.set('ligne_credit_id', creditId);
+    
     return this.http
       .get(this.ficheLigneUrl, options)
       .map((res: Response) => this.convertResponse(res));

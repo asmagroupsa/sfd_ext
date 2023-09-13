@@ -32,11 +32,11 @@ export class ValidationService {
     }
     queryValidations(params: any): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('comite', params.comite);
-        urlParams.set('member', params.member);
-        urlParams.set('valide', params.valide);
-        options.params = urlParams;
+        
+        options.params.set('comite', params.comite);
+        options.params.set('member', params.member);
+        options.params.set('valide', params.valide);
+        
         let params2 = getUserRefOrChaineAgence();
         options.params.set(params2[0], params2[1]);
         return this.http
@@ -50,15 +50,15 @@ export class ValidationService {
     }
     createValidations(params: any): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('membre', params.membre);
-        urlParams.set('chainedossier', params.chainedossier);
-        urlParams.set('typeValide', params.typeValide);
-        urlParams.set('montant', params.montant);
-        urlParams.set('explanation', params.explanation);
-        urlParams.set('user_reference', UserData.getInstance().userReference);
-        urlParams.set('result', params.result);
-        options.params = urlParams;
+        
+        options.params.set('membre', params.membre);
+        options.params.set('chainedossier', params.chainedossier);
+        options.params.set('typeValide', params.typeValide);
+        options.params.set('montant', params.montant);
+        options.params.set('explanation', params.explanation);
+        options.params.set('user_reference', UserData.getInstance().userReference);
+        options.params.set('result', params.result);
+        
         return this.http
             .get(this.validationsUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
@@ -151,9 +151,9 @@ export class ValidationService {
 
     showFicheDossier(id: number): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('dossier_id', '' + id);
-        options.params = urlParams;
+        
+        options.params.set('dossier_id', '' + id);
+        
         return this.http.get(this.ficheDossierUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); }).map((res: Response) => {
             return res.json();
         });
@@ -161,9 +161,9 @@ export class ValidationService {
 
     showFicheDossierComityMember(id: number): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('dossier_id', '' + id);
-        options.params = urlParams;
+        
+        options.params.set('dossier_id', '' + id);
+        
         return this.http.get(this.ficheDossierComityMemberUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); }).map((res: Response) => {
 
             return res.json();

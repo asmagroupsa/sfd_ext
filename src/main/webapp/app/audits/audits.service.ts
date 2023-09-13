@@ -27,8 +27,7 @@ export class AuditsService {
 
     getUserToken(): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        options.params = urlParams;
+       
         return this.http
             .get(this.userTokenUrl, options)
             .map((res: Response) => {
@@ -37,9 +36,7 @@ export class AuditsService {
     }
     userInfos(userId: string): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('user_id', userId);
-        options.params = urlParams;
+       options.params.set('user_id', userId);
         return this.http
             .get(this.userInfosUrl, options)
             .map((res: Response) => {
@@ -76,17 +73,14 @@ export class AuditsService {
 
     reportSfdAgence(chaineAgence?: string, user_reference?: string): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
 
         if (chaineAgence != undefined) {
-            urlParams.set('chaineAgence', chaineAgence);
+            options.params.set('chaineAgence', chaineAgence);
         } else if (user_reference != undefined) {
-            urlParams.set('user_reference', user_reference);
-        } else {
-            options.params.set("", "");
+            options.params.set('user_reference', user_reference);
         }
 
-        options.params = urlParams;
+        
         return this.http
             .get(this.effectifReportUrl, options)
             .map(
@@ -98,10 +92,8 @@ export class AuditsService {
 
     listUserAgence(agenceReference: string): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('agence_reference', agenceReference);
-        options.params = urlParams;
-        options.params = urlParams;
+        options.params.set('agence_reference', agenceReference);
+        
         return this.http
             .get(this.listUsereportUrl, options)
             .map(
@@ -114,9 +106,8 @@ export class AuditsService {
 
     reportShortStateAgences(sfdReference: string): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('sfd_reference', sfdReference);
-        options.params = urlParams;
+        options.params.set('sfd_reference', sfdReference);
+       
         return this.http
             .get(this.agenceShortStateUrl, options)
             .map((res: Response) => {
@@ -127,9 +118,7 @@ export class AuditsService {
 
     reportSfdClient(sfdId: string): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('sfd_id', sfdId);
-        options.params = urlParams;
+        options.params.set('sfd_id', sfdId);
         return this.http
             .get(this.resourceReportUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {

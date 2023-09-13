@@ -25,10 +25,10 @@ export class EtudeService {
     constructor(private http: Http, private dateUtils: JhiDateUtils) { }
     queryMontant(creditId: any, etape: any): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('credit_request_id', creditId);
-        urlParams.set('etape', etape);
-        options.params = urlParams;
+        
+        options.params.set('credit_request_id', creditId);
+        options.params.set('etape', etape);
+        
         return this.http
             .get(this.montantEtudeUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
@@ -91,11 +91,11 @@ export class EtudeService {
             options.params.set(params[0], params[1]);
             options.params.set('etudierPrealable', flag);
         }
-        /* urlParams.set('comiter', 'false');
-        urlParams.set('etudierDetaille', 'false');
-        urlParams.set('notifier', 'false');
-        urlParams.set('garantisser', 'false');
-        urlParams.set('former', 'false'); */
+        /* options.params.set('comiter', 'false');
+        options.params.set('etudierDetaille', 'false');
+        options.params.set('notifier', 'false');
+        options.params.set('garantisser', 'false');
+        options.params.set('former', 'false'); */
         return this.http
             .get(this.prealableUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {

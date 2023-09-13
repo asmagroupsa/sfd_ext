@@ -45,9 +45,9 @@ export class CreditService {
 
     public approbationSheet(creditId: number): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('credit_id', '' + creditId);
-        options.params = urlParams;
+        
+        options.params.set('credit_id', '' + creditId);
+        
         return this.http
             .get(this.approbationSheetUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map(
@@ -58,9 +58,9 @@ export class CreditService {
 
     printContrat(creditId: any) {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('credit_id', '' + creditId);
-        options.params = urlParams;
+        
+        options.params.set('credit_id', '' + creditId);
+        
         return this.http
             .get(this.printUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map(
@@ -79,10 +79,10 @@ export class CreditService {
 
     getTarifAssurance(creditId: any, optionId) {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('credit_id', '' + creditId);
-        urlParams.set('option_id', '' + optionId);
-        options.params = urlParams;
+        
+        options.params.set('credit_id', '' + creditId);
+        options.params.set('option_id', '' + optionId);
+        
         return this.http
             .get(this.TarifAssuranceUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map(
@@ -93,10 +93,10 @@ export class CreditService {
 
     queryCompte(notifId: any): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('notification_id', notifId);
-        urlParams.set('typecompte_id', '3');
-        options.params = urlParams;
+        
+        options.params.set('notification_id', notifId);
+        options.params.set('typecompte_id', '3');
+        
         return this.http
             .get(this.compteUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map(
@@ -119,10 +119,10 @@ export class CreditService {
     }
     ligneSuffisant(idligne: number, montantcredit: number): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('montantcredit', '' + montantcredit);
-        urlParams.set('idligne', '' + idligne);
-        options.params = urlParams;
+        
+        options.params.set('montantcredit', '' + montantcredit);
+        options.params.set('idligne', '' + idligne);
+        
         return this.http
             .get(this.suffisantUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
@@ -131,11 +131,11 @@ export class CreditService {
     }
     listeEncoursCredit(date: string) {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('datee', '' + date);
+        
+        options.params.set('datee', '' + date);
         let param = getUserRefOrChaineAgence();
-        urlParams.set(param[0], param[1]);
-        options.params = urlParams;
+        options.params.set(param[0], param[1]);
+        
         return this.http
             .get(this.listeEncoursUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map(
@@ -151,13 +151,13 @@ export class CreditService {
     }
     payerPenalite(creditId: string, name: string, montant: string): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
+        
         let userReference: string = UserData.getInstance().userReference;
-        urlParams.set('user_reference_guichetier', userReference);
-        urlParams.set('montant', montant);
-        urlParams.set('credit_id', creditId);
-        urlParams.set('name', name);
-        options.params = urlParams;
+        options.params.set('user_reference_guichetier', userReference);
+        options.params.set('montant', montant);
+        options.params.set('credit_id', creditId);
+        options.params.set('name', name);
+        
         return this.http
             .get(this.payementPenaliteUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map(
@@ -167,12 +167,12 @@ export class CreditService {
     }
     decaisser(creditId: number, optionId, tarif) {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('credit_id', '' + creditId);
-        urlParams.set('option_id', '' + optionId);
-        urlParams.set('tarif', '' + tarif);
+        
+        options.params.set('credit_id', '' + creditId);
+        options.params.set('option_id', '' + optionId);
+        options.params.set('tarif', '' + tarif);
 
-        options.params = urlParams;
+        
         return this.http
             .get(this.decaissementUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
@@ -188,18 +188,18 @@ export class CreditService {
     }
     accordCredit(params: any): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('amount', '' + params.amount);
-        urlParams.set('created_by', params.created_by || params.createdBy);
-        urlParams.set('notification_client_id', '' + params.notification_client_id);
-        urlParams.set('ligne_credit_id', '' + params.ligne_credit_id);
-        urlParams.set('mode_echeance', '' + params.mode_echeance);
-        urlParams.set('agence_reference', '' + params.agence_reference);
-        urlParams.set('differe', '' + params.differe);
-        urlParams.set('delaiGrace', '' + params.delaiGrace);
-        urlParams.set('num_account', params.num_account);
-        urlParams.set('file_path', params.file_path || '');
-        options.params = urlParams;
+        
+        options.params.set('amount', '' + params.amount);
+        options.params.set('created_by', params.created_by || params.createdBy);
+        options.params.set('notification_client_id', '' + params.notification_client_id);
+        options.params.set('ligne_credit_id', '' + params.ligne_credit_id);
+        options.params.set('mode_echeance', '' + params.mode_echeance);
+        options.params.set('agence_reference', '' + params.agence_reference);
+        options.params.set('differe', '' + params.differe);
+        options.params.set('delaiGrace', '' + params.delaiGrace);
+        options.params.set('num_account', params.num_account);
+        options.params.set('file_path', params.file_path || '');
+        
         return this.http
             .get(this.creditAccordUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
@@ -244,8 +244,8 @@ export class CreditService {
 
     queryCredits(flag: boolean = false, req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption({ NO_QUERY: true, ...req });
-        // const urlParams: URLSearchParams = new URLSearchParams();
-        // urlParams.set('decaisse', '' + flag);
+        // 
+        // options.params.set('decaisse', '' + flag);
 
         let param = getUserRefOrChaineAgence();
         options.params.set(param[0], param[1]);
@@ -339,9 +339,9 @@ export class CreditService {
 
     showFicheOrdre(id: number): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('credit_id', '' + id);
-        options.params = urlParams;
+        
+        options.params.set('credit_id', '' + id);
+        
         return this.http
             .get(this.ficheOrdreUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
@@ -351,9 +351,9 @@ export class CreditService {
 
     retranchesByCreditId(id: number): Observable<any> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('creditId.equals', '' + id);
-        options.params = urlParams;
+        
+        options.params.set('creditId.equals', '' + id);
+        
         return this.http
             .get(this.RetrancheCreditUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {

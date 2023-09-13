@@ -36,9 +36,9 @@ export class ConditionRequestService {
     }
     listeConditionsProduit(produit: any): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('produit_id', produit);
-        options.params = urlParams;
+        
+        options.params.set('produit_id', produit);
+        
         return this.http
             .get(this.conditionsAccesUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map(
@@ -48,9 +48,9 @@ export class ConditionRequestService {
     }
     listeElementCondition(condition: any): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('condition_id', condition);
-        options.params = urlParams;
+        
+        options.params.set('condition_id', condition);
+        
         return this.http
             .get(this.elementConditionUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map(
@@ -60,9 +60,9 @@ export class ConditionRequestService {
     }
     listeValeursConditionsNote(code: any): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('code_note', code);
-        options.params = urlParams;
+        
+        options.params.set('code_note', code);
+        
         return this.http
             .get(this.listeValeursConditionsNoteUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map(
@@ -75,10 +75,10 @@ export class ConditionRequestService {
         client: any
     ): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('id_produit', produit);
-        urlParams.set('id_client', client);
-        options.params = urlParams;
+        
+        options.params.set('id_produit', produit);
+        options.params.set('id_client', client);
+        
         return this.http
             .get(this.listeNoteClientProduitUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map(
@@ -91,10 +91,10 @@ export class ConditionRequestService {
         client: any
     ): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('id_client', client);
-        urlParams.set('id_produit', produit);
-        options.params = urlParams;
+        
+        options.params.set('id_client', client);
+        options.params.set('id_produit', produit);
+        
         return this.http
             .get(this.noteClientProduitUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map(
@@ -106,13 +106,14 @@ export class ConditionRequestService {
         produit: any,
         etat: string
     ): Observable<ResponseWrapper> {
-        const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('produit', produit);
-        urlParams.set('etat', etat);
         let params = getUserRefOrChaineAgence();
-        options.params = urlParams;
-        options.params.set(params[0], params[1]);
+        let req = {
+            'produit': produit,
+            'etat': etat,
+           
+        };
+        req[params[0]] = params[1];
+        const options = createRequestOption(req);
         return this.http
             .get(this.clientSansConditionUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map(

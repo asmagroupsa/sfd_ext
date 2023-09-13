@@ -10,9 +10,7 @@ export class ActivateService {
 
   get(key: string): Observable<any> {
     const options = createRequestOption();
-    const params: URLSearchParams = new URLSearchParams();
-    params.set('key', key);
-    options.params = params;
+    options.params.set('key', key);
 
     return this.http
       .get(`${HOST_MVN}/api/activate`, options)

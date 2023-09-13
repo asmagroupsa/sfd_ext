@@ -74,10 +74,10 @@
                     <a class="dropdown-item" [routerLink]="['/entity','ressource']" routerLinkActive="active">
                         <span>Profils</span>
                     </a>
-                    <a class="dropdown-item" [routerLink]="['/entity','souscription-sfd']" routerLinkActive="active">
+                    <a *ngIf="principal.userIdentity.createdBy == 'SYSTEME'" class="dropdown-item" [routerLink]="['/entity','souscription-sfd']" routerLinkActive="active">
                         <span>Souscription SFD</span>
                     </a>
-                    <a class="dropdown-item" [routerLink]="['/entity','souscription-bailleur']" routerLinkActive="active">
+                    <a *ngIf="principal.userIdentity.createdBy == 'SYSTEME'" class="dropdown-item" [routerLink]="['/entity','souscription-bailleur']" routerLinkActive="active">
                         <span>Souscription Bailleur</span>
                     </a>
                     <a class="dropdown-item" [routerLink]="['/admin','user-management']" routerLinkActive="active"

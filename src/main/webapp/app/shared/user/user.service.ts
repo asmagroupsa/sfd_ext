@@ -110,7 +110,6 @@ export class UserService {
     }
     addGuichetierSFD(o): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
         options.params.set('name', o.last_name);
         options.params.set('first_name', o.first_name);
         options.params.set('username', o.login);
@@ -128,7 +127,6 @@ export class UserService {
 
     listeUtilisateursProfil(authority: string) {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
         options.params.set('authority', authority);
 
         if (UserData.getInstance().currentAgence) {

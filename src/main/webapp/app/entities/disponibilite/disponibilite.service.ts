@@ -16,9 +16,9 @@ export class DisponibiliteService {
   constructor(private http: Http) {}
   queryDisponibles(comityId: any): Observable<ResponseWrapper> {
     const options = createRequestOption();
-    const urlParams: URLSearchParams = new URLSearchParams();
-    urlParams.set('credit_comity_id', '' + comityId);
-    options.params = urlParams;
+    
+    options.params.set('credit_comity_id', '' + comityId);
+    
     return this.http
       .get(this.disponibleUrl, options).catch((res: Response) => {         if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true);         return Observable.throw(res);       })
       .map(

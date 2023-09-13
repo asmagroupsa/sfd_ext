@@ -19,13 +19,13 @@ export class MainService {
     updateHeaderFooter(args:any): Observable<any> {
         const options = createRequestOption();
        // sfdRef: any, header:string,footer:string
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('sfd_reference', args.sfdRef);
-        urlParams.set('entete', args.header);
-        urlParams.set('pied', args.footer);
-        urlParams.set('entete_paysage', args.header_pay);
-        urlParams.set('pied_paysage', args.footer_pay);
-        options.params = urlParams;
+        
+        options.params.set('sfd_reference', args.sfdRef);
+        options.params.set('entete', args.header);
+        options.params.set('pied', args.footer);
+        options.params.set('entete_paysage', args.header_pay);
+        options.params.set('pied_paysage', args.footer_pay);
+        
         return this.http
             .get(this.resourceReportUrl, options).catch((res: Response) => {         if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true);         return Observable.throw(res);       })
             .map((res: Response) =>{

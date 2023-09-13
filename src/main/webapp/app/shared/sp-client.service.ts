@@ -11,7 +11,6 @@ export class SPClientService {
 
     syntheseCreditComity(credit_comity_id): Observable<any> {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
         options.params.set('credit_comity_id', credit_comity_id);
 
         return this.http.get(`${this._url}synthese-credit-comity`, options)

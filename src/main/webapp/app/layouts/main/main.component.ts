@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Http } from '@angular/http';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiAlertService, JhiLanguageService } from 'ng-jhipster';
 import { CookieService } from 'ngx-cookie';
@@ -16,7 +16,6 @@ import {
     sendFileToServer,
     UserData,
     inactivityTime,
-    READFILEURL,
     READBITFILEURL,
     Account,
 } from '../../shared';
@@ -28,7 +27,6 @@ import { EventBus } from '../../shared/model/functions';
 import { LanguesService } from '../../shared/myTranslation/langues';
 import { ProfileService } from '../profiles/profile.service';
 import { MainService } from './main.service';
-import { ImageService } from '../../shared/image.service';
 import { FirstConnectionModalService } from '../../shared/first-connection/modal-service';
 
 declare let jQuery: any;
@@ -165,7 +163,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         private _alertService: JhiAlertService,
         private firstPopupService: FirstConnectionModalService
     ) {
-
+        
         this.localFlag = LOCAL_FLAG;
         //this.appOpened = this.cookieService.get('tab');
         this.activeModal.dismiss({});

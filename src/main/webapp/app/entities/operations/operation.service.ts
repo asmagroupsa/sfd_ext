@@ -19,7 +19,7 @@ export class OperationService {
     constructor(private http: Http, private dateUtils: JhiDateUtils) { }
     verifierSolde(compteInterne: string) {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
+       
         options.params.set('compte', compteInterne + '');
 
         return this.http
@@ -29,7 +29,7 @@ export class OperationService {
     }
     listeCreditTPE(comptecarmes) {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
+       
         options.params.set('comptecarmes', comptecarmes + '');
         options.params.set('chaineAgence', UserData.getInstance().agencesReference.join('*'));
 
@@ -41,7 +41,7 @@ export class OperationService {
 
     operationLocalSFD(params, o: string) {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
+       
         options.params.set('user_reference_guichetier', UserData.getInstance().userReference);
         options.params.set('compte_dav_client', params.compteClient);
         options.params.set('montant', params.montant);
@@ -53,7 +53,7 @@ export class OperationService {
 
     listeCommissionsGuichetier(login: string) {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
+       
         options.params.set('carmesAccount.equals', login);
 
         /* if (params) {
@@ -74,7 +74,7 @@ export class OperationService {
     }
     listeOperationGuichetier(params?: { start: any, end: any }) {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
+       
         options.params.set('user_reference_guichetier', UserData.getInstance().userReference);
 
         if (params) {
@@ -95,7 +95,7 @@ export class OperationService {
     }
     searchCompteByField(champ: string, critere: string) {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
+       
         options.params.set('champ', champ);
         options.params.set('critere', critere);
 
@@ -106,7 +106,7 @@ export class OperationService {
 
     alimentationGuichetSFD(params) {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
+       
         options.params.set('user_reference_guichetier', params.userReferenceGuichetier);
         options.params.set('montant', params.montant);
 
@@ -117,7 +117,7 @@ export class OperationService {
 
     retraitLocal(params) {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
+       
         options.params.set('compteClient', params.compteClient);
         options.params.set('montant', params.montant);
 
@@ -129,7 +129,7 @@ export class OperationService {
     retraitTPE(params) {
         const options = createRequestOption();
 
-        options.params = new URLSearchParams();
+       
         options.params.set('comptecarmesAgent', params.cpte_carmes);
         options.params.set('montant', params.amount);
 
@@ -142,10 +142,9 @@ export class OperationService {
     createDepotOrRetait(compte: string, montant: string, depot: boolean = false): Observable<any> {
         const options = createRequestOption();
         let url: string = depot ? this.depotUrl : this.retraitUrl;
-        const params: URLSearchParams = new URLSearchParams();
-        params.set('compteClient', compte);
-        params.set('montant', montant);
-        options.params = params;
+        
+        options.params.set('compteClient', compte);
+        options.params.set('montant', montant);
         return this.http
             .get(url, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {

@@ -47,10 +47,10 @@ export class ClientService {
     }
     getClientListePdf(req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(req);
-        const urlParams: URLSearchParams = new URLSearchParams();
+        
         let param = getUserRefOrChaineAgence();
-        urlParams.set(param[0], param[1]);
-        options.params = urlParams;
+        options.params.set(param[0], param[1]);
+        
         options.responseType = ResponseContentType.Blob;
         return this.http
             .get(`${HOST}/api/stat/liste-all-clients-to-pdf`, options)
@@ -60,11 +60,11 @@ export class ClientService {
     }
     clientIndividuDisponible(id: any): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('produit_id', id);
+        
+        options.params.set('produit_id', id);
         let param = getUserRefOrChaineAgence();
-        urlParams.set(param[0], param[1]);
-        options.params = urlParams;
+        options.params.set(param[0], param[1]);
+        
         return this.http
             .get(this.clientIndividuDisponibleUrl, options)
             .catch((res: Response) => {
@@ -77,10 +77,10 @@ export class ClientService {
     }
     disabledMember(id: any, etat: any = false): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('client_id', id);
-        urlParams.set('etat', etat);
-        options.params = urlParams;
+        
+        options.params.set('client_id', id);
+        options.params.set('etat', etat);
+        
         return this.http
             .get(this.disabledMemberUrl, options).catch((res: Response) => {
                 if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true);
@@ -112,9 +112,9 @@ export class ClientService {
     }
     queryClientsByType(code: string, req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(req);
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('type_client_code', code);
-        options.params = urlParams;
+        
+        options.params.set('type_client_code', code);
+        
         return this.http
             .get(this.clientsByTypeUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
@@ -204,7 +204,6 @@ export class ClientService {
 
     listeClientCredit(typeClient: string, creditEnCours: boolean) {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
         options.params.set('typeclient', typeClient);
         options.params.set('encours', `${creditEnCours}`);
         let params = getUserRefOrChaineAgence();
