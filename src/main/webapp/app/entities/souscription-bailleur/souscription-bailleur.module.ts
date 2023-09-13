@@ -42,4 +42,4 @@ const ENTITY_STATES = [...souscriptionBailleurRoute, ...souscriptionBailleurPopu
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class SfdSouscriptionModule {}
+export class BailleurSouscriptionModule {}

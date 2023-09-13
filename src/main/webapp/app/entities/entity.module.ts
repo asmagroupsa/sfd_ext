@@ -115,7 +115,8 @@ import { SfdTypeCreditRetardModule } from './type-credit-retard/type-credit-reta
 import { SfdOperationCaisseModule } from './operation-caisse/operation-caisse.module';
 import { SfdOperationDatModule } from './operation-dat/operation-dat.module';
 import { SfdCaisseNouvelleModule } from './caisse-nouvelle/caisse-nouvelle.module';
-import { SfdSouscriptionModule } from './souscription-bailleur/souscription-bailleur.module';
+import { BailleurSouscriptionModule } from './souscription-bailleur/souscription-bailleur.module';
+import { SfdSouscriptionModule } from './souscription-sfd/souscription-sfd.module';
 
 
 export function authorityRessource() {
@@ -350,8 +351,12 @@ export function ressource() {
     return SfdRessourceModule;
 }
 
-export function souscription() {
+export function souscriptionSfd() {
     return SfdSouscriptionModule;
+}
+
+export function souscriptionBailleur() {
+    return BailleurSouscriptionModule;
 }
 export function tauxCommission() {
     return SfdTauxCommissionModule;
@@ -858,8 +863,12 @@ export function compteComptable() {
                 loadChildren: ressource
             },
             {
+                path: 'souscription-sfd',
+                loadChildren: souscriptionSfd
+            },
+            {
                 path: 'souscription-bailleur',
-                loadChildren: souscription
+                loadChildren: souscriptionBailleur
             },
             {
                 path: 'formation',
