@@ -56,8 +56,10 @@ export class FisrtConnectionComponent {
         this.isSaving = true;
         this.userService.changePassword(this.principal.userIdentity.login, this.pass).subscribe((resp) => {
             this.firstConnectionService.firstConnectionUpdate().subscribe((res: ResponseWrapper) => {
-                this.principal.userIdentity.firstConnection == false;
+                if(this.principal.userIdentity){
+                this.principal.userIdentity.firstConnection = false;
                 this.principal.setUserIdentity(this.principal.userIdentity);
+            }
                 this.alertService.success("Mot de passe changé");
                 this.isSaving = true;
                 this.activeModal.dismiss();
@@ -86,6 +88,7 @@ export class FisrtConnectionComponent {
             this.isSaving = false;
 
         }, (err) => {
+            console.log(err);
             this.alertService.error("Une erreur s'est produite lors de la mise à jour des paramètres");
             this.isSaving = false;
         });

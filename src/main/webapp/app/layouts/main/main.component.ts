@@ -454,16 +454,17 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-
+        //this.firstPopupService.open();
         this.principal.getFirstAuthenticationState().subscribe((isFirst) => {
             if (isFirst === true) {
                 // console.log('valuer de isFirst', isFirst);
                 // this._router.navigate(['/first-connection']);
-                //this.firstPopupService.open();
-                this.router.navigate(['/']);
+                this.firstPopupService.open();
+                //this.router.navigate(['/']);
             } else if (isFirst === false) {
                 // console.log('valuer de isFirst', isFirst);
                 // this._router.navigate(['/first-connection'], { queryParams: { step: 1 } });
+                
                 this.router.navigate(['/']);
             }
         });
