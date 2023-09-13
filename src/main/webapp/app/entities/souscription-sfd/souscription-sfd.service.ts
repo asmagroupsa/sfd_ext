@@ -3,12 +3,12 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { JhiDateUtils } from 'ng-jhipster';
 
-import { SouscriptionBailleur } from './souscription-bailleur.model';
+import { SouscriptionSfd } from './souscription-sfd.model';
 import { ResponseWrapper, createRequestOption, UserData } from '../../shared';
 import { HOST, HOST_MVN } from '../../shared/model/request-util';
 
 @Injectable()
-export class SouscriptionBailleurService {
+export class SouscriptionSfdService {
     private resourceUrl = HOST + '/api/s-fds';
     private resourceSearchUrl = HOST + '/api/s-fds';
     private resourceUrlNew = HOST + '/api/s-fds-partner';
@@ -46,26 +46,26 @@ export class SouscriptionBailleurService {
     // type_abonnement=1&password=password&country_id=1
 
 
-     create(souscriptionBailleur: SouscriptionBailleur): Observable<SouscriptionBailleur> {
-        const copy = this.convert(souscriptionBailleur);
+     create(souscriptionSfd: SouscriptionSfd): Observable<SouscriptionSfd> {
+        const copy = this.convert(souscriptionSfd);
         console.log(copy);
         const options = createRequestOption({
-            name : souscriptionBailleur.name,
-            address : souscriptionBailleur.address,
-            phone : souscriptionBailleur.phone,
-            email : souscriptionBailleur.email,
-            fax : souscriptionBailleur.fax,
-            bp : souscriptionBailleur.bp,
-            city : souscriptionBailleur.city,
-            created_by : souscriptionBailleur.createdBy || UserData.getInstance().user_reference,
-            compte_carmes : souscriptionBailleur.compteCarmes,
-            indice_prestataire : souscriptionBailleur.indicePrestataire,
-            logo: souscriptionBailleur.logo,
-            periodicity_id : souscriptionBailleur.periodicityId,
-            acteur: 'BAILLEUR',
-            type_abonnement:souscriptionBailleur.typeAbonnement,
-            password: souscriptionBailleur.password,
-            country_id: souscriptionBailleur.paysId
+            name : souscriptionSfd.name,
+            address : souscriptionSfd.address,
+            phone : souscriptionSfd.phone,
+            email : souscriptionSfd.email,
+            fax : souscriptionSfd.fax,
+            bp : souscriptionSfd.bp,
+            city : souscriptionSfd.city,
+            created_by : souscriptionSfd.createdBy || UserData.getInstance().user_reference,
+            compte_carmes : souscriptionSfd.compteCarmes,
+            indice_prestataire : souscriptionSfd.indicePrestataire,
+            logo: souscriptionSfd.logo,
+            periodicity_id : souscriptionSfd.periodicityId,
+            acteur: 'SFD',
+            type_abonnement:souscriptionSfd.typeAbonnement,
+            password: souscriptionSfd.password,
+            country_id: souscriptionSfd.paysId
         });
         return this.http
             .get(this.subscriptionUrl, options)
@@ -77,9 +77,9 @@ export class SouscriptionBailleurService {
             });
     }
 
-   /*  create(souscriptionBailleur: SouscriptionBailleur): Observable<SouscriptionBailleur> {
+   /*  create(souscriptionSfd: SouscriptionSfd): Observable<SouscriptionSfd> {
 
-        const copy = this.convert(souscriptionBailleur);
+        const copy = this.convert(souscriptionSfd);
         const options = createRequestOption();
         return this.http
             .post(this.resourceUrl, copy, options)
@@ -91,8 +91,8 @@ export class SouscriptionBailleurService {
             });
     } */
 
-    update(souscriptionBailleur: SouscriptionBailleur): Observable<SouscriptionBailleur> {
-        const copy = this.convert(souscriptionBailleur);
+    update(souscriptionSfd: SouscriptionSfd): Observable<SouscriptionSfd> {
+        const copy = this.convert(souscriptionSfd);
         const options = createRequestOption();
         return this.http
             .put(this.resourceUrl, copy, options)
@@ -103,7 +103,7 @@ export class SouscriptionBailleurService {
             });
     }
 
-    find(id: number): Observable<SouscriptionBailleur> {
+    find(id: number): Observable<SouscriptionSfd> {
         const options = createRequestOption();
         return this.http
             .get(`${this.resourceUrl}/${id}`, options)
@@ -159,15 +159,15 @@ export class SouscriptionBailleurService {
         }
     }
 
-    private convert(souscriptionBailleur: SouscriptionBailleur): SouscriptionBailleur {
-        const copy: SouscriptionBailleur = Object.assign({}, souscriptionBailleur);
+    private convert(souscriptionSfd: SouscriptionSfd): SouscriptionSfd {
+        const copy: SouscriptionSfd = Object.assign({}, souscriptionSfd);
         try {
             if (copy.createdDate) {
-                copy.createdDate = this.dateUtils.convertLocalDateToServer(souscriptionBailleur.createdDate);
+                copy.createdDate = this.dateUtils.convertLocalDateToServer(souscriptionSfd.createdDate);
             }
             if (copy.lastModifiedDate) {
                 copy.lastModifiedDate = this.dateUtils.convertLocalDateToServer(
-                    souscriptionBailleur.lastModifiedDate
+                    souscriptionSfd.lastModifiedDate
                 );
             }
 

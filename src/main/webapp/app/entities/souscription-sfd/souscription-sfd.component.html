@@ -1,0 +1,338 @@
+<h2 class="liste-header">
+    <span jhiFnmTranslate="sfdApp.souscriptionSfd.home.title">SOUSCRIPTIONSFD</span>
+    <button class="btn btn-primary float-right create-souscriptionsfd" [routerLink]="['/entity', 'souscription-sfd',  { outlets: { popup: ['souscription-sfd-new'] } }]">
+        <span class="fa fa-plus"></span>
+        <span class="hidden-sm-down cache" jhiFnmTranslate="sfdApp.souscriptionSfd.home.createLabel">
+            Create new SOUSCRIPTIONSFD
+        </span>
+    </button>
+</h2>
+<jhi-alert></jhi-alert>
+<div class="row">
+    <div class="col-sm-12">
+        <form class="ui form" name="searchForm" class="form-inline">
+            <div class="input-group w-100 mt-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="currentSearch"
+                    id="currentSearch"
+                    name="currentSearch"
+                    placeholder="{{
+                        'sfdApp.souscriptionSfd.home.search'
+                            | fnmtranslate: langue.lang
+                            | async
+                    }}"
+                />
+                <button
+                    class="input-group-addon btn btn-info"
+                    (click)="search(currentSearch)"
+                >
+                    <span class="fa fa-search"></span>
+                </button>
+                <button
+                    class="input-group-addon btn btn-danger"
+                    (click)="clear()"
+                    *ngIf="currentSearch"
+                >
+                    <span class="fa fa-trash-o"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<table class="bordered striped highlight">
+    <thead>
+        <tr
+            jhiSort
+            [(predicate)]="predicate"
+            [(ascending)]="reverse"
+            [callback]="transition.bind(this)"
+        >
+            <th>N°</th>
+            <th jhiSortBy="code">
+                <span jhiFnmTranslate="sfdApp.souscriptionSfd.code">Code</span>
+                <span class="fa fa-sort"></span>
+            </th>
+            <th jhiSortBy="name">
+                <span jhiFnmTranslate="sfdApp.souscriptionSfd.name">Name</span>
+                <span class="fa fa-sort"></span>
+            </th>
+            <th jhiSortBy="indicePrestataire">
+                <span
+                    jhiFnmTranslate="sfdApp.souscriptionSfd.indicePrestataire"
+                    title="Indice prestataire"
+                    >I.P</span
+                >
+                <span class="fa fa-sort"></span>
+            </th>
+            <th jhiSortBy="address">
+                <span jhiFnmTranslate="sfdApp.souscriptionSfd.address">Address</span>
+                <span class="fa fa-sort"></span>
+            </th>
+            <th jhiSortBy="phone">
+                <span jhiFnmTranslate="sfdApp.souscriptionSfd.phone">Phone</span>
+                <span class="fa fa-sort"></span>
+            </th>
+            <th jhiSortBy="email">
+                <span jhiFnmTranslate="sfdApp.souscriptionSfd.email">Email</span>
+                <span class="fa fa-sort"></span>
+            </th>
+            <!-- <th jhiSortBy="fax">
+                        <span jhiFnmTranslate="sfdApp.souscriptionSfd.fax">Fax</span>
+                        <span class="fa fa-sort"></span>
+                    </th> -->
+            <!-- <th jhiSortBy="bp">
+                        <span jhiFnmTranslate="sfdApp.souscriptionSfd.bp">Bp</span>
+                        <span class="fa fa-sort"></span>
+                    </th> -->
+            <th jhiSortBy="city">
+                <span jhiFnmTranslate="sfdApp.souscriptionSfd.city">City</span>
+                <span class="fa fa-sort"></span>
+            </th>
+            <th jhiSortBy="compteCarmes">
+                <span jhiFnmTranslate="sfdApp.souscriptionSfd.compteCarmes_"
+                    >Cpt. CARMES</span
+                >
+                <span class="fa fa-sort"></span>
+            </th>
+            <th>Date</th>
+            <th class="text-right">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr
+            *ngFor="
+                let souscriptionSfd of souscriptionBailleurS | recherche: currentSearch;
+                let index = index
+            "
+        >
+            <td>{{ index + 1 + itemsPerPage * (page - 1) }}</td>
+            <td>{{ souscriptionSfd.code }}</td>
+            <td>{{ souscriptionSfd.name }}</td>
+            <td>{{ souscriptionSfd.indicePrestataire }}</td>
+            <td>{{ souscriptionSfd.address }}</td>
+            <td>{{ souscriptionSfd.phone }}</td>
+            <td>{{ souscriptionSfd.email }}</td>
+            <!--  <td>{{souscriptionSfd.fax}}</td> -->
+            <!-- <td>{{souscriptionSfd.bp}}</td> -->
+            <td>{{ souscriptionSfd.city }}</td>
+            <td>{{ souscriptionSfd.compteCarmes }}</td>
+            <td>{{ souscriptionSfd.createdDate | date: "mediumDate" }}</td>
+            <td class="text-right">
+                <div class="btn-group flex-btn-group-container">
+                    <!-- <button *jhiHasAnyRessources="'carmesfnmservice/api/s-fds/getSOUSCRIPTIONBAILLEUR'" type="submit" [routerLink]="['/entity', 'souscriptionsfd', souscriptionSfd.id ]"
+                                class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                            </button> -->
+                    <button
+                        *jhiHasAnyRessources="
+                            'carmesfnmservice/api/s-fds/updateSOUSCRIPTIONBAILLEUR'
+                        "
+                        type="submit"
+                        [routerLink]="[
+                            '/entity',
+                            'souscription-sfd',
+                            { outlets: { popup: 'souscription-sfd/' + souscriptionSfd.id + '/edit' } }
+                        ]"
+                        replaceUrl="true"
+                        class="btn btn-primary btn-sm"
+                    >
+                        <span class="fa fa-pencil"></span>
+                    </button>
+                    <button
+                        *jhiHasAnyRessources="
+                            'carmesfnmservice/api/s-fds/deleteSOUSCRIPTIONBAILLEUR'
+                        "
+                        type="submit"
+                        [routerLink]="[
+                            '/entity',
+                            'souscription-sfd',
+                            { outlets: { popup: 'souscription-sfd/' + souscriptionSfd.id + '/delete' } }
+                        ]"
+                        replaceUrl="true"
+                        class="btn btn-danger btn-sm"
+                    >
+                        <span class="fa fa-remove"></span>
+                    </button>
+                    <div class="ui dropdown">
+                        <div class="text" style="display: none;"></div>
+                        <i class="ellipsis vertical icon"></i>
+                        <div class="left menu">
+                            <div
+                                class="item"
+                                [routerLink]="[
+                                    '/entity',
+                                    'client',
+                                    'liste-agent'
+                                ]"
+                                [queryParams]="{ souscriptionsfd: souscriptionSfd.code }"
+                            >
+                                Agents Marchands
+                            </div>
+                            <div
+                                *jhiHasAnyRessources="
+                                    'carmesfnmservice/api/commissions/getAllCommissions'
+                                "
+                                class="item"
+                                [routerLink]="['/entity', 'commission']"
+                                [queryParams]="{
+                                    agent: souscriptionSfd.compteCarmes,
+                                    t: 'carmes',
+                                    name: souscriptionSfd.name
+                                }"
+                            >
+                                Commissions
+                            </div>
+                            <div
+                                *jhiHasAnyRessources="
+                                    'carmesfnmservice/api/commissions/getAllCommissions'
+                                "
+                                class="item"
+                                [routerLink]="['/state', 'commission']"
+                                [queryParams]="{ carmes: souscriptionSfd.compteCarmes }"
+                            >
+                                Commissions PDF
+                            </div>
+                            <div
+                                *jhiHasAnyRessources="
+                                    'carmesfnmservice/api/commissions/getAllCommissions'
+                                "
+                                class="item"
+                                [routerLink]="[
+                                    '/state',
+                                    'liste-ordre-virement'
+                                ]"
+                                [queryParams]="{ carmes: souscriptionSfd.code }"
+                            >
+                                Ordres de virements
+                            </div>
+                            <div
+                                class="item"
+                                [routerLink]="[
+                                    '/entity',
+                                    'client',
+                                    souscriptionSfd.compteCarmes,
+                                    'account-statement'
+                                ]"
+                            >
+                                Relevé de compte
+                            </div>
+                            <div
+                                class="item"
+                                [routerLink]="['/state', 'liste-retrait']"
+                                [queryParams]="{
+                                    souscriptionbailleurReference: souscriptionSfd.code,
+                                    souscriptionbailleurName: souscriptionSfd.name,
+                                    souscriptionbailleurHeader: souscriptionSfd.entete || ''
+                                }"
+                            >
+                                Liste des retraits
+                            </div>
+                            <div
+                                class="item"
+                                [routerLink]="[
+                                    '/state',
+                                    'liste-credit-impayes'
+                                ]"
+                                [queryParams]="{
+                                    souscriptionbailleurId: souscriptionSfd.id,
+                                    souscriptionbailleurName: souscriptionSfd.name,
+                                    souscriptionbailleurHeader: souscriptionSfd.entete || '',
+                                    souscriptionbailleurReference: souscriptionSfd.code,
+                                    title: ' du SOUSCRIPTIONSFD ' + souscriptionSfd.name
+                                }"
+                            >
+                                Crédits impayés
+                            </div>
+                            <div
+                                class="item"
+                                [routerLink]="[
+                                    '/state',
+                                    'suivi-decaissement-mcm'
+                                ]"
+                                [queryParams]="{
+                                    souscriptionbailleurReference: souscriptionSfd.code,
+                                    souscriptionsfd: souscriptionSfd.name,
+                                    link: 'suivi-decaissement',
+                                    title: 'Suivi des décaissements de MCM'
+                                }"
+                            >
+                                Suivi des décaissements de MCM
+                            </div>
+                            <div
+                                class="item"
+                                [routerLink]="[
+                                    '/state',
+                                    'suivi-decaissement-mcm'
+                                ]"
+                                [queryParams]="{
+                                    souscriptionbailleurReference: souscriptionSfd.code,
+                                    souscriptionsfd: souscriptionSfd.name,
+                                    link: 'suivi-remboursement-ligne',
+                                    title: 'Suivi des remboursements'
+                                }"
+                            >
+                                Suivi des remboursements
+                            </div>
+                            <div
+                                class="item"
+                                [routerLink]="[
+                                    '/state',
+                                    'suivi-decaissement-mcm'
+                                ]"
+                                [queryParams]="{
+                                    souscriptionbailleurReference: souscriptionSfd.code,
+                                    souscriptionsfd: souscriptionSfd.name,
+                                    link: 'balance-agee-ligne',
+                                    title: 'Balance âgée'
+                                }"
+                            >
+                                Balance âgée
+                            </div>
+                            <div
+                                class="item"
+                                [routerLink]="[
+                                    '/state',
+                                    'suivi-decaissement-mcm'
+                                ]"
+                                [queryParams]="{
+                                    souscriptionbailleurReference: souscriptionSfd.code,
+                                    souscriptionsfd: souscriptionSfd.name,
+                                    link: 'suivi-compensation-ligne',
+                                    title: 'Suivi des compensations'
+                                }"
+                            >
+                                Suivi des compensations
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div
+    class="ui segment"
+    style="box-shadow: unset; border: none;"
+    *ngIf="loader.souscriptionbailleurs"
+>
+    <p></p>
+    <div class="ui active inverted dimmer">
+        <div class="ui loader"></div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <ngb-pagination
+        [maxSize]="5"
+        [rotate]="true"
+        [ellipses]="false"
+        [boundaryLinks]="true"
+        [pageSize]="itemsPerPage"
+        ellipses
+        [collectionSize]="totalItems"
+        [(page)]="page"
+        (pageChange)="loadPage(page)"
+    ></ngb-pagination>
+</div>

@@ -1,17 +1,17 @@
 {
     "sfdApp": {
-        "souscriptionBailleur": {
+        "souscriptionSfd": {
             "home": {
-                "title": "SOUSCRIPTION BAILLEUR",
-                "createLabel": "Effectuer une souscription BAILLEUR",
-                "createOrEditLabel": "Editer une souscription BAILLEUR",
-                "search": "Rechercher une souscription BAILLEUR"
+                "title": "SOUSCRIPTION SFD",
+                "createLabel": "Effectuer une souscription SFD",
+                "createOrEditLabel": "Editer une souscription SFD",
+                "search": "Rechercher une souscription SFD"
             },
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer cette souscription {{ id }} d'un BAILLEUR?"
+                "question": "Etes-vous certain de vouloir supprimer cette souscription {{ id }} d'un SFD?"
             },
             "detail": {
-                "title": "SOUSCRIPTION BAILLEUR"
+                "title": "SOUSCRIPTION SFD"
             },
             "code": "Référence",
             "name": "Nom",
@@ -40,9 +40,9 @@
     },
     "carmesfnmserviceApp": {
         "souscriptionBailleur": {
-            "created": "La souscription BAILLEUR a été effectué",
-            "updated": "La souscription BAILLEUR a été mise à jour",
-            "deleted": "La souscription BAILLEUR a été supprimée"
+            "created": "La souscription SFD a été effectué",
+            "updated": "La souscription SFD a été mise à jour",
+            "deleted": "La souscription SFD a été supprimée"
         },
         "carmesVerification": {
             "non": "CE COMPTE CARMES EST DEJA UTILISÉ",
