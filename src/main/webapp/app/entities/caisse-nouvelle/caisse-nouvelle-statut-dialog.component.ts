@@ -18,7 +18,7 @@ declare let select_init: any;
   templateUrl: './caisse-nouvelle-statut-dialog.component.html'
 })
 export class CaisseNouvelleStatutDialogComponent implements OnInit {
-  caisseNouvelleStatut: CaisseNouvelleStatut;
+  caisseNouvelleStatut: CaisseNouvelleStatut = new CaisseNouvelleStatut();
   etat: any;
   authorities: any[];
   isSaving: boolean;
