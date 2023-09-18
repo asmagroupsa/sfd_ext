@@ -173,7 +173,7 @@
 
         <div class="form-group" *ngIf="(!isVirement && !isDecaissement && !isEncaissement && !isRetrait && !isDepot)">
             <label class="form-control-label active oblige" for="field_name" jhiFnmTranslate="sfdApp.operationCaisse.email" >Email</label>
-            <input type="email" min="1" class="form-control" name="email" id="field_email" [(ngModel)]="operationCaisse && operationCaisse.email" required maxlength="50" data-length="50" />
+            <input type="email" min="1" class="form-control" name="email" id="field_email" [(ngModel)]="operationCaisse && operationCaisse.email" required maxlength="50" data-length="50" pattern="^([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-z]{2,6})?$"/>
             <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.required" jhiFnmTranslate="entity.validation.required">
                    This field is required.

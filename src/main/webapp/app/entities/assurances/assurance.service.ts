@@ -42,9 +42,9 @@ export class AssuranceService {
 
     getAyantDroit(numPolice): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('num_police', '' + numPolice);
-        options.params = urlParams;
+        
+        options.params.set('num_police', '' + numPolice);
+        
         return this.http
             .get(this.listAyantDroit, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {return res.json()});
@@ -52,9 +52,9 @@ export class AssuranceService {
 
     getAllSinistre(): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        // urlParams.set('num_police', '' + numPolice);
-        options.params = urlParams;
+        
+        // options.params.set('num_police', '' + numPolice);
+        
         return this.http
             .get(this.sinistreURL, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {return res.json()});
@@ -62,9 +62,9 @@ export class AssuranceService {
 
     getContratInformation(numPolice) {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('num_police', '' + numPolice);
-        options.params = urlParams;
+        
+        options.params.set('num_police', '' + numPolice);
+        
         return this.http
             .get(this.AssuranceInfos, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {return res.json()});
@@ -72,9 +72,9 @@ export class AssuranceService {
 
     getAllBeneficiaryByClient(id) {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('clientId.equals', id + '');
-        options.params = urlParams;
+        
+        options.params.set('clientId.equals', id + '');
+        
         return this.http
             .get(this.resourceUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => this.convertResponse(res));

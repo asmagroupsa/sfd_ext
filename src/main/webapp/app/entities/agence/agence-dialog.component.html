@@ -59,7 +59,7 @@
         </div>
         <div class="input-field">
             <label class="form-control-label active" jhiFnmTranslate="sfdApp.agence.email" for="field_email">Email</label>
-            <input type="email" class="form-control" name="email" id="field_email" [(ngModel)]="agence.email" maxlength="50" data-length="50" />
+            <input type="email" class="form-control" name="email" id="field_email" [(ngModel)]="agence.email" maxlength="50" data-length="50" pattern="^([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-z]{2,6})?$"/>
             <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.maxlength" jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
                     This field cannot be longer than 50 characters.

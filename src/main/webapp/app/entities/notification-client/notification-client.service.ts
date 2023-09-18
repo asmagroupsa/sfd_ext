@@ -24,8 +24,8 @@ export class NotificationClientService {
 
     queryNonDebloquer(): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        options.params = urlParams;
+        
+        
         let params = getUserRefOrChaineAgence();
         options.params.set(params[0], params[1]);
         return this.http

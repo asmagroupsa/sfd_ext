@@ -58,9 +58,9 @@ export class HomeService {
         const options = createRequestOption();
 
        
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('sfd_id', sfdId);
-        options.params = urlParams;
+        
+        options.params.set('sfd_id', sfdId);
+        
 
         return this.http
             .get(this.resourceReportUrl, options)

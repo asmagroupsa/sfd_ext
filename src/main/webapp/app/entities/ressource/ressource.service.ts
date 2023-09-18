@@ -19,11 +19,11 @@ export class RessourceService {
     constructor(private http: Http) { }
     queryAuthorities(authority: string, state: any): Observable<ResponseWrapper> {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('authority', authority);
-        urlParams.set('etat', state);
+        
+        options.params.set('authority', authority);
+        options.params.set('etat', state);
         options.params.set('type', 'SFD');
-        options.params = urlParams;
+        
         return this.http
             .get(this.listeAuthResourceUrl, options).catch((res: Response) => {         if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true);         return Observable.throw(res);       })
             .map((res: Response) => this.convertResponse(res));
@@ -31,10 +31,10 @@ export class RessourceService {
 
     addAuthorityRessources(model: any): any {
         const options = createRequestOption();
-        const urlParams: URLSearchParams = new URLSearchParams();
-        urlParams.set('authority', model.profile);
-        urlParams.set('chaineRessource', model.ressources.join('*'));
-        options.params = urlParams;
+        
+        options.params.set('authority', model.profile);
+        options.params.set('chaineRessource', model.ressources.join('*'));
+        
         options.params.set('type', 'SFD');
         return this.http
             .get(this.insertRessourceUrl, options).catch((res: Response) => {         if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true);         return Observable.throw(res);       })
@@ -45,7 +45,6 @@ export class RessourceService {
 
     removeAuthorityRessources(model: any) {
         const options = createRequestOption();
-        options.params = new URLSearchParams();
         options.params.set('authority', model.profile);
         options.params.set('ressource', model.ressources.join('*'));
         options.params.set('type', 'SFD');

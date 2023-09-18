@@ -60,7 +60,7 @@
         </div>
         <div class="form-group">
             <label class="form-control-label active" jhiFnmTranslate="sfdApp.sFD.email" for="field_email">Email</label>
-            <input type="email" class="form-control" name="email" id="field_email" [(ngModel)]="sFD.email" required maxlength="50" data-length="50" />
+            <input type="email" class="form-control" name="email" id="field_email" [(ngModel)]="sFD.email" required maxlength="50" data-length="50" pattern="^([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-z]{2,6})?$"/>
             <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
                 <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.required" jhiFnmTranslate="entity.validation.required">
                    This field is required.

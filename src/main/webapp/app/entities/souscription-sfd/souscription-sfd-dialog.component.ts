@@ -6,20 +6,20 @@ import { Observable } from 'rxjs';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { SouscriptionBailleur } from './souscription-bailleur.model';
-import { SouscriptionBailleurPopupService } from './souscription-bailleur-popup.service';
+import { SouscriptionSfd } from './souscription-sfd.model';
+import { SouscriptionSfdPopupService } from './souscription-sfd-popup.service';
 import { ResponseWrapper, setCreateBy, setLastModifyBy, Principal } from '../../shared';
 import { Client, ClientService } from '../client';
 import { Periodicity, PeriodicityService } from '../periodicity';
 import { getNewItems } from '../../shared/model/functions';
 import { Country, CountryService } from '../country';
-import { SouscriptionBailleurService } from './souscription-bailleur.service';
+import { SouscriptionSfdService } from './souscription-sfd.service';
 declare let select_init: any;
 
 
 @Component({
-    selector: 'jhi-souscription-bailleur-dialog',
-    templateUrl: './souscription-bailleur-dialog.component.html',
+    selector: 'jhi-souscription-sfd-dialog',
+    templateUrl: './souscription-sfd-dialog.component.html',
     styles: [
        `
        input {
@@ -28,8 +28,8 @@ declare let select_init: any;
        `
     ]
 })
-export class SouscriptionBailleurDialogComponent implements OnInit {
-    souscriptionBailleur: SouscriptionBailleur;
+export class SouscriptionSfdDialogComponent implements OnInit {
+    souscriptionSfd: SouscriptionSfd;
     authorities: any[];
     isSaving: boolean;
     clients: Client[];
@@ -49,7 +49,7 @@ export class SouscriptionBailleurDialogComponent implements OnInit {
     constructor(
         public activeModal: NgbActiveModal,
         private alertService: JhiAlertService,
-        private SouscriptionBailleurService: SouscriptionBailleurService,
+        private SouscriptionSfdService: SouscriptionSfdService,
         private clientService: ClientService,
         private eventManager: JhiEventManager,
         public principal: Principal,
@@ -65,13 +65,13 @@ export class SouscriptionBailleurDialogComponent implements OnInit {
     ngOnInit() {
         this._loadPeridicities();
         this._loadCountry();
-        // console.log('id -> ' + this.souscriptionBailleur.id != null ? this.souscriptionBailleur.id : 0);
+        // console.log('id -> ' + this.souscriptionSfd.id != null ? this.souscriptionSfd.id : 0);
 
         this.isSaving = false;
-        if (this.souscriptionBailleur.id) {
+        if (this.souscriptionSfd.id) {
             this.carmesAcountIsValid = true;
             this.ipv = true;
-            this._ip = this.souscriptionBailleur.indicePrestataire;
+            this._ip = this.souscriptionSfd.indicePrestataire;
         }
 
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
@@ -91,7 +91,7 @@ export class SouscriptionBailleurDialogComponent implements OnInit {
         this.principal.identity().then(async (identity) => {
             //console.log(identity);
             try {
-                let result = await this.SouscriptionBailleurService.checkIndicePrestataire(this.souscriptionBailleur.indicePrestataire)
+                let result = await this.SouscriptionSfdService.checkIndicePrestataire(this.souscriptionSfd.indicePrestataire)
             .toPromise();
             if(result['Resultat'] != 1){
                 this.isSaving = false;
@@ -101,35 +101,35 @@ export class SouscriptionBailleurDialogComponent implements OnInit {
             } catch (e) {
                 this.isSaving = false;
                 this.alertService.error("Vérification de l'indice prestataire échouée", null, null);
-                return ;  
+                return ;
             }
-            if (this.souscriptionBailleur.id !== undefined) {
-                setLastModifyBy(this.souscriptionBailleur, identity);
-                this.subscribeToSaveResponse(this.SouscriptionBailleurService.update(this.souscriptionBailleur), false);
+            if (this.souscriptionSfd.id !== undefined) {
+                setLastModifyBy(this.souscriptionSfd, identity);
+                this.subscribeToSaveResponse(this.SouscriptionSfdService.update(this.souscriptionSfd), false);
             } else {
-                setCreateBy(this.souscriptionBailleur, identity);
-                this.souscriptionBailleur.code = `${Date.now()}`;
-                this.souscriptionBailleur.createdBy = identity.id || identity.login;
-                this.subscribeToSaveResponse(this.SouscriptionBailleurService.create(this.souscriptionBailleur), true);
+                setCreateBy(this.souscriptionSfd, identity);
+                this.souscriptionSfd.code = `${Date.now()}`;
+                this.souscriptionSfd.createdBy = identity.id || identity.login;
+                this.subscribeToSaveResponse(this.SouscriptionSfdService.create(this.souscriptionSfd), true);
             }
         });
     }
 
-    private subscribeToSaveResponse(result: Observable<SouscriptionBailleur>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<SouscriptionSfd>, isCreated: boolean) {
         result.subscribe(
-            (res: SouscriptionBailleur) => this.onSaveSuccess(res, isCreated),
+            (res: SouscriptionSfd) => this.onSaveSuccess(res, isCreated),
             (res: Response) => this.onSaveError(res)
         );
     }
 
-    private onSaveSuccess(result: SouscriptionBailleur, isCreated: boolean) {
+    private onSaveSuccess(result: SouscriptionSfd, isCreated: boolean) {
         this.alertService.success(
-            isCreated ? 'carmesfnmserviceApp.SouscriptionBailleur.created' : 'carmesfnmserviceApp.SouscriptionBailleur.updated',
+            isCreated ? 'carmesfnmserviceApp.SouscriptionSfd.created' : 'carmesfnmserviceApp.SouscriptionSfd.updated',
             { param: result.id },
             null
         );
 
-        this.eventManager.broadcast({ name: 'SouscriptionBailleurListModification', content: 'OK' });
+        this.eventManager.broadcast({ name: 'SouscriptionSfdListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -161,11 +161,11 @@ export class SouscriptionBailleurDialogComponent implements OnInit {
     }
 
     checkCARMESAccount() {
-        if (!this.souscriptionBailleur.compteCarmes) return;
+        if (!this.souscriptionSfd.compteCarmes) return;
         this.loading.compteCarmes = true;
 
-        this.SouscriptionBailleurService
-        .checkCARMESAccount(this.souscriptionBailleur.compteCarmes)
+        this.SouscriptionSfdService
+        .checkCARMESAccount(this.souscriptionSfd.compteCarmes)
         .subscribe((res) => {
             this.loading.compteCarmes = false;
             this.carmesAcountIsValid = res.json.resultat === 'OK';
@@ -183,14 +183,14 @@ export class SouscriptionBailleurDialogComponent implements OnInit {
     }
 
     cip() {
-        if  (!this.souscriptionBailleur.indicePrestataire) return;
-        if  (this.souscriptionBailleur.id && this.souscriptionBailleur.indicePrestataire === this._ip) {
+        if  (!this.souscriptionSfd.indicePrestataire) return;
+        if  (this.souscriptionSfd.id && this.souscriptionSfd.indicePrestataire === this._ip) {
             this.ipv = true;
             return;
         }
         this.loading.ip = true;
 
-        this.SouscriptionBailleurService.query({'indicePrestataire.equals': this.souscriptionBailleur.indicePrestataire})
+        this.SouscriptionSfdService.query({'indicePrestataire.equals': this.souscriptionSfd.indicePrestataire})
         .subscribe((r) => {
             this.loading.ip = false;
             this.ipv = r.json.length === 0;
@@ -235,16 +235,16 @@ export class SouscriptionBailleurDialogComponent implements OnInit {
 }
 
 @Component({
-    selector: 'jhi-souscription-bailleur-popup',
+    selector: 'jhi-souscription-Sfd-popup',
     template: ''
 })
-export class SouscriptionBailleurPopupComponent implements OnInit, OnDestroy {
+export class SouscriptionSfdPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
-        private SouscriptionBailleurPopupService: SouscriptionBailleurPopupService
+        private SouscriptionSfdPopupService: SouscriptionSfdPopupService
     ) { }
 
     ngOnInit() {
@@ -252,15 +252,15 @@ export class SouscriptionBailleurPopupComponent implements OnInit, OnDestroy {
             if (params['id']) {
                 console.log("edition sous-bail");
 
-                this.modalRef = this.SouscriptionBailleurPopupService.open(
-                    SouscriptionBailleurDialogComponent,
+                this.modalRef = this.SouscriptionSfdPopupService.open(
+                    SouscriptionSfdDialogComponent,
                     params['id']
                 );
             } else {
                 console.log("Creation sous-bail");
 
                 setTimeout(() => {
-                    this.modalRef = this.SouscriptionBailleurPopupService.open(SouscriptionBailleurDialogComponent as Component);
+                    this.modalRef = this.SouscriptionSfdPopupService.open(SouscriptionSfdDialogComponent as Component);
                 }, 0);
             }
         });

@@ -49,7 +49,7 @@
         </div>
         <div class="input-field">
             <label class="form-control-label oblige active" for="email">E-mail</label>
-            <input type="email" class="form-control" name="email" id="email" [(ngModel)]="model.email" required>
+            <input type="email" class="form-control" name="email" id="email" [(ngModel)]="model.email" pattern="^([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-z]{2,6})?$" required>
         </div>
         <div class="input-field">
             <label class="form-control-label oblige active" for="password">Mot de passe</label>

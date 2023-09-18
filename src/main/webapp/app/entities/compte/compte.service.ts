@@ -85,7 +85,6 @@ export class CompteService {
   getByCARMESAccount(carmesAccount): Promise<any[]> {
     return new Promise((resolve, reject) => {
           const o = createRequestOption();
-          o.params = new URLSearchParams();
           o.params.set('cpteCarmes.equals', carmesAccount);
 
           this.http.get(HOST + '/api/clients', o)
