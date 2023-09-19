@@ -237,7 +237,7 @@ public class SPUserRessource{
 			@GetMapping("/souscription-complet")
 			public ResultInfo souscriptionComplet(Long id, @RequestParam String name, @RequestParam String typeclient, @RequestParam String comptecarmes,
 					@RequestParam String tel, String password, @RequestParam String email, String pin, String code_guichet, @RequestParam String photo, 
-					String first_name, String denomination, Long district_id, String address, Double geo_long ,Double geo_lat, int country_id) {
+					String first_name, String denomination, Long district_id, String address, Double geo_long ,Double geo_lat) {
 				if (null == id){
 					if (userRepository.findOneByLogin(comptecarmes).isPresent()){
 			            return new ResultInfo("loginexists");
@@ -259,7 +259,7 @@ public class SPUserRessource{
 				}
 				
 				ResultInfo resultat=  (ResultInfo)this.spUserService.souscription(id, name, typeclient, comptecarmes, tel, password, 
-						email,code_guichet,photo,first_name,denomination, district_id,  address,  geo_long , geo_lat, country_id);
+						email,code_guichet,photo,first_name,denomination, district_id,  address,  geo_long , geo_lat);
 						
 						if(!typeclient.equals("MASTER")) {
 							if(resultat.getResultat().equals("OK") && null == id){

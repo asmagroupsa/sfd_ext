@@ -27,7 +27,7 @@ public interface SPUserRepository2{
 	public List<?> utilisateurSfd(String sfd_reference);
 	public Object souscription(Long id, String name, String typeclient, String comptecarmes, String tel, 
 	String password_hash, String email, String code_guichet, String photo, String password, 
-	String first_name, String denomination, Long district_id, String address, Double geo_long ,Double geo_lat, int country_id);
+	String first_name, String denomination, Long district_id, String address, Double geo_long ,Double geo_lat);
 	public Object annulationSouscription(String comptecarmes);
 
 	public Object annulationRessource(String authority, String ressource);

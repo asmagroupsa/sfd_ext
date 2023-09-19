@@ -143,13 +143,13 @@ public class SPUserRepositoryImpl implements SPUserRepository2{
 	@Override
 	public Object souscription(Long id, String name, String typeclient, String comptecarmes, String tel, 
 	String password_hash, String email, String code_guichet, String photo, String password, 
-	String first_name, String denomination, Long district_id, String address, Double geo_long ,Double geo_lat, int country_id) {
+	String first_name, String denomination, Long district_id, String address, Double geo_long ,Double geo_lat) {
 		// TODO Auto-generated method stub
 		return  Util.getProcedure(em,
 				"souscription", "ResultInfo",
-				new String[]{"client_id", "name", "typeclient","comptecarmes", "tel", "password_hash", "email","code_guichet", "photo", "password", "first_name", "denomination", "district_id",  "address",  "geo_long" , "geo_lat", "country_id"},
-				new Object[]{id, name, typeclient,comptecarmes, tel, password_hash, email, code_guichet, photo, password,first_name,denomination, district_id,  address,  geo_long , geo_lat, country_id},
-				new Class[]{Long.class, String.class,String.class,String.class, String.class,String.class, String.class, String.class, String.class, String.class, String.class, String.class , Long.class, String.class, Double.class, Double.class, int.class})
+				new String[]{"client_id", "name", "typeclient","comptecarmes", "tel", "password_hash", "email","code_guichet", "photo", "password", "first_name", "denomination", "district_id",  "address",  "geo_long" , "geo_lat"},
+				new Object[]{id, name, typeclient,comptecarmes, tel, password_hash, email, code_guichet, photo, password,first_name,denomination, district_id,  address,  geo_long , geo_lat},
+				new Class[]{Long.class, String.class,String.class,String.class, String.class,String.class, String.class, String.class, String.class, String.class, String.class, String.class , Long.class, String.class, Double.class, Double.class})
 				.getSingleResult();
 
 
