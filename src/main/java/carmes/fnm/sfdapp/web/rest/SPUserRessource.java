@@ -153,7 +153,7 @@ public class SPUserRessource{
 		     }
 
 			return this.spUserService.souscription(id, name, typeclient, comptecarmes, tel, password, email,code_guichet,photo,
-			first_name,denomination, district_id,  address,  geo_long , geo_lat, 1);
+			first_name,denomination, district_id,  address,  geo_long , geo_lat);
 		}
 		
 		@GetMapping("/liste-utilisateurs-sfd")
