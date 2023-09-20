@@ -149,7 +149,7 @@ public class SPUserRepositoryImpl implements SPUserRepository2{
 				"souscription", "ResultInfo",
 				new String[]{"client_id", "name", "typeclient","comptecarmes", "tel", "password_hash", "email","code_guichet", "photo", "password", "first_name", "denomination", "district_id",  "address",  "geo_long" , "geo_lat"},
 				new Object[]{id, name, typeclient,comptecarmes, tel, password_hash, email, code_guichet, photo, password,first_name,denomination, district_id,  address,  geo_long , geo_lat},
-				new Class[]{Long.class, String.class,String.class,String.class, String.class,String.class, String.class, String.class, String.class, String.class, String.class, String.class   , Long.class, String.class, Double.class, Double.class})
+				new Class[]{Long.class, String.class,String.class,String.class, String.class,String.class, String.class, String.class, String.class, String.class, String.class, String.class , Long.class, String.class, Double.class, Double.class})
 				.getSingleResult();
 
 

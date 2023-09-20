@@ -22,9 +22,11 @@ public class UserResourceAgenceInfo {
 	private String liste_agence;
 	private String code_partenaire;
 	private Long partner_id;
+	private Long country_id;
 
 	public UserResourceAgenceInfo(String ressource, String sfd_reference, String agence_reference,
-			String zone_reference, String user_reference, String liste_agence, String code_partenaire, Long partner_id) {
+			String zone_reference, String user_reference, String liste_agence, String code_partenaire,
+			 Long partner_id, Long country_id) {
 		super();
 		this.ressource = ressource;
 		this.sfd_reference = sfd_reference;
@@ -34,6 +36,8 @@ public class UserResourceAgenceInfo {
 		this.liste_agence = liste_agence;
 		this.code_partenaire = code_partenaire;
 		this.partner_id = partner_id;
+		this.country_id = country_id;
+
 	}
 	public String getRessource() {
 		return ressource;
@@ -84,6 +88,13 @@ public class UserResourceAgenceInfo {
 	}
 	public void setPartner_id(Long partner_id) {
 		this.partner_id = partner_id;
+	}
+
+	public Long getCountry_id() {
+		return country_id;
+	}
+	public void setCountry_id(Long country_id) {
+		this.country_id = country_id;
 	}
     
 }
