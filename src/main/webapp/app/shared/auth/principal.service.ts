@@ -268,7 +268,7 @@ export class Principal implements OnInit {
             .then(ressources => {
                 let account = Object.assign({}, this.userIdentity);
                 if (ressources) {
-                    console.log(ressources);
+                    //console.log(ressources);
 
                     UserData.getInstance().userReference =
                         ressources.user_reference;
