@@ -73,7 +73,8 @@ classes = {
                 @ColumnResult(name = "user_reference",  type = String.class) , 
                 @ColumnResult(name = "liste_agence", type = String.class),
                 @ColumnResult(name = "code_partenaire", type = String.class),
-                @ColumnResult(name = "partner_id", type = Long.class)
+                @ColumnResult(name = "partner_id", type = Long.class),
+                @ColumnResult(name = "country_id", type = Long.class)
             })
 }),
 
