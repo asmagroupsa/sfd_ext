@@ -18,9 +18,9 @@ import { CryptoCookies } from './crypt-cookies.service';
 
 @Injectable()
 export class Principal implements OnInit {
-    
+
     public userIdentity: any;
-    
+
     credentials = {
         password: '',
         userName: ''
@@ -38,7 +38,7 @@ export class Principal implements OnInit {
         private account: AccountService,
         private sfdService: SFDService,
         private router: Router,
-        private cryptoCookies:CryptoCookies
+        private cryptoCookies: CryptoCookies
     ) { }
 
     ngOnInit(): void {
@@ -122,7 +122,7 @@ export class Principal implements OnInit {
         this.userIdentity = account;
         UserData.getInstance().account = account;
         this._cookieService.put('userIdentity', this.cryptoCookies.encryptWithPublicKey(JSON.stringify(account)))
-       // this._cookieService.putObject('userIdentity', account);
+        // this._cookieService.putObject('userIdentity', account);
     }
     identity(force?: boolean): Promise<any> {
         if (!this.store['coords']) this.localisation();
@@ -150,25 +150,25 @@ export class Principal implements OnInit {
             console.log('no token yet');
             return Promise.resolve(null);
         }
-       // let cookieObj: any = this._cookieService.getObject('userIdentity');
-       let cookieObj: any =this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('userIdentity')) ? JSON.parse(this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('userIdentity'))) : this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('userIdentity'))
-    
-      
-       // let cookieObjUserReference: any = this._cookieService.getObject( 'userReference' );
-        let cookieObjUserReference: any = this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('userReference')) ? JSON.parse(this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('userReference'))) : this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('userReference'))
-    
+        // let cookieObj: any = this._cookieService.getObject('userIdentity');
+        let cookieObj: any = this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('userIdentity')) ? JSON.parse(this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('userIdentity'))) : this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('userIdentity'))
 
-       // let cookieObjSfdReference: any = this._cookieService.getObject( 'sfdReference' );
+
+        // let cookieObjUserReference: any = this._cookieService.getObject( 'userReference' );
+        let cookieObjUserReference: any = this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('userReference')) ? JSON.parse(this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('userReference'))) : this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('userReference'))
+
+
+        // let cookieObjSfdReference: any = this._cookieService.getObject( 'sfdReference' );
         let cookieObjSfdReference: any = this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('sfdReference')) ? JSON.parse(this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('sfdReference'))) : this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('sfdReference'))
 
 
-       // let cookieObjAgenceReference: any = this._cookieService.getObject('agenceReference' );
+        // let cookieObjAgenceReference: any = this._cookieService.getObject('agenceReference' );
         let cookieObjAgenceReference: any = this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('agenceReference')) ? JSON.parse(this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('agenceReference'))) : this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('agenceReference'))
 
 
-       // let cookieObjListeAgence: any = this._cookieService.getObject('listeAgence' );
+        // let cookieObjListeAgence: any = this._cookieService.getObject('listeAgence' );
         let cookieObjListeAgence: any = this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('listeAgence')) ? JSON.parse(this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('listeAgence'))) : this.cryptoCookies.decryptWithPrivateKey(this._cookieService.get('listeAgence'))
-        
+
 
 
         if (cookieObj) {
@@ -191,10 +191,10 @@ export class Principal implements OnInit {
                 if (account) {
 
                     this.setUserIdentity(account);
-                   // this._cookieService.putObject('userIdentity', account);
-                   this._cookieService.put('userIdentity', this.cryptoCookies.encryptWithPublicKey(JSON.stringify(account)));
-                  
-        
+                    // this._cookieService.putObject('userIdentity', account);
+                    this._cookieService.put('userIdentity', this.cryptoCookies.encryptWithPublicKey(JSON.stringify(account)));
+
+
                     this.authenticated = true;
                 } else {
                     this.setUserIdentity(null);
@@ -206,11 +206,11 @@ export class Principal implements OnInit {
                 return this.userIdentity;
             })
             .then(userIdentity => {
-              
+
                 return this.getRessources();
             })
             .catch(err => {
-                console.log(err +"err");
+                console.log(err + "err");
                 console.log('cookieService.remove getAccount');
                 this._cookieService.remove('userIdentity');
                 this.setUserIdentity(null);
@@ -268,8 +268,11 @@ export class Principal implements OnInit {
             .then(ressources => {
                 let account = Object.assign({}, this.userIdentity);
                 if (ressources) {
+                    console.log(ressources);
+
                     UserData.getInstance().userReference =
                         ressources.user_reference;
+                    UserData.getInstance().countryId = ressources.country_id;
                     EventBus.publish('user_reference', ressources.user_reference);
                     //this._cookieService.putObject('userReference', ressources.user_reference);
                     this._cookieService.put('userReference', this.cryptoCookies.encryptWithPublicKey(JSON.stringify(ressources.user_reference)))
@@ -295,7 +298,7 @@ export class Principal implements OnInit {
                     }
                     if (ressources.sfd_reference && this.userIdentity.firstConnection !== false && this.hasAnyAuthorityDirect(['ROLE_ADMIN'])) {
                         console.log('valeur retourne first === true ', true);
-                        
+
                         this.firstAuthenticationState.next(true);
                     } else if (this.userIdentity.firstConnection !== false) {
                         console.log('valeur retourné first === false', false);
@@ -306,7 +309,7 @@ export class Principal implements OnInit {
                         .subscribe(
                             agences => {
                                 UserData.getInstance().listeAgences = agences;
-                               // this._cookieService.putObject('listeAgence', agences);
+                                // this._cookieService.putObject('listeAgence', agences);
                                 this._cookieService.put('listeAgence', this.cryptoCookies.encryptWithPublicKey(JSON.stringify(agences)))
 
 
@@ -358,9 +361,9 @@ export class Principal implements OnInit {
                     : null;
                 UserData.getInstance().userReference =
                     UserData.getInstance().userReference || null;
-                if (UserData.getInstance().userReference){
-                        EventBus.publish('user_reference', UserData.getInstance().userReference)
-                    }
+                if (UserData.getInstance().userReference) {
+                    EventBus.publish('user_reference', UserData.getInstance().userReference)
+                }
                 return this.userIdentity;
             });
     }
