@@ -63,6 +63,9 @@ export class AccountService {
                         .subscribe(
                             (res: any) => {
                                 UserData.getInstance().infos = true;
+                                if(!UserData.getInstance().country_id){
+                                    UserData.getInstance().country_id = res.country_id;
+                                }
                                 observer.next(res);
                                 observer.complete();
                             },

@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import { EventBus } from '../../shared/model/functions';
 import {
   Resolve,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  Routes,
-  CanActivate
-} from '@angular/router';
+  Routes} from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
 import { JhiPaginationUtil } from 'ng-jhipster';
@@ -16,7 +13,6 @@ import { ComityMberDetailComponent } from './comity-mber-detail.component';
 import { ComityMberPopupComponent } from './comity-mber-dialog.component';
 import { ComityMberDeletePopupComponent } from './comity-mber-delete-dialog.component';
 
-import { Principal } from '../../shared';
 
 @Injectable()
 export class ComityMberResolvePagingParams implements Resolve<any> {

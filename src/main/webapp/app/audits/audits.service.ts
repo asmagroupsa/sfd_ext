@@ -1,6 +1,6 @@
 import { HOST, HOST_MVN } from '../shared/model/request-util';
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { JhiDateUtils } from 'ng-jhipster';
 

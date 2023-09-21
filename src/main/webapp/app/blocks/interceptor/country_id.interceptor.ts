@@ -13,7 +13,7 @@ export class CountryIdInterceptor extends JhiHttpInterceptor {
     try {
         //console.log("processRequestInterception ",options.method,options.url);
         if(!options) options = {};
-        let countryId = UserData.getInstance().countryId || 1;
+        let countryId = UserData.getInstance().countryId || UserData.getInstance().country_id || 1;
         if(!options.params) options.params = {};
         if(!options.params['country_id']) options.params['country_id'] = countryId;
         if(options.body && typeof(options.body) == 'object' && !options.body['country_id']){
@@ -29,7 +29,7 @@ export class CountryIdInterceptor extends JhiHttpInterceptor {
     requestIntercept(options?: RequestOptionsArgs): RequestOptionsArgs {
         try {
             //console.log("requestIntercept ",options.method,options.url); 
-            let countryId = UserData.getInstance().countryId || 1;
+            let countryId = UserData.getInstance().countryId || UserData.getInstance().country_id || 1;
             if(!options) options = {};
             if(!options.params) options.params = {};
             if(!options.params['country_id']) options.params['country_id'] = countryId;

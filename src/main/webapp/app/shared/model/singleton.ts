@@ -32,6 +32,7 @@ export class UserData {
     partner_id: number;
     user_reference: string;
     countryId;
+    country_id;
 
     getSFDReference() {
         return this.currentSfdReference || this.sfd || (this.sfd_ ? this.sfd_.code : null);

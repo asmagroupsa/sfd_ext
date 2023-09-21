@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Account, LoginModalService, Principal } from '../shared';
+import { Account, LoginModalService, Principal, UserData } from '../shared';
 import { Router, ActivatedRoute } from '@angular/router';
 /* import { StateService } from '../shared/state/statistiques'; */
 import { LanguesService } from '../shared/myTranslation/langues';
@@ -87,6 +87,7 @@ export class DashboardComponent implements OnInit {
                 this.userReference = res.user_reference;
                 this.agenceReference = res.agence_reference;
                 this.sfdReference = res.sfd_reference;
+                UserData.getInstance().country_id = res.country_id;
                 
                 this.firstInit();
 

@@ -1,5 +1,4 @@
 
-import { EventBus } from '../../shared/model/functions';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import { createRequestOption, HOST_MVN } from '../../shared';

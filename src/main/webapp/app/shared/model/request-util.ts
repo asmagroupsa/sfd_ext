@@ -139,8 +139,8 @@ export const createRequestOption = (req?: any): BaseRequestOptions => {
     }
     options.params = params;
     if(!options.params.has('country_id')){
-      let countryId = UserData.getInstance().countryId || 1;
-      options.params.set('country_id',countryId);
+      let countryId = UserData.getInstance().countryId || UserData.getInstance().country_id || 1;
+      options.params.set('country_id', countryId);
     }
     options.headers.append('accept', '*/*');
     options.headers.append(
