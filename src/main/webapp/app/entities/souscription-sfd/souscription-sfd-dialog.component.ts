@@ -93,7 +93,8 @@ export class SouscriptionSfdDialogComponent implements OnInit {
             try {
                 let result = await this.SouscriptionSfdService.checkIndicePrestataire(this.souscriptionSfd.indicePrestataire)
             .toPromise();
-            if(result['Resultat'] != 1){
+            console.log(result);
+            if(result.json['Resultat'] != 1){
                 this.isSaving = false;
                 this.alertService.error("L'indice prestataire est invalide", null, null);
                 return ;

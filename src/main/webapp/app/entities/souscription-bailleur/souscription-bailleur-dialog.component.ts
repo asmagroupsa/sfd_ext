@@ -93,7 +93,8 @@ export class SouscriptionBailleurDialogComponent implements OnInit {
             try {
                 let result = await this.SouscriptionBailleurService.checkIndicePrestataire(this.souscriptionBailleur.indicePrestataire)
             .toPromise();
-            if(result['Resultat'] != 1){
+            
+            if(result.json['Resultat'] != 1){
                 this.isSaving = false;
                 this.alertService.error("L'indice prestataire est invalide", null, null);
                 return ;
