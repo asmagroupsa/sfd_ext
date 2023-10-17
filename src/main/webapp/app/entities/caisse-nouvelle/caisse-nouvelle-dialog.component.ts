@@ -46,8 +46,23 @@ export class CaisseNouvelleDialogComponent implements OnInit {
     this.activeModal.dismiss('cancel');
   }
 
-  save() {
+  async save()  {
     this.isSaving = true;
+    try {
+      var res = await this.caisseNouvelleService
+        .checkCARMESAccount(this.caisseNouvelle.compteCarmes).toPromise();
+        console.log(res.json);
+        if(res.json.resultat != 'OK'){
+          this.alertService.error("Compte CARMES invalide", null, null);
+          this.isSaving = false;
+          return ;
+        }
+    } catch (error) {
+      this.alertService.error("Compte CARMES invalide", null, null);
+      this.isSaving = false;
+      return ;
+    }
+    
     if (this.caisseNouvelle.id !== undefined) {
       this.subscribeToSaveResponse(
         this.caisseNouvelleService.update(this.caisseNouvelle),

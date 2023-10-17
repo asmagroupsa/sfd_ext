@@ -55,6 +55,7 @@ export class CaisseNouvelleService {
         console.log(copy);
         console.log(caisseNouvelle);
         const options = createRequestOption();
+        options.params.delete('country_id');
         return this.http
             .get(this.createCaisseUrl +
                 `name=${copy.libelle}` + `&first_name=${copy.firstname}`

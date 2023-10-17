@@ -72,10 +72,20 @@ export class CaisseNouvelleService {
             });
     }
 
+    checkCARMESAccount(compteCarmes: string): Observable<any> {
+        const options = createRequestOption();
+        options.params.set('comptecarmes', compteCarmes);
+        // options.params.set('pin', pin.toString());
+
+        return this.http
+            .get(`${HOST}/api/util/verifer-compte-carmes-complet`, options)
+            .map((res: Response) => new ResponseWrapper(res.headers, res.json(), res.status));
+    }
+
     create(caisseNouvelle: CaisseNouvelle): Observable<CaisseNouvelle> {
         const copy = this.convert(caisseNouvelle);
-        console.log(copy);
-        console.log(caisseNouvelle);
+        //console.log(copy);
+        //console.log(caisseNouvelle);
         const options = createRequestOption({
             name:caisseNouvelle.libelle,
             first_name:caisseNouvelle.firstname,
@@ -89,7 +99,7 @@ export class CaisseNouvelleService {
             soldemax:copy.soldetMaxAmount,
             comptecarmes:copy.compteCarmes
         });
-
+        options.params.delete('country_id');
         return this.http
             .get(this.createCaisseUrl, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
             .map((res: Response) => {
