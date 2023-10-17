@@ -107,7 +107,11 @@ export class CaisseNouvelleDialogComponent implements OnInit {
     } catch (exception) {
       //console.log(error);
       try {
-        error.message = error.text();
+        if(error['resultat'] == 'EMAIL_EXISTANT'){
+          error.message = "Cet email est déjà utilisé";
+        }else{
+          error.message = error.text();
+        }
       } catch (e) {
         error.message = "Une erreur s'est produite";
       }
