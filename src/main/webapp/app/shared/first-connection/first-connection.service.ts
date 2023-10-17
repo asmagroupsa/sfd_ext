@@ -19,11 +19,11 @@ export class FirstConnectionService {
         const options = createRequestOption(
             Object.assign({}, req, { NO_QUERY: true })
         );
-        if(true != true){ //Le temps de corriger cet erreur serveur
+        /* if(true == true){ //Le temps de corriger cet erreur serveur
             return Observable.create(observer => {
                 observer.next(new ResponseWrapper(null,{},200));
             });
-        }
+        } */
         return this.http
             .get(HOST_MVN + '/api/account/first-connection-update', options)
             .map((res: Response) => this.convertResponse(res));
@@ -49,7 +49,7 @@ export class FirstConnectionService {
                     this.principal.userIdentity.firstConnection = false;
                     this.principal.setUserIdentity(this.principal.userIdentity);
                     }
-                }); 
+                });
                 return this.convertResponse(res);
             });
     }
