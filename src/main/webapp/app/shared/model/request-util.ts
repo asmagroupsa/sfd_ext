@@ -32,7 +32,8 @@ if(SERVER !== "PROD"){
 }
 
 //let FILE_URL =  'http://lab.groupasma.com:8787/fileupload/';
-let FILE_URL =  ' http://185.98.137.71:9000/api/files/fileupload/';
+//let FILE_URL =  ' http://185.98.137.71:9000/api/files/fileupload/';
+let FILE_URL =  ' http://185.98.137.71:8989/api/files/fileupload/';
 switch (SERVER) {
     case "PROD":
         FILE_URL = "http://afs.sygmacarmes.com:8787/fileupload/";
@@ -108,7 +109,8 @@ export const FILEURL: string = `${FILE_URL}`;
 //export const FILEURL: string = `${FILE_URL}api/files/`;
 export const READFILEURL: string = FILE_URL + 'uploads/';
 //export const READBITFILEURL: string = FILE_URL + 'api/files/';
-export const READBITFILEURL: string = 'http://185.98.137.71:9000/uploads/';
+//export const READBITFILEURL: string = 'http://185.98.137.71:9000/uploads/';
+export const READBITFILEURL: string = 'http://185.98.137.71:8989/uploads/';
 
 let countRequest: number = 0;
 export const LOCAL_FLAG = false;

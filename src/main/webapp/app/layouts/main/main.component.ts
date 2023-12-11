@@ -50,7 +50,8 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
     userTime: number = 0;
     //picture: any = 'http://lab.groupasma.com:8787/fileupload/api/files/img_202103-1617121256813.jpg';
     //picture: any = 'http://185.98.137.71:9000/uploads/img_202103-1617121256813.jpg';
-    picture: any = 'http://185.98.137.71:9000/uploads/ads_aveboakx-1689593791034.jpg';
+    //picture: any = 'http://185.98.137.71:9000/uploads/ads_aveboakx-1689593791034.jpg';
+    picture: any = 'http://185.98.137.71:8989/uploads/ads_aveboakx-1689593791034.jpg';
     public disabled = false;
     public height: string;
     public status: { isopen: boolean } = { isopen: false };
@@ -163,7 +164,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         private _alertService: JhiAlertService,
         private firstPopupService: FirstConnectionModalService
     ) {
-        
+
         this.localFlag = LOCAL_FLAG;
         //this.appOpened = this.cookieService.get('tab');
         this.activeModal.dismiss({});
@@ -462,7 +463,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
             } else if (isFirst === false) {
                 // console.log('valuer de isFirst', isFirst);
                 // this._router.navigate(['/first-connection'], { queryParams: { step: 1 } });
-                
+
                 this.router.navigate(['/']);
             }
         });
