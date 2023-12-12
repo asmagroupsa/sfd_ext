@@ -144,6 +144,10 @@ export const createRequestOption = (req?: any): BaseRequestOptions => {
       let countryId = UserData.getInstance().countryId || UserData.getInstance().country_id || 1;
       options.params.set('country_id', countryId);
     }
+    if(!options.params.has('countryId.equals')){
+        let countryId = UserData.getInstance().countryId || UserData.getInstance().country_id || 1;
+        options.params.set('countryId.equals', countryId);
+      }
     options.headers.append('accept', '*/*');
     options.headers.append(
         'Access-Control-Allow-Headers',

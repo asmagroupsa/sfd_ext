@@ -285,12 +285,13 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
             if (!date) return null;
             return this._datePipe.transform(new Date(`${date.year}-${date.month}-${date.day}`), 'y-MM-dd');
         };
-
+        let countryId = UserData.getInstance().countryId || UserData.getInstance().country_id || 1;
         const req: any = {
             page: this.page - 1,
             size: this.itemsPerPage,
             sort: this.sort(),
             // "status.equals": null,
+            'countryId.equals': countryId,
             'typeClientId.equals': this.type.id,
             'createdDate.greaterOrEqualThan': formatDate(this.date1),
             'createdDate.lessOrEqualThan': formatDate(this.date2)
