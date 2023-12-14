@@ -153,7 +153,7 @@ export const createRequestOption = (req?: any): BaseRequestOptions => {
        if(agence) options.params.set('agence', agence.codeAgence);
       }
       if(!options.params.has('agenceReference.equals')){
-        if(agence) options.params.set('agenceReference', agence.codeAgence);
+        if(agence) options.params.set('agenceReference.equals', agence.codeAgence);
        }
     if(!options.params.has('country_id')){
       let countryId = UserData.getInstance().countryId || UserData.getInstance().country_id || 1;
