@@ -2,7 +2,7 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { User, UserService, ResponseWrapper } from '../../shared';
+import { User, UserService, ResponseWrapper, Principal, UserData } from '../../shared';
 
 @Injectable()
 export class UserModalService {
@@ -10,6 +10,7 @@ export class UserModalService {
     constructor(
         private modalService: NgbModal,
         private router: Router,
+        private principal: Principal,
         private userService: UserService
     ) { }
 
@@ -20,11 +21,14 @@ export class UserModalService {
         this.isOpen = true;
 
         if (login) {
-            this.userService
-                .queryUsers('TOUS', login)
+            this.principal.getAccount().then((account)=>{
+                this.userService
+                .queryUsers(UserData.getInstance().country_id,'TOUS',account.typeUser,login)
                 .subscribe((user: any) => {
                     return this.userModalRef(component, user);
                 });
+            });
+            
         } else {
             return this.userModalRef(component, new User());
         }
