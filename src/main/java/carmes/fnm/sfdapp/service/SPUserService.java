@@ -177,7 +177,7 @@ public class SPUserService {
 	public Object ajoutCaisse( String name, String first_name, String username, String tel, String password_hash, String email, String agence_reference, String created_by, Float retraitmax, Float soldemax, String comptecarmes) {
         // TODO Auto-generated  method stub
         password_hash = null != password_hash ? passwordEncoder.encode(password_hash):null;
-        long id = 1;
-        return  this.spUserRepository.ajoutCaisse(id,  name,  first_name,  username,  tel,  password_hash,  email,  agence_reference,  created_by,  retraitmax,  soldemax,  comptecarmes);
+       // long id = 1;
+        return  this.spUserRepository.ajoutCaisse(null,  name,  first_name,  username,  tel,  password_hash,  email,  agence_reference,  created_by,  retraitmax,  soldemax,  comptecarmes);
     }
 }
