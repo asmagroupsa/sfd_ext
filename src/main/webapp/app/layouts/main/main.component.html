@@ -74,11 +74,17 @@
                     <a class="dropdown-item" [routerLink]="['/entity','ressource']" routerLinkActive="active">
                         <span>Profils</span>
                     </a>
-                    <a *ngIf="principal.userIdentity.createdBy == 'SYSTEME'" class="dropdown-item" [routerLink]="['/entity','souscription-sfd']" routerLinkActive="active">
+                    <a *ngIf="principal.userIdentity.createdBy == 'SYSTEME'" class="dropdown-item"
+                        [routerLink]="['/entity','souscription-sfd']" routerLinkActive="active">
                         <span>Souscription SFD</span>
                     </a>
-                    <a *ngIf="principal.userIdentity.createdBy == 'SYSTEME'" class="dropdown-item" [routerLink]="['/entity','souscription-bailleur']" routerLinkActive="active">
+                    <a *ngIf="principal.userIdentity.createdBy == 'SYSTEME'" class="dropdown-item"
+                        [routerLink]="['/entity','souscription-bailleur']" routerLinkActive="active">
                         <span>Souscription Bailleur</span>
+                    </a>
+                    <a *ngIf="principal.userIdentity.createdBy == 'SYSTEME'" class="dropdown-item"
+                        [routerLink]="['/entity','souscription-gouvernance-universelle']" routerLinkActive="active">
+                        <span>Souscription Gouvernance Universelle</span>
                     </a>
                     <a class="dropdown-item" [routerLink]="['/admin','user-management']" routerLinkActive="active"
                         jhiFnmTranslate="global.menu.admin.userManagement">
@@ -452,16 +458,16 @@
                                 *jhiHasAnyRessources="'carmesfnmservice/api/caisses/getAllCaisses'">Caisse
                             </a>
                             <a [routerLink]="['/entity','operation-caisse']"
-                            *jhiHasAnyRessources="'carmesfnmservice/api/caisses/caissier_operation'">Opérations
+                                *jhiHasAnyRessources="'carmesfnmservice/api/caisses/caissier_operation'">Opérations
                             </a>
                             <a [routerLink]="['/entity','operation-dat']"
-                            *jhiHasAnyRessources="'carmesfnmservice/api/caisses/operation_dat'">DAT
+                                *jhiHasAnyRessources="'carmesfnmservice/api/caisses/operation_dat'">DAT
                             </a>
                             <a [routerLink]="['/entity','operation-dat','print-un', '1']"
-                            *jhiHasAnyRessources="'carmesfnmservice/api/caisses/operation_dat'">Contrat N°1 DAT
+                                *jhiHasAnyRessources="'carmesfnmservice/api/caisses/operation_dat'">Contrat N°1 DAT
                             </a>
                             <a [routerLink]="['/entity','operation-dat','print-deux', '2']"
-                            *jhiHasAnyRessources="'carmesfnmservice/api/caisses/operation_dat'">Contrat N°2 DAT
+                                *jhiHasAnyRessources="'carmesfnmservice/api/caisses/operation_dat'">Contrat N°2 DAT
                             </a>
 
                             <!-- <a [routerLink]="['/entity','caisse-nouvelle', 'historique-affectation-caisse']"
@@ -904,9 +910,9 @@
                         <a class="item" [routerLink]="['/entity','type-caisse']" routerLinkActive="active"
                             *jhiHasAnyRessources="'carmesfnmservice/api/type-caisses/getAllTypeCaisses'">Type de
                             caisse</a>
-                            <a [routerLink]="['/entity','type-credit-retard']">Type Credit retard
-                                <span class="sub-alert-badge">1</span>
-                            </a>
+                        <a [routerLink]="['/entity','type-credit-retard']">Type Credit retard
+                            <span class="sub-alert-badge">1</span>
+                        </a>
                         <!-- <a class="item" jhiFnmTranslate="tabsets.sfd.chargeprets">Les chargés de prêts</a> -->
                         <a *jhiHasAnyRessources="'carmesfnmservice/api/postes/getAllPostes'" class="item"
                             [routerLink]="['/entity','poste']" routerLinkActive="active"

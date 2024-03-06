@@ -1,0 +1,61 @@
+{
+    "sfdApp": {
+        "souscriptionGouvernanceUniverselle": {
+            "home": {
+                "title": "SOUSCRIPTION GOUVERNANCE UNIVERSELLE",
+                "createLabel": "Effectuer une souscription GOUVERNANCE UNIVERSELLE",
+                "createOrEditLabel": "Editer une souscription GOUVERNANCE UNIVERSELLE",
+                "search": "Rechercher une souscription GOUVERNANCE UNIVERSELLE"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer cette souscription {{ id }} d'un GOUVERNANCEUNIVERSELLE?"
+            },
+            "detail": {
+                "title": "SOUSCRIPTION GOUVERNANCE UNIVERSELLE"
+            },
+            "code": "Référence",
+            "name": "Nom",
+            "address": "Adresse",
+            "phone": "Téléphone",
+            "email": "Email",
+            "fax": "Fax",
+            "bp": "Bp",
+            "city": "Ville",
+            "createdDate": "créer le",
+            "createdBy": "créer le",
+            "lastModifiedBy": "Modifier par",
+            "lastModifiedDate": "Modifier le",
+            "compteCarmes": "Compte Carmes",
+            "compteCarmes_": "Cpt. Carmes",
+            "agences": "Agences",
+            "contrats": "Contrats",
+            "ligneRequests": "Les demandes de ligne de crédits",
+            "eligibles": "Eligibles",
+            "settingSOUSCRIPTIONGOUVERNANCEUNIVERSELLEs": "Les paramètres de la souscription",
+            "indicePrestataire_": "Indice prestataire",
+            "indicePrestataire": "I.P",
+            "client": "Client",
+            "password": "Mot de passe"
+        }
+    },
+    "carmesfnmserviceApp": {
+        "souscriptionGouvernanceUniverselle": {
+            "created": "La souscription GOUVERNANCEUNIVERSELLE a été effectué",
+            "updated": "La souscription GOUVERNANCEUNIVERSELLE a été mise à jour",
+            "deleted": "La souscription GOUVERNANCEUNIVERSELLE a été supprimée"
+        },
+        "carmesVerification": {
+            "non": "CE COMPTE CARMES EST DEJA UTILISÉ",
+            "emailexists": "CET EMAIL EST DEJA UTILISÉ",
+            "errorCarmesRequest": "IMPOSSIBLE DE JOINDRE LE SERVEUR CARMES",
+            "nonCarmes": "CE COMPTE CARMES N'EXISTE PAS",
+            "compterr": "COMPTE INCORRECT",
+            "err": "ERREUR",
+            "httpError": "IMPOSSIBLE DE VERIFIER LE COMPTE CARMES"
+        },
+        "ip": {
+            "use": "CET INDICE PRESTATAIRE EST DEJA UTILISE",
+            "httpError": "IMPOSSIBLE DE VERIFIER L'INDICE PRESTATAIRE"
+        }
+    }
+}

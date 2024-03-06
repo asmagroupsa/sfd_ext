@@ -106,8 +106,8 @@ import { SfdCityModule } from './city/city.module';
 import { SfdCivilityModule } from './civility/civility.module';
 import { SfdBankModule } from './bank/bank.module';
 import { SfdBankAccountModule } from './bank-account/bank-account.module';
-import {SfdBankAccountClientModule} from './bank-account-client/bank-account-client.module';
-import {SfdCompteComptableModule} from './compte-comptable/compte-comptable.module';
+import { SfdBankAccountClientModule } from './bank-account-client/bank-account-client.module';
+import { SfdCompteComptableModule } from './compte-comptable/compte-comptable.module';
 import { SfdRequestPatnerModule } from './request-patner/request-patner.module';
 import { SfdAssuranceModule } from './assurances/assurance.module';
 import { SfdPhaseModule } from './phase/phase.module';
@@ -117,6 +117,7 @@ import { SfdOperationDatModule } from './operation-dat/operation-dat.module';
 import { SfdCaisseNouvelleModule } from './caisse-nouvelle/caisse-nouvelle.module';
 import { BailleurSouscriptionModule } from './souscription-bailleur/souscription-bailleur.module';
 import { SfdSouscriptionModule } from './souscription-sfd/souscription-sfd.module';
+import { GouvernanceUniverselleSouscriptionModule } from './souscription-gouvernance-universelle/souscription-gouvernance-universelle.module';
 
 
 export function authorityRessource() {
@@ -357,6 +358,10 @@ export function souscriptionSfd() {
 
 export function souscriptionBailleur() {
     return BailleurSouscriptionModule;
+}
+
+export function souscriptionGouvernanceUniverselle() {
+    return GouvernanceUniverselleSouscriptionModule;
 }
 export function tauxCommission() {
     return SfdTauxCommissionModule;
@@ -869,6 +874,10 @@ export function compteComptable() {
             {
                 path: 'souscription-bailleur',
                 loadChildren: souscriptionBailleur
+            },
+            {
+                path: 'souscription-gouvernance-universelle',
+                loadChildren: souscriptionGouvernanceUniverselle
             },
             {
                 path: 'formation',

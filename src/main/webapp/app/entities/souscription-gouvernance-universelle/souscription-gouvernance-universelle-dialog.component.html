@@ -1,0 +1,88 @@
+<form class="ui form" name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="mySFDLabel"
+            [jhiFnmTranslate]="souscriptionGouvernanceUniverselle.id?'sfdApp.souscriptionGouvernanceUniverselle.home.createOrEditLabel':'sfdApp.souscriptionGouvernanceUniverselle.home.createLabel'">
+            SOUSCRIPTION pour la Gouvernance Universelle</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+
+
+        <div class="field">
+            <label for="field_produit_id" class="oblige">Produit</label>
+            <select class="ui fluid search dropdown" id="field_produit_id" name="produit_id"
+                [(ngModel)]="souscriptionGouvernanceUniverselle.produit_id">
+                <option [ngValue]="null" disabled>Choisissez le produit</option>
+                <option [ngValue]="product.id" *ngFor="let product of products">
+                    {{product.libelle}}</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="field_partenaire_id" class="oblige">Partenaire</label>
+            <select class="ui fluid search dropdown" id="field_partenaire_id" name="partenaire_id"
+                [(ngModel)]="souscriptionGouvernanceUniverselle.partenaire_id">
+                <option [ngValue]="null" disabled>Choisissez le partenaire</option>
+                <option [ngValue]="partner.id" *ngFor="let partner of partners">
+                    {{partner.nom}}</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="field_tarif_id" class="oblige">Tarif</label>
+            <select class="ui fluid search dropdown" id="field_tarif_id" name="tarif_id"
+                [(ngModel)]="souscriptionGouvernanceUniverselle.tarif_id">
+                <option [ngValue]="null" disabled>Choisissez le tarif</option>
+                <option [ngValue]="tarif.id" *ngFor="let tarif of tarifs">{{tarif.libelle}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label oblige" for="field_date_debut">Date début</label>
+            <ngbd-datepicker-i18n [ngModel]="date_debut" (ngModelChange)="date_debut = $event " name="date_debut"
+                required="true"></ngbd-datepicker-i18n>
+            <!-- <ngbd-datepicker-i18n [(ngModel)]="client.birthDate" name="birthDate" required="true""></ngbd-datepicker-i18n> -->
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label oblige" for="field_date_fin">Date
+                fin</label>
+            <ngbd-datepicker-i18n [ngModel]="date_fin" (ngModelChange)="date_fin = $event " name="date_fin"
+                required="true"></ngbd-datepicker-i18n>
+            <!-- <ngbd-datepicker-i18n [(ngModel)]="client.birthDate" name="birthDate" required="true""></ngbd-datepicker-i18n> -->
+        </div>
+
+
+        <!-- <div class="field">
+            <label jhiFnmTranslate="sfdApp.souscriptionGouvernanceUniverselle.address" for="field_address"
+                class="oblige">Address</label>
+            <input type="text" style="padding:0px" name="address" id="field_address"
+                [(ngModel)]="souscriptionGouvernanceUniverselle.address" required maxlength="100" />
+            <div [hidden]="!(editForm.controls.address?.dirty && editForm.controls.address?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.address?.errors?.required"
+                    jhiFnmTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.address?.errors?.maxlength"
+                    jhiFnmTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div> -->
+
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="ui button" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="blue ui button">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiFnmTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

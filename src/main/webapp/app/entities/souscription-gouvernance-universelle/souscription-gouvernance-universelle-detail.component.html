@@ -1,0 +1,58 @@
+<div *ngIf="gouvernanceUniverselle">
+    <h2><span jhiFnmTranslate="sfdApp.gouvernanceUniverselle.detail.title">SFD</span>
+        <!--{{gouvernanceUniverselle.id}}-->
+    </h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <!--<dt><span jhiFnmTranslate="sfdApp.gouvernanceUniverselle.code">Code</span></dt>
+        <dd>
+            <span>{{gouvernanceUniverselle.code}}</span>
+        </dd>-->
+        <dt><span jhiFnmTranslate="sfdApp.gouvernanceUniverselle.name">Name</span></dt>
+        <dd>
+            <span>{{gouvernanceUniverselle.name}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.gouvernanceUniverselle.address">Address</span></dt>
+        <dd>
+            <span>{{gouvernanceUniverselle.address}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.gouvernanceUniverselle.phone">Phone</span></dt>
+        <dd>
+            <span>{{gouvernanceUniverselle.phone}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.gouvernanceUniverselle.email">Email</span></dt>
+        <dd>
+            <span>{{gouvernanceUniverselle.email}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.gouvernanceUniverselle.fax">Fax</span></dt>
+        <dd>
+            <span>{{gouvernanceUniverselle.fax}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.gouvernanceUniverselle.bp">Bp</span></dt>
+        <dd>
+            <span>{{gouvernanceUniverselle.bp}}</span>
+        </dd>
+        <dt><span jhiFnmTranslate="sfdApp.gouvernanceUniverselle.city">City</span></dt>
+        <dd>
+            <span>{{gouvernanceUniverselle.city}}</span>
+        </dd>
+
+        <dt><span jhiFnmTranslate="sfdApp.gouvernanceUniverselle.client">Client</span></dt>
+        <dd>
+            <div *ngIf="gouvernanceUniverselle.clientId">
+                <a
+                    [routerLink]="['/entity', 'client', gouvernanceUniverselle.clientId]">{{gouvernanceUniverselle.clientId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiFnmTranslate="entity.action.back"> Back</span>
+    </button>
+    <button type="button"
+        [routerLink]="['/entity', 'sfd',  { outlets: { popup: 'sfd/'+ gouvernanceUniverselle.id + '/edit'} }]"
+        replaceUrl="true" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiFnmTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
