@@ -227,7 +227,7 @@ getDoc(url: string): string {
 
     loadAll() {
         this.userService
-            .queryUsers(this.currentCountry)
+            .queryUsers(this.currentCountry,'TOUS',this.currentAccount.typeUser)
             .subscribe(
                 (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
                 (res: ResponseWrapper) => this.onError(res.json)

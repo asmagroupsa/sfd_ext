@@ -139,11 +139,30 @@ export const createRequestOption = (req?: any): BaseRequestOptions => {
         }
         options.params = params;
     }
+    //console.log(UserData.getInstance());
     options.params = params;
+    let sfd = UserData.getInstance().getSFDReference();
+    let agence = UserData.getInstance().getCurrentOrFirstAgence();
+    if(!options.params.has('sfdReference.equals')){
+        options.params.set('sfdReference.equals', sfd);
+      }
+      if(!options.params.has('sfd')){
+        options.params.set('sfd', sfd);
+      }
+      if(!options.params.has('agence')){
+       if(agence) options.params.set('agence', agence.codeAgence);
+      }
+      if(!options.params.has('agenceReference.equals')){
+        if(agence) options.params.set('agenceReference.equals', agence.codeAgence);
+       }
     if(!options.params.has('country_id')){
       let countryId = UserData.getInstance().countryId || UserData.getInstance().country_id || 1;
       options.params.set('country_id', countryId);
     }
+    if(!options.params.has('countryId.equals')){
+        let countryId = UserData.getInstance().countryId || UserData.getInstance().country_id || 1;
+        options.params.set('countryId.equals', countryId);
+      }
     options.headers.append('accept', '*/*');
     options.headers.append(
         'Access-Control-Allow-Headers',

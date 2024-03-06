@@ -1,17 +1,11 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Account, LoginModalService, Principal } from '../shared';
+import { LoginModalService, Principal } from '../shared';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StateService } from '../shared/state/statistiques';
 import { LanguesService } from '../shared/myTranslation/langues';
-import { ClientService } from '../entities/client';
-import { AgenceService } from '../entities/agence';
-import { CreditService } from '../entities/credit';
-import { CreditRequestService } from '../entities/credit-request';
 import { AuditsService } from './audits.service';
-import { SFDService } from '../entities/s-fd';
 
 
 
