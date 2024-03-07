@@ -14,6 +14,7 @@ import { ITEMS_PER_PAGE, Principal, ResponseWrapper, UserData } from "../../shar
 import { PaginationConfig } from "../../blocks/config/uib-pagination.config";
 import { LanguesService } from "../../shared/myTranslation/langues";
 import { getNewItems, setDotContains } from "../../shared/model/functions";
+import { DatePipe } from "@angular/common";
 declare const select_init: any;
 @Component({
     selector: "jhi-souscription-gouvernance-universelle",
@@ -56,6 +57,7 @@ export class SOUSCRIPTIONGOUVERNANCEUNIVERSELLEComponent implements OnInit, OnDe
         private paginationUtil: JhiPaginationUtil,
         private paginationConfig: PaginationConfig,
         public langue: LanguesService,
+        private _datePipe: DatePipe
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -67,6 +69,11 @@ export class SOUSCRIPTIONGOUVERNANCEUNIVERSELLEComponent implements OnInit, OnDe
         this.currentSearch = activatedRoute.snapshot.params["search"]
             ? activatedRoute.snapshot.params["search"]
             : "";
+
+        let now = new Date();
+        this.date2 = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() };
+        now.setMonth(now.getMonth() - 1);
+        this.date1 = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() };
     }
 
     loadAll() {
@@ -75,8 +82,8 @@ export class SOUSCRIPTIONGOUVERNANCEUNIVERSELLEComponent implements OnInit, OnDe
             size: this.itemsPerPage,
             sort: this.sort(),
             produit_id: this.produit_id,
-            date1: this.date1,
-            date2: this.date2
+            date1: this.formatDate(this.date1),
+            date2: this.formatDate(this.date2)
         };
 
         console.log(req);
@@ -202,5 +209,10 @@ export class SOUSCRIPTIONGOUVERNANCEUNIVERSELLEComponent implements OnInit, OnDe
     private onError(error) {
         this.loader.souscriptiongouvernanceuniverselle = false;
         this.alertService.error(error.message, null, null);
+    }
+
+    formatDate = (date) => {
+        if (!date) return null;
+        return this._datePipe.transform(new Date(`${date.year}-${date.month}-${date.day}`), 'y-MM-dd');
     }
 }

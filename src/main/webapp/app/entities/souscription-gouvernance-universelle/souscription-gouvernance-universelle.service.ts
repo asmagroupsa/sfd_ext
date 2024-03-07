@@ -60,6 +60,9 @@ export class SouscriptionGouvernanceUniverselleService {
             .post(`${this.baseUrlGouvernanceUniverselle}/api/gouvernance/souscription`, copy, options)
             .map((res: Response) => {
                 const jsonResponse = res.json();
+                if (jsonResponse.resultat != 'OK') {
+                    throw jsonResponse;
+                }
                 this.convertItemFromServer(jsonResponse);
                 return jsonResponse;
             });
@@ -72,6 +75,9 @@ export class SouscriptionGouvernanceUniverselleService {
             .put(this.resourceUrl, copy, options)
             .map((res: Response) => {
                 const jsonResponse = res.json();
+                if (jsonResponse.resultat != 'OK') {
+                    throw jsonResponse;
+                }
                 this.convertItemFromServer(jsonResponse);
                 return jsonResponse;
             });

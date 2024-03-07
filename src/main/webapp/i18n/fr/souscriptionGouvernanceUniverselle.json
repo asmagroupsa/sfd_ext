@@ -40,9 +40,9 @@
     },
     "carmesfnmserviceApp": {
         "souscriptionGouvernanceUniverselle": {
-            "created": "La souscription GOUVERNANCEUNIVERSELLE a été effectué",
-            "updated": "La souscription GOUVERNANCEUNIVERSELLE a été mise à jour",
-            "deleted": "La souscription GOUVERNANCEUNIVERSELLE a été supprimée"
+            "created": "La souscription GOUVERNANCE UNIVERSELLE a été effectué",
+            "updated": "La souscription GOUVERNANCE UNIVERSELLE a été mise à jour",
+            "deleted": "La souscription GOUVERNANCE UNIVERSELLE a été supprimée"
         },
         "carmesVerification": {
             "non": "CE COMPTE CARMES EST DEJA UTILISÉ",

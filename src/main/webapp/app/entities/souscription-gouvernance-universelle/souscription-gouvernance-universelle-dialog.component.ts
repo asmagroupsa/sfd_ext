@@ -41,11 +41,10 @@ export class SouscriptionGouvernanceUniverselleDialogComponent implements OnInit
     constructor(
         public activeModal: NgbActiveModal,
         private alertService: JhiAlertService,
-        private SouscriptionGouvernanceUniverselleService: SouscriptionGouvernanceUniverselleService,
+        private souscriptionGouvernanceUniverselleService: SouscriptionGouvernanceUniverselleService,
         private eventManager: JhiEventManager,
         public principal: Principal,
         private _datePipe: DatePipe
-
 
     ) { }
 
@@ -82,23 +81,27 @@ export class SouscriptionGouvernanceUniverselleDialogComponent implements OnInit
             //console.log(identity);
             if (this.souscriptionGouvernanceUniverselle.id !== undefined) {
                 setLastModifyBy(this.souscriptionGouvernanceUniverselle, identity);
-                this.subscribeToSaveResponse(this.SouscriptionGouvernanceUniverselleService.update(this.souscriptionGouvernanceUniverselle), false);
+                this.subscribeToSaveResponse(this.souscriptionGouvernanceUniverselleService.update(this.souscriptionGouvernanceUniverselle), false);
             } else {
                 setCreateBy(this.souscriptionGouvernanceUniverselle, identity);
                 this.souscriptionGouvernanceUniverselle.createdBy = identity.id || identity.login;
-                this.subscribeToSaveResponse(this.SouscriptionGouvernanceUniverselleService.create(this.souscriptionGouvernanceUniverselle), true);
+                this.subscribeToSaveResponse(this.souscriptionGouvernanceUniverselleService.create(this.souscriptionGouvernanceUniverselle), true);
             }
         });
     }
 
     private subscribeToSaveResponse(result: Observable<SouscriptionGouvernanceUniverselle>, isCreated: boolean) {
+        console.log(result);
+
         result.subscribe(
             (res: SouscriptionGouvernanceUniverselle) => this.onSaveSuccess(res, isCreated),
             (res: Response) => this.onSaveError(res)
         );
     }
 
-    private onSaveSuccess(result: SouscriptionGouvernanceUniverselle, isCreated: boolean) {
+    private onSaveSuccess(result: any, isCreated: boolean) {
+        console.log(result);
+        console.log(result.resultat);
         this.alertService.success(
             isCreated ? 'carmesfnmserviceApp.souscriptionGouvernanceUniverselle.created' : 'carmesfnmserviceApp.souscriptionGouvernanceUniverselle.updated',
             { param: result.id },
@@ -110,11 +113,34 @@ export class SouscriptionGouvernanceUniverselleDialogComponent implements OnInit
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
+    /* private onSaveError(error) {
         try {
             error.json();
         } catch (exception) {
             error.message = error.text();
+        }
+        this.isSaving = false;
+        this.onError(error);
+    } */
+
+    private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            let msg: string;
+            switch (error.resultat) {
+                case 'SOUSCRIPTION_EXISTE_DEJA':
+                    msg = "La souscription existe déjà";
+                    break;
+                case 'Non':
+                    msg = "La répponse est non";
+                    break;
+                case 'PRODUIT_INACTIF':
+                    msg = "Le produit est inactif";
+                    break;
+            }
+            error.message = msg || "Une erreur s'est produite";
+            //error.text();
         }
         this.isSaving = false;
         this.onError(error);
@@ -137,7 +163,7 @@ export class SouscriptionGouvernanceUniverselleDialogComponent implements OnInit
     }
 
     private _loadProduct(req?: any) {
-        this.SouscriptionGouvernanceUniverselleService.queryProduct(req).subscribe(
+        this.souscriptionGouvernanceUniverselleService.queryProduct(req).subscribe(
             (res: ResponseWrapper) => {
                 console.log(res);
 
@@ -148,7 +174,7 @@ export class SouscriptionGouvernanceUniverselleDialogComponent implements OnInit
     }
 
     private _loadTarif(req?: any) {
-        this.SouscriptionGouvernanceUniverselleService.queryTarif(req).subscribe(
+        this.souscriptionGouvernanceUniverselleService.queryTarif(req).subscribe(
             (res: ResponseWrapper) => {
                 console.log(res);
 
@@ -159,7 +185,7 @@ export class SouscriptionGouvernanceUniverselleDialogComponent implements OnInit
     }
 
     private _loadPartner(req?: any) {
-        this.SouscriptionGouvernanceUniverselleService.queryPartner(req).subscribe(
+        this.souscriptionGouvernanceUniverselleService.queryPartner(req).subscribe(
             (res: ResponseWrapper) => {
                 console.log(res);
 
