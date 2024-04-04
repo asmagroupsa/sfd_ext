@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 
 public class UserInfo {
-	//id, login,last_name,first_name,email,activated,connecter, created_by,agence_reference,sfd_reference,zone_reference, image_url,PHONE , authority 
+	//id, login,last_name,first_name,email,activated,connecter, created_by,agence_reference,sfd_reference,zone_reference, image_url,PHONE , authority
 	private Long id;
 	private String login;
 	private String last_name;
@@ -31,12 +31,12 @@ public class UserInfo {
     private String authority;
     private String carte_url;
     private String signature_url;
-    
-    
-    
-	public UserInfo(Long id, String login, String last_name, String first_name, String email, Boolean activated,
-			Boolean connecter, String created_by, String agence_reference, String sfd_reference, String zone_reference,
-			String image_url, String phone, String authority, String carte_url, String signature_url) {
+	private String cle_connexion;
+
+
+    public UserInfo(Long id, String login, String last_name, String first_name, String email, Boolean activated,
+                    Boolean connecter, String created_by, String agence_reference, String sfd_reference, String zone_reference,
+                    String image_url, String phone, String authority, String carte_url, String signature_url, String cle_connexion) {
 		super();
 		this.id = id;
 		this.login = login;
@@ -54,6 +54,7 @@ public class UserInfo {
 		this.authority = authority;
 		this.carte_url = carte_url;
 		this.signature_url = signature_url;
+        this.cle_connexion = cle_connexion;
 	}
 	public String getCreated_by() {
 		return created_by;
@@ -152,6 +153,12 @@ public class UserInfo {
 		this.signature_url = signature_url;
 	}
 
-	
 
+    public String getCle_connexion() {
+        return cle_connexion;
+    }
+
+    public void setCle_connexion(String cle_connexion) {
+        this.cle_connexion = cle_connexion;
+    }
 }
