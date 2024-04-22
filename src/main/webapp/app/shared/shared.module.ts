@@ -43,6 +43,7 @@ import { FisrtConnectionComponent, FisrtConnectionPopupComponent } from './first
 import { FirstConnectionService } from './first-connection/first-connection.service';
 import { FirstConnectionModalService } from './first-connection/modal-service';
 import { CryptoCookies } from './auth/crypt-cookies.service';
+import { SouscriptionGouvernanceUniverselleService } from '../entities/souscription-gouvernance-universelle/souscription-gouvernance-universelle.service';
 //import {AgmCoreModule} from '@agm/core';
 //import {AgmDirectionModule} from 'agm-direction';
 
@@ -89,8 +90,8 @@ import { CryptoCookies } from './auth/crypt-cookies.service';
         CreditComityExpiredPipe,
         FormatNumberByMillerDirective,
         NgbModule,
-      //  AgmCoreModule,
-      //  AgmDirectionModule
+        //  AgmCoreModule,
+        //  AgmDirectionModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
@@ -116,7 +117,8 @@ export class SfdSharedModule {
                 StateService,
                 Parseur,
                 SFDService,
-                CryptoCookies
+                CryptoCookies,
+                SouscriptionGouvernanceUniverselleService
             ]
         };
     }

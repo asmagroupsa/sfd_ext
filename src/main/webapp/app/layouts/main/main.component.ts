@@ -28,6 +28,7 @@ import { LanguesService } from '../../shared/myTranslation/langues';
 import { ProfileService } from '../profiles/profile.service';
 import { MainService } from './main.service';
 import { FirstConnectionModalService } from '../../shared/first-connection/modal-service';
+import { SouscriptionGouvernanceUniverselleService } from '../../entities/souscription-gouvernance-universelle';
 
 declare let jQuery: any;
 declare let select_init: any;
@@ -162,7 +163,10 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         private cookieService: CookieService,
         private mainService: MainService,
         private _alertService: JhiAlertService,
-        private firstPopupService: FirstConnectionModalService
+        private firstPopupService: FirstConnectionModalService,
+        private souscriptionGouvernanceUniverselleService: SouscriptionGouvernanceUniverselleService,
+        private alertService: JhiAlertService,
+
     ) {
 
         this.localFlag = LOCAL_FLAG;
@@ -530,6 +534,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
                 this.getUSerTime();
                 this.inactivityHandler();
                 this.onLoaded();
+                this.checkAbonnementSouscription();
                 this.langues.getEnglish().subscribe(
                     () => {
                         //
@@ -572,6 +577,48 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
         //console.log("ENtete : "+UserData.getInstance().getSFD().entete);
         this.headPlaceholder = (UserData.getInstance().getSFD() && UserData.getInstance().getSFD().entete) ? UserData.getInstance().getSFD().entete : "Chargez l'image";
     }
+    async checkAbonnementSouscription() {
+        if (!this.account) return;
+        try {
+            console.log(this.account.cleConnexion != null);
+
+            if (this.account.cleConnexion != null) {
+                let result = await this.souscriptionGouvernanceUniverselleService.checkAbonnementSouscriptionWithConnexionKey(this.account.cleConnexion)
+                    .toPromise();
+                console.log(result);
+                console.log(result.json['resultat']);
+                switch (result.json['resultat']) {
+                    case 'ABONNEMENT_INEXISTANT':
+                        this.alertService.error("L'abonnement est inexistant", null, null);
+                        this.logout();
+
+                        break;
+                    case 'ABONNEMENT_EXPIRE':
+                        this.alertService.error("L'abonnement a expiré", null, null);
+                        this.logout();
+
+                        break;
+                    case 'ABONNEMENT_VALIDE':
+                        this.alertService.success("L'abonnement est toujours valide", null, null);
+                        break;
+                    case 'ABONNEMENT_INACTIF':
+                        this.alertService.error("L'abonnement est inactif", null, null);
+                        this.logout();
+
+                        break;
+
+                    default:
+                        break;
+                }
+            } else {
+                this.alertService.error("Il n'existe pas de clé de connexion pour vous...", null, null);
+            }
+
+        } catch (e) {
+            this.alertService.error("Vérification de l'abonnement a échoué", null, null);
+            return;
+        }
+    }
 
     onLoaded() {
         if (!this.account) return;
@@ -588,7 +635,7 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
 
         let options = createRequestOption();
         options.headers.set('accept', 'image/*');
-       // options.headers.append('Access-Control-Allow-Origin', 'http://localhost:9003');
+        // options.headers.append('Access-Control-Allow-Origin', 'http://localhost:9003');
         //options.headers.append('Access-Control-Allow-Credentials', 'true');
         this.http
             .get(`${READBITFILEURL}${url}`, options).catch((res: Response) => { if (res.status == 401) EventBus.publish('NOT_AUTHORIZED', true); return Observable.throw(res); })
@@ -599,6 +646,8 @@ export class JhiMainComponent implements OnInit, AfterViewInit {
                 this.picture = this.domSanitizer.bypassSecurityTrustUrl(url);
             });
     }
+
+
 
     loadRessources() {
         this.produitsRessources = [
