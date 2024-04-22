@@ -112,12 +112,24 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "signature_url", length = 256)
     private String signatureUrl;
 
+    @Column(name = "cle_connexion", length = 256)
+    private String cleConnexion;
+
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCleConnexion() {
+        return cleConnexion;
+    }
+
+    public void setCleConnexion(String cleConnexion) {
+        this.cleConnexion = cleConnexion;
     }
 
     public Boolean getFirstConnection() {

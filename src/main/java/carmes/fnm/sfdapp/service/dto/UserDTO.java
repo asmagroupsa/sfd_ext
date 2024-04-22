@@ -67,22 +67,26 @@ public class UserDTO {
 
     private String signatureUrl;
 
+    private String cleConnexion;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
 
-    public UserDTO(User user) {
+    public 
+    UserDTO(User user) {
         this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(), user.getFirstConnection(),
             user.getTypeUser(),user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
             user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
             user.getAuthorities().stream().map(Authority::getName)
-                .collect(Collectors.toSet()), user.getAuthorities(), user.getDateFunction(), user.getDateEndFunction(), user.getSignatureUrl());
+                .collect(Collectors.toSet()), user.getAuthorities(), user.getDateFunction(), user.getDateEndFunction(), 
+                user.getSignatureUrl() , user.getCleConnexion());
     }
 
     public UserDTO(Long id, String login, String firstName, String lastName, Boolean firstConnection,
                    TypeUser typeUser, String email, boolean activated, String imageUrl, String langKey,
         String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
-        Set<String> authorities, Set<Authority> authoritiesObj, Instant dateFunction, Instant dateEndFunction, String signatureUrl) {
+        Set<String> authorities, Set<Authority> authoritiesObj, Instant dateFunction, Instant dateEndFunction, String signatureUrl, String cleConnexion) {
 
         this.id = id;
         this.login = login;
@@ -103,6 +107,7 @@ public class UserDTO {
         this.dateFunction = dateFunction;
         this.dateEndFunction = dateEndFunction;
         this.signatureUrl = signatureUrl;
+        this.cleConnexion = cleConnexion;
     }
     
     
@@ -217,6 +222,14 @@ public class UserDTO {
 	public void setSignatureUrl(String signatureUrl) {
 		this.signatureUrl = signatureUrl;
 	}
+
+    public String getCleConnexion() {
+        return cleConnexion;
+    }
+
+    public void setCleConnexion(String cleConnexion) {
+        this.cleConnexion = cleConnexion;
+    }
 
 	@Override
     public String toString() {
