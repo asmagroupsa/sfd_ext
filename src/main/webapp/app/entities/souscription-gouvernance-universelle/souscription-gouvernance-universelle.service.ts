@@ -15,6 +15,7 @@ export class SouscriptionGouvernanceUniverselleService {
     private resourceUrlNew = HOST + '/api/s-fds-partner';
     private subscriptionUrl = HOST_MVN + '/api/user/souscription-gouvernance-universelle-sfd';
     private indicePrestataireUrl = 'http://185.98.137.71:4002/user/check-indice-prestataire';
+    private cleConnexionUrl = 'http://185.98.137.71:9002/api/gouvernance/verifie-abonnement-souscription';
 
 
     constructor(private http: Http, private dateUtils: JhiDateUtils) { }
@@ -40,6 +41,15 @@ export class SouscriptionGouvernanceUniverselleService {
             .map((res: Response) => new ResponseWrapper(res.headers, res.json(), res.status));
     }
 
+    checkAbonnementSouscriptionWithConnexionKey(cle_connexion: string): Observable<any> {
+        console.log(cle_connexion);
+        const options = createRequestOption();
+        options.params.set('cle_connexion', cle_connexion == null ? 'zzzz' : cle_connexion);
+
+        return this.http
+            .get(this.cleConnexionUrl, options)
+            .map((res: Response) => new ResponseWrapper(res.headers, res.json(), res.status));
+    }
 
     create(souscriptionGouvernanceUniverselle: SouscriptionGouvernanceUniverselle): Observable<SouscriptionGouvernanceUniverselle> {
         const copy = this.convert(souscriptionGouvernanceUniverselle);
