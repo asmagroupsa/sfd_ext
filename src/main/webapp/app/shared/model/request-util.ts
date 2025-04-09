@@ -22,7 +22,7 @@ export const CROSS_ORIGIN = "http://sfd.ads-inter.com:9003,http://sfd.ads-inter.
 
 if(SERVER !== "PROD"){
     if (window.location.hostname != 'localhost' && DYNAMIC_BASE_URL_FLAG)
-        BASE_URL_MVN = BASE_URL = (window.location.protocol + '//' + window.location.hostname) || 'http://185.98.137.71';
+        BASE_URL_MVN = BASE_URL = (window.location.protocol + '//' + window.location.hostname) || 'http://180.149.196.6';
         //BASE_URL_MVN = BASE_URL = (window.location.protocol + '//' + window.location.hostname) || 'http://services.ads-inter.com';
         // BASE_URL_MVN = BASE_URL = (window.location.protocol + '//' + window.location.hostname) || 'http://dev.groupasma.com';
         // BASE_URL_MVN = BASE_URL = (window.location.protocol + '//' + window.location.hostname) || 'http://dev.groupasma.com';
@@ -32,8 +32,8 @@ if(SERVER !== "PROD"){
 }
 
 //let FILE_URL =  'http://lab.groupasma.com:8787/fileupload/';
-//let FILE_URL =  ' http://185.98.137.71:9000/api/files/fileupload/';
-let FILE_URL =  ' http://185.98.137.71:8989/api/files/fileupload/';
+//let FILE_URL =  ' http://180.149.196.6:9000/api/files/fileupload/';
+let FILE_URL =  ' http://180.149.196.6:8989/api/files/fileupload/';
 switch (SERVER) {
     case "PROD":
         FILE_URL = "http://afs.sygmacarmes.com:8787/fileupload/";
@@ -59,7 +59,7 @@ switch (SERVER) {
         break;
     case "DEV":
         console.log("tesssst")
-        BASE_URL_MVN = BASE_URL = 'http://185.98.137.71';
+        BASE_URL_MVN = BASE_URL = 'http://180.149.196.6';
         //BASE_URL_MVN = BASE_URL = 'http://services.ads-inter.com';
         // BASE_URL_MVN = BASE_URL = 'http://dev.groupasma.com';
         //FILE_URL =  'http://lab.groupasma.com:8787/fileupload/';
@@ -74,7 +74,7 @@ switch (SERVER) {
 
 if(SERVER !== "PROD"){
     if (window.location.hostname != 'localhost' && DYNAMIC_BASE_URL_FLAG)
-        BASE_URL_MVN = BASE_URL = (window.location.protocol + '//' + window.location.hostname) || 'http://185.98.137.71';
+        BASE_URL_MVN = BASE_URL = (window.location.protocol + '//' + window.location.hostname) || 'http://180.149.196.6';
         //BASE_URL_MVN = BASE_URL = (window.location.protocol + '//' + window.location.hostname) || 'http://services.ads-inter.com';
         // BASE_URL_MVN = BASE_URL = (window.location.protocol + '//' + window.location.hostname) || 'http://dev.groupasma.com';
     else {
@@ -96,9 +96,9 @@ export const inactivityTime = 1000*60*10;
 //servicesfd.ads-inter.com:8383
 //serviceinfos.ads-inter.com:8181
 // export let HOST_MVN = "http://servicesfd.ads-inter.com" + ':8383';
-export let HOST_MVN = 'http://185.98.137.71:8989';
+export let HOST_MVN = 'http://180.149.196.6:8989';
 // export let HOST = "http://serviceinfos.ads-inter.com" + ':8181';
-export let HOST = 'http://185.98.137.71:8787';
+export let HOST = 'http://180.149.196.6:8787';
 
 
 
@@ -109,8 +109,8 @@ export const FILEURL: string = `${FILE_URL}`;
 //export const FILEURL: string = `${FILE_URL}api/files/`;
 export const READFILEURL: string = FILE_URL + 'uploads/';
 //export const READBITFILEURL: string = FILE_URL + 'api/files/';
-//export const READBITFILEURL: string = 'http://185.98.137.71:9000/uploads/';
-export const READBITFILEURL: string = 'http://185.98.137.71:8989/uploads/';
+//export const READBITFILEURL: string = 'http://180.149.196.6:9000/uploads/';
+export const READBITFILEURL: string = 'http://180.149.196.6:8989/uploads/';
 
 let countRequest: number = 0;
 export const LOCAL_FLAG = false;
