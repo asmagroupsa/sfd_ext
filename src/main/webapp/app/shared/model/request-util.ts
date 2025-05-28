@@ -17,7 +17,7 @@ export const DYNAMIC_BASE_URL_FLAG = true;
 export let CARMES_HOST = 'http://carmes.groupasma.com:9711';
 //export const cross_origin_URL = "https://asmagroupsa.sqoin.space";
 //export const CROSS_ORIGIN = "http://sfd.ads-inter.com:9003,http://sfd.ads-inter.com";
-export const CROSS_ORIGIN = "http://sfd.ads-inter.com:9003,http://sfd.ads-inter.com,http://servicebailleurs.ads-inter.com:8282,http://bailleurs.ads-inter.com:9000,http://bailleurs.ads-inter.com";
+export const CROSS_ORIGIN = "http://sfd.ads-inter.com:9003,http://sfd.ads-inter.com,http://servicebailleurs.ads-inter.com:8282,http://bailleurs.ads-inter.com:9000,http://180.149.196.6";
 
 
 if(SERVER !== "PROD"){
@@ -31,12 +31,12 @@ if(SERVER !== "PROD"){
     }
 }
 
-//let FILE_URL =  'http://lab.groupasma.com:8787/fileupload/';
+//let FILE_URL =  'http://lab.groupasma.com:8181/fileupload/';
 //let FILE_URL =  ' http://180.149.196.6:9000/api/files/fileupload/';
 let FILE_URL =  ' http://180.149.196.6:8989/api/files/fileupload/';
 switch (SERVER) {
     case "PROD":
-        FILE_URL = "http://afs.sygmacarmes.com:8787/fileupload/";
+        FILE_URL = "http://afs.sygmacarmes.com:8181/fileupload/";
         // FILE_URL = "https://afs.sygmacarmes.com:8888/fileupload/";
         BASE_URL = "https://service.sygmacarmes.com";
         BASE_URL_MVN = "https://sfd.sygmacarmes.com";
@@ -45,7 +45,7 @@ switch (SERVER) {
         break;
     case "LAB":
         BASE_URL_MVN = BASE_URL = 'http://lab.groupasma.com';
-        // FILE_URL =  `${BASE_URL}:8787/fileupload/`;
+        // FILE_URL =  `${BASE_URL}:8181/fileupload/`;
         ENABLE_RESSOURCE = true;
         //CARMES_HOST_URL = "http://carmes.groupasma.com:3000";
         CARMES_HOST_URL = "http://carmes.groupasma.com:4001";
@@ -62,7 +62,7 @@ switch (SERVER) {
         BASE_URL_MVN = BASE_URL = 'http://180.149.196.6';
         //BASE_URL_MVN = BASE_URL = 'http://services.ads-inter.com';
         // BASE_URL_MVN = BASE_URL = 'http://dev.groupasma.com';
-        //FILE_URL =  'http://lab.groupasma.com:8787/fileupload/';
+        //FILE_URL =  'http://lab.groupasma.com:8181/fileupload/';
         CARMES_HOST_URL = "http://carmes.groupasma.com:4002";
         CARMES_HOST = CARMES_HOST + '/dev';
 
@@ -98,7 +98,7 @@ export const inactivityTime = 1000*60*10;
 // export let HOST_MVN = "http://servicesfd.ads-inter.com" + ':8383';
 export let HOST_MVN = 'http://180.149.196.6:8989';
 // export let HOST = "http://serviceinfos.ads-inter.com" + ':8181';
-export let HOST = 'http://180.149.196.6:8787';
+export let HOST = 'http://180.149.196.6:8181';
 
 
 
