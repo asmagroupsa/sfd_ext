@@ -230,9 +230,9 @@ public class SPUserRessource{
 		        return null;
 		    }
 			@GetMapping("/liste-utilisateurs")
-			public List<?> listeUtilisateur(String user_reference, String etat, String typeUser/*, int country_id*/) {
+			public List<?> listeUtilisateur(String user_reference, String etat, String typeUser, int country_id) {
 				// TODO Auto-generated method stub
-				return  this.spUserService.listeUtilisateur(user_reference, etat, typeUser, 1);
+				return  this.spUserService.listeUtilisateur(user_reference, etat, typeUser, country_id);
 			}
 			@GetMapping("/souscription-complet")
 			public ResultInfo souscriptionComplet(Long id, @RequestParam String name, @RequestParam String typeclient, @RequestParam String comptecarmes,
